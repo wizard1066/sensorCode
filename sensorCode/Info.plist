@@ -28,6 +28,14 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Compass direction needed as well location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Never Ask</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Needed to get compass direction</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Blah Blah</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

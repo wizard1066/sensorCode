@@ -8,20 +8,52 @@
 
 /* Begin PBXBuildFile section */
 		7B8A0D8C2338B2D300D2E2A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0D8B2338B2D300D2E2A4 /* AppDelegate.swift */; };
-		7B8A0D8E2338B2D300D2E2A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0D8D2338B2D300D2E2A4 /* ViewController.swift */; };
 		7B8A0D912338B2D300D2E2A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0D8F2338B2D300D2E2A4 /* Main.storyboard */; };
 		7B8A0D932338B2D500D2E2A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0D922338B2D500D2E2A4 /* Assets.xcassets */; };
 		7B8A0D962338B2D500D2E2A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0D942338B2D500D2E2A4 /* LaunchScreen.storyboard */; };
+		7B8A0D9E2338B3C000D2E2A4 /* ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0D9D2338B3C000D2E2A4 /* ChatRoom.swift */; };
+		7B8A0DA02338B3E700D2E2A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0D9F2338B3E700D2E2A4 /* ViewController.swift */; };
+		7B8A0DA22338B3FD00D2E2A4 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0DA12338B3FD00D2E2A4 /* Shared.swift */; };
+		7BE254F223A3BA7000C45047 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE254F123A3BA7000C45047 /* StoreKit.framework */; };
+		7BE254F423A3C2E100C45047 /* IAPproduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F323A3C2E100C45047 /* IAPproduct.swift */; };
+		7BE254F623A3C57200C45047 /* IAPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F523A3C57200C45047 /* IAPService.swift */; };
+		7BE254F823A3EDD400C45047 /* UDPConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F723A3EDD400C45047 /* UDPConnection.swift */; };
+		7BE2550023A3EDE400C45047 /* listenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F923A3EDE400C45047 /* listenVC.swift */; };
+		7BE2550123A3EDE400C45047 /* proximityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FA23A3EDE400C45047 /* proximityVC.swift */; };
+		7BE2550223A3EDE400C45047 /* locationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FB23A3EDE400C45047 /* locationVC.swift */; };
+		7BE2550323A3EDE400C45047 /* speakerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FC23A3EDE400C45047 /* speakerVC.swift */; };
+		7BE2550423A3EDE400C45047 /* gyroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FD23A3EDE400C45047 /* gyroVC.swift */; };
+		7BE2550523A3EDE400C45047 /* gearVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FE23A3EDE400C45047 /* gearVC.swift */; };
+		7BE2550623A3EDE400C45047 /* compassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FF23A3EDE400C45047 /* compassVC.swift */; };
+		7BE2550823A3EDF000C45047 /* photoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE2550723A3EDF000C45047 /* photoViewController.swift */; };
+		7BE2550C23A4076500C45047 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7BE2550B23A4076500C45047 /* Settings.bundle */; };
+		7BE2550E23A407E200C45047 /* SettingBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE2550D23A407E200C45047 /* SettingBundleHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7B8A0D882338B2D300D2E2A4 /* sensorCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sensorCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B8A0D8B2338B2D300D2E2A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7B8A0D8D2338B2D300D2E2A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7B8A0D902338B2D300D2E2A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B8A0D922338B2D500D2E2A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B8A0D952338B2D500D2E2A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B8A0D972338B2D500D2E2A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B8A0D9D2338B3C000D2E2A4 /* ChatRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoom.swift; sourceTree = "<group>"; };
+		7B8A0D9F2338B3E700D2E2A4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7B8A0DA12338B3FD00D2E2A4 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
+		7BE254F123A3BA7000C45047 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		7BE254F323A3C2E100C45047 /* IAPproduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPproduct.swift; sourceTree = "<group>"; };
+		7BE254F523A3C57200C45047 /* IAPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPService.swift; sourceTree = "<group>"; };
+		7BE254F723A3EDD400C45047 /* UDPConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPConnection.swift; sourceTree = "<group>"; };
+		7BE254F923A3EDE400C45047 /* listenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = listenVC.swift; sourceTree = "<group>"; };
+		7BE254FA23A3EDE400C45047 /* proximityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = proximityVC.swift; sourceTree = "<group>"; };
+		7BE254FB23A3EDE400C45047 /* locationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationVC.swift; sourceTree = "<group>"; };
+		7BE254FC23A3EDE400C45047 /* speakerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = speakerVC.swift; sourceTree = "<group>"; };
+		7BE254FD23A3EDE400C45047 /* gyroVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gyroVC.swift; sourceTree = "<group>"; };
+		7BE254FE23A3EDE400C45047 /* gearVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gearVC.swift; sourceTree = "<group>"; };
+		7BE254FF23A3EDE400C45047 /* compassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = compassVC.swift; sourceTree = "<group>"; };
+		7BE2550723A3EDF000C45047 /* photoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = photoViewController.swift; sourceTree = "<group>"; };
+		7BE2550B23A4076500C45047 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		7BE2550D23A407E200C45047 /* SettingBundleHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingBundleHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BE254F223A3BA7000C45047 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +73,7 @@
 			children = (
 				7B8A0D8A2338B2D300D2E2A4 /* sensorCode */,
 				7B8A0D892338B2D300D2E2A4 /* Products */,
+				7BE254F023A3BA7000C45047 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +88,37 @@
 		7B8A0D8A2338B2D300D2E2A4 /* sensorCode */ = {
 			isa = PBXGroup;
 			children = (
+				7BE2550B23A4076500C45047 /* Settings.bundle */,
+				7BE254F723A3EDD400C45047 /* UDPConnection.swift */,
+				7B8A0DA12338B3FD00D2E2A4 /* Shared.swift */,
 				7B8A0D8B2338B2D300D2E2A4 /* AppDelegate.swift */,
-				7B8A0D8D2338B2D300D2E2A4 /* ViewController.swift */,
+				7BE254F323A3C2E100C45047 /* IAPproduct.swift */,
+				7B8A0D9D2338B3C000D2E2A4 /* ChatRoom.swift */,
+				7B8A0D9F2338B3E700D2E2A4 /* ViewController.swift */,
+				7BE254FF23A3EDE400C45047 /* compassVC.swift */,
+				7BE254FE23A3EDE400C45047 /* gearVC.swift */,
+				7BE2550723A3EDF000C45047 /* photoViewController.swift */,
+				7BE254FD23A3EDE400C45047 /* gyroVC.swift */,
+				7BE254F923A3EDE400C45047 /* listenVC.swift */,
+				7BE254FB23A3EDE400C45047 /* locationVC.swift */,
+				7BE254FA23A3EDE400C45047 /* proximityVC.swift */,
+				7BE254FC23A3EDE400C45047 /* speakerVC.swift */,
 				7B8A0D8F2338B2D300D2E2A4 /* Main.storyboard */,
+				7BE254F523A3C57200C45047 /* IAPService.swift */,
 				7B8A0D922338B2D500D2E2A4 /* Assets.xcassets */,
 				7B8A0D942338B2D500D2E2A4 /* LaunchScreen.storyboard */,
 				7B8A0D972338B2D500D2E2A4 /* Info.plist */,
+				7BE2550D23A407E200C45047 /* SettingBundleHelper.swift */,
 			);
 			path = sensorCode;
+			sourceTree = "<group>";
+		};
+		7BE254F023A3BA7000C45047 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7BE254F123A3BA7000C45047 /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,6 +179,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BE2550C23A4076500C45047 /* Settings.bundle in Resources */,
 				7B8A0D962338B2D500D2E2A4 /* LaunchScreen.storyboard in Resources */,
 				7B8A0D932338B2D500D2E2A4 /* Assets.xcassets in Resources */,
 				7B8A0D912338B2D300D2E2A4 /* Main.storyboard in Resources */,
@@ -135,8 +193,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B8A0D8E2338B2D300D2E2A4 /* ViewController.swift in Sources */,
+				7B8A0DA22338B3FD00D2E2A4 /* Shared.swift in Sources */,
+				7B8A0DA02338B3E700D2E2A4 /* ViewController.swift in Sources */,
+				7BE254F623A3C57200C45047 /* IAPService.swift in Sources */,
+				7B8A0D9E2338B3C000D2E2A4 /* ChatRoom.swift in Sources */,
 				7B8A0D8C2338B2D300D2E2A4 /* AppDelegate.swift in Sources */,
+				7BE2550123A3EDE400C45047 /* proximityVC.swift in Sources */,
+				7BE2550223A3EDE400C45047 /* locationVC.swift in Sources */,
+				7BE254F823A3EDD400C45047 /* UDPConnection.swift in Sources */,
+				7BE254F423A3C2E100C45047 /* IAPproduct.swift in Sources */,
+				7BE2550423A3EDE400C45047 /* gyroVC.swift in Sources */,
+				7BE2550823A3EDF000C45047 /* photoViewController.swift in Sources */,
+				7BE2550623A3EDE400C45047 /* compassVC.swift in Sources */,
+				7BE2550E23A407E200C45047 /* SettingBundleHelper.swift in Sources */,
+				7BE2550323A3EDE400C45047 /* speakerVC.swift in Sources */,
+				7BE2550023A3EDE400C45047 /* listenVC.swift in Sources */,
+				7BE2550523A3EDE400C45047 /* gearVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +357,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CWGS87U262;
 				INFOPLIST_FILE = sensorCode/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CWGS87U262;
 				INFOPLIST_FILE = sensorCode/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
