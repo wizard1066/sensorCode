@@ -11,7 +11,6 @@
 		7B8A0D912338B2D300D2E2A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0D8F2338B2D300D2E2A4 /* Main.storyboard */; };
 		7B8A0D932338B2D500D2E2A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0D922338B2D500D2E2A4 /* Assets.xcassets */; };
 		7B8A0D962338B2D500D2E2A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0D942338B2D500D2E2A4 /* LaunchScreen.storyboard */; };
-		7B8A0D9E2338B3C000D2E2A4 /* ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0D9D2338B3C000D2E2A4 /* ChatRoom.swift */; };
 		7B8A0DA02338B3E700D2E2A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0D9F2338B3E700D2E2A4 /* ViewController.swift */; };
 		7B8A0DA22338B3FD00D2E2A4 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0DA12338B3FD00D2E2A4 /* Shared.swift */; };
 		7BE254F223A3BA7000C45047 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE254F123A3BA7000C45047 /* StoreKit.framework */; };
@@ -37,7 +36,6 @@
 		7B8A0D922338B2D500D2E2A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B8A0D952338B2D500D2E2A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B8A0D972338B2D500D2E2A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7B8A0D9D2338B3C000D2E2A4 /* ChatRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoom.swift; sourceTree = "<group>"; };
 		7B8A0D9F2338B3E700D2E2A4 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7B8A0DA12338B3FD00D2E2A4 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		7BE254F123A3BA7000C45047 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -93,7 +91,7 @@
 				7B8A0DA12338B3FD00D2E2A4 /* Shared.swift */,
 				7B8A0D8B2338B2D300D2E2A4 /* AppDelegate.swift */,
 				7BE254F323A3C2E100C45047 /* IAPproduct.swift */,
-				7B8A0D9D2338B3C000D2E2A4 /* ChatRoom.swift */,
+				7BE254F523A3C57200C45047 /* IAPService.swift */,
 				7B8A0D9F2338B3E700D2E2A4 /* ViewController.swift */,
 				7BE254FF23A3EDE400C45047 /* compassVC.swift */,
 				7BE254FE23A3EDE400C45047 /* gearVC.swift */,
@@ -104,7 +102,6 @@
 				7BE254FA23A3EDE400C45047 /* proximityVC.swift */,
 				7BE254FC23A3EDE400C45047 /* speakerVC.swift */,
 				7B8A0D8F2338B2D300D2E2A4 /* Main.storyboard */,
-				7BE254F523A3C57200C45047 /* IAPService.swift */,
 				7B8A0D922338B2D500D2E2A4 /* Assets.xcassets */,
 				7B8A0D942338B2D500D2E2A4 /* LaunchScreen.storyboard */,
 				7B8A0D972338B2D500D2E2A4 /* Info.plist */,
@@ -196,7 +193,6 @@
 				7B8A0DA22338B3FD00D2E2A4 /* Shared.swift in Sources */,
 				7B8A0DA02338B3E700D2E2A4 /* ViewController.swift in Sources */,
 				7BE254F623A3C57200C45047 /* IAPService.swift in Sources */,
-				7B8A0D9E2338B3C000D2E2A4 /* ChatRoom.swift in Sources */,
 				7B8A0D8C2338B2D300D2E2A4 /* AppDelegate.swift in Sources */,
 				7BE2550123A3EDE400C45047 /* proximityVC.swift in Sources */,
 				7BE2550223A3EDE400C45047 /* locationVC.swift in Sources */,

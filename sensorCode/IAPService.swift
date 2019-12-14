@@ -42,6 +42,7 @@ class IAPService: NSObject {
     print("restoring purchases")
     paymentQueue.restoreCompletedTransactions()
   }
+  
 }
 
 extension IAPService: SKProductsRequestDelegate {

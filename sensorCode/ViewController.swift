@@ -25,7 +25,7 @@ class ViewController: UIViewController, speaker, transaction {
 
   func feedback(service: String, message: String) {
     inapp.text = message
-    print("rawValues",IAPProduct.azimuth.rawValue,IAPStatus.purchased.rawValue)
+    print("feedback",service,message)
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.purchased.rawValue {
       if strongCompass != nil {
         present(strongCompass!, animated: true, completion: nil)
@@ -47,6 +47,17 @@ class ViewController: UIViewController, speaker, transaction {
         self.performSegue(withIdentifier: "gyro", sender: self)
       }
     }
+    
+    
+    if service == IAPProduct.motion.rawValue && message == IAPStatus.restored.rawValue {
+      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
+    }
+    if service == IAPProduct.azimuth.rawValue && message == IAPStatus.restored.rawValue {
+      compassBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
+    }
+    if service == IAPProduct.voice.rawValue && message == IAPStatus.restored.rawValue {
+      micBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
+    }
   }
   
 
@@ -63,6 +74,7 @@ class ViewController: UIViewController, speaker, transaction {
 //  @IBOutlet weak var proximityBOutlet: UIButton!
   
   
+  @IBOutlet weak var stackviewDots: UIStackView!
   @IBOutlet weak var gearBOutlet: UIButton!
   @IBOutlet weak var speakerBOutlet: UIButton!
   @IBOutlet weak var proximityBOutlet: UIButton!
@@ -179,6 +191,7 @@ class ViewController: UIViewController, speaker, transaction {
       }
     }
     
+    
   }
   
   
@@ -240,6 +253,9 @@ class ViewController: UIViewController, speaker, transaction {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+//    let image = UIImage(named: "motion") as UIImage?
+//    motionBOutlet.setBackgroundImage(image, for: .normal)
+    
     NetStatus.shared.netStatusChangeHandler = {
         DispatchQueue.main.async { [unowned self] in
           let connected = NetStatus.shared.isConnected
@@ -250,6 +266,24 @@ class ViewController: UIViewController, speaker, transaction {
     }
     
     IAPService.shared.getProducts()
+    IAPService.shared.ordered = self
+    IAPService.shared.restorePurchases()
+    
+    micBOutlet.layer.cornerRadius = 32
+    motionBOutlet.layer.cornerRadius = 32
+    compassBOutlet.layer.cornerRadius = 32
+    
+    micBOutlet.clipsToBounds = true
+    motionBOutlet.clipsToBounds = true
+    compassBOutlet.clipsToBounds = true
+    
+    compassBOutlet.layer.borderWidth = 2
+    compassBOutlet.layer.borderColor = UIColor.black.cgColor
+    
+    nextOutlet.layer.borderWidth = 2
+    nextOutlet.layer.borderColor = UIColor.black.cgColor
+    nextOutlet.clipsToBounds = true
+    nextOutlet.layer.cornerRadius = 32
     
     topMargin = view.safeAreaInsets.top
     leftMargin = view.safeAreaInsets.left + 20
@@ -599,7 +633,7 @@ func secondJump() {
   
   
   var toggle: Bool = true
-  var delay:DispatchTimeInterval = DispatchTimeInterval.seconds(2)
+  var delay:DispatchTimeInterval = DispatchTimeInterval.seconds(1)
   var timer:Timer?
   var infoText: UILabel?
   var firstShow = true
@@ -619,9 +653,20 @@ func secondJump() {
       alertNoNetwork()
     }
     
-    if inapp.text == "purchased" {
-      inapp.text = ""
+    if inapp.text == IAPStatus.purchased.rawValue || inapp.text == IAPStatus.restored.rawValue {
+      UIView.animate(withDuration: 0.5) {
+        self.inapp.alpha = 0
+      }
     }
+    
+    let backgroundImage = UIImageView(frame: self.view.bounds)
+    backgroundImage.contentMode = .scaleAspectFit
+//    backgroundImage.contentMode = .scaleToFill
+//    backgroundImage.contentMode = .scaleAspectFill
+    backgroundImage.image = UIImage(named: "lego.png")!
+    backgroundImage.alpha = 0.2
+    self.view.insertSubview(backgroundImage, at: 0)
+
     
 //    spokenText.text = ""
   }
@@ -640,6 +685,7 @@ func secondJump() {
         
     if port2G != nil && firstShow {
       gearBOutlet.isEnabled = false
+      stackviewDots.isHidden = true
       infoText!.text = "The Sensors"
       UIView.animate(withDuration: 0.5) {
         self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.minY + 80)
@@ -671,8 +717,9 @@ func secondJump() {
                   self.compassBOutlet.grow()
                   self.compassBOutlet.isEnabled = true
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                    self.infoText!.isHidden = true
+                    self.infoText!.text = ""
                     self.firstShow = false
+                    
                   })
                 })
               })
@@ -681,10 +728,7 @@ func secondJump() {
         })
       })
     }
-//    if lastButton != nil {
-  print("lastB",lastButton)
-      lastButton?.grow()
-//    }
+    lastButton?.grow()
   }
     
 //  @objc func fire() {
