@@ -30,9 +30,11 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   @IBAction func locationSwitch(_ sender: UISwitch) {
     if sender.isOn {
       locationManager!.startUpdatingLocation()
-      let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
-      if port2G != nil && connect2G != "" {
-        communications?.sendUDP(word)
+      if currentLocation != nil {
+        let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
+        if port2G != nil && connect2G != "" {
+          communications?.sendUDP(word)
+        }
       }
     } else {
       locationManager!.stopUpdatingLocation()
@@ -53,11 +55,11 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
       locationManager!.pausesLocationUpdatesAutomatically = true
       currentLocation = locationManager!.location
       
-      latitudeOutput.text = "\(currentLocation.coordinate.longitude.description)"
-      longitudeOutput.text = "\(currentLocation.coordinate.latitude.description)"
-      altitudeOutput.text = "\(currentLocation.altitude.description)"
-      
-      
+      if currentLocation != nil {
+        latitudeOutput.text = "\(currentLocation.coordinate.longitude.description)"
+        longitudeOutput.text = "\(currentLocation.coordinate.latitude.description)"
+        altitudeOutput.text = "\(currentLocation.altitude.description)"
+      }
     }
     
     infoText = UILabel(frame: CGRect(x: self.view.bounds.minX + 20, y: 0, width: self.view.bounds.width - 40, height: 128))

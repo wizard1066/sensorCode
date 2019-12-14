@@ -76,9 +76,9 @@ class ViewController: UIViewController, speaker, transaction {
   var strongMotion:gyroVC?
   var strongMic:listenVC?
   var strongSpeaker: speakerVC?
-  var strongProximity: proximityVC?
   var strongLocation: locationVC?
   var strongGear: gearVC?
+  var strongProximity: proximityVC?
   
   //  @IBOutlet weak var beaconBOutlet: UIButton!
   

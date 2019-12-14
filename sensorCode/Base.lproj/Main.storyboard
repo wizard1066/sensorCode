@@ -63,7 +63,7 @@
                                 <state key="normal" backgroundImage="cog"/>
                                 <connections>
                                     <action selector="configBAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qdy-8v-L7X"/>
-                                    <segue destination="awx-S6-jLW" kind="presentation" identifier="config" id="dIq-2B-vuS"/>
+                                    <segue destination="awx-S6-jLW" kind="show" identifier="config" id="dIq-2B-vuS"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="iDe-ts-RTI">
@@ -89,7 +89,6 @@
                                         <state key="normal" backgroundImage="proximity"/>
                                         <connections>
                                             <action selector="proximityBAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SV8-lU-5P6"/>
-                                            <segue destination="fgf-gm-0WA" kind="presentation" identifier="proximity" id="pps-z0-tok"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dO3-yE-Kca">
@@ -190,16 +189,18 @@
                         <outlet property="proximityBOutlet" destination="NBQ-cb-Yy6" id="sPk-DR-v26"/>
                         <outlet property="speakerBOutlet" destination="dO3-yE-Kca" id="zob-Km-KZJ"/>
                         <outlet property="topImage" destination="Dh8-bh-Sst" id="XIZ-K1-bvl"/>
-                        <segue destination="KE0-I3-FJd" kind="presentation" identifier="gyro" id="gqr-Hg-fV5"/>
-                        <segue destination="6c3-cn-Ffs" kind="presentation" identifier="compass" id="neI-4s-Lfv"/>
-                        <segue destination="yD4-Xc-PuN" kind="presentation" identifier="listen" id="FAU-sB-Yxl"/>
-                        <segue destination="LmT-zw-29a" kind="presentation" identifier="speaker" id="NV6-xN-4i2"/>
-                        <segue destination="lwy-hC-Yh7" kind="presentation" identifier="location" id="RX3-SU-AXE"/>
+                        <segue destination="KE0-I3-FJd" kind="show" identifier="gyro" id="gqr-Hg-fV5"/>
+                        <segue destination="6c3-cn-Ffs" kind="show" identifier="compass" id="neI-4s-Lfv"/>
+                        <segue destination="yD4-Xc-PuN" kind="show" identifier="listen" id="FAU-sB-Yxl"/>
+                        <segue destination="LmT-zw-29a" kind="show" identifier="speaker" id="NV6-xN-4i2"/>
+                        <segue destination="lwy-hC-Yh7" kind="show" identifier="location" id="RX3-SU-AXE"/>
+                        <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="prt-Yu-7In"/>
+                        <segue destination="fgf-gm-0WA" kind="show" identifier="proximity" id="Mfd-Qt-Pre"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-908" y="10"/>
+            <point key="canvasLocation" x="-759" y="142"/>
         </scene>
         <!--GyroVC-->
         <scene sceneID="3K6-SH-zYv">
@@ -273,9 +274,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YnJ-T1-Ewi"/>
                     </view>
+                    <navigationItem key="navigationItem" id="BXD-v8-W6k"/>
                     <connections>
                         <outlet property="pitchOutput" destination="Rxa-0H-suc" id="EXA-HN-KXB"/>
                         <outlet property="rollOutput" destination="O1c-hw-D6J" id="czH-Wj-gXS"/>
+                        <outlet property="spokenOutput" destination="gAu-eK-Dsx" id="0hf-aD-25h"/>
                         <outlet property="switchGyroOutlet" destination="oiD-P4-tcq" id="tiU-r5-sfe"/>
                         <outlet property="yawOutput" destination="nYS-Ug-oSn" id="9Sv-rG-jgm"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="kfr-kw-s00"/>
@@ -314,7 +317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F9e-RV-rrC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="465" y="950"/>
+            <point key="canvasLocation" x="519" y="945"/>
         </scene>
         <!--ListenVC-->
         <scene sceneID="UGf-PO-Mao">
@@ -370,7 +373,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3Wa-B8-K3q"/>
                     </view>
+                    <navigationItem key="navigationItem" id="aNn-AI-NEt"/>
                     <connections>
+                        <outlet property="spokenOutlet" destination="cBQ-E7-IBF" id="qEd-Z9-5Su"/>
                         <outlet property="switchListeningOutput" destination="rNU-nL-LpD" id="o9V-MG-96o"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="m4F-lQ-irz"/>
                     </connections>
@@ -446,7 +451,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8GU-RF-hSa"/>
                     </view>
+                    <navigationItem key="navigationItem" id="yxh-gV-bn8"/>
                     <connections>
+                        <outlet property="compassSwitchOutlet" destination="yl5-2b-kzC" id="IC5-gF-xgy"/>
+                        <outlet property="magneticNorthOutlet" destination="w1e-Kt-PUd" id="3uk-9D-3Ke"/>
+                        <outlet property="spokenOutput" destination="1Ex-fE-hgw" id="A5F-0x-MRB"/>
+                        <outlet property="trueNorthOutlet" destination="j4k-I6-nq5" id="QWc-TY-thV"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="XgP-Ts-0bo"/>
                     </connections>
                 </viewController>
@@ -537,6 +547,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qld-QT-R0m"/>
                     </view>
+                    <navigationItem key="navigationItem" id="FAl-rA-fjj"/>
                     <connections>
                         <outlet property="backButton" destination="t9m-2M-PnP" id="vkl-jx-Oh3"/>
                         <outlet property="cameraIcon" destination="UJA-k3-flQ" id="Lfa-6J-FMX"/>
@@ -646,6 +657,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WUS-yG-5hY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="30k-LP-nhh"/>
                     <connections>
                         <outlet property="picker" destination="z4o-8A-iE7" id="41p-m6-g5h"/>
                         <outlet property="rateSlider" destination="uQ4-sc-H4g" id="O1m-8j-cDu"/>
@@ -657,7 +669,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ivm-gD-Gtl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="6Dg-jf-88k" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1014" y="839"/>
+            <point key="canvasLocation" x="-583" y="967"/>
         </scene>
         <!--ProximityVC-->
         <scene sceneID="tQB-lL-gS0">
@@ -680,7 +692,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="etg-DI-d8k">
                                 <rect key="frame" x="163" y="308" width="51" height="31"/>
                                 <connections>
-                                    <action selector="proximitySwitch:" destination="fgf-gm-0WA" eventType="valueChanged" id="nEU-tT-RTn"/>
+                                    <action selector="proximitySwitch:" destination="fgf-gm-0WA" eventType="valueChanged" id="Ttv-Z7-Cze"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spoken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaz-ge-iB1">
@@ -716,15 +728,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="cJl-l2-fD1"/>
                     <connections>
-                        <outlet property="proximitySwitchOutlet" destination="etg-DI-d8k" id="ofy-fP-cSa"/>
-                        <outlet property="spokenOutput" destination="aaz-ge-iB1" id="vc3-Vu-ztm"/>
+                        <outlet property="proximitySwitchOutlet" destination="etg-DI-d8k" id="tZ3-FX-XRr"/>
+                        <outlet property="spokenOutput" destination="aaz-ge-iB1" id="np3-7o-wAX"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="Kjm-l4-J8g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yPl-Ii-q8o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Oxm-8X-gDc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1698" y="819"/>
+            <point key="canvasLocation" x="-2006" y="289"/>
         </scene>
         <!--LocationVC-->
         <scene sceneID="Tk3-1m-1hM">
@@ -804,6 +816,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5kJ-Y8-Zot"/>
                     </view>
+                    <navigationItem key="navigationItem" id="0kq-s1-jS1"/>
                     <connections>
                         <outlet property="altitudeOutput" destination="9vo-eM-ek2" id="9S8-U2-usb"/>
                         <outlet property="latitudeOutput" destination="alD-Pn-BTL" id="kvc-ed-ZBF"/>
@@ -815,7 +828,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hBB-8Q-sOK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="zLj-86-2gZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-327" y="723"/>
+            <point key="canvasLocation" x="-124" y="707"/>
         </scene>
     </scenes>
     <resources>
@@ -834,6 +847,6 @@
         <image name="voice" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YhF-Y8-mm7"/>
+        <segue reference="Kjm-l4-J8g"/>
     </inferredMetricsTieBreakers>
 </document>
