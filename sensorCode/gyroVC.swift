@@ -95,7 +95,7 @@ class gyroVC: UIViewController, spoken {
       }
       self.switchGyroOutlet.isOn = true
       if motionManager!.isAccelerometerAvailable {
-                motionManager!.accelerometerUpdateInterval = 0.1
+        motionManager!.accelerometerUpdateInterval = refreshRate!
                 motionManager!.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
                       self.senddata(data: data!)
                 }

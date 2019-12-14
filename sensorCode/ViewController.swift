@@ -221,21 +221,32 @@ class ViewController: UIViewController, speaker, transaction {
   var rightMargin: CGFloat!
   
   func alertNoNetwork() {
-    let alert = UIAlertController(title: "Sorry you need a WiFi connection", message: "Do you want to check settings", preferredStyle: .alert)
+    
+    let alert = UIAlertController(title: "Sorry you need a WiFi connection", message: "Do you want to goto iOS settings", preferredStyle: .alert)
 
-    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
     alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+      if let url = URL(string:UIApplication.openSettingsURLString) {
+         if UIApplication.shared.canOpenURL(url) {
+           UIApplication.shared.open(url, options: [:], completionHandler: nil)
+         }
+      }
+    }))
 
     self.present(alert, animated: true)
   }
   
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    NetStatus.shared.startMonitoring()
-    let connected = NetStatus.shared.isConnected
-    if !connected {
-      alertNoNetwork()
+    NetStatus.shared.netStatusChangeHandler = {
+        DispatchQueue.main.async { [unowned self] in
+          let connected = NetStatus.shared.isConnected
+          if !connected {
+            self.alertNoNetwork()
+          }
+        }
     }
     
     IAPService.shared.getProducts()
@@ -288,6 +299,11 @@ class ViewController: UIViewController, speaker, transaction {
       } else {
         precision = "2"
       }
+    if (UserDefaults.standard.string(forKey: "RATE") != nil) {
+      refreshRate = UserDefaults.standard.string(forKey: "RATE")?.doubleValue
+    } else {
+      refreshRate = 0.1
+    }
   }
   
   @objc func applicationDidBecomeActive(notification: NSNotification) {
@@ -461,29 +477,6 @@ func secondJump() {
 //          self.gearBOutlet.alpha = 0
           self.gearBOutlet.isHidden = false
           self.gearBOutlet.isEnabled = true
-//          self.blinkStatus = false
-//          Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { (timer) in
-//            if self.blinkStatus != nil {
-//              if self.blinkStatus == false {
-//                  self.gearBOutlet.alpha = 0.8
-//                  self.blinkStatus = true
-//              } else {
-//                  self.gearBOutlet.alpha = 0.6
-//                  self.blinkStatus = false
-//              }
-//            } else {
-//              self.gearBOutlet.alpha = 1.0
-//              timer.invalidate()
-//            }
-////            if self.blinkStatus == false {
-////                self.gearBOutlet.alpha = 0
-////                self.blinkStatus = true
-////            } else {
-////                self.gearBOutlet.alpha = 1
-////                self.blinkStatus = false
-////            }
-//
-//          }
           self.gearBOutlet.grow()
         })
       
@@ -620,6 +613,16 @@ func secondJump() {
 //    activateProximitySensor()
     resignFirstResponder()
     
+    NetStatus.shared.startMonitoring()
+    let connected = NetStatus.shared.isConnected
+    if !connected {
+      alertNoNetwork()
+    }
+    
+    if inapp.text == "purchased" {
+      inapp.text = ""
+    }
+    
 //    spokenText.text = ""
   }
   
@@ -644,29 +647,29 @@ func secondJump() {
       infoText!.font = UIFont.preferredFont(forTextStyle: .body)
       infoText!.adjustsFontForContentSizeCategory = true
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-        self.infoText!.text = "Listen to voice"
-        self.micBOutlet.grow()
-        self.micBOutlet.isEnabled = true
+        self.infoText!.text = "Report location"
+        self.locationBOutlet.grow()
+        self.locationBOutlet.isEnabled = true
         DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-          self.infoText!.text = "Speak text sent"
-          self.speakerBOutlet.grow()
-          self.speakerBOutlet.isEnabled = true
+          self.infoText!.text = "Turn on proximity alerts"
+          self.proximityBOutlet.grow()
+          self.proximityBOutlet.isEnabled = true
           DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-            self.infoText!.text = "Turn on proximity alerts"
-            self.proximityBOutlet.grow()
-            self.proximityBOutlet.isEnabled = true
+            self.infoText!.text = "Speak text sent"
+            self.speakerBOutlet.grow()
+            self.speakerBOutlet.isEnabled = true
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-              self.infoText!.text = "Report location"
-              self.locationBOutlet.grow()
-              self.locationBOutlet.isEnabled = true
+              self.infoText!.text = "Listen to voice"
+              self.micBOutlet.grow()
+              self.micBOutlet.isEnabled = true
               DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                self.infoText!.text = "Stream compass position"
-                self.compassBOutlet.grow()
-                self.compassBOutlet.isEnabled = true
+                self.infoText!.text = "Stream phone motion"
+                self.motionBOutlet.grow()
+                self.motionBOutlet.isEnabled = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                  self.infoText!.text = "Stream phone motion"
-                  self.motionBOutlet.grow()
-                  self.motionBOutlet.isEnabled = true
+                  self.infoText!.text = "Stream compass position"
+                  self.compassBOutlet.grow()
+                  self.compassBOutlet.isEnabled = true
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.isHidden = true
                     self.firstShow = false

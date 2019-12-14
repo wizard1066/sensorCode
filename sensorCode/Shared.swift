@@ -18,6 +18,7 @@ var autoClose: Bool?
 var lastButton: UIButton?
 var precision: String?
 var fastStart: Bool?
+var refreshRate: Double?
 
 var motionManager: CMMotionManager?
 var directionManager: CLLocationManager?

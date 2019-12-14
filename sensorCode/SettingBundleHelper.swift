@@ -29,6 +29,17 @@ class func checkAndExecuteSettings() {
     } else {
       precision = "2"
     }
+  if (UserDefaults.standard.string(forKey: "RATE") != nil) {
+    refreshRate = UserDefaults.standard.string(forKey: "RATE")?.doubleValue
+  } else {
+    refreshRate = 0.1
+  }
+  }
+}
+
+extension String {
+    var doubleValue: Double {
+        return (self as NSString).doubleValue
     }
 }
 
