@@ -65,6 +65,7 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
       } else {
         speakerSwitchOutput.isOn = false
       }
+      
 }
 
     override func viewDidLoad() {

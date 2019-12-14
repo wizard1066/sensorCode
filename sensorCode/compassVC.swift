@@ -39,6 +39,10 @@ class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
 //    var heading:String!ager
 //    var lastLocation: CLLocation!
 
+  override func viewDidAppear(_ animated: Bool) {
+    spokenOutput.text = ""
+  }
+
       override func viewDidLoad() {
           super.viewDidLoad()
           

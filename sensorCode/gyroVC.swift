@@ -58,7 +58,9 @@ class gyroVC: UIViewController, spoken {
   @IBOutlet weak var spokenOutput: UILabel!
   @IBOutlet weak var portOutlet: UILabel!
   
-  
+  override func viewDidAppear(_ animated: Bool) {
+    spokenOutput.text = ""
+  }
   
   override func viewDidLoad() {
       super.viewDidLoad()

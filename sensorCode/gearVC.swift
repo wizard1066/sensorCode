@@ -64,6 +64,10 @@ var skip = false
       isVisible = false
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+//    spokenOutput.text = ""
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     

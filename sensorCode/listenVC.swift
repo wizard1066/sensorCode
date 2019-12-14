@@ -38,6 +38,10 @@ class listenVC: UIViewController {
     }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    spokenOutlet.text = ""
+}
+  
   override func viewDidLoad() {
     super.viewDidLoad()
      primeController = self

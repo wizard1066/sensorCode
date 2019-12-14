@@ -220,8 +220,23 @@ class ViewController: UIViewController, speaker, transaction {
   var leftMargin: CGFloat!
   var rightMargin: CGFloat!
   
+  func alertNoNetwork() {
+    let alert = UIAlertController(title: "Sorry you need a WiFi connection", message: "Do you want to check settings", preferredStyle: .alert)
+
+    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+    alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+    self.present(alert, animated: true)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    NetStatus.shared.startMonitoring()
+    let connected = NetStatus.shared.isConnected
+    if !connected {
+      alertNoNetwork()
+    }
     
     IAPService.shared.getProducts()
     
@@ -604,11 +619,12 @@ func secondJump() {
 //    RunLoop.current.add(timer!, forMode: .common)
 //    activateProximitySensor()
     resignFirstResponder()
-
+    
+//    spokenText.text = ""
   }
   
   func firstShown() {
-    print("firstShwon",firstShow,port2G)
+    
     if firstShow {
       infoText = UILabel(frame: CGRect(x: leftMargin, y: topMargin + 20, width: self.view.bounds.width - 40, height: 40))
       infoText!.isUserInteractionEnabled = true

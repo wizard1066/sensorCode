@@ -40,6 +40,11 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
       locationManager!.stopUpdatingLocation()
     }
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    spokenOutput.text = ""
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     primeController.said = self

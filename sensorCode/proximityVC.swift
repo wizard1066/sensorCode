@@ -18,6 +18,10 @@ class proximityVC: UIViewController, spoken {
   @IBOutlet weak var spokenOutput: UILabel!
   @IBOutlet weak var proximitySwitchOutlet: UISwitch!
   
+    override func viewDidAppear(_ animated: Bool) {
+      spokenOutput.text = ""
+  }
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         primeController.said = self
