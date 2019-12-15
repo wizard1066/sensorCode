@@ -104,19 +104,8 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alG-za-MsB">
-                                <rect key="frame" x="155.5" y="583" width="64" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="SzU-5U-fBf"/>
-                                    <constraint firstAttribute="height" constant="64" id="iRu-5t-1GO"/>
-                                </constraints>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <action selector="nextButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tdM-Oz-hYF"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pYU-6V-neg">
-                                <rect key="frame" x="137.5" y="555" width="100" height="20"/>
+                                <rect key="frame" x="137.5" y="587" width="100" height="20"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6bL-UO-glk">
                                         <rect key="frame" x="0.0" y="0.5" width="20" height="19"/>
@@ -149,7 +138,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLv-4O-d9d">
-                                <rect key="frame" x="0.0" y="515" width="375" height="32"/>
+                                <rect key="frame" x="0.0" y="547" width="375" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="SMH-qF-cSA"/>
                                 </constraints>
@@ -157,6 +146,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alG-za-MsB">
+                                <rect key="frame" x="155" y="615" width="64" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="SzU-5U-fBf"/>
+                                    <constraint firstAttribute="height" constant="32" id="iRu-5t-1GO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="24"/>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="nextButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tdM-Oz-hYF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -305,12 +306,19 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hF9-qr-RVq">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Double tap to dismiss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yT-ga-Yd8">
+                                <rect key="frame" x="105" y="606" width="165.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="hF9-qr-RVq" firstAttribute="top" secondItem="SZP-yA-wLx" secondAttribute="top" id="5p9-Bi-apM"/>
                             <constraint firstItem="SZP-yA-wLx" firstAttribute="trailing" secondItem="hF9-qr-RVq" secondAttribute="trailing" id="AKQ-tf-Nng"/>
                             <constraint firstItem="hF9-qr-RVq" firstAttribute="leading" secondItem="SZP-yA-wLx" secondAttribute="leading" id="ARK-ZD-MH7"/>
+                            <constraint firstItem="7yT-ga-Yd8" firstAttribute="centerX" secondItem="xxu-9o-RgM" secondAttribute="centerX" id="JyJ-P7-X1O"/>
                             <constraint firstItem="SZP-yA-wLx" firstAttribute="bottom" secondItem="hF9-qr-RVq" secondAttribute="bottom" id="PZc-RK-InN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SZP-yA-wLx"/>
@@ -485,7 +493,7 @@
                                     <constraint firstAttribute="height" constant="64" id="lhL-aK-rAR"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9m-2M-PnP">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9m-2M-PnP">
                                 <rect key="frame" x="163.5" y="579" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="5yI-oD-FuP"/>
@@ -855,6 +863,6 @@
         <image name="voiceR" width="600" height="607"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="prt-Yu-7In"/>
+        <segue reference="MdY-8v-bLJ"/>
     </inferredMetricsTieBreakers>
 </document>

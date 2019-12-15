@@ -22,9 +22,16 @@ protocol spoken {
 class ViewController: UIViewController, speaker, transaction {
 
   @IBOutlet weak var inapp: UILabel!
+  
+  var purchases:[String:Bool] = [:]
 
   func feedback(service: String, message: String) {
     inapp.text = message
+    if message != IAPStatus.restored.rawValue {
+      UIView.animate(withDuration: 0.5) {
+        self.inapp.alpha = 1
+      }
+    }
     print("feedback",service,message)
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.purchased.rawValue {
       if strongCompass != nil {
@@ -58,6 +65,9 @@ class ViewController: UIViewController, speaker, transaction {
     if service == IAPProduct.voice.rawValue && message == IAPStatus.restored.rawValue {
       micBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
     }
+    if message == IAPStatus.restored.rawValue {
+      purchases[service] = true
+    }
   }
   
 
@@ -65,13 +75,7 @@ class ViewController: UIViewController, speaker, transaction {
   @IBOutlet weak var topImage: UIImageView!
   var blinkStatus:Bool?
   var once: Bool = false
-//  @IBOutlet weak var gearBOutlet: UIButton!
-//  @IBOutlet weak var locationBOutlet: UIButton!
-//  @IBOutlet weak var speakerBOutlet: UIButton!
-//  @IBOutlet weak var micBOutlet: UIButton!
-//  @IBOutlet weak var compassBOutlet: UIButton!
-//  @IBOutlet weak var motionBOutlet: UIButton!
-//  @IBOutlet weak var proximityBOutlet: UIButton!
+
   
   
   @IBOutlet weak var stackviewDots: UIStackView!
@@ -92,24 +96,22 @@ class ViewController: UIViewController, speaker, transaction {
   var strongGear: gearVC?
   var strongProximity: proximityVC?
   
-  //  @IBOutlet weak var beaconBOutlet: UIButton!
-  
-//  @IBAction func beaconButton(_ sender: UIButton) {
-//    self.performSegue(withIdentifier: "beacon", sender: self)
-//  }
 
 
   @IBAction func motionBAction(_ sender: UIButton) {
-  //  @IBAction func gyroButton(_ sender: UIButton) {
+
     lastButton = motionBOutlet
-    IAPService.shared.getProducts()
-    IAPService.shared.ordered = self
-    IAPService.shared.purchase(product: .motion)
+    if purchases[IAPProduct.motion.rawValue] == nil {
+      IAPService.shared.ordered = self
+      IAPService.shared.purchase(product: .motion)
+    } else {
+      feedback(service: IAPProduct.motion.rawValue, message: IAPStatus.purchased.rawValue)
+    }
   }
   
   @IBAction func locationBAction(_ sender: UIButton) {
   
-//  @IBAction func locationButton(_ sender: UIButton) {
+
     lastButton = locationBOutlet
     if strongLocation != nil {
       present(strongLocation!, animated: true, completion: nil)
@@ -122,7 +124,7 @@ class ViewController: UIViewController, speaker, transaction {
   @IBAction func configBAction(_ sender: UIButton) {
   
   
-//  @IBAction func configButton(_ sender: UIButton) {
+
     lastButton = nil
     if strongGear != nil {
       present(strongGear!, animated: true, completion: nil)
@@ -134,7 +136,7 @@ class ViewController: UIViewController, speaker, transaction {
   
   @IBAction func speakerBAction(_ sender: UIButton) {
   
-  //  @IBAction func speakerButton(_ sender: UIButton) {
+ 
     lastButton = speakerBOutlet
     if strongSpeaker != nil {
       present(strongSpeaker!, animated: true, completion: nil)
@@ -143,24 +145,30 @@ class ViewController: UIViewController, speaker, transaction {
     }
     
   }
-//  @IBAction func compassButton(_ sender: UIButton) {
+
   
   @IBAction func azimuthBAction(_ sender: Any) {
     lastButton = compassBOutlet
-    
-    IAPService.shared.ordered = self
-    IAPService.shared.purchase(product: .azimuth)
+    if purchases[IAPProduct.azimuth.rawValue] == nil {
+      IAPService.shared.ordered = self
+      IAPService.shared.purchase(product: .azimuth)
+    } else {
+      feedback(service: IAPProduct.azimuth.rawValue, message: IAPStatus.purchased.rawValue)
+    }
   }
   
-//  @IBAction func microphoneButton(_ sender: UIButton) {
+
 
   @IBAction func voiceBAction(_ sender: Any) {
     lastButton = micBOutlet
-    
-    IAPService.shared.ordered = self
-    IAPService.shared.purchase(product: .voice)
+    if purchases[IAPProduct.voice.rawValue] == nil {
+      IAPService.shared.ordered = self
+      IAPService.shared.purchase(product: .voice)
+    } else {
+      feedback(service: IAPProduct.voice.rawValue, message: IAPStatus.purchased.rawValue)
+    }
   }
-//  @IBAction func proximityButton(_ sender: UIButton) {
+
 
   @IBAction func proximityBAction(_ sender: UIButton) {
   lastButton = proximityBOutlet
@@ -219,7 +227,7 @@ class ViewController: UIViewController, speaker, transaction {
     introText.addGestureRecognizer(swipeLeft)
     introText.numberOfLines = 0
     introText.textAlignment = .justified
-//    introText.backgroundColor = .yellow
+
     self.view.addSubview(introText)
     tapFunction(sender: self)
   }
@@ -253,16 +261,18 @@ class ViewController: UIViewController, speaker, transaction {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-//    let image = UIImage(named: "motion") as UIImage?
-//    motionBOutlet.setBackgroundImage(image, for: .normal)
-    
-    NetStatus.shared.netStatusChangeHandler = {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+      print("running ...")
+      NetStatus.shared.netStatusChangeHandler = {
         DispatchQueue.main.async { [unowned self] in
           let connected = NetStatus.shared.isConnected
           if !connected {
             self.alertNoNetwork()
+          } else {
+            print("ok connected ...")
           }
         }
+      }
     }
     
     IAPService.shared.getProducts()
@@ -280,10 +290,10 @@ class ViewController: UIViewController, speaker, transaction {
     compassBOutlet.layer.borderWidth = 2
     compassBOutlet.layer.borderColor = UIColor.black.cgColor
     
-    nextOutlet.layer.borderWidth = 2
-    nextOutlet.layer.borderColor = UIColor.black.cgColor
+    nextOutlet.layer.borderWidth = 1
+    nextOutlet.layer.borderColor = UIColor.gray.cgColor
     nextOutlet.clipsToBounds = true
-    nextOutlet.layer.cornerRadius = 32
+    nextOutlet.layer.cornerRadius = 8
     
     topMargin = view.safeAreaInsets.top
     leftMargin = view.safeAreaInsets.left + 20
@@ -363,37 +373,26 @@ class ViewController: UIViewController, speaker, transaction {
       gearBOutlet.alpha = 0
 
       if introCurrent == introValue.first {
-//        introText.text = "Welcome to sensorCode. This app will make your robot smarter by sharing all of your phones's sensor data with it. Think gyro, motion, location, compass, voice, sound and more ..."
-        introText.text = "Your iphone has more than half a dozen sensors within it. This app will make your robot smarter by sharing the sensor data on your phone with it. Think gyro, motion, compass, voice, speaker and more ..."
+
+        introText.text = "Your smartphone has more than half a dozen sensors within it. Make your robot smarter by sharing the data captured by those sensors. Think gyro, motion, voice and more ..."
         introCord = introText.frame.origin.y
         introCord = introText.center.y
         introCordX = introText.center.x
         
         introCurrent = introValue.second
-        if #available(iOS 13.0, *) {
-          page1.image = UIImage(systemName: "circle.fill")
-        } else {
+        
           page1.image = UIImage(named: "blackDot")
-        }
-        if #available(iOS 13.0, *) {
-          page2.image = UIImage(systemName:"circle")
-        } else {
+        
+        
           page2.image = UIImage(named: "whiteDot")
-        }
-        if #available(iOS 13.0, *) {
-          page3.image = UIImage(systemName: "circle")
-        } else {
+        
+       
           page3.image = UIImage(named: "whiteDot")
-        }
+        
       }
-//      introText.removeGestureRecognizer(touched)
       introText.addGestureRecognizer(swipeLeft)
       topImage.image = nil
-      if #available(iOS 13.0, *) {
-//        topImage.image = UIImage(systemName: "arrow.left")
-      } else {
-//        topImage.image = UIImage(named: "arrow.left")
-    }
+
   }
   
  
@@ -427,43 +426,24 @@ class ViewController: UIViewController, speaker, transaction {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
       
       if self.introCurrent == introValue.second {
-//        self.introText.text = "To use sensorCode you need a script on the robot side. Using said script you can send and receive data to this phone."
-        self.introText.text = "To access the data send by this app, you need to write and run a script on the robot side. It will send the data out using a protocol called UDP. You need to listen for it, and respond how you see fit."
+
+        self.introText.text = "Access the data thru a common UDP port you define. Write code on your robot to capture and process data sent and received..."
         self.introCurrent = introValue.third
-        if #available(iOS 13.0, *) {
-          self.page1.image = UIImage(systemName: "circle")
-        } else {
           self.page1.image = UIImage(named: "whiteDot")
-        }
-        if #available(iOS 13.0, *) {
-          self.page2.image = UIImage(systemName:"circle.fill")
-        } else {
           self.page2.image = UIImage(named: "blackDot")
-        }
-        if #available(iOS 13.0, *) {
-          self.page3.image = UIImage(systemName: "circle")
-        } else {
           self.page3.image = UIImage(named: "whiteDot")
-        }
+        
       }
-//      self.introText.removeGestureRecognizer(self.swipeLeft)
-//      self.introText.addGestureRecognizer(self.swipeRight)
       
       UIView.animate(withDuration: 0.5) {
         self.introText.center = CGPoint(x:self.view.bounds.midX,y:self.introCord)
-//        self.topImage.center = CGPoint(x:self.view.bounds.midX,y:self.introCord)
       }
       
-      if #available(iOS 13.0, *) {
-//        self.topImage.image = UIImage(systemName: "arrow.right")
-      } else {
-//        self.topImage.image = UIImage(named: "arrow.right")
-      }
     })
   }
         
   @objc func swipeRightFunction(sender: Any) {
-    print("fuck off")
+    print("unavailable")
   }
   
 func secondJump() {
@@ -471,31 +451,21 @@ func secondJump() {
     self.introText.addGestureRecognizer(self.tapper)
     
     UIView.animate(withDuration: 0.5) {
-      self.introText.center = CGPoint(x:self.view.bounds.maxX * 2,y:self.introCord)
-      self.topImage.center = CGPoint(x:self.view.bounds.maxX * 2,y:self.introCord)
+      self.introText.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
+      self.topImage.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
     }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
       
       if self.introCurrent == introValue.third {
-//        self.introText.text = "Your script needs to listen on a UDP port. A port which this app will send the sensor data too. You can configure the port to use thru the gear icon."
-        self.introText.text = "Use the gear icon to get started. You need to give the IP address of your robot together with the UDP port it on which it is listening. Different sensors send different packets at different rates/depending on different actions."
+
+        self.introText.text = "Use the gear icon to get started. Azimuth, motion and voice are inapp purchases. Location, proximity and speaker are offered for free."
         self.introCurrent = introValue.all
-        if #available(iOS 13.0, *) {
-          self.page1.image = UIImage(systemName: "circle")
-        } else {
+        
           self.page1.image = UIImage(named: "whiteDot")
-        }
-        if #available(iOS 13.0, *) {
-          self.page2.image = UIImage(systemName:"circle")
-        } else {
           self.page2.image = UIImage(named: "whiteDot")
-        }
-        if #available(iOS 13.0, *) {
-          self.page3.image = UIImage(systemName: "circle.fill")
-        } else {
           self.page3.image = UIImage(named: "blackDot")
-        }
+        
       }
       
       UIView.animate(withDuration: 0.5) {
@@ -514,7 +484,7 @@ func secondJump() {
           self.gearBOutlet.grow()
         })
       
-      DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 12, execute: {
         
         UIView.animate(withDuration: 4) {
           self.introText.center = CGPoint(x:self.introCordX,y:-self.view.bounds.maxY)
@@ -523,10 +493,7 @@ func secondJump() {
         
         UIView.animate(withDuration: 0.5) {
           self.topImage.alpha = 0
-//          self.gearBOutlet.alpha = 1.0
-//          self.micBOutlet.shake()
           self.page3.image = UIImage(named: "whiteDot")
-//          self.blinkStatus = nil
         }
         
         
@@ -637,36 +604,25 @@ func secondJump() {
   var timer:Timer?
   var infoText: UILabel?
   var firstShow = true
+  var background = false
   
   override func viewDidAppear(_ animated: Bool) {
   
     // disable screen dim/lock
     UIApplication.shared.isIdleTimerDisabled = true
-//    timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
-//    RunLoop.current.add(timer!, forMode: .common)
-//    activateProximitySensor()
-    resignFirstResponder()
-    
-    NetStatus.shared.startMonitoring()
-    let connected = NetStatus.shared.isConnected
-    if !connected {
-      alertNoNetwork()
-    }
-    
-    if inapp.text == IAPStatus.purchased.rawValue || inapp.text == IAPStatus.restored.rawValue {
-      UIView.animate(withDuration: 0.5) {
-        self.inapp.alpha = 0
-      }
-    }
-    
-    let backgroundImage = UIImageView(frame: self.view.bounds)
-    backgroundImage.contentMode = .scaleAspectFit
-//    backgroundImage.contentMode = .scaleToFill
-//    backgroundImage.contentMode = .scaleAspectFill
-    backgroundImage.image = UIImage(named: "lego.png")!
-    backgroundImage.alpha = 0.2
-    self.view.insertSubview(backgroundImage, at: 0)
 
+    resignFirstResponder()
+
+    if !background {
+      let backgroundImage = UIImageView(frame: self.view.bounds)
+      backgroundImage.contentMode = .scaleAspectFit
+  //    backgroundImage.contentMode = .scaleToFill
+  //    backgroundImage.contentMode = .scaleAspectFill
+      backgroundImage.image = UIImage(named: "lego.png")!
+      backgroundImage.alpha = 0.2
+      self.view.insertSubview(backgroundImage, at: 0)
+      background = true
+    }
     
 //    spokenText.text = ""
   }
@@ -681,6 +637,16 @@ func secondJump() {
       infoText!.textAlignment = .center
     //    introText.backgroundColor = .yellow
       self.view.addSubview(infoText!)
+    }
+    
+    if inapp.text == IAPStatus.purchased.rawValue || inapp.text == IAPStatus.restored.rawValue {
+      UIView.animate(withDuration: 0.5) {
+        self.inapp.alpha = 0
+      }
+    } else {
+      UIView.animate(withDuration: 0.5) {
+        self.inapp.alpha = 1
+      }
     }
         
     if port2G != nil && firstShow {
@@ -731,126 +697,7 @@ func secondJump() {
     lastButton?.grow()
   }
     
-//  @objc func fire() {
-//    switch introCurrent {
-//      case introValue.first:
-//        print("jump")
-//      case introValue.second:
-//
-//        let duration: TimeInterval = 4.0
-//        UIView.animate(withDuration: duration) {
-//          self.micBOutlet.frame.origin.x = self.view.bounds.midX - 32
-//          self.micBOutlet.frame.origin.y = self.view.bounds.midY + 32
-//          self.locationBOutlet.frame.origin.x = self.view.bounds.midX + 32
-//          self.locationBOutlet.frame.origin.y = self.view.bounds.midY - 96
-//        }
-//      case introValue.third:
-//        let duration: TimeInterval = 4.0
-//        UIView.animate(withDuration: duration) {
-//          self.speakerBOutlet.frame.origin.x = self.view.bounds.midX + 32
-//          self.speakerBOutlet.frame.origin.y = self.view.bounds.midY - 32
-//
-//          self.motionBOutlet.frame.origin.x = self.view.bounds.midX - 96
-//          self.motionBOutlet.frame.origin.y = self.view.bounds.midY - 96
-//
-//          self.locationBOutlet.frame.origin.x = self.view.bounds.midX - 96
-//          self.locationBOutlet.frame.origin.y = self.view.bounds.midY + 32
-//        }
-//
-//      case introValue.all:
-//        self.micBOutlet.isHidden = false
-////        self.beaconBOutlet.isHidden = false
-//        self.motionBOutlet.isHidden = false
-//        self.speakerBOutlet.isHidden = false
-//        self.locationBOutlet.isHidden = false
-//        self.compassBOutlet.isHidden = false
-//        self.proximityOutlet.isHidden = false
-////        self.gearBOutlet.isHidden = false
-//
-////        self.gearBOutlet.bounds.size = CGSize(width: 64, height: 64)
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
-//
-//          let duration: TimeInterval = 4.0
-//          UIView.animate(withDuration: duration, animations: {
-//            self.gearBOutlet.frame.origin.x = self.view.bounds.midX - 32
-//            self.gearBOutlet.frame.origin.y = self.view.bounds.midY - 32
-//
-//            self.compassBOutlet.frame.origin.x = self.view.bounds.midX - 96
-//            self.compassBOutlet.frame.origin.y = self.view.bounds.midY - 96
-//
-//            self.motionBOutlet.frame.origin.x = self.view.bounds.midX + 32
-//            self.motionBOutlet.frame.origin.y = self.view.bounds.midY - 96
-//
-//            self.locationBOutlet.frame.origin.x = self.view.bounds.midX - 32
-//            self.locationBOutlet.frame.origin.y = self.view.bounds.midY + 32
-//
-////            self.beaconBOutlet.frame.origin.x = self.view.bounds.midX - 96
-////            self.beaconBOutlet.frame.origin.y = self.view.bounds.midY + 32
-//
-//            self.proximityOutlet.frame.origin.x = self.view.bounds.midX - 96
-//            self.proximityOutlet.frame.origin.y = self.view.bounds.midY + 32
-//
-//            self.speakerBOutlet.frame.origin.x = self.view.bounds.midX + 32
-//            self.speakerBOutlet.frame.origin.y = self.view.bounds.midY + 32
-//
-//            self.micBOutlet.frame.origin.x = self.view.bounds.midX - 32
-//            self.micBOutlet.frame.origin.y = self.view.bounds.midY - 96
-//
-//          }) { (flag) in
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
-//              self.gearBOutlet.isEnabled = true
-//          })
-//          }
-//        })
-//    }
-//
-//    if (gearBOutlet.isEnabled) {
-//      if (gearBOutlet.isHidden) == false {
-//        return
-//      }
-//    }
-//    if toggle {
-//
-//      DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-//        self.motionBOutlet.isHighlighted = false
-//        self.compassBOutlet.isHighlighted = false
-//        self.locationBOutlet.isHighlighted = false
-//        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-//          self.micBOutlet.isHighlighted = true
-//          self.speakerBOutlet.isHighlighted = true
-//          self.proximityOutlet.isHighlighted = true
-//            DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-//              self.toggle = false
-//            })
-//
-//        })
-//      })
-//
-//    } else {
-//
-//      DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-//        self.motionBOutlet.isHighlighted = true
-//        self.compassBOutlet.isHighlighted = true
-//        self.locationBOutlet.isHighlighted = true
-//        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-//          self.micBOutlet.isHighlighted = false
-//          self.speakerBOutlet.isHighlighted = false
-//          self.proximityOutlet.isHighlighted = false
-//            DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-//              self.toggle = true
-//            })
-//
-//        })
-//      })
-//
-//    }
-//  }
-  
-//  @objc func dismissKeyboard() {
-//      //Causes the view (or one of its embedded text fields) to resign the first responder status.
-//      view.endEditing(true)
-//  }
+
   
   func redo(_ value: String) {
     let alertController = UIAlertController(title: "Unable to Connect", message: value, preferredStyle: .alert)
@@ -876,21 +723,9 @@ func secondJump() {
       if !fastStart! {
         self.introText.text = "Having configured your port, your free to choose any of six sensors you wish to send data to it"
       }
-      if #available(iOS 13.0, *) {
-        self.page1.image = UIImage(systemName: "circle")
-      } else {
         self.page1.image = UIImage(named: "whiteDot")
-      }
-      if #available(iOS 13.0, *) {
-        self.page2.image = UIImage(systemName:"circle")
-      } else {
         self.page2.image = UIImage(named: "whiteDot")
-      }
-      if #available(iOS 13.0, *) {
-        self.page3.image = UIImage(systemName: "circle")
-      } else {
         self.page3.image = UIImage(named: "whiteDot")
-      }
     })
     
     if segue.identifier == "gyro" {

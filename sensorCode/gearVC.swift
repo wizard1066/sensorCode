@@ -126,7 +126,7 @@ var skip = false
     
     if !fastStart! {
     
-    infoText.text = "Enter a port number to use between 1024 and 32760. Tap on the screen to dismiss the keyboard. Use the back button to return to the sensor selections ..."
+    infoText.text = "Enter a port number to use between 1024 and 32760. Tap on the screen to dismiss the keyboard."
     infoText.backgroundColor = .white
     infoText.isUserInteractionEnabled = true
 //    backButton.blink()
@@ -201,6 +201,7 @@ var skip = false
             
               self.cameraIcon.isEnabled = true
               self.pictureIcon.isEnabled = true
+              self.backButton.isSelected = true
               self.cameraIcon.grow()
               self.pictureIcon.grow()
                       
