@@ -39,8 +39,20 @@ class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
 //    var heading:String!ager
 //    var lastLocation: CLLocation!
 
+  private var background = false
+
   override func viewDidAppear(_ animated: Bool) {
     spokenOutput.text = ""
+    if !background {
+        let backgroundImage = UIImageView(frame: self.view.bounds)
+        backgroundImage.contentMode = .scaleAspectFit
+    //    backgroundImage.contentMode = .scaleToFill
+    //    backgroundImage.contentMode = .scaleAspectFill
+        backgroundImage.image = UIImage(named: "lego.png")!
+        backgroundImage.alpha = 0.2
+        self.view.insertSubview(backgroundImage, at: 0)
+        background = true
+      }
   }
 
       override func viewDidLoad() {

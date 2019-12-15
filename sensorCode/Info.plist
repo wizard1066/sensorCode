@@ -25,11 +25,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Needed to access camera</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Needed to get location</string>
+	<string>Needed to get location at client request</string>
 	<key>NSLocationAlwaysUsageDescription </key>
 	<string>Needed to get location at client request</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Needed to get location</string>
+	<string>Needed to get location at client request</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Need the mic to hear</string>
 	<key>NSPhotoLibraryUsageDescription</key>
