@@ -15,11 +15,27 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Needed for access media library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Needed to access camera</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Needed to get location</string>
+	<key>NSLocationAlwaysUsageDescription </key>
+	<string>Needed to get location at client request</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Needed to get location</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Need the mic to hear</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Needed to access photo library</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Needed to understand commands spoken to the phone for the robot</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -28,20 +44,6 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Needed to get location</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Needed to get location</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Needed for access media library</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Needed to access camera</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Need the mic to hear</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Needed to access photo library</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Needed to understand commands spoken to the phone for the robot</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

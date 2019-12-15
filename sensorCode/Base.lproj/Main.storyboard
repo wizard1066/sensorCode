@@ -197,7 +197,7 @@
                         <outlet property="topImage" destination="Dh8-bh-Sst" id="XIZ-K1-bvl"/>
                         <segue destination="KE0-I3-FJd" kind="show" identifier="gyro" id="gqr-Hg-fV5"/>
                         <segue destination="6c3-cn-Ffs" kind="show" identifier="compass" id="neI-4s-Lfv"/>
-                        <segue destination="yD4-Xc-PuN" kind="show" identifier="listen" id="FAU-sB-Yxl"/>
+                        <segue destination="yD4-Xc-PuN" kind="show" identifier="voice" id="FAU-sB-Yxl"/>
                         <segue destination="LmT-zw-29a" kind="show" identifier="speaker" id="NV6-xN-4i2"/>
                         <segue destination="lwy-hC-Yh7" kind="show" identifier="location" id="RX3-SU-AXE"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="prt-Yu-7In"/>
@@ -396,7 +396,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLv-e5-sDN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="jor-0W-TW4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1118" y="577"/>
+            <point key="canvasLocation" x="1634" y="512"/>
         </scene>
         <!--CompassVC-->
         <scene sceneID="sCN-G7-ITu">
@@ -866,6 +866,6 @@
         <image name="voiceR" width="600" height="607"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Kjm-l4-J8g"/>
+        <segue reference="m4F-lQ-irz"/>
     </inferredMetricsTieBreakers>
 </document>

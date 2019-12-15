@@ -30,12 +30,19 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   @IBAction func locationSwitch(_ sender: UISwitch) {
     if sender.isOn {
       locationManager!.startUpdatingLocation()
-      if currentLocation != nil {
-        let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
+      DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+      if self.currentLocation != nil {
+        self.latitudeOutput.text = "\(self.currentLocation.coordinate.longitude.description)"
+        self.longitudeOutput.text = "\(self.currentLocation.coordinate.latitude.description)"
+        self.altitudeOutput.text = "\(self.currentLocation.altitude.description)"
+      }
+      if self.currentLocation != nil {
+        let word = "\(self.currentLocation.coordinate.longitude) \(self.currentLocation.coordinate.latitude) \(self.currentLocation.altitude)"
         if port2G != nil && connect2G != "" {
           communications?.sendUDP(word)
         }
       }
+      })
     } else {
       locationManager!.stopUpdatingLocation()
     }
@@ -60,11 +67,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
       locationManager!.pausesLocationUpdatesAutomatically = true
       currentLocation = locationManager!.location
       
-      if currentLocation != nil {
-        latitudeOutput.text = "\(currentLocation.coordinate.longitude.description)"
-        longitudeOutput.text = "\(currentLocation.coordinate.latitude.description)"
-        altitudeOutput.text = "\(currentLocation.altitude.description)"
-      }
+      
     }
     
     infoText = UILabel(frame: CGRect(x: self.view.bounds.minX + 20, y: 0, width: self.view.bounds.width - 40, height: 128))

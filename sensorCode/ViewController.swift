@@ -47,7 +47,7 @@ class ViewController: UIViewController, speaker, transaction {
       } else {
         self.performSegue(withIdentifier: "voice", sender: self)
       }
-      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
+      micBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
     }
     if service == IAPProduct.motion.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMotion != nil {
@@ -377,7 +377,7 @@ class ViewController: UIViewController, speaker, transaction {
 
       if introCurrent == introValue.first {
 
-        introText.text = "Your smartphone has more than half a dozen sensors within it. Make your robot smarter by sharing the data captured by those sensors. Think gyro, motion, voice and more ..."
+        introText.text = "Your smartphone has more than half a dozen sensors within it. Make your robot smarter by sharing the data captured by those sensors. Think azimuth, motion, voice and more ..."
         introCord = introText.frame.origin.y
         introCord = introText.center.y
         introCordX = introText.center.x
