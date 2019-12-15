@@ -39,13 +39,15 @@ class ViewController: UIViewController, speaker, transaction {
       } else {
         self.performSegue(withIdentifier: "compass", sender: self)
       }
+      compassBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
     }
     if service == IAPProduct.voice.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMic != nil {
         present(strongMic!, animated: true, completion: nil)
       } else {
-        self.performSegue(withIdentifier: "listen", sender: self)
+        self.performSegue(withIdentifier: "voice", sender: self)
       }
+      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
     }
     if service == IAPProduct.motion.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMotion != nil {
@@ -53,6 +55,7 @@ class ViewController: UIViewController, speaker, transaction {
       } else {
         self.performSegue(withIdentifier: "gyro", sender: self)
       }
+      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
     }
     
     
