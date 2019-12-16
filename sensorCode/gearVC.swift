@@ -151,7 +151,7 @@ var skip = false
     // Do any additional setup after loading the view.
   }
   
-  
+  var blinkCount = 0
   
     @objc func dismissKeyboard() {
       if !isVisible {
@@ -201,7 +201,21 @@ var skip = false
             
               self.cameraIcon.isEnabled = true
               self.pictureIcon.isEnabled = true
-              self.backButton.isSelected = true
+//              Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+//                  if self.blinkCount < 8 {
+//                    self.blinkCount = self.blinkCount + 1
+//                    if self.backButton.isSelected {
+//                        self.backButton.isSelected = false
+//                    } else {
+//                        self.backButton.isSelected = true
+//                    }
+//                  } else {
+//                    self.backButton.isSelected = false
+//                    timer.invalidate()
+//                  }
+//              }
+//              self.backButton.isSelected = true
+              self.backButton.blinkText()
               self.cameraIcon.grow()
               self.pictureIcon.grow()
                       
@@ -289,6 +303,106 @@ var skip = false
     }
   }
      
+}
+
+extension UIButton {
+  func blinkBackground() {
+    var blinkCount = 0
+    Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+      if blinkCount < 8 {
+        blinkCount = blinkCount + 1
+        if self.isSelected {
+          self.isSelected = false
+        } else {
+          self.isSelected = true
+        }
+      } else {
+        self.isSelected = false
+        timer.invalidate()
+      }
+    }
+  }
+  
+  func blinkText() {
+    var blinkCount = 0
+    var colorRightNow = self.titleColor(for: .normal)
+    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+      if blinkCount < 8 {
+        blinkCount = blinkCount + 1
+        
+        if self.titleColor(for: .normal) == colorRightNow {
+          self.setTitleColor(UIColor.white, for: .normal)
+        } else {
+          self.setTitleColor(colorRightNow, for: .normal)
+        }
+      } else {
+        self.setTitleColor(colorRightNow, for: .normal)
+        timer.invalidate()
+      }
+    }
+  }
+  
+  func rainbowText() {
+    var colors:[UIColor] = []
+    let increment:CGFloat = 0.02
+    for hue:CGFloat in stride(from: 0.0, to: 4.0, by: increment) {
+      let color = UIColor(hue: hue, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+      colors.append(color)
+    }
+    var colorIndex = 0
+    Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
+      if colorIndex < colors.count {
+          self.setTitleColor(colors[colorIndex], for: .normal)
+          colorIndex = colorIndex + 1
+      } else {
+        self.setTitleColor(colors[0], for: .normal)
+        timer.invalidate()
+      }
+    }
+  }
+  
+  func showWord() {
+    let sizer = self.frame.size
+    let hider = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: sizer))
+    hider.backgroundColor = UIColor.white
+    
+    let sub = self.titleLabel
+    sub?.insertSubview(hider, at: 1)
+    self.insertSubview(hider, at: 1)
+    
+    UIView.animate(withDuration: 4, animations: {
+      hider.center = CGPoint(x: 128, y: 0)
+    }) { (_) in
+      hider.removeFromSuperview()
+    }
+  }
+  
+  func splitWord() {
+    let sizer = self.frame.size
+    print("sizer",sizer)
+    let hider0 = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size:sizer))
+    
+    
+    let hider1 = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 18, height: 64)))
+    let hider2 = UIView(frame: CGRect(origin: CGPoint(x: 18, y: 0), size: CGSize(width: 18, height: 64)))
+    hider1.backgroundColor = UIColor.white
+    hider2.backgroundColor = UIColor.white
+    hider0.backgroundColor = UIColor.clear
+    
+    let sub = self.titleLabel
+    let subs = sub?.frame.size
+    print("sub",subs)
+    sub?.insertSubview(hider1, at: 1)
+    sub?.insertSubview(hider2, at: 2)
+    self.insertSubview(hider0, at: 1)
+    
+    UIView.animate(withDuration: 4, animations: {
+      hider1.center = CGPoint(x: -18, y: 0)
+      hider2.center = CGPoint(x: 54, y: 0)
+    }) { (_) in
+      hider0.removeFromSuperview()
+    }
+  }
 }
 
 

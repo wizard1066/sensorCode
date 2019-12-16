@@ -321,11 +321,14 @@ class ViewController: UIViewController, speaker, transaction {
     NotificationCenter.default.addObserver(self, selector: #selector(ViewController.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
     
     if !fastStart! {
+//      nextOutlet.showWord()
+      nextOutlet.splitWord()
       tapMe()
     } else {
       gearBOutlet.isEnabled = true
       
       delay = DispatchTimeInterval.nanoseconds(500)
+      
     }
   }
   
