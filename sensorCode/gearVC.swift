@@ -101,7 +101,7 @@ var skip = false
     let backgroundImage = UIImageView(frame: self.view.bounds)
     backgroundImage.contentMode = .scaleAspectFit
     backgroundImage.image = UIImage(named: "lego.png")!
-    backgroundImage.alpha = 0.5
+    backgroundImage.alpha = 0.2
     
 //    self.view.backgroundColor = UIColor(patternImage: backgroundImage.image!)
     self.view.insertSubview(backgroundImage, at: 0)

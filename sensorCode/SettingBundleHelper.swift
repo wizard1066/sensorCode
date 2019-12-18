@@ -36,12 +36,18 @@ struct SettingsBundleKeys {
     let ps = Double(precision!.doubleValue)
     let rr = Double(refreshRate!)
     
-      if ps > 10.0 || ps < 1.0 {
-        precision = "2"
-      }
-      if rr > 10.0 || rr < 0.01 {
-        refreshRate = 0.1
-      }
+    if ps > 10.0 {
+      precision = "10"
+    }
+    if ps < 0.01 {
+      precision = "0.01"
+    }
+    if rr > 10.0 {
+      refreshRate = 10
+    }
+    if rr < 0.01 {
+      refreshRate = 0.01
+    }
   }
 }
 

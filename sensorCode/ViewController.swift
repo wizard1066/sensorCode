@@ -104,6 +104,7 @@ class ViewController: UIViewController, speaker, transaction {
   @IBAction func motionBAction(_ sender: UIButton) {
 
     lastButton = motionBOutlet
+//    feedback(service: IAPProduct.motion.rawValue, message: IAPStatus.purchased.rawValue)
     if purchases[IAPProduct.motion.rawValue] == nil {
       IAPService.shared.ordered = self
       IAPService.shared.purchase(product: .motion)
@@ -149,6 +150,7 @@ class ViewController: UIViewController, speaker, transaction {
 
   
   @IBAction func azimuthBAction(_ sender: Any) {
+//    feedback(service: IAPProduct.azimuth.rawValue, message: IAPStatus.purchased.rawValue)
     lastButton = compassBOutlet
     if purchases[IAPProduct.azimuth.rawValue] == nil {
       IAPService.shared.ordered = self
@@ -162,7 +164,7 @@ class ViewController: UIViewController, speaker, transaction {
 
   @IBAction func voiceBAction(_ sender: Any) {
     lastButton = micBOutlet
-    
+//    feedback(service: IAPProduct.voice.rawValue, message: IAPStatus.purchased.rawValue)
     if purchases[IAPProduct.voice.rawValue] == nil {
       IAPService.shared.ordered = self
       IAPService.shared.purchase(product: .voice)

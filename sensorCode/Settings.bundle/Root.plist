@@ -10,21 +10,21 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Precision</string>
+			<string>Refresh Rate</string>
 			<key>Key</key>
-			<string>PRECISION</string>
+			<string>RATE</string>
 			<key>DefaultValue</key>
-			<string>2</string>
+			<string>0.1</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Update Rate</string>
+			<string>Precision</string>
 			<key>Key</key>
-			<string>RATE</string>
+			<string>PRECISION</string>
 			<key>DefaultValue</key>
-			<string>0.1</string>
+			<string>2</string>
 		</dict>
 		<dict>
 			<key>Type</key>
