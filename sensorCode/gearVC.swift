@@ -379,6 +379,8 @@ extension UIButton {
   }
   
   func splitWord() {
+    
+  
     let sizer = self.frame.size
     let hider0 = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size:sizer))
     
@@ -393,6 +395,14 @@ extension UIButton {
     hider2.backgroundColor = UIColor.white
     hider0.backgroundColor = UIColor.clear
     
+//    let layer = CAShapeLayer()
+//    layer.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 32, height: subs!.height), cornerRadius: 0).cgPath
+//    layer.fillColor = UIColor.black.cgColor
+//    layer.fillMode = .forwards
+//    layer.opacity = 0.2
+    
+//   self.layer.addSublayer(layer)
+    
     
     sub?.insertSubview(hider1, at: 1)
     sub?.insertSubview(hider2, at: 2)
@@ -404,6 +414,7 @@ extension UIButton {
     }) { (_) in
       hider0.removeFromSuperview()
     }
+
   }
 }
 

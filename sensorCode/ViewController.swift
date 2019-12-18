@@ -293,10 +293,10 @@ class ViewController: UIViewController, speaker, transaction {
     compassBOutlet.layer.borderWidth = 2
     compassBOutlet.layer.borderColor = UIColor.black.cgColor
     
-    nextOutlet.layer.borderWidth = 1
-    nextOutlet.layer.borderColor = UIColor.gray.cgColor
-    nextOutlet.clipsToBounds = true
-    nextOutlet.layer.cornerRadius = 8
+//    nextOutlet.layer.borderWidth = 1
+//    nextOutlet.layer.borderColor = UIColor.gray.cgColor
+//    nextOutlet.clipsToBounds = true
+//    nextOutlet.layer.cornerRadius = 8
     
     topMargin = view.safeAreaInsets.top
     leftMargin = view.safeAreaInsets.left + 20
@@ -835,13 +835,6 @@ extension UIButton {
     
     
 }
-
-//extension UIView{
-//  func blink() {
-//    self.alpha = 0.2
-//    UIView.animate(withDuration: 1, delay: 0.0, options: [.curveLinear, .repeat, .autoreverse], animations: {self.alpha = 1.0}, completion: nil)
-//  }
-//}
 
 
 
