@@ -11,8 +11,8 @@ import Speech
 
 class listenVC: UIViewController {
 
-  
   @IBOutlet var spokenOutlet: UILabel!
+  @IBOutlet weak var backButton: UIButton!
   
  
   let audioEngine = AVAudioEngine()
@@ -25,6 +25,7 @@ class listenVC: UIViewController {
   var infoText: UILabel!
   
   @IBOutlet var switchListeningOutput: UISwitch!
+  
   @IBAction func switchListening(_ sender: UISwitch) {
     if sender.isOn {
       askPermission()
@@ -43,16 +44,21 @@ class listenVC: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     spokenOutlet.text = ""
     if !background {
-        let backgroundImage = UIImageView(frame: self.view.bounds)
-        backgroundImage.contentMode = .scaleAspectFit
-    //    backgroundImage.contentMode = .scaleToFill
-    //    backgroundImage.contentMode = .scaleAspectFill
+      var backgroundImage = UIImageView(frame: self.view.bounds)
+      backgroundImage.alpha = 0
+      backgroundImage.contentMode = .scaleAspectFit
+      self.view.insertSubview(backgroundImage, at: 0)
+      UIView.animate(withDuration: 0.5, animations: {
         backgroundImage.image = UIImage(named: "lego.png")!
         backgroundImage.alpha = 0.2
-        self.view.insertSubview(backgroundImage, at: 0)
-        background = true
+        self.background = true
+      }) { ( _ ) in
+        self.switchListeningOutput.grow()
       }
-}
+    }
+    
+    
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -74,6 +80,7 @@ class listenVC: UIViewController {
            }
            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
              self.infoText.isHidden = true
+             self.backButton.blinkText()
            })
          })
      

@@ -126,8 +126,6 @@ class ViewController: UIViewController, speaker, transaction {
   
   @IBAction func configBAction(_ sender: UIButton) {
   
-  
-
     lastButton = nil
     if strongGear != nil {
       present(strongGear!, animated: true, completion: nil)
@@ -164,12 +162,14 @@ class ViewController: UIViewController, speaker, transaction {
 
   @IBAction func voiceBAction(_ sender: Any) {
     lastButton = micBOutlet
+    
     if purchases[IAPProduct.voice.rawValue] == nil {
       IAPService.shared.ordered = self
       IAPService.shared.purchase(product: .voice)
     } else {
       feedback(service: IAPProduct.voice.rawValue, message: IAPStatus.purchased.rawValue)
     }
+    
   }
 
 
@@ -424,6 +424,7 @@ class ViewController: UIViewController, speaker, transaction {
   
   func firstJump() {
     print("intro",introText.center)
+    nextOutlet.splitWord()
     UIView.animate(withDuration: 0.5) {
       self.introText.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
       self.topImage.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
@@ -527,6 +528,7 @@ func secondJump() {
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
 //      print("Unwind to Root View Controller")
+    introText.text = ""
     firstShown()
   }
 
@@ -776,7 +778,7 @@ func secondJump() {
       }
     }
     
-    if segue.identifier == "listen" {
+    if segue.identifier == "voice" {
       if let nextViewController = segue.destination as? listenVC {
         strongMic = nextViewController
         

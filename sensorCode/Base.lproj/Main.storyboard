@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -97,7 +97,7 @@
                                             <constraint firstAttribute="width" constant="64" id="71p-6Z-rJg"/>
                                             <constraint firstAttribute="height" constant="64" id="zmj-OP-zDW"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="speaker"/>
+                                        <state key="normal" backgroundImage="speacer"/>
                                         <connections>
                                             <action selector="speakerBAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oSr-43-oIO"/>
                                         </connections>
@@ -282,6 +282,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="BXD-v8-W6k"/>
                     <connections>
+                        <outlet property="backButton" destination="xng-2p-ntq" id="4UZ-Rk-a0j"/>
                         <outlet property="pitchOutput" destination="Rxa-0H-suc" id="EXA-HN-KXB"/>
                         <outlet property="rollOutput" destination="O1c-hw-D6J" id="czH-Wj-gXS"/>
                         <outlet property="spokenOutput" destination="gAu-eK-Dsx" id="0hf-aD-25h"/>
@@ -306,7 +307,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hF9-qr-RVq">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Double tap to dismiss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yT-ga-Yd8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double tap to dismiss" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yT-ga-Yd8">
                                 <rect key="frame" x="105" y="606" width="165.5" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
@@ -320,6 +321,7 @@
                             <constraint firstItem="hF9-qr-RVq" firstAttribute="leading" secondItem="SZP-yA-wLx" secondAttribute="leading" id="ARK-ZD-MH7"/>
                             <constraint firstItem="7yT-ga-Yd8" firstAttribute="centerX" secondItem="xxu-9o-RgM" secondAttribute="centerX" id="JyJ-P7-X1O"/>
                             <constraint firstItem="SZP-yA-wLx" firstAttribute="bottom" secondItem="hF9-qr-RVq" secondAttribute="bottom" id="PZc-RK-InN"/>
+                            <constraint firstItem="SZP-yA-wLx" firstAttribute="bottom" secondItem="7yT-ga-Yd8" secondAttribute="bottom" constant="20" id="YF5-kC-ff9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SZP-yA-wLx"/>
                     </view>
@@ -388,6 +390,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="aNn-AI-NEt"/>
                     <connections>
+                        <outlet property="backButton" destination="MSJ-ff-hUm" id="ri7-vp-e2v"/>
                         <outlet property="spokenOutlet" destination="cBQ-E7-IBF" id="qEd-Z9-5Su"/>
                         <outlet property="switchListeningOutput" destination="rNU-nL-LpD" id="o9V-MG-96o"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="m4F-lQ-irz"/>
@@ -466,6 +469,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="yxh-gV-bn8"/>
                     <connections>
+                        <outlet property="backButton" destination="RmO-JL-CNx" id="gwr-kE-vRn"/>
                         <outlet property="compassSwitchOutlet" destination="yl5-2b-kzC" id="IC5-gF-xgy"/>
                         <outlet property="magneticNorthOutlet" destination="w1e-Kt-PUd" id="3uk-9D-3Ke"/>
                         <outlet property="spokenOutput" destination="1Ex-fE-hgw" id="A5F-0x-MRB"/>
@@ -587,7 +591,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000298023224" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lego" translatesAutoresizingMaskIntoConstraints="NO" id="god-SF-6o1">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000298023224" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker" translatesAutoresizingMaskIntoConstraints="NO" id="kBT-FU-AvT">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000298023224" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speacer" translatesAutoresizingMaskIntoConstraints="NO" id="kBT-FU-AvT">
                                 <rect key="frame" x="155.5" y="20" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="7Fm-zS-uB9"/>
@@ -638,6 +642,12 @@
                                     <constraint firstAttribute="width" constant="320" id="vdc-dB-8fl"/>
                                 </constraints>
                             </pickerView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UBm-cj-ned">
+                                <rect key="frame" x="163" y="308" width="51" height="31"/>
+                                <connections>
+                                    <action selector="speakerSwitch:" destination="LmT-zw-29a" eventType="valueChanged" id="ASV-nN-LTD"/>
+                                </connections>
+                            </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYj-03-zS3">
                                 <rect key="frame" x="168.5" y="594" width="38" height="33"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -646,12 +656,6 @@
                                     <segue destination="6Dg-jf-88k" kind="unwind" unwindAction="unwindToRootViewControllerWithSegue:" id="srx-4z-2np"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UBm-cj-ned">
-                                <rect key="frame" x="163" y="308" width="51" height="31"/>
-                                <connections>
-                                    <action selector="speakerSwitch:" destination="LmT-zw-29a" eventType="valueChanged" id="ASV-nN-LTD"/>
-                                </connections>
-                            </switch>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -674,6 +678,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="30k-LP-nhh"/>
                     <connections>
+                        <outlet property="backButton" destination="vYj-03-zS3" id="Xea-J7-cPW"/>
                         <outlet property="picker" destination="z4o-8A-iE7" id="41p-m6-g5h"/>
                         <outlet property="rateSlider" destination="uQ4-sc-H4g" id="O1m-8j-cDu"/>
                         <outlet property="speakerSwitchOutput" destination="UBm-cj-ned" id="3l1-lT-ZuU"/>
@@ -744,6 +749,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="cJl-l2-fD1"/>
                     <connections>
+                        <outlet property="backButton" destination="JCm-0N-xjm" id="SLG-dB-vRq"/>
                         <outlet property="proximitySwitchOutlet" destination="etg-DI-d8k" id="tZ3-FX-XRr"/>
                         <outlet property="spokenOutput" destination="aaz-ge-iB1" id="np3-7o-wAX"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="Kjm-l4-J8g"/>
@@ -835,7 +841,9 @@
                     <navigationItem key="navigationItem" id="0kq-s1-jS1"/>
                     <connections>
                         <outlet property="altitudeOutput" destination="9vo-eM-ek2" id="9S8-U2-usb"/>
+                        <outlet property="backButton" destination="LU1-zi-5dH" id="tXg-lF-FhR"/>
                         <outlet property="latitudeOutput" destination="alD-Pn-BTL" id="kvc-ed-ZBF"/>
+                        <outlet property="locationButtonOutlet" destination="2Ef-76-k20" id="HpT-ar-11u"/>
                         <outlet property="longitudeOutput" destination="rrm-Ke-Grf" id="i6P-4c-xVM"/>
                         <outlet property="spokenOutput" destination="pyX-fq-PTO" id="6dI-rN-BZR"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="YhF-Y8-mm7"/>
@@ -861,11 +869,11 @@
         <image name="picture" width="640" height="550"/>
         <image name="proximity" width="100" height="100"/>
         <image name="quick" width="693" height="604"/>
-        <image name="speaker" width="570" height="570"/>
+        <image name="speacer" width="570" height="570"/>
         <image name="voice" width="600" height="607"/>
         <image name="voiceR" width="600" height="607"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="prt-Yu-7In"/>
+        <segue reference="1w5-ri-ejz"/>
     </inferredMetricsTieBreakers>
 </document>

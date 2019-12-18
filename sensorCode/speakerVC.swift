@@ -14,7 +14,8 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
   @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var rateSlider: UISlider!
     @IBOutlet weak var volumeSlider: UISlider!
- 
+  @IBOutlet weak var backButton: UIButton!
+  
   
     var pickerData: [String] = [String]()
     var infoText: UILabel!
@@ -60,13 +61,9 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     override func viewDidAppear(_ animated: Bool) {
-      if speakerToggle {
-        speakerSwitchOutput.isOn = true
-      } else {
-        speakerSwitchOutput.isOn = false
-      }
+      speakerSwitchOutput.grow()
       
-}
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +110,7 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
               }
               DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                 self.infoText.isHidden = true
+                self.backButton.blinkText()
               })
             })
     }

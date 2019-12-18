@@ -129,7 +129,7 @@ var skip = false
     infoText.text = "Enter a port number to use between 1024 and 32760. Tap on the screen to dismiss the keyboard."
     infoText.backgroundColor = .white
     infoText.isUserInteractionEnabled = true
-//    backButton.blink()
+//
     let tapper = UITapGestureRecognizer(target: self, action: #selector(tapped))
     infoText.addGestureRecognizer(tapper)
     
@@ -146,6 +146,7 @@ var skip = false
     } else {
       UIView.animate(withDuration: 1) {
         self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.minY - 256)
+        self.backButton.blinkText()
       }
     }
     // Do any additional setup after loading the view.
@@ -325,8 +326,8 @@ extension UIButton {
   
   func blinkText() {
     var blinkCount = 0
-    var colorRightNow = self.titleColor(for: .normal)
-    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+    let colorRightNow = self.titleColor(for: .normal)
+    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { (timer) in
       if blinkCount < 8 {
         blinkCount = blinkCount + 1
         
@@ -379,26 +380,27 @@ extension UIButton {
   
   func splitWord() {
     let sizer = self.frame.size
-    print("sizer",sizer)
     let hider0 = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size:sizer))
     
+    let sub = self.titleLabel
+    let subs = sub?.frame.size
+    let halfwidth = subs!.width / 2
+    let halfheight = subs!.height / 2
     
-    let hider1 = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 18, height: 64)))
-    let hider2 = UIView(frame: CGRect(origin: CGPoint(x: 18, y: 0), size: CGSize(width: 18, height: 64)))
+    let hider1 = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: halfwidth, height: subs!.height)))
+    let hider2 = UIView(frame: CGRect(origin: CGPoint(x: halfwidth, y: 0), size: CGSize(width: halfwidth, height: subs!.height)))
     hider1.backgroundColor = UIColor.white
     hider2.backgroundColor = UIColor.white
     hider0.backgroundColor = UIColor.clear
     
-    let sub = self.titleLabel
-    let subs = sub?.frame.size
-    print("sub",subs)
+    
     sub?.insertSubview(hider1, at: 1)
     sub?.insertSubview(hider2, at: 2)
     self.insertSubview(hider0, at: 1)
     
     UIView.animate(withDuration: 4, animations: {
-      hider1.center = CGPoint(x: -18, y: 0)
-      hider2.center = CGPoint(x: 54, y: 0)
+      hider1.center = CGPoint(x: -halfwidth, y: halfheight)
+      hider2.center = CGPoint(x: halfwidth*3, y: halfheight)
     }) { (_) in
       hider0.removeFromSuperview()
     }

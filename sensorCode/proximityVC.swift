@@ -20,7 +20,9 @@ class proximityVC: UIViewController, spoken {
   
     override func viewDidAppear(_ animated: Bool) {
       spokenOutput.text = ""
+      proximitySwitchOutlet.grow()
   }
+  @IBOutlet weak var backButton: UIButton!
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,7 @@ class proximityVC: UIViewController, spoken {
               }
               DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                 self.infoText.isHidden = true
+                self.backButton.blinkText()
               })
             })
     }

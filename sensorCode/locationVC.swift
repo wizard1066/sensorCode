@@ -24,9 +24,12 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   @IBOutlet weak var longitudeOutput: UILabel!
   @IBOutlet weak var altitudeOutput: UILabel!
   @IBOutlet weak var spokenOutput: UILabel!
- 
+  @IBOutlet weak var backButton: UIButton!
   
   
+  
+  
+  @IBOutlet weak var locationButtonOutlet: UISwitch!
   @IBAction func locationSwitch(_ sender: UISwitch) {
     if sender.isOn {
       locationManager!.startUpdatingLocation()
@@ -50,6 +53,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   
   override func viewDidAppear(_ animated: Bool) {
     spokenOutput.text = ""
+    locationButtonOutlet.grow()
   }
 
   override func viewDidLoad() {
@@ -86,6 +90,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
           }
           DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
             self.infoText.isHidden = true
+            self.backButton.blinkText()
           })
         })
   }
@@ -118,6 +123,39 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
     }
   }
   
+}
+
+extension UISwitch {
+  func highlight() {
+    var blinkCount = 0
+    Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+            if blinkCount < 8 {
+              blinkCount = blinkCount + 1
+              if self.isSelected {
+                  self.isSelected = false
+              } else {
+                  self.isSelected = true
+              }
+            } else {
+              self.self.isSelected = false
+              timer.invalidate()
+            }
+        }
+  }
+  
+  func grow() {
+    print("grow",self)
+    self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+    UIView.animate(withDuration: 1.0,
+    delay: 0,
+    usingSpringWithDamping: 0.2,
+    initialSpringVelocity: 2.0,
+    options: .allowUserInteraction,
+    animations: { [weak self] in
+      self!.transform = .identity
+    },
+    completion: nil)
+  }
 }
 
    

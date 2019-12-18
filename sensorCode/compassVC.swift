@@ -21,7 +21,9 @@ class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
   @IBOutlet weak var magneticNorthOutlet: UILabel!
   @IBOutlet weak var trueNorthOutlet: UILabel!
   @IBOutlet weak var spokenOutput: UILabel!
-
+  @IBOutlet weak var backButton: UIButton!
+  
+  
   
   @IBAction func compassSwitch(_ sender: UISwitch) {
     if sender.isOn {
@@ -44,15 +46,19 @@ class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
   override func viewDidAppear(_ animated: Bool) {
     spokenOutput.text = ""
     if !background {
-        let backgroundImage = UIImageView(frame: self.view.bounds)
-        backgroundImage.contentMode = .scaleAspectFit
-    //    backgroundImage.contentMode = .scaleToFill
-    //    backgroundImage.contentMode = .scaleAspectFill
+      var backgroundImage = UIImageView(frame: self.view.bounds)
+      backgroundImage.alpha = 0
+      backgroundImage.contentMode = .scaleAspectFit
+      self.view.insertSubview(backgroundImage, at: 0)
+      UIView.animate(withDuration: 0.5, animations: {
         backgroundImage.image = UIImage(named: "lego.png")!
         backgroundImage.alpha = 0.2
-        self.view.insertSubview(backgroundImage, at: 0)
-        background = true
+        self.background = true
+      }) { ( _ ) in
+        self.compassSwitchOutlet.grow()
       }
+    }
+    
   }
 
       override func viewDidLoad() {
@@ -84,6 +90,7 @@ class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
               self.infoText.isHidden = true
+              self.backButton.blinkText()
             })
           })
         } else {
