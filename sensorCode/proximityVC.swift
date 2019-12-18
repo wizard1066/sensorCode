@@ -75,7 +75,7 @@ class proximityVC: UIViewController, spoken {
      }
    
   @objc func proximityChanged(notification: NSNotification) {
-        print("fire prox changed")
+        
        if let device = notification.object as? UIDevice {
            if port2G != nil && connect2G != "" {
               let foobar = UIDevice.current.proximityState

@@ -399,8 +399,8 @@ extension UIButton {
     self.insertSubview(hider0, at: 1)
     
     UIView.animate(withDuration: 4, animations: {
-      hider1.center = CGPoint(x: -halfwidth, y: halfheight)
-      hider2.center = CGPoint(x: halfwidth*3, y: halfheight)
+      hider1.center = CGPoint(x: -halfwidth*2, y: halfheight)
+      hider2.center = CGPoint(x: halfwidth*3 + halfwidth, y: halfheight)
     }) { (_) in
       hider0.removeFromSuperview()
     }
