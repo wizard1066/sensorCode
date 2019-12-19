@@ -40,7 +40,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
         self.altitudeOutput.text = "\(self.currentLocation.altitude.description)"
       }
       if self.currentLocation != nil {
-        let word = "\(self.currentLocation.coordinate.longitude) \(self.currentLocation.coordinate.latitude) \(self.currentLocation.altitude)"
+        let word = "\(self.currentLocation.coordinate.latitude) \(self.currentLocation.coordinate.longitude) \(self.currentLocation.altitude)"
         if port2G != nil && connect2G != "" {
           communications?.sendUDP(word)
         }

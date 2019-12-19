@@ -265,24 +265,23 @@ class ViewController: UIViewController, speaker, transaction {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-      print("running ...")
-      NetStatus.shared.netStatusChangeHandler = {
-        DispatchQueue.main.async { [unowned self] in
-          let connected = NetStatus.shared.isConnected
-          if !connected {
-            self.alertNoNetwork()
-          } else {
-            print("ok connected ...")
-          }
+      
+    NetStatus.shared.netStatusChangeHandler = {
+      DispatchQueue.main.async { [unowned self] in
+        let connected = NetStatus.shared.isConnected
+        if !connected {
+          self.alertNoNetwork()
+        } else {
+            IAPService.shared.getProducts()
+            IAPService.shared.ordered = self
+            IAPService.shared.restorePurchases()
         }
       }
     }
-    
-    IAPService.shared.getProducts()
-    IAPService.shared.ordered = self
-    IAPService.shared.restorePurchases()
+      
+    NetStatus.shared.startMonitoring()
+
+   
     
     micBOutlet.layer.cornerRadius = 32
     motionBOutlet.layer.cornerRadius = 32
