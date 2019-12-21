@@ -17,13 +17,13 @@
 		7BE254F423A3C2E100C45047 /* IAPproduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F323A3C2E100C45047 /* IAPproduct.swift */; };
 		7BE254F623A3C57200C45047 /* IAPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F523A3C57200C45047 /* IAPService.swift */; };
 		7BE254F823A3EDD400C45047 /* UDPConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F723A3EDD400C45047 /* UDPConnection.swift */; };
-		7BE2550023A3EDE400C45047 /* listenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F923A3EDE400C45047 /* listenVC.swift */; };
+		7BE2550023A3EDE400C45047 /* voiceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254F923A3EDE400C45047 /* voiceVC.swift */; };
 		7BE2550123A3EDE400C45047 /* proximityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FA23A3EDE400C45047 /* proximityVC.swift */; };
 		7BE2550223A3EDE400C45047 /* locationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FB23A3EDE400C45047 /* locationVC.swift */; };
 		7BE2550323A3EDE400C45047 /* speakerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FC23A3EDE400C45047 /* speakerVC.swift */; };
 		7BE2550423A3EDE400C45047 /* gyroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FD23A3EDE400C45047 /* gyroVC.swift */; };
 		7BE2550523A3EDE400C45047 /* gearVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FE23A3EDE400C45047 /* gearVC.swift */; };
-		7BE2550623A3EDE400C45047 /* compassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FF23A3EDE400C45047 /* compassVC.swift */; };
+		7BE2550623A3EDE400C45047 /* azimuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE254FF23A3EDE400C45047 /* azimuthVC.swift */; };
 		7BE2550823A3EDF000C45047 /* photoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE2550723A3EDF000C45047 /* photoViewController.swift */; };
 		7BE2550C23A4076500C45047 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7BE2550B23A4076500C45047 /* Settings.bundle */; };
 		7BE2550E23A407E200C45047 /* SettingBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE2550D23A407E200C45047 /* SettingBundleHelper.swift */; };
@@ -42,13 +42,13 @@
 		7BE254F323A3C2E100C45047 /* IAPproduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPproduct.swift; sourceTree = "<group>"; };
 		7BE254F523A3C57200C45047 /* IAPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPService.swift; sourceTree = "<group>"; };
 		7BE254F723A3EDD400C45047 /* UDPConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UDPConnection.swift; sourceTree = "<group>"; };
-		7BE254F923A3EDE400C45047 /* listenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = listenVC.swift; sourceTree = "<group>"; };
+		7BE254F923A3EDE400C45047 /* voiceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = voiceVC.swift; sourceTree = "<group>"; };
 		7BE254FA23A3EDE400C45047 /* proximityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = proximityVC.swift; sourceTree = "<group>"; };
 		7BE254FB23A3EDE400C45047 /* locationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationVC.swift; sourceTree = "<group>"; };
 		7BE254FC23A3EDE400C45047 /* speakerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = speakerVC.swift; sourceTree = "<group>"; };
 		7BE254FD23A3EDE400C45047 /* gyroVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gyroVC.swift; sourceTree = "<group>"; };
 		7BE254FE23A3EDE400C45047 /* gearVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gearVC.swift; sourceTree = "<group>"; };
-		7BE254FF23A3EDE400C45047 /* compassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = compassVC.swift; sourceTree = "<group>"; };
+		7BE254FF23A3EDE400C45047 /* azimuthVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = azimuthVC.swift; sourceTree = "<group>"; };
 		7BE2550723A3EDF000C45047 /* photoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = photoViewController.swift; sourceTree = "<group>"; };
 		7BE2550B23A4076500C45047 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		7BE2550D23A407E200C45047 /* SettingBundleHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingBundleHelper.swift; sourceTree = "<group>"; };
@@ -93,11 +93,11 @@
 				7BE254F323A3C2E100C45047 /* IAPproduct.swift */,
 				7BE254F523A3C57200C45047 /* IAPService.swift */,
 				7B8A0D9F2338B3E700D2E2A4 /* ViewController.swift */,
-				7BE254FF23A3EDE400C45047 /* compassVC.swift */,
+				7BE254FF23A3EDE400C45047 /* azimuthVC.swift */,
 				7BE254FE23A3EDE400C45047 /* gearVC.swift */,
 				7BE2550723A3EDF000C45047 /* photoViewController.swift */,
 				7BE254FD23A3EDE400C45047 /* gyroVC.swift */,
-				7BE254F923A3EDE400C45047 /* listenVC.swift */,
+				7BE254F923A3EDE400C45047 /* voiceVC.swift */,
 				7BE254FB23A3EDE400C45047 /* locationVC.swift */,
 				7BE254FA23A3EDE400C45047 /* proximityVC.swift */,
 				7BE254FC23A3EDE400C45047 /* speakerVC.swift */,
@@ -200,10 +200,10 @@
 				7BE254F423A3C2E100C45047 /* IAPproduct.swift in Sources */,
 				7BE2550423A3EDE400C45047 /* gyroVC.swift in Sources */,
 				7BE2550823A3EDF000C45047 /* photoViewController.swift in Sources */,
-				7BE2550623A3EDE400C45047 /* compassVC.swift in Sources */,
+				7BE2550623A3EDE400C45047 /* azimuthVC.swift in Sources */,
 				7BE2550E23A407E200C45047 /* SettingBundleHelper.swift in Sources */,
 				7BE2550323A3EDE400C45047 /* speakerVC.swift in Sources */,
-				7BE2550023A3EDE400C45047 /* listenVC.swift in Sources */,
+				7BE2550023A3EDE400C45047 /* voiceVC.swift in Sources */,
 				7BE2550523A3EDE400C45047 /* gearVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -143,6 +143,7 @@ class gyroVC: UIViewController, spoken {
       motionManager!.stopAccelerometerUpdates()
       motionManager = nil
     }
+    lastSwitch = switchGyroOutlet
   }
   
   override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

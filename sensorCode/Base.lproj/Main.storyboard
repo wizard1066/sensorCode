@@ -196,12 +196,12 @@
                         <outlet property="stackviewDots" destination="pYU-6V-neg" id="4do-Kh-doE"/>
                         <outlet property="topImage" destination="Dh8-bh-Sst" id="XIZ-K1-bvl"/>
                         <segue destination="KE0-I3-FJd" kind="show" identifier="gyro" id="gqr-Hg-fV5"/>
-                        <segue destination="6c3-cn-Ffs" kind="show" identifier="compass" id="neI-4s-Lfv"/>
-                        <segue destination="yD4-Xc-PuN" kind="show" identifier="voice" id="FAU-sB-Yxl"/>
                         <segue destination="LmT-zw-29a" kind="show" identifier="speaker" id="NV6-xN-4i2"/>
                         <segue destination="lwy-hC-Yh7" kind="show" identifier="location" id="RX3-SU-AXE"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="prt-Yu-7In"/>
                         <segue destination="fgf-gm-0WA" kind="show" identifier="proximity" id="Mfd-Qt-Pre"/>
+                        <segue destination="6c3-cn-Ffs" kind="show" identifier="azimuth" id="S5e-uV-aKp"/>
+                        <segue destination="yD4-Xc-PuN" kind="show" identifier="voice" id="cyx-BC-Kry"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -334,10 +334,10 @@
             </objects>
             <point key="canvasLocation" x="714" y="495"/>
         </scene>
-        <!--ListenVC-->
+        <!--VoiceVC-->
         <scene sceneID="UGf-PO-Mao">
             <objects>
-                <viewController id="yD4-Xc-PuN" customClass="listenVC" customModule="sensorCode" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yD4-Xc-PuN" customClass="voiceVC" customModule="sensorCode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kb5-c1-OKJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -371,7 +371,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <state key="normal" title="Back"/>
                                         <connections>
-                                            <segue destination="jor-0W-TW4" kind="unwind" unwindAction="unwindToRootViewControllerWithSegue:" id="7QE-rN-EP8"/>
+                                            <segue destination="jor-0W-TW4" kind="unwind" unwindAction="unwindToRootViewControllerWithSegue:" id="ukN-dJ-9oM"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -390,7 +390,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="aNn-AI-NEt"/>
                     <connections>
-                        <outlet property="backButton" destination="MSJ-ff-hUm" id="ri7-vp-e2v"/>
+                        <outlet property="backButton" destination="MSJ-ff-hUm" id="awp-rA-L7q"/>
                         <outlet property="spokenOutlet" destination="cBQ-E7-IBF" id="qEd-Z9-5Su"/>
                         <outlet property="switchListeningOutput" destination="rNU-nL-LpD" id="o9V-MG-96o"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="m4F-lQ-irz"/>
@@ -399,12 +399,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLv-e5-sDN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="jor-0W-TW4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1634" y="512"/>
+            <point key="canvasLocation" x="249" y="199"/>
         </scene>
-        <!--CompassVC-->
+        <!--AzimuthVC-->
         <scene sceneID="sCN-G7-ITu">
             <objects>
-                <viewController id="6c3-cn-Ffs" customClass="compassVC" customModule="sensorCode" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6c3-cn-Ffs" customClass="azimuthVC" customModule="sensorCode" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z7D-RM-OWn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -450,7 +450,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <state key="normal" title="Back"/>
                                         <connections>
-                                            <segue destination="SDY-6C-YMj" kind="unwind" unwindAction="unwindToRootViewControllerWithSegue:" id="aAT-rb-Adf"/>
+                                            <segue destination="SDY-6C-YMj" kind="unwind" unwindAction="unwindToRootViewControllerWithSegue:" id="mSZ-jC-1Wf"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -480,7 +480,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tbt-xA-LVI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="SDY-6C-YMj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-737" y="-567"/>
+            <point key="canvasLocation" x="-596" y="-628"/>
         </scene>
         <!--GearVC-->
         <scene sceneID="11a-zJ-vEs">
@@ -875,6 +875,6 @@
         <image name="whiteDot" width="597" height="597"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MdY-8v-bLJ"/>
+        <segue reference="m4F-lQ-irz"/>
     </inferredMetricsTieBreakers>
 </document>

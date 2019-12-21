@@ -9,9 +9,10 @@
 import UIKit
 import Speech
 
-class listenVC: UIViewController {
+class voiceVC: UIViewController {
 
   @IBOutlet var spokenOutlet: UILabel!
+//  @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
   
  
@@ -175,7 +176,7 @@ class listenVC: UIViewController {
   
   func stopRecording() {
     audioEngine.stop()
-    request!.endAudio()
+    request?.endAudio()
     recognitionTask?.finish()
   }
   

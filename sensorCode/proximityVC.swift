@@ -92,6 +92,7 @@ class proximityVC: UIViewController, spoken {
       NotificationCenter.default.removeObserver(self)
       proximityValue = false
      }
+     lastSwitch = proximitySwitchOutlet
    }
   
     

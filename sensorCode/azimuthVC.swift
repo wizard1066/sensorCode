@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
+class azimuthVC: UIViewController, CLLocationManagerDelegate, spoken {
 
   var tag:Int?
 
@@ -29,10 +29,9 @@ class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
   
   @IBAction func compassSwitch(_ sender: UISwitch) {
     if sender.isOn {
-      directionManager!.startUpdatingHeading()
-      
+      directionManager?.startUpdatingHeading()
     } else {
-      directionManager!.stopUpdatingHeading()
+      directionManager?.stopUpdatingHeading()
       
     }
   }
@@ -146,6 +145,7 @@ class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
           directionManager!.stopUpdatingHeading()
           directionManager = nil
         }
+        lastSwitch = compassSwitchOutlet
        }
        
        override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

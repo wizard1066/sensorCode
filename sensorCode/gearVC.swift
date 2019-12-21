@@ -65,6 +65,10 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       isVisible = false
   }
   
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+  }
+  
   override func viewDidAppear(_ animated: Bool) {
 //    spokenOutput.text = ""
   }

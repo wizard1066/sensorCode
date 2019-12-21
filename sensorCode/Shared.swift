@@ -12,7 +12,7 @@ import CoreMotion
 
 //var chatRoom:ChatRoom?
 
-var primeController = listenVC()
+var primeController = voiceVC()
 var communications: connect?
 var autoClose: Bool?
 var lastButton: UIButton?

@@ -121,6 +121,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
     if autoClose! {
       locationManager!.stopUpdatingLocation()
     }
+    lastSwitch = locationButtonOutlet
   }
   
   override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

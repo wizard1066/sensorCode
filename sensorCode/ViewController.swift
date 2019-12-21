@@ -47,7 +47,7 @@ class ViewController: UIViewController, speaker, transaction {
       if strongCompass != nil {
         present(strongCompass!, animated: true, completion: nil)
       } else {
-        self.performSegue(withIdentifier: "compass", sender: self)
+        self.performSegue(withIdentifier: "azimuth", sender: self)
       }
       compassBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
     }
@@ -101,9 +101,9 @@ class ViewController: UIViewController, speaker, transaction {
   @IBOutlet weak var compassBOutlet: UIButton!
   
   
-  var strongCompass:compassVC?
+  var strongCompass:azimuthVC?
   var strongMotion:gyroVC?
-  var strongMic:listenVC?
+  var strongMic:voiceVC?
   var strongSpeaker: speakerVC?
   var strongLocation: locationVC?
   var strongGear: gearVC?
@@ -540,10 +540,12 @@ func secondJump() {
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
 //      print("Unwind to Root View Controller")
-    if lastSwitch!.isOn == false {
+    if lastSwitch?.isOn == false {
       switch lastButton?.tag {
         case views2G.voice.rawValue:
-          strongMic = nil
+          DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            self.strongMic = nil
+          })
         case views2G.speaker.rawValue:
           strongSpeaker = nil
         case views2G.motion.rawValue:
@@ -773,8 +775,8 @@ func secondJump() {
       }
     }
     
-    if segue.identifier == "compass" {
-      if let nextViewController = segue.destination as? compassVC {
+    if segue.identifier == "azimuth" {
+      if let nextViewController = segue.destination as? azimuthVC {
         nextViewController.tag = views2G.proximity.rawValue
         strongCompass = nextViewController
         
@@ -805,16 +807,10 @@ func secondJump() {
       }
     }
     
-    if segue.identifier == "compass" {
-      if let nextViewController = segue.destination as? compassVC {
-        nextViewController.tag = views2G.proximity.rawValue
-        strongCompass = nextViewController
-        
-      }
-    }
+    
     
     if segue.identifier == "voice" {
-      if let nextViewController = segue.destination as? listenVC {
+      if let nextViewController = segue.destination as? voiceVC {
         nextViewController.tag = views2G.voice.rawValue
         strongMic = nextViewController
       }
