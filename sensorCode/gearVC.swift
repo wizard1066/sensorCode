@@ -12,7 +12,8 @@ import Network
 
 class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-var skip = false
+  var skip = false
+  var tag:Int?
 
   @IBOutlet weak var cameraIcon: UIButton!
   @IBOutlet weak var pictureIcon: UIButton!
@@ -94,6 +95,16 @@ var skip = false
     if name != "" {
       ipAddress.text = name
     }
+    let port = UserDefaults.standard.string(forKey: "IPP") ?? ""
+    if port != "" {
+      portNumber.text = port
+    }
+    if port2G != nil {
+      portNumber.text = port2G?.description
+    }
+    if connect2G != nil {
+      ipAddress.text = connect2G
+    }
     
     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
     
@@ -167,6 +178,9 @@ var skip = false
           port2G = Int16(portNumber.text!)
           connect2G = ipAddress.text!
           UserDefaults.standard.set(connect2G, forKey: "IPA")
+          UserDefaults.standard.set(port2G, forKey: "IPP")
+          portNumber.placeholder = portNumber.text!
+          ipAddress.placeholder = ipAddress.text!
         }
         
       var paused = DispatchTimeInterval.seconds(12)

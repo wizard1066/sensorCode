@@ -182,7 +182,7 @@ class connect: NSObject {
         
         if (data != nil) {
           let backToString = String(decoding: data!, as: UTF8.self)
-          
+          print("recieved ",backToString)
         } else {
           print("Data == nil")
         }

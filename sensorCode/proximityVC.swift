@@ -15,6 +15,8 @@ class proximityVC: UIViewController, spoken {
   
 
     var infoText: UILabel!
+    var tag:Int?
+    
   @IBOutlet weak var spokenOutput: UILabel!
   @IBOutlet weak var proximitySwitchOutlet: UISwitch!
   
@@ -76,7 +78,7 @@ class proximityVC: UIViewController, spoken {
    
   @objc func proximityChanged(notification: NSNotification) {
         
-       if let device = notification.object as? UIDevice {
+       if let _ = notification.object as? UIDevice {
            if port2G != nil && connect2G != "" {
               let foobar = UIDevice.current.proximityState
              communications?.sendUDP("proximity \(foobar)")

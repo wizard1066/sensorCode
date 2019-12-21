@@ -19,6 +19,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   var locationManager: CLLocationManager?
   var currentLocation: CLLocation!
   var infoText: UILabel!
+  var tag:Int?
   
   @IBOutlet weak var latitudeOutput: UILabel!
   @IBOutlet weak var longitudeOutput: UILabel!
@@ -32,20 +33,25 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   @IBOutlet weak var locationButtonOutlet: UISwitch!
   @IBAction func locationSwitch(_ sender: UISwitch) {
     if sender.isOn {
-      locationManager!.startUpdatingLocation()
-      DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-      if self.currentLocation != nil {
-        self.latitudeOutput.text = "\(self.currentLocation.coordinate.longitude.description)"
-        self.longitudeOutput.text = "\(self.currentLocation.coordinate.latitude.description)"
-        self.altitudeOutput.text = "\(self.currentLocation.altitude.description)"
-      }
-      if self.currentLocation != nil {
-        let word = "\(self.currentLocation.coordinate.latitude) \(self.currentLocation.coordinate.longitude) \(self.currentLocation.altitude)"
-        if port2G != nil && connect2G != "" {
-          communications?.sendUDP(word)
-        }
-      }
-      })
+      self.latitudeOutput.text = "-122.03073097"
+      self.longitudeOutput.text = "37.33121136"
+      self.altitudeOutput.text = "0"
+      let word = "-122.03073097 37.33121136 0.0"
+      communications?.sendUDP(word)
+//      locationManager!.startUpdatingLocation()
+//      DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+//      if self.currentLocation != nil {
+//        self.latitudeOutput.text = "\(self.currentLocation.coordinate.longitude.description)"
+//        self.longitudeOutput.text = "\(self.currentLocation.coordinate.latitude.description)"
+//        self.altitudeOutput.text = "\(self.currentLocation.altitude.description)"
+//      }
+//      if self.currentLocation != nil {
+//        let word = "\(self.currentLocation.coordinate.latitude) \(self.currentLocation.coordinate.longitude) \(self.currentLocation.altitude)"
+//        if port2G != nil && connect2G != "" {
+//          communications?.sendUDP(word)
+//        }
+//      }
+//      })
     } else {
       locationManager!.stopUpdatingLocation()
     }

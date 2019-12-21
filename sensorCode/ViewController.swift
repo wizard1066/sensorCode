@@ -19,6 +19,16 @@ protocol spoken {
     func wordUsed(word2D: String)
 }
 
+enum views2G: Int {
+  case azimuth = 0
+  case motion = 1
+  case voice = 2
+  case gear = 3
+  case location = 4
+  case proximity = 5
+  case speaker = 6
+}
+
 class ViewController: UIViewController, speaker, transaction {
 
   @IBOutlet weak var inapp: UILabel!
@@ -164,6 +174,7 @@ class ViewController: UIViewController, speaker, transaction {
 
   @IBAction func voiceBAction(_ sender: Any) {
     lastButton = micBOutlet
+    
 //    feedback(service: IAPProduct.voice.rawValue, message: IAPStatus.purchased.rawValue)
     if purchases[IAPProduct.voice.rawValue] == nil {
       IAPService.shared.ordered = self
@@ -529,9 +540,26 @@ func secondJump() {
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
 //      print("Unwind to Root View Controller")
-    introText.text = ""
-    firstShown()
-  }
+    if lastSwitch!.isOn == false {
+      switch lastButton?.tag {
+        case views2G.voice.rawValue:
+          strongMic = nil
+        case views2G.speaker.rawValue:
+          strongSpeaker = nil
+        case views2G.motion.rawValue:
+          strongMotion = nil
+        case views2G.azimuth.rawValue:
+          strongCompass = nil
+        case views2G.location.rawValue:
+          strongLocation = nil
+        default:
+          break
+        }
+      }
+      introText.text = ""
+      firstShown()
+    }
+
 
   func speak(_ comm: String, para: String) {
 //    if !once && comm.contains("speak") {
@@ -599,7 +627,7 @@ func secondJump() {
    
   @objc func proximityChanged(notification: NSNotification) {
       
-       if let device = notification.object as? UIDevice {
+       if let _ = notification.object as? UIDevice {
            if port2G != nil && connect2G != "" {
               let foobar = UIDevice.current.proximityState
              communications?.sendUDP("proximity \(foobar)")
@@ -739,6 +767,7 @@ func secondJump() {
     
     if segue.identifier == "gyro" {
       if let nextViewController = segue.destination as? gyroVC {
+        nextViewController.tag = views2G.proximity.rawValue
         strongMotion = nextViewController
         
       }
@@ -746,6 +775,7 @@ func secondJump() {
     
     if segue.identifier == "compass" {
       if let nextViewController = segue.destination as? compassVC {
+        nextViewController.tag = views2G.proximity.rawValue
         strongCompass = nextViewController
         
       }
@@ -753,6 +783,7 @@ func secondJump() {
     
     if segue.identifier == "location" {
       if let nextViewController = segue.destination as? locationVC {
+        nextViewController.tag = views2G.proximity.rawValue
         strongLocation = nextViewController
         
       }
@@ -760,6 +791,7 @@ func secondJump() {
     
     if segue.identifier == "config" {
       if let nextViewController = segue.destination as? gearVC {
+        nextViewController.tag = views2G.proximity.rawValue
         strongGear = nextViewController
         
       }
@@ -767,6 +799,7 @@ func secondJump() {
     
     if segue.identifier == "speaker" {
       if let nextViewController = segue.destination as? speakerVC {
+        nextViewController.tag = views2G.proximity.rawValue
         strongSpeaker = nextViewController
         
       }
@@ -774,6 +807,7 @@ func secondJump() {
     
     if segue.identifier == "compass" {
       if let nextViewController = segue.destination as? compassVC {
+        nextViewController.tag = views2G.proximity.rawValue
         strongCompass = nextViewController
         
       }
@@ -781,13 +815,14 @@ func secondJump() {
     
     if segue.identifier == "voice" {
       if let nextViewController = segue.destination as? listenVC {
+        nextViewController.tag = views2G.voice.rawValue
         strongMic = nextViewController
-        
       }
     }
     
     if segue.identifier == "proximity" {
       if let nextViewController = segue.destination as? proximityVC {
+        nextViewController.tag = views2G.proximity.rawValue
         strongProximity = nextViewController
         
       }

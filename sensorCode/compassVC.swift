@@ -11,6 +11,8 @@ import CoreLocation
 
 class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
 
+  var tag:Int?
+
   func wordUsed(word2D: String) {
     
       spokenOutput.text = word2D
@@ -46,7 +48,7 @@ class compassVC: UIViewController, CLLocationManagerDelegate, spoken {
   override func viewDidAppear(_ animated: Bool) {
     spokenOutput.text = ""
     if !background {
-      var backgroundImage = UIImageView(frame: self.view.bounds)
+      let backgroundImage = UIImageView(frame: self.view.bounds)
       backgroundImage.alpha = 0
       backgroundImage.contentMode = .scaleAspectFit
       self.view.insertSubview(backgroundImage, at: 0)

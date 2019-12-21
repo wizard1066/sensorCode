@@ -22,7 +22,7 @@ var refreshRate: Double?
 
 var motionManager: CMMotionManager?
 var directionManager: CLLocationManager?
-
+var lastSwitch: UISwitch?
 
 var port2G: Int16?
 var connect2G: String?

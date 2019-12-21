@@ -11,6 +11,8 @@ import CoreMotion
 
 class gyroVC: UIViewController, spoken {
 
+  var tag:Int?
+
   func wordUsed(word2D: String) {
     
     spokenOutput.text = word2D
@@ -33,19 +35,31 @@ class gyroVC: UIViewController, spoken {
     }
   }
   
+  var lastRoll:String?
+  var lastPitch:String?
+  var lastYaw:String?
+  
   func senddata(data: CMAccelerometerData) {
     let rN = String(format:"%.\(precision!)f",data.acceleration.x)
-                  let pN = String(format:"%.\(precision!)f",data.acceleration.y)
-                  let yN = String(format:"%.\(precision!)f",data.acceleration.z)
-                  
-                  self.rollOutput.text = rN
-                  self.pitchOutput.text = pN
-                  self.yawOutput.text = yN
-                  
-                  let word = "\(rN) \(pN) \(yN)"
-                  if port2G != nil && connect2G != "" {
-                    communications?.sendUDP(word)
-                  }
+    let pN = String(format:"%.\(precision!)f",data.acceleration.y)
+    let yN = String(format:"%.\(precision!)f",data.acceleration.z)
+    
+    if lastRoll == rN && lastPitch == pN && lastYaw == yN {
+      return
+    }
+    
+    self.rollOutput.text = rN
+    self.pitchOutput.text = pN
+    self.yawOutput.text = yN
+    
+    let word = "\(rN) \(pN) \(yN)"
+    if port2G != nil && connect2G != "" {
+      communications?.sendUDP(word)
+    }
+    
+    lastRoll = rN
+    lastPitch = pN
+    lastYaw = yN
   }
   
   
@@ -64,7 +78,7 @@ class gyroVC: UIViewController, spoken {
   override func viewDidAppear(_ animated: Bool) {
     spokenOutput.text = ""
     if !background {
-      var backgroundImage = UIImageView(frame: self.view.bounds)
+      let backgroundImage = UIImageView(frame: self.view.bounds)
       backgroundImage.alpha = 0
       backgroundImage.contentMode = .scaleAspectFit
       self.view.insertSubview(backgroundImage, at: 0)

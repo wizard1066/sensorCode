@@ -19,6 +19,7 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
   
     var pickerData: [String] = [String]()
     var infoText: UILabel!
+    var tag:Int?
     
   @IBOutlet weak var speakerSwitchOutput: UISwitch!
   @IBAction func speakerSwitch(_ sender: UISwitch) {

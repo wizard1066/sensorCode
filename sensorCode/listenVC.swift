@@ -23,6 +23,7 @@ class listenVC: UIViewController {
   var previousMessage: String!
   var said:spoken?
   var infoText: UILabel!
+  var tag: Int?
   
   @IBOutlet var switchListeningOutput: UISwitch!
   
@@ -33,10 +34,12 @@ class listenVC: UIViewController {
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
     if autoClose! {
       switchListeningOutput.isOn = false
       stop()
     }
+    lastSwitch = switchListeningOutput
   }
   
   private var background = false
@@ -44,7 +47,7 @@ class listenVC: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     spokenOutlet.text = ""
     if !background {
-      var backgroundImage = UIImageView(frame: self.view.bounds)
+      let backgroundImage = UIImageView(frame: self.view.bounds)
       backgroundImage.alpha = 0
       backgroundImage.contentMode = .scaleAspectFit
       self.view.insertSubview(backgroundImage, at: 0)
