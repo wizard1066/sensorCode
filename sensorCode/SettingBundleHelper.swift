@@ -23,6 +23,11 @@ struct SettingsBundleKeys {
     } else {
       fastStart = false
     }
+    if UserDefaults.standard.bool(forKey: "PULSE") {
+      pulse = true
+    } else {
+      pulse = false
+    }
     if (UserDefaults.standard.string(forKey: "PRECISION") != nil) {
       precision = UserDefaults.standard.string(forKey: "PRECISION")
     } else {
@@ -48,7 +53,7 @@ struct SettingsBundleKeys {
     if rr < 0.01 {
       refreshRate = 0.01
     }
-    print("refreshRate",refreshRate)
+    
   }
 }
 

@@ -9,12 +9,9 @@
 import UIKit
 import CoreLocation
 
-class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
+class locationVC: UIViewController, CLLocationManagerDelegate {
 
-  func wordUsed(word2D: String) {
-    
-    spokenOutput.text = word2D
-  }
+ 
   
   var locationManager: CLLocationManager?
   var currentLocation: CLLocation!
@@ -27,7 +24,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   @IBOutlet weak var latitudeOutput: UILabel!
   @IBOutlet weak var longitudeOutput: UILabel!
   @IBOutlet weak var altitudeOutput: UILabel!
-  @IBOutlet weak var spokenOutput: UILabel!
+ 
   @IBOutlet weak var backButton: UIButton!
   
   
@@ -61,7 +58,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   }
   
   override func viewDidAppear(_ animated: Bool) {
-    spokenOutput.text = ""
+    
     locationButtonOutlet.grow()
   }
 
@@ -106,13 +103,16 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   
   func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
       currentLocation = locationManager!.location
-      latitudeOutput.text = "\(currentLocation.coordinate.longitude.description)"
-      longitudeOutput.text = "\(currentLocation.coordinate.latitude.description)"
+      latitudeOutput.text = "\(currentLocation.coordinate.latitude.description)"
+      longitudeOutput.text = "\(currentLocation.coordinate.longitude.description)"
       altitudeOutput.text = "\(currentLocation.altitude.description)"
       let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
       
       if port2G != nil && connect2G != "" {
           communications?.sendUDP(word)
+          superRec?.latitude = "\(currentLocation.coordinate.latitude.description)"
+          superRec?.longitude = "\(currentLocation.coordinate.longitude.description)"
+          superRec?.altitude = "\(currentLocation.altitude.description)"
       }
   }
 

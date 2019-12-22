@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import CoreMotion
+import Foundation
 
 //var chatRoom:ChatRoom?
 
@@ -19,6 +20,7 @@ var lastButton: UIButton?
 var precision: String?
 var fastStart: Bool?
 var refreshRate: Double?
+var pulse: Bool?
 
 var motionManager: CMMotionManager?
 var directionManager: CLLocationManager?
@@ -41,7 +43,38 @@ var sensitivity: Double = 20
 
 var speakerToggle = false
   
+struct pulser: Codable {
+  // proximity
+  var proximity: String?
+  // location
+  var latitude: String?
+  var longitude: String?
+  var altitude: String?
+  // azimuth
+  var trueNorth: String?
+  var magneticNorth: String?
+  // motion
+  var roll: String?
+  var pitch: String?
+  var yaw: String?
+  // voice
+  var word: String?
+  
+  init(proximity: String?, latitude: String?, longitude: String?, altitude: String?, trueNorth: String?, magneticNorth:String?, roll:String?, pitch: String?, yaw:String?, word:String?) {
+    self.proximity = proximity
+    self.latitude = latitude
+    self.longitude = longitude
+    self.altitude = altitude
+    self.trueNorth = trueNorth
+    self.magneticNorth = magneticNorth
+    self.roll = roll
+    self.pitch = pitch
+    self.yaw = yaw
+    self.word = word
+  }
+}
 
+var superRec:pulser!
 
 
 

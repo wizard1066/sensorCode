@@ -167,6 +167,9 @@ class voiceVC: UIViewController {
             if port2G != nil && connect2G != "" {
               communications?.sendUDP(word)
             }
+            superRec.word = word
+          } else {
+            superRec.word = ""
           }
         }
         

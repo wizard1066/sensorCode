@@ -9,29 +9,28 @@
 import UIKit
 import CoreMotion
 
-class gyroVC: UIViewController, spoken {
+class motionVC: UIViewController {
 
   var tag:Int?
   var status:running?
 
-  func wordUsed(word2D: String) {
-    
-    spokenOutput.text = word2D
-  }
+ 
   
 
   @IBAction func switchGyro(_ sender: UISwitch) {
     if sender.isOn {
       if motionManager!.isAccelerometerAvailable {
-          motionManager!.accelerometerUpdateInterval = 0.1
+          motionManager!.accelerometerUpdateInterval = refreshRate!
           motionManager!.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
             
                 self.senddata(data: data!)
           }
       }
     } else {
-      if motionManager!.isAccelerometerAvailable {
-        motionManager!.stopAccelerometerUpdates()
+      if motionManager != nil {
+        if motionManager!.isAccelerometerAvailable {
+          motionManager?.stopAccelerometerUpdates()
+        }
       }
     }
   }
@@ -44,6 +43,11 @@ class gyroVC: UIViewController, spoken {
     let rN = String(format:"%.\(precision!)f",data.acceleration.x)
     let pN = String(format:"%.\(precision!)f",data.acceleration.y)
     let yN = String(format:"%.\(precision!)f",data.acceleration.z)
+    
+    superRec?.roll = rN
+    superRec?.pitch = pN
+    superRec?.yaw = yN
+    
     
     if lastRoll == rN && lastPitch == pN && lastYaw == yN {
       return
@@ -61,6 +65,8 @@ class gyroVC: UIViewController, spoken {
     lastRoll = rN
     lastPitch = pN
     lastYaw = yN
+    
+
   }
   
   
@@ -70,14 +76,14 @@ class gyroVC: UIViewController, spoken {
   @IBOutlet weak var pitchOutput: UILabel!
   @IBOutlet weak var rollOutput: UILabel!
   @IBOutlet weak var yawOutput: UILabel!
-  @IBOutlet weak var spokenOutput: UILabel!
-  @IBOutlet weak var portOutlet: UILabel!
+  
+
   @IBOutlet weak var backButton: UIButton!
   
   private var background = false
   
   override func viewDidAppear(_ animated: Bool) {
-    spokenOutput.text = ""
+    
     if !background {
       let backgroundImage = UIImageView(frame: self.view.bounds)
       backgroundImage.alpha = 0

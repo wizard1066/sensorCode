@@ -126,7 +126,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       if strongMotion != nil {
         present(strongMotion!, animated: true, completion: nil)
       } else {
-        self.performSegue(withIdentifier: "gyro", sender: self)
+        self.performSegue(withIdentifier: "motion", sender: self)
       }
       motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
     }
@@ -179,7 +179,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   
   
   var strongCompass:azimuthVC?
-  var strongMotion:gyroVC?
+  var strongMotion:motionVC?
   var strongMic:voiceVC?
   var strongSpeaker: speakerVC?
   var strongLocation: locationVC?
@@ -429,8 +429,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       robotLabel.isHidden = true
     }
     
-    
-    
+    superRec = pulser(proximity: nil, latitude: nil, longitude: nil, altitude: nil, trueNorth: nil, magneticNorth: nil, roll: nil, pitch: nil, yaw: nil, word: nil)
   }
   
   @objc func defaultsChanged(){
@@ -444,6 +443,11 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         fastStart = true
       } else {
         fastStart = false
+      }
+      if UserDefaults.standard.bool(forKey: "PULSE") {
+        pulse = true
+      } else {
+        pulse = false
       }
     if (UserDefaults.standard.string(forKey: "PRECISION") != nil) {
         precision = UserDefaults.standard.string(forKey: "PRECISION")
@@ -818,7 +822,11 @@ func secondJump() {
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""
                     self.firstShow = false
-                    
+                    if pulse! {
+                      Timer.scheduledTimer(withTimeInterval: refreshRate!, repeats: true) { (timer) in
+                        communications?.pulseUDP(superRec)
+                      }
+                    }
                   })
                 })
               })
@@ -861,8 +869,8 @@ func secondJump() {
         self.page3.image = UIImage(named: "whiteDot")
     })
     
-    if segue.identifier == "gyro" {
-      if let nextViewController = segue.destination as? gyroVC {
+    if segue.identifier == "motion" {
+      if let nextViewController = segue.destination as? motionVC {
         nextViewController.tag = views2G.motion.rawValue
         nextViewController.status = self
         strongMotion = nextViewController

@@ -157,6 +157,7 @@ class connect: NSObject {
   }
   
   func sendUDP(_ content: String) {
+    if pulse! { return }
     let contentToSendUDP = content.data(using: String.Encoding.utf8)
     self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
       if (NWError == nil) {
@@ -167,6 +168,26 @@ class connect: NSObject {
       }
     })))
   }
+  
+  func pulseUDP(_ content: pulser) {
+      
+      do {
+        let encoder = JSONEncoder()
+        let jsonData = try encoder.encode(content)
+        let jsonString = String(data: jsonData, encoding: .utf8)!
+        let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+        self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
+        if (NWError == nil) {
+  //        print("Data was sent to UDP")
+//          self.receiveUDPV2()
+        } else {
+          print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
+        }
+      })))
+      } catch {
+        print("error",error)
+    }
+    }
   
   func receiveUDP() {
     self.connection?.receive(minimumIncompleteLength: 1, maximumLength: 65536, completion: { (data, context, isComplete, error) in

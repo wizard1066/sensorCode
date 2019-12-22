@@ -9,21 +9,17 @@
 import UIKit
 import CoreLocation
 
-class azimuthVC: UIViewController, CLLocationManagerDelegate, spoken {
+class azimuthVC: UIViewController, CLLocationManagerDelegate {
 
   var tag:Int?
   var status:running?
 
-  func wordUsed(word2D: String) {
-    
-      spokenOutput.text = word2D
-    
-  }
+
   
   @IBOutlet var compassSwitchOutlet: UISwitch!
   @IBOutlet weak var magneticNorthOutlet: UILabel!
   @IBOutlet weak var trueNorthOutlet: UILabel!
-  @IBOutlet weak var spokenOutput: UILabel!
+ 
   @IBOutlet weak var backButton: UIButton!
   
   
@@ -46,7 +42,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, spoken {
   private var background = false
 
   override func viewDidAppear(_ animated: Bool) {
-    spokenOutput.text = ""
+    
     if !background {
       let backgroundImage = UIImageView(frame: self.view.bounds)
       backgroundImage.alpha = 0
@@ -133,6 +129,8 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, spoken {
           if port2G != nil && connect2G != "" {
             communications?.sendUDP(word)
           }
+          superRec?.trueNorth = tNValue
+          superRec?.magneticNorth = mNValue
       }
       
       func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

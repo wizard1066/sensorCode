@@ -8,21 +8,19 @@
 
 import UIKit
 
-class proximityVC: UIViewController, spoken {
-  func wordUsed(word2D: String) {
-    spokenOutput.text = word2D
-  }
+class proximityVC: UIViewController {
+
   
 
     var infoText: UILabel!
     var tag:Int?
     var status: running?
     
-  @IBOutlet weak var spokenOutput: UILabel!
+
   @IBOutlet weak var proximitySwitchOutlet: UISwitch!
   
     override func viewDidAppear(_ animated: Bool) {
-      spokenOutput.text = ""
+     
       proximitySwitchOutlet.grow()
   }
   @IBOutlet weak var backButton: UIButton!

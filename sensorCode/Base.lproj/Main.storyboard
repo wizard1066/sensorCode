@@ -402,7 +402,7 @@
                         <outlet property="topImage" destination="Dh8-bh-Sst" id="XIZ-K1-bvl"/>
                         <outlet property="voiceBOutlet" destination="TTr-Ed-09D" id="7zh-qj-iB9"/>
                         <outlet property="voiceTag" destination="YjB-tQ-MdT" id="4mu-JV-t9E"/>
-                        <segue destination="KE0-I3-FJd" kind="show" identifier="gyro" id="gqr-Hg-fV5"/>
+                        <segue destination="KE0-I3-FJd" kind="show" identifier="motion" id="gqr-Hg-fV5"/>
                         <segue destination="LmT-zw-29a" kind="show" identifier="speaker" id="NV6-xN-4i2"/>
                         <segue destination="lwy-hC-Yh7" kind="show" identifier="location" id="RX3-SU-AXE"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="prt-Yu-7In"/>
@@ -415,10 +415,10 @@
             </objects>
             <point key="canvasLocation" x="-1008.75" y="110.91549295774648"/>
         </scene>
-        <!--GyroVC-->
+        <!--MotionVC-->
         <scene sceneID="3K6-SH-zYv">
             <objects>
-                <viewController id="KE0-I3-FJd" customClass="gyroVC" customModule="sensorCode" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KE0-I3-FJd" customClass="motionVC" customModule="sensorCode" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LtE-QR-gNc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -439,38 +439,32 @@
                                 </connections>
                             </switch>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="0qU-yJ-zno">
-                                <rect key="frame" x="130" y="301" width="60" height="227"/>
+                                <rect key="frame" x="139.5" y="349.5" width="41" height="178.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Roll" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1c-hw-D6J">
-                                        <rect key="frame" x="15" y="0.0" width="30" height="20.5"/>
+                                        <rect key="frame" x="5.5" y="0.0" width="30" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pitch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rxa-0H-suc">
-                                        <rect key="frame" x="9.5" y="48.5" width="41" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="48.5" width="41" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yaw" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYS-Ug-oSn">
-                                        <rect key="frame" x="14" y="97" width="32.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spoken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAu-eK-Dsx">
-                                        <rect key="frame" x="0.0" y="145.5" width="60" height="20.5"/>
+                                        <rect key="frame" x="4.5" y="97" width="32.5" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xng-2p-ntq">
-                                        <rect key="frame" x="11" y="194" width="38" height="33"/>
+                                        <rect key="frame" x="1.5" y="145.5" width="38" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <state key="normal" title="Back"/>
                                         <connections>
-                                            <segue destination="sGU-xn-WSj" kind="unwind" unwindAction="unwindToRootViewControllerWithSegue:" id="Fa4-Fo-QSM"/>
+                                            <segue destination="sGU-xn-WSj" kind="unwind" unwindAction="unwindToRootViewControllerWithSegue:" id="H1J-i5-rqr"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -492,7 +486,6 @@
                         <outlet property="backButton" destination="xng-2p-ntq" id="4UZ-Rk-a0j"/>
                         <outlet property="pitchOutput" destination="Rxa-0H-suc" id="EXA-HN-KXB"/>
                         <outlet property="rollOutput" destination="O1c-hw-D6J" id="czH-Wj-gXS"/>
-                        <outlet property="spokenOutput" destination="gAu-eK-Dsx" id="0hf-aD-25h"/>
                         <outlet property="switchGyroOutlet" destination="oiD-P4-tcq" id="tiU-r5-sfe"/>
                         <outlet property="yawOutput" destination="nYS-Ug-oSn" id="9Sv-rG-jgm"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="kfr-kw-s00"/>
@@ -606,7 +599,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BLv-e5-sDN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="jor-0W-TW4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="249" y="199"/>
+            <point key="canvasLocation" x="752" y="153"/>
         </scene>
         <!--AzimuthVC-->
         <scene sceneID="sCN-G7-ITu">
@@ -632,7 +625,7 @@
                                 </connections>
                             </switch>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="CJc-Sx-86K">
-                                <rect key="frame" x="97.5" y="364.5" width="125" height="163.5"/>
+                                <rect key="frame" x="97.5" y="408" width="125" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="True North" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j4k-I6-nq5">
                                         <rect key="frame" x="19.5" y="0.0" width="86.5" height="20.5"/>
@@ -646,14 +639,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spoken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ex-fE-hgw">
-                                        <rect key="frame" x="32.5" y="87" width="60" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RmO-JL-CNx">
-                                        <rect key="frame" x="43.5" y="130.5" width="38" height="33"/>
+                                        <rect key="frame" x="43.5" y="87" width="38" height="33"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <state key="normal" title="Back"/>
                                         <connections>
@@ -679,7 +666,6 @@
                         <outlet property="backButton" destination="RmO-JL-CNx" id="gwr-kE-vRn"/>
                         <outlet property="compassSwitchOutlet" destination="yl5-2b-kzC" id="IC5-gF-xgy"/>
                         <outlet property="magneticNorthOutlet" destination="w1e-Kt-PUd" id="3uk-9D-3Ke"/>
-                        <outlet property="spokenOutput" destination="1Ex-fE-hgw" id="A5F-0x-MRB"/>
                         <outlet property="trueNorthOutlet" destination="j4k-I6-nq5" id="QWc-TY-thV"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="XgP-Ts-0bo"/>
                     </connections>
@@ -922,12 +908,6 @@
                                     <action selector="proximitySwitch:" destination="fgf-gm-0WA" eventType="valueChanged" id="Ttv-Z7-Cze"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spoken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaz-ge-iB1">
-                                <rect key="frame" x="130" y="454" width="60" height="21"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCm-0N-xjm">
                                 <rect key="frame" x="141" y="495" width="38" height="33"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -944,12 +924,10 @@
                             <constraint firstItem="nvG-eG-qfy" firstAttribute="centerX" secondItem="B9L-Q1-h94" secondAttribute="centerX" id="Gbp-rG-EtV"/>
                             <constraint firstItem="pAW-zk-gm0" firstAttribute="trailing" secondItem="7OT-R9-puN" secondAttribute="trailing" id="Hmd-Ju-tIe"/>
                             <constraint firstItem="pAW-zk-gm0" firstAttribute="bottom" secondItem="7OT-R9-puN" secondAttribute="bottom" id="N23-hG-nvV"/>
-                            <constraint firstItem="JCm-0N-xjm" firstAttribute="top" secondItem="aaz-ge-iB1" secondAttribute="bottom" constant="20" id="Q30-Dp-BRF"/>
                             <constraint firstItem="JCm-0N-xjm" firstAttribute="centerX" secondItem="B9L-Q1-h94" secondAttribute="centerX" id="e3R-3f-YF2"/>
                             <constraint firstItem="pAW-zk-gm0" firstAttribute="bottom" secondItem="JCm-0N-xjm" secondAttribute="bottom" constant="20" id="pHu-PN-ThF"/>
                             <constraint firstItem="nvG-eG-qfy" firstAttribute="top" secondItem="pAW-zk-gm0" secondAttribute="top" constant="20" id="tUn-vZ-dMX"/>
                             <constraint firstItem="etg-DI-d8k" firstAttribute="centerX" secondItem="B9L-Q1-h94" secondAttribute="centerX" id="wwf-qt-0d8"/>
-                            <constraint firstItem="aaz-ge-iB1" firstAttribute="centerX" secondItem="B9L-Q1-h94" secondAttribute="centerX" id="x7W-wv-iAQ"/>
                             <constraint firstItem="etg-DI-d8k" firstAttribute="centerY" secondItem="B9L-Q1-h94" secondAttribute="centerY" id="zwu-WN-35O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pAW-zk-gm0"/>
@@ -958,7 +936,6 @@
                     <connections>
                         <outlet property="backButton" destination="JCm-0N-xjm" id="SLG-dB-vRq"/>
                         <outlet property="proximitySwitchOutlet" destination="etg-DI-d8k" id="tZ3-FX-XRr"/>
-                        <outlet property="spokenOutput" destination="aaz-ge-iB1" id="np3-7o-wAX"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="Kjm-l4-J8g"/>
                     </connections>
                 </viewController>
@@ -992,28 +969,22 @@
                                 </connections>
                             </switch>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="7HA-vz-pIH">
-                                <rect key="frame" x="120" y="333" width="80.5" height="142"/>
+                                <rect key="frame" x="120" y="373.5" width="80.5" height="101.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spoken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyX-fq-PTO">
-                                        <rect key="frame" x="10" y="0.0" width="60" height="20.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vo-eM-ek2">
-                                        <rect key="frame" x="8.5" y="40.5" width="63.5" height="20.5"/>
+                                        <rect key="frame" x="8.5" y="0.0" width="63.5" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alD-Pn-BTL">
-                                        <rect key="frame" x="7" y="81" width="66" height="20.5"/>
+                                        <rect key="frame" x="7" y="40.5" width="66" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrm-Ke-Grf">
-                                        <rect key="frame" x="0.0" y="121.5" width="80.5" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="81" width="80.5" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1053,7 +1024,6 @@
                         <outlet property="latitudeOutput" destination="alD-Pn-BTL" id="kvc-ed-ZBF"/>
                         <outlet property="locationButtonOutlet" destination="2Ef-76-k20" id="HpT-ar-11u"/>
                         <outlet property="longitudeOutput" destination="rrm-Ke-Grf" id="i6P-4c-xVM"/>
-                        <outlet property="spokenOutput" destination="pyX-fq-PTO" id="6dI-rN-BZR"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="YhF-Y8-mm7"/>
                     </connections>
                 </viewController>
@@ -1082,6 +1052,6 @@
         <image name="whiteDot" width="597" height="597"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="prt-Yu-7In"/>
+        <segue reference="kfr-kw-s00"/>
     </inferredMetricsTieBreakers>
 </document>
