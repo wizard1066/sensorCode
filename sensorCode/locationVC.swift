@@ -67,7 +67,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    primeController.said = self
+//    primeController.said = self
     locationManager = CLLocationManager()
     locationManager!.requestWhenInUseAuthorization()
     

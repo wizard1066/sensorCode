@@ -38,17 +38,17 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   func turnOff(views2G label: Int) {
     switch label {
       case views2G.azimuth.rawValue:
-        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+        azimuthTag.noblinkText(tag: views2G(rawValue: label)!)
       case views2G.motion.rawValue:
-        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+        motionTag.noblinkText(tag: views2G(rawValue: label)!)
       case views2G.voice.rawValue:
         voiceTag.noblinkText(tag: views2G(rawValue: label)!)
       case views2G.location.rawValue:
-        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+        locationTag.noblinkText(tag: views2G(rawValue: label)!)
       case views2G.proximity.rawValue:
-        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+        proximityTag.noblinkText(tag: views2G(rawValue: label)!)
       case views2G.speaker.rawValue:
-        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+        talkTag.noblinkText(tag: views2G(rawValue: label)!)
       default:
         break
     }
@@ -58,17 +58,17 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   func turnOn(views2G label: Int) {
     switch label {
       case views2G.azimuth.rawValue:
-        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+        azimuthTag.blinkText(tag: views2G(rawValue: label)!)
       case views2G.motion.rawValue:
-        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+        motionTag.blinkText(tag: views2G(rawValue: label)!)
       case views2G.voice.rawValue:
         voiceTag.blinkText(tag: views2G(rawValue: label)!)
       case views2G.location.rawValue:
-        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+        locationTag.blinkText(tag: views2G(rawValue: label)!)
       case views2G.proximity.rawValue:
-        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+        proximityTag.blinkText(tag: views2G(rawValue: label)!)
       case views2G.speaker.rawValue:
-        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+        talkTag.blinkText(tag: views2G(rawValue: label)!)
       default:
         break
     }
@@ -106,7 +106,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         self.inapp.alpha = 1
       }
     }
-    print("feedback",service,message)
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.purchased.rawValue {
       if strongCompass != nil {
         present(strongCompass!, animated: true, completion: nil)
@@ -634,9 +633,7 @@ func secondJump() {
     if lastSwitch?.isOn == false {
       switch lastButton?.tag {
         case views2G.voice.rawValue:
-          DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
-            self.strongMic = nil
-          })
+          self.strongMic = nil
         case views2G.speaker.rawValue:
           strongSpeaker = nil
         case views2G.motion.rawValue:
@@ -780,7 +777,7 @@ func secondJump() {
     }
         
     if port2G != nil && firstShow {
-      gearBOutlet.isEnabled = false
+//      gearBOutlet.isEnabled = false
       stackviewDots.isHidden = true
       infoText!.text = "The Sensors"
       UIView.animate(withDuration: 0.5) {
@@ -817,7 +814,7 @@ func secondJump() {
                   self.infoText!.text = "Stream compass position"
                   self.azimuthBOutlet.grow()
                   self.azimuthBOutlet.isEnabled = true
-                  self.azimuthTag.isHidden = true
+                  self.azimuthTag.isHidden = false
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""
                     self.firstShow = false
@@ -866,7 +863,7 @@ func secondJump() {
     
     if segue.identifier == "gyro" {
       if let nextViewController = segue.destination as? gyroVC {
-        nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.tag = views2G.motion.rawValue
         nextViewController.status = self
         strongMotion = nextViewController
         
@@ -875,7 +872,7 @@ func secondJump() {
     
     if segue.identifier == "azimuth" {
       if let nextViewController = segue.destination as? azimuthVC {
-        nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.tag = views2G.azimuth.rawValue
         nextViewController.status = self
         strongCompass = nextViewController
         
@@ -884,7 +881,7 @@ func secondJump() {
     
     if segue.identifier == "location" {
       if let nextViewController = segue.destination as? locationVC {
-        nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.tag = views2G.location.rawValue
         nextViewController.status = self
         strongLocation = nextViewController
         
@@ -893,7 +890,7 @@ func secondJump() {
     
     if segue.identifier == "config" {
       if let nextViewController = segue.destination as? gearVC {
-        nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.tag = views2G.gear.rawValue
         nextViewController.feeder = self
         strongGear = nextViewController
         
@@ -902,7 +899,7 @@ func secondJump() {
     
     if segue.identifier == "speaker" {
       if let nextViewController = segue.destination as? speakerVC {
-        nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.tag = views2G.speaker.rawValue
         nextViewController.status = self
         strongSpeaker = nextViewController
         

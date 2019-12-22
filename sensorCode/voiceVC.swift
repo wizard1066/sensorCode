@@ -31,6 +31,7 @@ class voiceVC: UIViewController {
   var infoText: UILabel!
   var tag: Int?
   var status:running?
+  var primeController: voiceVC?
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     

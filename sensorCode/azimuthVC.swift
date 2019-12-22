@@ -73,7 +73,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, spoken {
           
           // Do any additional setup after loading the view.
           
-          primeController.said = self
+//          primeController.said = self
           
           
           infoText = UILabel(frame: CGRect(x: self.view.bounds.minX + 20, y: 0, width: self.view.bounds.width - 40, height: 128))

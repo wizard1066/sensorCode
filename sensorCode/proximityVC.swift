@@ -29,7 +29,7 @@ class proximityVC: UIViewController, spoken {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        primeController.said = self
+//        primeController.said = self
         // Do any additional setup after loading the view.
         
         infoText = UILabel(frame: CGRect(x: self.view.bounds.minX + 20, y: 0, width: self.view.bounds.width - 40, height: 128))
