@@ -12,6 +12,7 @@ import CoreMotion
 class gyroVC: UIViewController, spoken {
 
   var tag:Int?
+  var status:running?
 
   func wordUsed(word2D: String) {
     
@@ -144,6 +145,11 @@ class gyroVC: UIViewController, spoken {
       motionManager = nil
     }
     lastSwitch = switchGyroOutlet
+    if lastSwitch!.isOn {
+      status?.turnOn(views2G: self.tag!)
+    } else {
+      status?.turnOff(views2G: self.tag!)
+    }
   }
   
   override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

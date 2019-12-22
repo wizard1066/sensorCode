@@ -20,6 +20,7 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
     var pickerData: [String] = [String]()
     var infoText: UILabel!
     var tag:Int?
+    var status:running?
     
   @IBOutlet weak var speakerSwitchOutput: UISwitch!
   @IBAction func speakerSwitch(_ sender: UISwitch) {
@@ -117,7 +118,14 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
 
-
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       lastSwitch = speakerSwitchOutput
+       if lastSwitch!.isOn {
+         status?.turnOn(views2G: self.tag!)
+       } else {
+         status?.turnOff(views2G: self.tag!)
+       }
+     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
       if motion == .motionShake {

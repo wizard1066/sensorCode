@@ -22,7 +22,7 @@ class connect: NSObject {
     let netmon = NWPathMonitor()
     netmon.start(queue: .main)
     let look = netmon.currentPath
-    print("connected",look)
+    print("connected",look.localEndpoint?.interface?.name)
   }
   
   func listenUDP() {
@@ -76,7 +76,7 @@ class connect: NSObject {
       }
       if let data = data, !data.isEmpty {
         let backToString = String(decoding: data, as: UTF8.self)
-        
+        print("context",context.debugDescription)
         self.spoken?.speak(backToString, para: backToString)
       }
       connection.send(content: "ok".data(using: .utf8), completion: .contentProcessed({error in

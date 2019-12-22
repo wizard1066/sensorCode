@@ -19,6 +19,11 @@ protocol spoken {
     func wordUsed(word2D: String)
 }
 
+protocol running {
+  func turnOn(views2G: Int)
+  func turnOff(views2G: Int)
+}
+
 enum views2G: Int {
   case azimuth = 0
   case motion = 1
@@ -29,7 +34,66 @@ enum views2G: Int {
   case speaker = 6
 }
 
-class ViewController: UIViewController, speaker, transaction {
+class ViewController: UIViewController, speaker, transaction, spoken, setty, running {
+  func turnOff(views2G label: Int) {
+    switch label {
+      case views2G.azimuth.rawValue:
+        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+      case views2G.motion.rawValue:
+        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+      case views2G.voice.rawValue:
+        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+      case views2G.location.rawValue:
+        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+      case views2G.proximity.rawValue:
+        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+      case views2G.speaker.rawValue:
+        voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+      default:
+        break
+    }
+  }
+  
+
+  func turnOn(views2G label: Int) {
+    switch label {
+      case views2G.azimuth.rawValue:
+        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+      case views2G.motion.rawValue:
+        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+      case views2G.voice.rawValue:
+        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+      case views2G.location.rawValue:
+        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+      case views2G.proximity.rawValue:
+        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+      case views2G.speaker.rawValue:
+        voiceTag.blinkText(tag: views2G(rawValue: label)!)
+      default:
+        break
+    }
+  }
+  
+
+ 
+  
+
+  func returnPostNHost(port: String, host: String) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 12 , execute: {
+      self.portOutlet.isHidden = false
+      self.sendingOutlet.isHidden = false
+      self.portLabel.isHidden = false
+      self.robotLabel.isHidden = false
+      self.portOutlet.text = port
+      self.sendingOutlet.text = host
+    })
+  }
+
+  func wordUsed(word2D: String) {
+    spokenText.isHidden = false
+    spokenText.text = word2D
+  }
+  
 
   @IBOutlet weak var inapp: UILabel!
   
@@ -49,7 +113,7 @@ class ViewController: UIViewController, speaker, transaction {
       } else {
         self.performSegue(withIdentifier: "azimuth", sender: self)
       }
-      compassBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
+      azimuthBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
     }
     if service == IAPProduct.voice.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMic != nil {
@@ -57,7 +121,7 @@ class ViewController: UIViewController, speaker, transaction {
       } else {
         self.performSegue(withIdentifier: "voice", sender: self)
       }
-      micBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
+      voiceBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
     }
     if service == IAPProduct.motion.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMotion != nil {
@@ -73,10 +137,10 @@ class ViewController: UIViewController, speaker, transaction {
       motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
     }
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.restored.rawValue {
-      compassBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
+      azimuthBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
     }
     if service == IAPProduct.voice.rawValue && message == IAPStatus.restored.rawValue {
-      micBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
+      voiceBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
     }
     if message == IAPStatus.restored.rawValue {
       purchases[service] = true
@@ -89,6 +153,20 @@ class ViewController: UIViewController, speaker, transaction {
   var blinkStatus:Bool?
   var once: Bool = false
 
+  @IBOutlet weak var voiceTag: UILabel!
+  @IBOutlet weak var motionTag: UILabel!
+  @IBOutlet weak var azimuthTag: UILabel!
+  @IBOutlet weak var locationTag: UILabel!
+  @IBOutlet weak var proximityTag: UILabel!
+  @IBOutlet weak var talkTag: UILabel!
+  @IBOutlet weak var connectTag: UILabel!
+  
+  @IBOutlet weak var portOutlet: UILabel!
+  @IBOutlet weak var sendingOutlet: UILabel!
+  @IBOutlet weak var recievingOutlet: UILabel!
+  @IBOutlet weak var spokenOutlet: NSLayoutConstraint!
+  @IBOutlet weak var portLabel: UILabel!
+  @IBOutlet weak var robotLabel: UILabel!
   
   
   @IBOutlet weak var stackviewDots: UIStackView!
@@ -96,9 +174,9 @@ class ViewController: UIViewController, speaker, transaction {
   @IBOutlet weak var speakerBOutlet: UIButton!
   @IBOutlet weak var proximityBOutlet: UIButton!
   @IBOutlet weak var locationBOutlet: UIButton!
-  @IBOutlet weak var micBOutlet: UIButton!
+  @IBOutlet weak var voiceBOutlet: UIButton!
   @IBOutlet weak var motionBOutlet: UIButton!
-  @IBOutlet weak var compassBOutlet: UIButton!
+  @IBOutlet weak var azimuthBOutlet: UIButton!
   
   
   var strongCompass:azimuthVC?
@@ -108,6 +186,7 @@ class ViewController: UIViewController, speaker, transaction {
   var strongLocation: locationVC?
   var strongGear: gearVC?
   var strongProximity: proximityVC?
+  
   
 
 
@@ -161,7 +240,7 @@ class ViewController: UIViewController, speaker, transaction {
   
   @IBAction func azimuthBAction(_ sender: Any) {
 //    feedback(service: IAPProduct.azimuth.rawValue, message: IAPStatus.purchased.rawValue)
-    lastButton = compassBOutlet
+    lastButton = azimuthBOutlet
     if purchases[IAPProduct.azimuth.rawValue] == nil {
       IAPService.shared.ordered = self
       IAPService.shared.purchase(product: .azimuth)
@@ -173,7 +252,7 @@ class ViewController: UIViewController, speaker, transaction {
 
 
   @IBAction func voiceBAction(_ sender: Any) {
-    lastButton = micBOutlet
+    lastButton = voiceBOutlet
     
 //    feedback(service: IAPProduct.voice.rawValue, message: IAPStatus.purchased.rawValue)
     if purchases[IAPProduct.voice.rawValue] == nil {
@@ -205,11 +284,11 @@ class ViewController: UIViewController, speaker, transaction {
       secondJump()
       nextOutlet.isHidden = true
       UIView.animate(withDuration: 1) {
-        self.micBOutlet.alpha = 1
+        self.voiceBOutlet.alpha = 1
         self.speakerBOutlet.alpha = 1
         self.proximityBOutlet.alpha = 1
         self.locationBOutlet.alpha = 1
-        self.compassBOutlet.alpha = 1
+        self.azimuthBOutlet.alpha = 1
         self.motionBOutlet.alpha = 1
         self.gearBOutlet.alpha = 1
       }
@@ -291,19 +370,18 @@ class ViewController: UIViewController, speaker, transaction {
     }
       
     NetStatus.shared.startMonitoring()
-
    
     
-    micBOutlet.layer.cornerRadius = 32
+    voiceBOutlet.layer.cornerRadius = 32
     motionBOutlet.layer.cornerRadius = 32
-    compassBOutlet.layer.cornerRadius = 32
+    azimuthBOutlet.layer.cornerRadius = 32
     
-    micBOutlet.clipsToBounds = true
+    voiceBOutlet.clipsToBounds = true
     motionBOutlet.clipsToBounds = true
-    compassBOutlet.clipsToBounds = true
+    azimuthBOutlet.clipsToBounds = true
     
-    compassBOutlet.layer.borderWidth = 2
-    compassBOutlet.layer.borderColor = UIColor.black.cgColor
+    azimuthBOutlet.layer.borderWidth = 2
+    azimuthBOutlet.layer.borderColor = UIColor.black.cgColor
     
 //    nextOutlet.layer.borderWidth = 1
 //    nextOutlet.layer.borderColor = UIColor.gray.cgColor
@@ -342,6 +420,18 @@ class ViewController: UIViewController, speaker, transaction {
       delay = DispatchTimeInterval.nanoseconds(500)
       
     }
+    
+    if port2G == nil {
+      portOutlet.isHidden = true
+      sendingOutlet.isHidden = true
+      recievingOutlet.isHidden = true
+      spokenText.isHidden = true
+      portLabel.isHidden = true
+      robotLabel.isHidden = true
+    }
+    
+    
+    
   }
   
   @objc func defaultsChanged(){
@@ -382,11 +472,11 @@ class ViewController: UIViewController, speaker, transaction {
   
   @objc func tapFunction(sender:Any) {
   
-      micBOutlet.alpha = 0
+      voiceBOutlet.alpha = 0
       speakerBOutlet.alpha = 0
       proximityBOutlet.alpha = 0
       locationBOutlet.alpha = 0
-      compassBOutlet.alpha = 0
+      azimuthBOutlet.alpha = 0
       motionBOutlet.alpha = 0
       gearBOutlet.alpha = 0
 
@@ -423,11 +513,11 @@ class ViewController: UIViewController, speaker, transaction {
       secondJump()
       nextOutlet.isHidden = true
       UIView.animate(withDuration: 1) {
-        self.micBOutlet.alpha = 1
+        self.voiceBOutlet.alpha = 1
         self.speakerBOutlet.alpha = 1
         self.proximityBOutlet.alpha = 1
         self.locationBOutlet.alpha = 1
-        self.compassBOutlet.alpha = 1
+        self.azimuthBOutlet.alpha = 1
         self.motionBOutlet.alpha = 1
         self.gearBOutlet.alpha = 1
       }
@@ -500,6 +590,7 @@ func secondJump() {
 //          self.gearBOutlet.alpha = 0
           self.gearBOutlet.isHidden = false
           self.gearBOutlet.isEnabled = true
+          self.connectTag.isHidden = false
           self.gearBOutlet.grow()
         })
       
@@ -532,7 +623,7 @@ func secondJump() {
               self.gearBOutlet.alpha = 1.0
               self.gearBOutlet.isEnabled = true
               self.page3.image = UIImage(named: "whiteDot")
-    //          self.micBOutlet.shake()
+    //          self.voiceBOutlet.shake()
               
               
             }
@@ -693,7 +784,7 @@ func secondJump() {
       stackviewDots.isHidden = true
       infoText!.text = "The Sensors"
       UIView.animate(withDuration: 0.5) {
-        self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.minY + 80)
+        self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.minY + 100)
       }
       infoText!.font = UIFont.preferredFont(forTextStyle: .body)
       infoText!.adjustsFontForContentSizeCategory = true
@@ -701,26 +792,32 @@ func secondJump() {
         self.infoText!.text = "Report location"
         self.locationBOutlet.grow()
         self.locationBOutlet.isEnabled = true
+        self.locationTag.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
           self.infoText!.text = "Turn on proximity alerts"
           self.proximityBOutlet.grow()
           self.proximityBOutlet.isEnabled = true
+          self.proximityTag.isHidden = false
           DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
             self.infoText!.text = "Speak text sent"
             self.speakerBOutlet.grow()
             self.speakerBOutlet.isEnabled = true
+            self.talkTag.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
               self.infoText!.text = "Listen to voice"
-              self.micBOutlet.grow()
-              self.micBOutlet.isEnabled = true
+              self.voiceBOutlet.grow()
+              self.voiceBOutlet.isEnabled = true
+              self.voiceTag.isHidden = false
               DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                 self.infoText!.text = "Stream phone motion"
                 self.motionBOutlet.grow()
                 self.motionBOutlet.isEnabled = true
+                self.motionTag.isHidden = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                   self.infoText!.text = "Stream compass position"
-                  self.compassBOutlet.grow()
-                  self.compassBOutlet.isEnabled = true
+                  self.azimuthBOutlet.grow()
+                  self.azimuthBOutlet.isEnabled = true
+                  self.azimuthTag.isHidden = true
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""
                     self.firstShow = false
@@ -770,6 +867,7 @@ func secondJump() {
     if segue.identifier == "gyro" {
       if let nextViewController = segue.destination as? gyroVC {
         nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.status = self
         strongMotion = nextViewController
         
       }
@@ -778,6 +876,7 @@ func secondJump() {
     if segue.identifier == "azimuth" {
       if let nextViewController = segue.destination as? azimuthVC {
         nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.status = self
         strongCompass = nextViewController
         
       }
@@ -786,6 +885,7 @@ func secondJump() {
     if segue.identifier == "location" {
       if let nextViewController = segue.destination as? locationVC {
         nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.status = self
         strongLocation = nextViewController
         
       }
@@ -794,6 +894,7 @@ func secondJump() {
     if segue.identifier == "config" {
       if let nextViewController = segue.destination as? gearVC {
         nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.feeder = self
         strongGear = nextViewController
         
       }
@@ -802,16 +903,17 @@ func secondJump() {
     if segue.identifier == "speaker" {
       if let nextViewController = segue.destination as? speakerVC {
         nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.status = self
         strongSpeaker = nextViewController
         
       }
     }
     
-    
-    
     if segue.identifier == "voice" {
       if let nextViewController = segue.destination as? voiceVC {
         nextViewController.tag = views2G.voice.rawValue
+        nextViewController.said = self
+        nextViewController.status = self
         strongMic = nextViewController
       }
     }
@@ -819,6 +921,7 @@ func secondJump() {
     if segue.identifier == "proximity" {
       if let nextViewController = segue.destination as? proximityVC {
         nextViewController.tag = views2G.proximity.rawValue
+        nextViewController.status = self
         strongProximity = nextViewController
         
       }
@@ -868,5 +971,30 @@ extension UIButton {
     
 }
 
+var blinkers = [views2G:Timer]()
 
+extension UILabel {
+  func blinkText(tag: views2G) {
+    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { (timer) in
+        
+        if self.textColor == UIColor.black {
+          self.textColor = UIColor.gray
+        } else {
+          self.textColor = UIColor.black
+        }
+        blinkers[tag] = timer
+//      } else {
+//        self.textColor = UIColor.black
+//        timer.invalidate()
+//      }
+    }
+  }
+  
+  func noblinkText(tag: views2G) {
+    let timer = blinkers[tag]
+    timer?.invalidate()
+  }
+
+
+}
 

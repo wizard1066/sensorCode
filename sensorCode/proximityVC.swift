@@ -16,6 +16,7 @@ class proximityVC: UIViewController, spoken {
 
     var infoText: UILabel!
     var tag:Int?
+    var status: running?
     
   @IBOutlet weak var spokenOutput: UILabel!
   @IBOutlet weak var proximitySwitchOutlet: UISwitch!
@@ -93,6 +94,11 @@ class proximityVC: UIViewController, spoken {
       proximityValue = false
      }
      lastSwitch = proximitySwitchOutlet
+     if lastSwitch!.isOn {
+       status?.turnOn(views2G: self.tag!)
+     } else {
+       status?.turnOff(views2G: self.tag!)
+     }
    }
   
     

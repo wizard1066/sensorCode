@@ -10,10 +10,15 @@ import UIKit
 import Foundation
 import Network
 
+protocol setty {
+  func returnPostNHost(port: String, host: String)
+}
+
 class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
   var skip = false
   var tag:Int?
+  var feeder:setty?
 
   @IBOutlet weak var cameraIcon: UIButton!
   @IBOutlet weak var pictureIcon: UIButton!
@@ -185,6 +190,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
           UserDefaults.standard.set(port2G, forKey: "IPP")
           portNumber.placeholder = portNumber.text!
           ipAddress.placeholder = ipAddress.text!
+          feeder?.returnPostNHost(port: portNumber.text!, host: ipAddress.text!)
         }
         
       var paused = DispatchTimeInterval.seconds(12)

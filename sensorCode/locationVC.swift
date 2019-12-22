@@ -20,6 +20,9 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
   var currentLocation: CLLocation!
   var infoText: UILabel!
   var tag:Int?
+  var status:running?
+  
+ 
   
   @IBOutlet weak var latitudeOutput: UILabel!
   @IBOutlet weak var longitudeOutput: UILabel!
@@ -122,6 +125,11 @@ class locationVC: UIViewController, CLLocationManagerDelegate, spoken {
       locationManager!.stopUpdatingLocation()
     }
     lastSwitch = locationButtonOutlet
+    if lastSwitch!.isOn {
+      status?.turnOn(views2G: self.tag!)
+    } else {
+      status?.turnOff(views2G: self.tag!)
+    }
   }
   
   override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

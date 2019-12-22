@@ -48,6 +48,7 @@ struct SettingsBundleKeys {
     if rr < 0.01 {
       refreshRate = 0.01
     }
+    print("refreshRate",refreshRate)
   }
 }
 

@@ -9,7 +9,12 @@
 import UIKit
 import Speech
 
+
+
 class voiceVC: UIViewController {
+
+
+  
 
   @IBOutlet var spokenOutlet: UILabel!
 //  @IBOutlet weak var backButton: UIButton!
@@ -25,6 +30,22 @@ class voiceVC: UIViewController {
   var said:spoken?
   var infoText: UILabel!
   var tag: Int?
+  var status:running?
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    if autoClose! {
+      switchListeningOutput.isOn = false
+      stop()
+    }
+    lastSwitch = switchListeningOutput
+    if lastSwitch!.isOn {
+      status?.turnOn(views2G: self.tag!)
+    } else {
+      status?.turnOff(views2G: self.tag!)
+    }
+  }
+  
   
   @IBOutlet var switchListeningOutput: UISwitch!
   
@@ -34,14 +55,7 @@ class voiceVC: UIViewController {
     }
   }
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
-    if autoClose! {
-      switchListeningOutput.isOn = false
-      stop()
-    }
-    lastSwitch = switchListeningOutput
-  }
+  
   
   private var background = false
   

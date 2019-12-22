@@ -12,6 +12,7 @@ import CoreLocation
 class azimuthVC: UIViewController, CLLocationManagerDelegate, spoken {
 
   var tag:Int?
+  var status:running?
 
   func wordUsed(word2D: String) {
     
@@ -146,6 +147,11 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, spoken {
           directionManager = nil
         }
         lastSwitch = compassSwitchOutlet
+        if lastSwitch!.isOn {
+          status?.turnOn(views2G: self.tag!)
+        } else {
+          status?.turnOff(views2G: self.tag!)
+        }
        }
        
        override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
