@@ -14,9 +14,11 @@ protocol speaker {
 }
 
 class connect: NSObject {
+  
   var connection: NWConnection?
   var listen: NWListener?
   var spoken: speaker?
+  var missing: lostLink?
   
   func listenUDP() {
     do {
@@ -67,26 +69,20 @@ class connect: NSObject {
       if let error = error {
         print(error)
         return
-        
       }
       if let data = data, !data.isEmpty {
         let backToString = String(decoding: data, as: UTF8.self)
-        print("context",context?.protocolMetadata)
+//        print("context",context?.protocolMetadata)
         self.spoken?.speak(backToString, para: backToString)
       }
       connection.send(content: "ok".data(using: .utf8), completion: .contentProcessed({error in
         if let error = error {
           print("error while sending data: \(error)")
           return
-          
         }
-        
       }))
-      
       self.receive(on: connection)
-      
     }
-    
   }
   
 //  func connectToUDP(hostUDP:NWEndpoint.Host,portUDP:NWEndpoint.Port) {
@@ -154,11 +150,12 @@ class connect: NSObject {
   func sendUDP(_ content: Data) {
     self.connection?.send(content: content, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
       if (NWError == nil) {
-        print("ok")
+        
 //        print("Data was sent to UDP")
 //        self.receiveUDPV2()
       } else {
         print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
+        self.missing?.sendAlert(error: NWError!.debugDescription)
       }
     })))
   }
@@ -177,6 +174,7 @@ class connect: NSObject {
           // code
         } else {
           print("ERROR! Error when data (Type: String) sending. NWError: \n \(NWError!) ")
+          self.missing?.sendAlert(error: NWError!.debugDescription)
         }
       })))
     } catch {
@@ -252,7 +250,8 @@ class connect: NSObject {
   var word: String?
   
   func pulseUDP(_ content: pulser) {
-      if word == content.word { return } // put this in cause speaking will send multiple copies of the same word
+      if word != nil && word == content.word { return }
+         // put this in cause speaking will send multiple copies of the same word
       do {
         let encoder = JSONEncoder()
         let jsonData = try encoder.encode(content)
@@ -261,8 +260,6 @@ class connect: NSObject {
         self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
         if (NWError == nil) {
           self.word = content.word
-  //        print("Data was sent to UDP")
-//          self.receiveUDPV2()
         } else {
           print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
         }
@@ -356,7 +353,7 @@ class NetStatus {
   func stopMonitoring() {
     guard isMonitoring, let monitor = monitor else { return }
     monitor.cancel()
-    self.monitor = nil
+    self.monitor =  nil
     isMonitoring = false
     didStopMonitoringHandler?()
   }

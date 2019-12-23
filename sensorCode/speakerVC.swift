@@ -9,7 +9,15 @@
 import UIKit
 import Speech
 
-class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, lostLink {
+
+  func sendAlert(error: String) {
+    let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)
+    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+    alertController.addAction(defaultAction)
+    self.present(alertController, animated: true, completion: nil)
+  }
+  
 
   @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var rateSlider: UISlider!

@@ -24,6 +24,10 @@ protocol running {
   func turnOff(views2G: Int)
 }
 
+protocol lostLink {
+  func sendAlert(error: String)
+}
+
 enum views2G: Int {
   case azimuth = 0
   case motion = 1
@@ -34,7 +38,12 @@ enum views2G: Int {
   case speaker = 6
 }
 
-class ViewController: UIViewController, speaker, transaction, spoken, setty, running {
+class ViewController: UIViewController, speaker, transaction, spoken, setty, running, lostLink {
+  func sendAlert(error: String) {
+    redo(error)
+  }
+  
+
   func turnOff(views2G label: Int) {
     switch label {
       case views2G.azimuth.rawValue:
@@ -411,6 +420,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
    
     communications = connect()
     communications?.spoken = self
+    
 
     
     NotificationCenter.default.addObserver(self, selector: #selector(ViewController.applicationDidBecomeActive(notification:)), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -540,7 +550,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   }
   
   func firstJump() {
-    print("intro",introText.center)
     nextOutlet.splitWord()
     UIView.animate(withDuration: 0.5) {
       self.introText.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
@@ -646,6 +655,7 @@ func secondJump() {
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
 //      print("Unwind to Root View Controller")
+    communications?.missing = self
     if lastSwitch?.isOn == false {
       switch lastButton?.tag {
         case views2G.voice.rawValue:
@@ -664,6 +674,7 @@ func secondJump() {
           break
         }
       }
+      
       if introText != nil {
         introText.text = ""
       }
@@ -731,7 +742,7 @@ func secondJump() {
        if device.isProximityMonitoringEnabled {
          NotificationCenter.default.addObserver(self, selector: #selector(ViewController.proximityChanged), name:  NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: device)
        } else {
-        print("pox disabled")
+          print("pox disabled")
        }
      }
    
@@ -772,6 +783,7 @@ func secondJump() {
     }
     
 //    spokenText.text = ""
+    communications?.missing = self
   }
   
   func firstShown() {
@@ -889,6 +901,7 @@ func secondJump() {
       if let nextViewController = segue.destination as? motionVC {
         nextViewController.tag = views2G.motion.rawValue
         nextViewController.status = self
+        communications?.missing = nextViewController
         strongMotion = nextViewController
         
       }
@@ -898,6 +911,7 @@ func secondJump() {
       if let nextViewController = segue.destination as? azimuthVC {
         nextViewController.tag = views2G.azimuth.rawValue
         nextViewController.status = self
+        communications?.missing = nextViewController
         strongCompass = nextViewController
         
       }
@@ -907,6 +921,7 @@ func secondJump() {
       if let nextViewController = segue.destination as? locationVC {
         nextViewController.tag = views2G.location.rawValue
         nextViewController.status = self
+        communications?.missing = nextViewController
         strongLocation = nextViewController
         
       }
@@ -916,6 +931,7 @@ func secondJump() {
       if let nextViewController = segue.destination as? gearVC {
         nextViewController.tag = views2G.gear.rawValue
         nextViewController.feeder = self
+        communications?.missing = nextViewController
         strongGear = nextViewController
         
       }
@@ -925,6 +941,7 @@ func secondJump() {
       if let nextViewController = segue.destination as? speakerVC {
         nextViewController.tag = views2G.speaker.rawValue
         nextViewController.status = self
+        communications?.missing = nextViewController
         strongSpeaker = nextViewController
         
       }
@@ -935,6 +952,7 @@ func secondJump() {
         nextViewController.tag = views2G.voice.rawValue
         nextViewController.said = self
         nextViewController.status = self
+        communications?.missing = nextViewController
         strongMic = nextViewController
       }
     }
@@ -943,6 +961,7 @@ func secondJump() {
       if let nextViewController = segue.destination as? proximityVC {
         nextViewController.tag = views2G.proximity.rawValue
         nextViewController.status = self
+        communications?.missing = nextViewController
         strongProximity = nextViewController
         
       }
@@ -976,7 +995,6 @@ extension UIButton {
     }
     
     func grow() {
-      print("grow",self)
       self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
       UIView.animate(withDuration: 1.0,
       delay: 0,

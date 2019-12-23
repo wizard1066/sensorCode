@@ -11,7 +11,15 @@ import Speech
 
 
 
-class voiceVC: UIViewController {
+class voiceVC: UIViewController, lostLink {
+
+  func sendAlert(error: String) {
+    let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)
+    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+    alertController.addAction(defaultAction)
+    self.present(alertController, animated: true, completion: nil)
+  }
+  
 
 
   

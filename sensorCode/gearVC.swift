@@ -14,8 +14,11 @@ protocol setty {
   func returnPostNHost(port: String, host: String)
 }
 
-class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, lostLink {
+  func sendAlert(error: String) {
+    redo(error)
+  }
+   
   var skip = false
   var tag:Int?
   var feeder:setty?
@@ -87,12 +90,17 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     lastSwitch = connectBSwitch
+    
   }
   
   override func viewDidAppear(_ animated: Bool) {
 //    spokenOutput.text = ""
+    
+    if communications!.connectedStatus {
+      connectBSwitch.setOn(true, animated: true)
+    }
     connectBSwitch.grow()
-    print("fuck",communications?.connectedStatus)
+    communications?.missing = self
   }
   
   override func viewDidLoad() {

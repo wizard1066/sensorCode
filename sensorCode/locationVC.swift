@@ -9,7 +9,15 @@
 import UIKit
 import CoreLocation
 
-class locationVC: UIViewController, CLLocationManagerDelegate {
+class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
+
+  func sendAlert(error: String) {
+    let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)
+    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+    alertController.addAction(defaultAction)
+    self.present(alertController, animated: true, completion: nil)
+  }
+  
 
  
   
@@ -166,7 +174,6 @@ extension UISwitch {
   }
   
   func grow() {
-    print("grow",self)
     self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
     UIView.animate(withDuration: 1.0,
     delay: 0,

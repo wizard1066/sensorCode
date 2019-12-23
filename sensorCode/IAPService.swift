@@ -39,7 +39,6 @@ class IAPService: NSObject {
   }
   
   func restorePurchases() {
-    print("restoring purchases")
     paymentQueue.restoreCompletedTransactions()
   }
   
@@ -58,7 +57,6 @@ extension IAPService: SKProductsRequestDelegate {
 extension IAPService: SKPaymentTransactionObserver {
   func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
     for transaction in transactions {
-      print("trans ",transaction.transactionState.status(), "stat ", transaction.payment.productIdentifier)
       switch transaction.transactionState {
         case .purchasing: break
         default: queue.finishTransaction(transaction)

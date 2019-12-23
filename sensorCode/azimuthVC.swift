@@ -9,7 +9,14 @@
 import UIKit
 import CoreLocation
 
-class azimuthVC: UIViewController, CLLocationManagerDelegate {
+class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
+
+  func sendAlert(error: String) {
+    let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)
+    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+    alertController.addAction(defaultAction)
+    self.present(alertController, animated: true, completion: nil)
+  }
 
   var tag:Int?
   var status:running?
