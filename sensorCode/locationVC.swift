@@ -36,22 +36,29 @@ class locationVC: UIViewController, CLLocationManagerDelegate {
       self.latitudeOutput.text = "-122.03073097"
       self.longitudeOutput.text = "37.33121136"
       self.altitudeOutput.text = "0"
-      let word = "-122.03073097 37.33121136 0.0"
+//      let word = "-122.03073097 37.33121136 0.0"
+      let word = gps(latitude: "\(currentLocation.coordinate.latitude)", longitude: "\(currentLocation.coordinate.longitude)", altitude: "\(currentLocation.altitude)")
       communications?.sendUDP(word)
-//      locationManager!.startUpdatingLocation()
-//      DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-//      if self.currentLocation != nil {
-//        self.latitudeOutput.text = "\(self.currentLocation.coordinate.longitude.description)"
-//        self.longitudeOutput.text = "\(self.currentLocation.coordinate.latitude.description)"
-//        self.altitudeOutput.text = "\(self.currentLocation.altitude.description)"
-//      }
-//      if self.currentLocation != nil {
+    }
+  }
+  
+  func realSwitch(_ sender: UISwitch) {
+    if sender.isOn {
+      locationManager!.startUpdatingLocation()
+      DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+      if self.currentLocation != nil {
+        self.latitudeOutput.text = "\(self.currentLocation.coordinate.longitude.description)"
+        self.longitudeOutput.text = "\(self.currentLocation.coordinate.latitude.description)"
+        self.altitudeOutput.text = "\(self.currentLocation.altitude.description)"
+      }
+      if self.currentLocation != nil {
 //        let word = "\(self.currentLocation.coordinate.latitude) \(self.currentLocation.coordinate.longitude) \(self.currentLocation.altitude)"
-//        if port2G != nil && connect2G != "" {
-//          communications?.sendUDP(word)
-//        }
-//      }
-//      })
+        let word = gps(latitude: "\(self.currentLocation.coordinate.latitude)", longitude: "\(self.currentLocation.coordinate.longitude)", altitude: "\(self.currentLocation.altitude)")
+        if port2G != nil && connect2G != "" {
+          communications?.sendUDP(word)
+        }
+      }
+      })
     } else {
       locationManager!.stopUpdatingLocation()
     }
@@ -106,8 +113,8 @@ class locationVC: UIViewController, CLLocationManagerDelegate {
       latitudeOutput.text = "\(currentLocation.coordinate.latitude.description)"
       longitudeOutput.text = "\(currentLocation.coordinate.longitude.description)"
       altitudeOutput.text = "\(currentLocation.altitude.description)"
-      let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
-      
+//      let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
+      let word = gps(latitude: "\(currentLocation.coordinate.latitude)", longitude: "\(currentLocation.coordinate.longitude)", altitude: "\(currentLocation.altitude)")
       if port2G != nil && connect2G != "" {
           communications?.sendUDP(word)
           superRec?.latitude = "\(currentLocation.coordinate.latitude.description)"

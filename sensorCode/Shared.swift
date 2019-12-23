@@ -42,7 +42,57 @@ var tag:[String:Int] = [:]
 var sensitivity: Double = 20
 
 var speakerToggle = false
+
+struct globe:Codable {
+  var trueNorth: String?
+  var magneticNorth: String?
   
+  init(trueNorth: String?, magneticNorth: String) {
+    self.trueNorth = trueNorth
+    self.magneticNorth = magneticNorth
+  }
+}
+  
+struct gps:Codable {
+  var latitude: String?
+  var longitude: String?
+  var altitude: String?
+  
+  init(latitude: String, longitude:String?, altitude: String?) {
+    self.latitude = latitude
+    self.longitude = longitude
+    self.altitude = altitude
+  }
+}
+
+struct fly:Codable {
+  var roll: String?
+  var pitch: String?
+  var yaw: String?
+  
+  init(roll: String?, pitch: String?, yaw: String?) {
+    self.roll = roll
+    self.pitch = pitch
+    self.yaw = yaw
+  }
+}
+
+struct neighbours:Codable {
+  var proximity:String?
+  
+  init(proximity: String?) {
+    self.proximity = proximity
+  }
+}
+
+struct voice:Codable {
+  var word: String?
+  
+  init(word: String?) {
+    self.word = word
+  }
+}
+
 struct pulser: Codable {
   // proximity
   var proximity: String?

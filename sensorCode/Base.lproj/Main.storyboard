@@ -744,11 +744,19 @@
                                     </textField>
                                 </subviews>
                             </stackView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iwS-Gd-KJa">
+                                <rect key="frame" x="135.5" y="210.5" width="51" height="31"/>
+                                <connections>
+                                    <action selector="connectSwitch:" destination="awx-S6-jLW" eventType="valueChanged" id="agL-Tq-Nvx"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="iwS-Gd-KJa" firstAttribute="centerX" secondItem="Ozc-HD-kHC" secondAttribute="centerX" id="5Oc-s1-4sm"/>
                             <constraint firstItem="t9m-2M-PnP" firstAttribute="centerX" secondItem="Ozc-HD-kHC" secondAttribute="centerX" id="6Qu-7Y-DIf"/>
                             <constraint firstItem="kbx-3N-4WC" firstAttribute="top" secondItem="qld-QT-R0m" secondAttribute="top" constant="20" id="HxC-Pi-I3C"/>
+                            <constraint firstItem="iwS-Gd-KJa" firstAttribute="centerY" secondItem="Ozc-HD-kHC" secondAttribute="centerY" constant="-48" id="O4K-Vo-EdU"/>
                             <constraint firstItem="8sG-lU-046" firstAttribute="centerX" secondItem="Ozc-HD-kHC" secondAttribute="centerX" id="iXF-tO-P6Z"/>
                             <constraint firstItem="dsE-zC-IPM" firstAttribute="centerX" secondItem="Ozc-HD-kHC" secondAttribute="centerX" id="msY-hB-w7l"/>
                             <constraint firstItem="8sG-lU-046" firstAttribute="centerY" secondItem="Ozc-HD-kHC" secondAttribute="centerY" id="qMd-7R-VYV"/>
@@ -762,6 +770,7 @@
                     <connections>
                         <outlet property="backButton" destination="t9m-2M-PnP" id="vkl-jx-Oh3"/>
                         <outlet property="cameraIcon" destination="UJA-k3-flQ" id="Lfa-6J-FMX"/>
+                        <outlet property="connectBSwitch" destination="iwS-Gd-KJa" id="pbz-Qz-D7b"/>
                         <outlet property="ipAddress" destination="xa9-Iv-aIy" id="hdK-Mr-20E"/>
                         <outlet property="pictureIcon" destination="syW-YE-7Iv" id="XBI-AG-x4S"/>
                         <outlet property="portNumber" destination="TJ9-b2-nug" id="G2M-B4-5FP"/>
@@ -1052,6 +1061,6 @@
         <image name="whiteDot" width="597" height="597"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kfr-kw-s00"/>
+        <segue reference="MdY-8v-bLJ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -57,7 +57,8 @@ class motionVC: UIViewController {
     self.pitchOutput.text = pN
     self.yawOutput.text = yN
     
-    let word = "\(rN) \(pN) \(yN)"
+//    let word = "\(rN) \(pN) \(yN)"
+    let word = fly(roll: rN, pitch: pN, yaw: yN)
     if port2G != nil && connect2G != "" {
       communications?.sendUDP(word)
     }

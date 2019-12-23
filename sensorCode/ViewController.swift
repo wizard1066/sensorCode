@@ -215,7 +215,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   
   @IBAction func configBAction(_ sender: UIButton) {
   
-    lastButton = nil
+    lastButton = gearBOutlet
     if strongGear != nil {
       present(strongGear!, animated: true, completion: nil)
     } else {
@@ -351,9 +351,19 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.present(alert, animated: true)
   }
   
-  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    
+    
+    NetStatus.shared.didStartMonitoringHandler = { [unowned self] in
+        print("Start Monitoring",NetStatus.shared.getInfo())
+    }
+    
+    NetStatus.shared.didStopMonitoringHandler = { [unowned self] in
+           print("Start Monitoring")
+    }
+    
       
     NetStatus.shared.netStatusChangeHandler = {
       DispatchQueue.main.async { [unowned self] in
@@ -369,7 +379,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
       
     NetStatus.shared.startMonitoring()
-   
+    NetStatus.shared.getInfo()
+    
     
     voiceBOutlet.layer.cornerRadius = 32
     motionBOutlet.layer.cornerRadius = 32
@@ -415,7 +426,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       tapMe()
     } else {
       gearBOutlet.isEnabled = true
-      
+      nextOutlet.isHidden = true
+      topImage.isHidden = true
       delay = DispatchTimeInterval.nanoseconds(500)
       
     }
@@ -646,11 +658,15 @@ func secondJump() {
           strongCompass = nil
         case views2G.location.rawValue:
           strongLocation = nil
+        case views2G.gear.rawValue:
+          strongGear = nil
         default:
           break
         }
       }
-      introText.text = ""
+      if introText != nil {
+        introText.text = ""
+      }
       firstShown()
     }
 

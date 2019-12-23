@@ -24,13 +24,28 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   @IBOutlet weak var pictureIcon: UIButton!
   @IBOutlet weak var backButton: UIButton!
   
-  @IBOutlet weak var legoImage: UIImageView!
   @IBAction func cameraButton(_ sender: UIButton) {
     getImage(fromSourceType: .camera)
   }
   @IBAction func uploadButton(_ sender: UIButton) {
     getImage(fromSourceType: .photoLibrary)
   }
+  
+  @IBOutlet weak var connectBSwitch: UISwitch!
+  @IBAction func connectSwitch(_ sender: UISwitch) {
+    if sender.isOn {
+      if !ipAddress.text!.isEmpty && !portNumber.text!.isEmpty {
+         let ipa = ipAddress!.text!
+         let ipp = portNumber!.text!
+         let hostUDPx = NWEndpoint.Host.init(ipa)
+         let portUDPx = NWEndpoint.Port.init(ipp)
+         communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
+      }
+    } else {
+      communications?.disconnectUDP()
+    }
+  }
+  
   
   func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
@@ -71,11 +86,13 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
+    lastSwitch = connectBSwitch
   }
   
   override func viewDidAppear(_ animated: Bool) {
 //    spokenOutput.text = ""
+    connectBSwitch.grow()
+    print("fuck",communications?.connectedStatus)
   }
   
   override func viewDidLoad() {
@@ -226,20 +243,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
             
               self.cameraIcon.isEnabled = true
               self.pictureIcon.isEnabled = true
-//              Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
-//                  if self.blinkCount < 8 {
-//                    self.blinkCount = self.blinkCount + 1
-//                    if self.backButton.isSelected {
-//                        self.backButton.isSelected = false
-//                    } else {
-//                        self.backButton.isSelected = true
-//                    }
-//                  } else {
-//                    self.backButton.isSelected = false
-//                    timer.invalidate()
-//                  }
-//              }
-//              self.backButton.isSelected = true
+
               self.backButton.blinkText()
               self.cameraIcon.grow()
               self.pictureIcon.grow()
@@ -303,16 +307,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
          }
        }
        
-       if !ipAddress.text!.isEmpty && !portNumber.text!.isEmpty {
-          let ipa = ipAddress!.text!
-          let ipp = portNumber!.text!
-          let hostUDPx = NWEndpoint.Host.init(ipa)
-          let portUDPx = NWEndpoint.Port.init(ipp)
-          communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
-//          communications?.listenUDP()
-          
-//         connectLabel.isEnabled = true
-       }
+
      }
      
      func isValidIP(s: String) -> Bool {

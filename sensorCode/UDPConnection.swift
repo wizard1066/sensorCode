@@ -18,18 +18,12 @@ class connect: NSObject {
   var listen: NWListener?
   var spoken: speaker?
   
-  func connected() {
-    let netmon = NWPathMonitor()
-    netmon.start(queue: .main)
-    let look = netmon.currentPath
-    print("connected",look.localEndpoint?.interface?.name)
-  }
-  
   func listenUDP() {
     do {
       let port = NWEndpoint.Port.init(port2G!.description)
       self.listen = try NWListener(using: .udp, on: port!)
       self.listen?.service = NWListener.Service(name: "talkCode", type: "_tc._udp", domain: nil, txtRecord: nil)
+      
       self.listen?.stateUpdateHandler = {(newState) in
         switch newState {
         case .ready:
@@ -46,6 +40,7 @@ class connect: NSObject {
           switch newState {
           case .ready:
             self.receive(on: newConnection)
+            print("newConnection", newConnection.endpoint, newConnection.currentPath?.localEndpoint)
           case .failed(let error):
             print("client failed with error: \(error)")
           case .cancelled:
@@ -76,7 +71,7 @@ class connect: NSObject {
       }
       if let data = data, !data.isEmpty {
         let backToString = String(decoding: data, as: UTF8.self)
-        print("context",context.debugDescription)
+        print("context",context?.protocolMetadata)
         self.spoken?.speak(backToString, para: backToString)
       }
       connection.send(content: "ok".data(using: .utf8), completion: .contentProcessed({error in
@@ -124,6 +119,8 @@ class connect: NSObject {
         print("State: Cancelled\n")
       case .preparing:
         print("State: Preparing\n")
+      case .failed(_):
+        print("Failed")
       default:
         print("ERROR! State not defined!\n")
       }
@@ -141,15 +138,25 @@ class connect: NSObject {
     
   }
   
+ var connectedStatus: Bool {
+  guard let connect = self.connection?.state else { return false }
+  if connect == .preparing || connect == .ready {
+    return true
+  } else {
+    return false
+  }
+ }
   
-  
-
+  func disconnectUDP() {
+    self.connection?.cancel()
+  }
   
   func sendUDP(_ content: Data) {
     self.connection?.send(content: content, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
-      if (NWError != nil) {
+      if (NWError == nil) {
+        print("ok")
 //        print("Data was sent to UDP")
-        self.receiveUDPV2()
+//        self.receiveUDPV2()
       } else {
         print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
       }
@@ -158,19 +165,94 @@ class connect: NSObject {
   
   func sendUDP(_ content: String) {
     if pulse! { return }
-    let contentToSendUDP = content.data(using: String.Encoding.utf8)
-    self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
-      if (NWError == nil) {
-//        print("Data was sent to UDP")
-        self.receiveUDPV2()
-      } else {
-        print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
-      }
-    })))
+    do {
+      let encoder = JSONEncoder()
+      let jsonData = try encoder.encode(content)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      
+//     let contentToSendUDP = content.data(using: String.Encoding.utf8)
+      self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
+        if (NWError == nil) {
+          // code
+        } else {
+          print("ERROR! Error when data (Type: String) sending. NWError: \n \(NWError!) ")
+        }
+      })))
+    } catch {
+      print("error",error)
+    }
   }
   
+  func sendUDP(_ content: neighbours) {
+    if pulse! { return }
+    do {
+      let encoder = JSONEncoder()
+      let jsonData = try encoder.encode(content)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      sendUDP(contentToSendUDP!)
+    } catch {
+      print("error",error)
+    }
+  }
+  
+  func sendUDP(_ content: voice) {
+    if pulse! { return }
+    do {
+      let encoder = JSONEncoder()
+      let jsonData = try encoder.encode(content)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      sendUDP(contentToSendUDP!)
+    } catch {
+      print("error",error)
+    }
+  }
+  
+  func sendUDP(_ content: fly) {
+    if pulse! { return }
+    do {
+      let encoder = JSONEncoder()
+      let jsonData = try encoder.encode(content)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      sendUDP(contentToSendUDP!)
+    } catch {
+      print("error",error)
+    }
+  }
+  
+  func sendUDP(_ content: gps) {
+    if pulse! { return }
+    do {
+      let encoder = JSONEncoder()
+      let jsonData = try encoder.encode(content)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      sendUDP(contentToSendUDP!)
+    } catch {
+      print("error",error)
+    }
+  }
+  
+  func sendUDP(_ content: globe) {
+    if pulse! { return }
+    do {
+      let encoder = JSONEncoder()
+      let jsonData = try encoder.encode(content)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      sendUDP(contentToSendUDP!)
+    } catch {
+      print("error",error)
+    }
+  }
+  
+  var word: String?
+  
   func pulseUDP(_ content: pulser) {
-      
+      if word == content.word { return } // put this in cause speaking will send multiple copies of the same word
       do {
         let encoder = JSONEncoder()
         let jsonData = try encoder.encode(content)
@@ -178,6 +260,7 @@ class connect: NSObject {
         let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
         self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
         if (NWError == nil) {
+          self.word = content.word
   //        print("Data was sent to UDP")
 //          self.receiveUDPV2()
         } else {
@@ -214,6 +297,8 @@ class connect: NSObject {
   
 }
 
+
+
 class NetStatus {
   static let shared = NetStatus()
   
@@ -247,6 +332,7 @@ class NetStatus {
   }
   
   var monitor: NWPathMonitor?
+  
   var isMonitoring = false
   
   var didStartMonitoringHandler: (() -> Void)?
@@ -275,6 +361,10 @@ class NetStatus {
     didStopMonitoringHandler?()
   }
   
-  
+  func getInfo() {
+    guard isMonitoring, let monitor = monitor else { return }
+    print(monitor.currentPath.availableInterfaces)
+    
+  }
   
 }

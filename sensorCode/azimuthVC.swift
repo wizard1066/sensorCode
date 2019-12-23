@@ -99,6 +99,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate {
         }
       }
     
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways:
@@ -125,7 +126,9 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate {
           trueNorthOutlet.text = tNValue
           magneticNorthOutlet.text = mNValue
         }
-        let word = "\(tNValue)" + " \(mNValue)"
+//        let word = "\(tNValue)" + " \(mNValue)"
+          let word = globe(trueNorth: tNValue, magneticNorth: mNValue)
+        
           if port2G != nil && connect2G != "" {
             communications?.sendUDP(word)
           }

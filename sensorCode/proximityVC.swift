@@ -79,8 +79,9 @@ class proximityVC: UIViewController {
         
        if let _ = notification.object as? UIDevice {
            if port2G != nil && connect2G != "" {
-              let foobar = UIDevice.current.proximityState
-             communications?.sendUDP("proximity \(foobar)")
+              let foobar = String(UIDevice.current.proximityState)
+              let word = neighbours(proximity: foobar)
+             communications?.sendUDP(word)
            }
        }
    }

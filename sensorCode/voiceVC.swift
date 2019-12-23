@@ -165,7 +165,8 @@ class voiceVC: UIViewController {
             globalWord = word
             self.said?.wordUsed(word2D: word)
             if port2G != nil && connect2G != "" {
-              communications?.sendUDP(word)
+              let w2S = voice(word: word)
+              communications?.sendUDP(w2S)
             }
             superRec.word = word
           } else {
