@@ -699,7 +699,7 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
-                                    <segue destination="H4p-HX-YGm" kind="unwind" unwindAction="unwindToRootViewControllerWithSegue:" id="9P8-Kp-TSP"/>
+                                    <action selector="backButtonAction:" destination="awx-S6-jLW" eventType="touchUpInside" id="Yb0-9b-AUh"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="dsE-zC-IPM">
@@ -768,13 +768,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="FAl-rA-fjj"/>
                     <connections>
-                        <outlet property="backButton" destination="t9m-2M-PnP" id="vkl-jx-Oh3"/>
+                        <outlet property="backButton" destination="t9m-2M-PnP" id="rje-Pu-v2Y"/>
                         <outlet property="cameraIcon" destination="UJA-k3-flQ" id="Lfa-6J-FMX"/>
                         <outlet property="connectBSwitch" destination="iwS-Gd-KJa" id="pbz-Qz-D7b"/>
                         <outlet property="ipAddress" destination="xa9-Iv-aIy" id="hdK-Mr-20E"/>
                         <outlet property="pictureIcon" destination="syW-YE-7Iv" id="XBI-AG-x4S"/>
                         <outlet property="portNumber" destination="TJ9-b2-nug" id="G2M-B4-5FP"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="MdY-8v-bLJ"/>
+                        <segue destination="H4p-HX-YGm" kind="unwind" identifier="sensorCodeMM" unwindAction="unwindToRootViewControllerWithSegue:" id="dP3-MT-jm7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f35-Qt-o05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1061,6 +1062,6 @@
         <image name="whiteDot" width="597" height="597"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="prt-Yu-7In"/>
+        <segue reference="MdY-8v-bLJ"/>
     </inferredMetricsTieBreakers>
 </document>

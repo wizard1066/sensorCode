@@ -26,6 +26,28 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   @IBOutlet weak var cameraIcon: UIButton!
   @IBOutlet weak var pictureIcon: UIButton!
   @IBOutlet weak var backButton: UIButton!
+  @IBAction func backButtonAction(_ sender: UIButton) {
+    if connectBSwitch.isOn {
+      performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+    } else {
+      let alert = UIAlertController(title: "TURN On the switch to make the connection live", message: "Confirm", preferredStyle: .alert)
+
+      alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+      alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+//        if let url = URL(string:UIApplication.openSettingsURLString) {
+//           if UIApplication.shared.canOpenURL(url) {
+//             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//           }
+//        }
+        self.turnOn()
+        self.connectBSwitch.setOn(true, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+          self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+        })
+      }))
+      self.present(alert, animated: true)
+    }
+  }
   
   @IBAction func cameraButton(_ sender: UIButton) {
     getImage(fromSourceType: .camera)
@@ -37,16 +59,24 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   @IBOutlet weak var connectBSwitch: UISwitch!
   @IBAction func connectSwitch(_ sender: UISwitch) {
     if sender.isOn {
-      if !ipAddress.text!.isEmpty && !portNumber.text!.isEmpty {
-         let ipa = ipAddress!.text!
-         let ipp = portNumber!.text!
-         let hostUDPx = NWEndpoint.Host.init(ipa)
-         let portUDPx = NWEndpoint.Port.init(ipp)
-         communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
-      }
+      turnOn()
     } else {
-      communications?.disconnectUDP()
+      turnOff()
     }
+  }
+  
+  func turnOn() {
+    if !ipAddress.text!.isEmpty && !portNumber.text!.isEmpty {
+       let ipa = ipAddress!.text!
+       let ipp = portNumber!.text!
+       let hostUDPx = NWEndpoint.Host.init(ipa)
+       let portUDPx = NWEndpoint.Port.init(ipp)
+       communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
+    }
+  }
+  
+  func turnOff() {
+    communications?.disconnectUDP()
   }
   
   

@@ -878,9 +878,35 @@ func secondJump() {
   
   override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
       if motion == .motionShake {
-        self.performSegue(withIdentifier: "photo", sender: self)
+        if strongGear != nil && connect2G != nil && port2G != nil {
+          let alert = UIAlertController(title: "Quick Reset or Settings", message: "Do you want to try to reset the network?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Skip", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { action in
+                  communications?.disconnectUDP()
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                      let hostUDPx = NWEndpoint.Host.init(connect2G!)
+                      let portUDPx = NWEndpoint.Port.init(String(port2G!))
+                      communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
+                  })
+                }))
+                alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { action in
+                  if let url = URL(string:UIApplication.openSettingsURLString) {
+                     if UIApplication.shared.canOpenURL(url) {
+                       UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                     }
+                  }
+                }))
+                self.present(alert, animated: true)
+                
+        } else {
+        if let url = URL(string:UIApplication.openSettingsURLString) {
+           if UIApplication.shared.canOpenURL(url) {
+             UIApplication.shared.open(url, options: [:], completionHandler: nil)
+           }
+        }
       }
-      gearBOutlet.isEnabled = true
+      }
+      
     }
     
  
