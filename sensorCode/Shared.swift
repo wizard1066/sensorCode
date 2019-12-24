@@ -78,9 +78,9 @@ struct fly:Codable {
 }
 
 struct neighbours:Codable {
-  var proximity:String?
+  var proximity:String
   
-  init(proximity: String?) {
+  init(proximity: String) {
     self.proximity = proximity
   }
 }
@@ -90,6 +90,13 @@ struct voice:Codable {
   
   init(word: String?) {
     self.word = word
+  }
+}
+
+struct simple:Codable {
+  var online:String
+  init(online: String) {
+    self.online = online
   }
 }
 

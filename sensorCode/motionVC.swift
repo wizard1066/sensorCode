@@ -38,8 +38,12 @@ class motionVC: UIViewController, lostLink {
       if motionManager != nil {
         if motionManager!.isAccelerometerAvailable {
           motionManager?.stopAccelerometerUpdates()
+          
         }
       }
+      superRec?.roll = nil
+      superRec?.pitch = nil
+      superRec?.yaw = nil
     }
   }
   

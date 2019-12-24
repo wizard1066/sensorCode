@@ -366,11 +366,11 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     
     NetStatus.shared.didStartMonitoringHandler = { [unowned self] in
-        print("Start Monitoring",NetStatus.shared.getInfo())
+//        print("Start Monitoring",NetStatus.shared.getInfo())
     }
     
     NetStatus.shared.didStopMonitoringHandler = { [unowned self] in
-           print("Start Monitoring")
+//           print("Start Monitoring")
     }
     
       
@@ -880,8 +880,8 @@ func secondJump() {
       if motion == .motionShake {
         if strongGear != nil && connect2G != nil && port2G != nil {
           let alert = UIAlertController(title: "Quick Reset or Settings", message: "Do you want to try to reset the network?", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Skip", style: .cancel, handler: nil))
-                alert.addAction(UIAlertAction(title: "Reset", style: .default, handler: { action in
+                alert.addAction(UIAlertAction(title: "Opps Cancel", style: .cancel, handler: nil))
+                alert.addAction(UIAlertAction(title: "Reset Connection", style: .default, handler: { action in
                   communications?.disconnectUDP()
                   DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                       let hostUDPx = NWEndpoint.Host.init(connect2G!)
@@ -889,7 +889,7 @@ func secondJump() {
                       communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
                   })
                 }))
-                alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { action in
+                alert.addAction(UIAlertAction(title: "Goto Settings", style: .default, handler: { action in
                   if let url = URL(string:UIApplication.openSettingsURLString) {
                      if UIApplication.shared.canOpenURL(url) {
                        UIApplication.shared.open(url, options: [:], completionHandler: nil)

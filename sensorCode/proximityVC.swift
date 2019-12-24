@@ -9,6 +9,7 @@
 import UIKit
 
 class proximityVC: UIViewController, lostLink {
+
   func sendAlert(error: String) {
     let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)
     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -66,6 +67,7 @@ class proximityVC: UIViewController, lostLink {
     } else {
 //      NotificationCenter.default.removeObserver(self)
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: nil)
+      superRec.proximity = nil
     }
   }
   
@@ -86,9 +88,17 @@ class proximityVC: UIViewController, lostLink {
         
        if let _ = notification.object as? UIDevice {
            if port2G != nil && connect2G != "" {
-              let foobar = String(UIDevice.current.proximityState)
-              let word = neighbours(proximity: foobar)
-             communications?.sendUDP(word)
+              var word:neighbours?
+              if UIDevice.current.proximityState {
+                word = neighbours(proximity: "true")
+                superRec.proximity = "true"
+              } else {
+                word = neighbours(proximity: "false")
+                superRec.proximity = "false"
+            }
+            communications?.sendUDP(word!)
+            
+            
            }
        }
    }

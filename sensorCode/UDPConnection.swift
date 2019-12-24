@@ -14,6 +14,8 @@ protocol speaker {
 }
 
 class connect: NSObject {
+
+
   
   var connection: NWConnection?
   var listen: NWListener?
@@ -85,12 +87,26 @@ class connect: NSObject {
     }
   }
   
+  private var portX: NWEndpoint.Port?
+  private var hostX: NWEndpoint.Host?
+  
+  func reconnect() {
+    if hostX == nil || portX == nil { return }
+    connectToUDP(hostUDP:hostX!,portUDP:portX!)
+  }
+  
 //  func connectToUDP(hostUDP:NWEndpoint.Host,portUDP:NWEndpoint.Port) {
   func connectToUDP(hostUDP:NWEndpoint.Host,portUDP:NWEndpoint.Port) {
-    let messageToUDP = "online"
+    hostX = hostUDP
+    portX = portUDP
+    
+    
+    
+    var messageToUDP = simple(online:"online")
     
     self.connection?.viabilityUpdateHandler = { (isViable) in
       if (!isViable) {
+      
         print("connection viable")
         // display error
       } else {
@@ -154,7 +170,7 @@ class connect: NSObject {
 //        print("Data was sent to UDP")
 //        self.receiveUDPV2()
       } else {
-        print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
+        print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!) \(self.missing)")
         self.missing?.sendAlert(error: NWError!.debugDescription)
       }
     })))
@@ -177,6 +193,19 @@ class connect: NSObject {
           self.missing?.sendAlert(error: NWError!.debugDescription)
         }
       })))
+    } catch {
+      print("error",error)
+    }
+  }
+  
+  func sendUDP(_ content: simple) {
+    if pulse! { return }
+    do {
+      let encoder = JSONEncoder()
+      let jsonData = try encoder.encode(content)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      sendUDP(contentToSendUDP!)
     } catch {
       print("error",error)
     }
@@ -250,11 +279,15 @@ class connect: NSObject {
   var word: String?
   
   func pulseUDP(_ content: pulser) {
-      if word != nil && word == content.word { return }
+
          // put this in cause speaking will send multiple copies of the same word
       do {
         let encoder = JSONEncoder()
-        let jsonData = try encoder.encode(content)
+        var newContent = content
+        if newContent.word == word {
+          newContent.word = nil
+        }
+        let jsonData = try encoder.encode(newContent)
         let jsonString = String(data: jsonData, encoding: .utf8)!
         let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
         self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in

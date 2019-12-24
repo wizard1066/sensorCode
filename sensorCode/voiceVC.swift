@@ -178,7 +178,7 @@ class voiceVC: UIViewController, lostLink {
             }
             superRec.word = word
           } else {
-            superRec.word = ""
+            superRec.word = nil
           }
         }
         

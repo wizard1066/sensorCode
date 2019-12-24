@@ -102,8 +102,6 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
           self.picker.selectRow(findex!, inComponent: 0, animated: true)
         }
 
-        
-        
         infoText = UILabel(frame: CGRect(x: self.view.bounds.minX + 20, y: 0, width: self.view.bounds.width - 40, height: 128))
             infoText.isUserInteractionEnabled = true
         //    infoText.addGestureRecognizer(swipeUp)

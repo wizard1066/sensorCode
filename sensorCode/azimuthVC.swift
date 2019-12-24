@@ -36,7 +36,8 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
       directionManager?.startUpdatingHeading()
     } else {
       directionManager?.stopUpdatingHeading()
-      
+      superRec?.trueNorth = nil
+      superRec?.magneticNorth = nil
     }
   }
   

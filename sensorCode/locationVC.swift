@@ -45,8 +45,15 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
       self.longitudeOutput.text = "37.33121136"
       self.altitudeOutput.text = "0"
 //      let word = "-122.03073097 37.33121136 0.0"
-      let word = gps(latitude: "\(currentLocation.coordinate.latitude)", longitude: "\(currentLocation.coordinate.longitude)", altitude: "\(currentLocation.altitude)")
+      let word = gps(latitude: "\(self.latitudeOutput.text!)", longitude: "\(self.longitudeOutput.text!)", altitude: "\(self.altitudeOutput.text!)")
       communications?.sendUDP(word)
+      superRec?.latitude = "\(self.latitudeOutput.text!)"
+      superRec?.longitude = "\(self.longitudeOutput.text!)"
+      superRec?.altitude = "\(self.longitudeOutput.text!)"
+    } else {
+      superRec?.latitude = nil
+      superRec?.longitude = nil
+      superRec?.altitude = nil
     }
   }
   
