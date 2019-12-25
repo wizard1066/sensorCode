@@ -111,9 +111,12 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   func feedback(service: String, message: String) {
     inapp.text = message
     if message != IAPStatus.restored.rawValue {
-      UIView.animate(withDuration: 0.5) {
+      UIView.animate(withDuration: 4, animations: {
         self.inapp.alpha = 1
+      }) { (finished) in
+        self.inapp.alpha = 0
       }
+  
     }
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.purchased.rawValue {
       if strongCompass != nil {
@@ -805,6 +808,9 @@ func secondJump() {
     } else {
       UIView.animate(withDuration: 0.5) {
         self.inapp.alpha = 1
+        UIView.animate(withDuration: 2) {
+          self.inapp.alpha = 0
+        }
       }
     }
         
@@ -813,7 +819,7 @@ func secondJump() {
       stackviewDots.isHidden = true
       infoText!.text = "The Sensors"
       UIView.animate(withDuration: 0.5) {
-        self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.minY + 100)
+        self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.minY + 128)
       }
       infoText!.font = UIFont.preferredFont(forTextStyle: .body)
       infoText!.adjustsFontForContentSizeCategory = true
@@ -1036,10 +1042,11 @@ extension UIButton {
     
 }
 
-var blinkers = [views2G:Timer]()
+var blinkers = [views2G:Timer?]()
 
 extension UILabel {
   func blinkText(tag: views2G) {
+    if blinkers[tag] != nil { return }
     Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { (timer) in
         
         if self.textColor == UIColor.black {
@@ -1057,7 +1064,8 @@ extension UILabel {
   
   func noblinkText(tag: views2G) {
     let timer = blinkers[tag]
-    timer?.invalidate()
+    timer??.invalidate()
+    blinkers[tag] = nil
   }
 
 

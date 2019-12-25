@@ -382,6 +382,7 @@ extension UIButton {
   }
   
   func blinkText() {
+    
     var blinkCount = 0
     let colorRightNow = self.titleColor(for: .normal)
     Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { (timer) in
