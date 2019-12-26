@@ -23,6 +23,20 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   var tag:Int?
   var feeder:setty?
 
+  @IBOutlet weak var pulseView: UIView!
+  @IBOutlet weak var refreshView: UIView!
+  @IBOutlet weak var precisionView: UIView!
+  @IBOutlet weak var autoView: UIView!
+  @IBOutlet weak var fastView: UIView!
+  
+  @IBOutlet weak var pulseLabel: UILabel!
+  @IBOutlet weak var refreshLabel: UILabel!
+  @IBOutlet weak var precisionLabel: UILabel!
+  @IBOutlet weak var autoLabel: UILabel!
+  @IBOutlet weak var fastLabel: UILabel!
+  
+  
+  
   @IBOutlet weak var cameraIcon: UIButton!
   @IBOutlet weak var pictureIcon: UIButton!
   @IBOutlet weak var backButton: UIButton!
@@ -225,6 +239,18 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       }
     }
     // Do any additional setup after loading the view.
+    
+    let pulseTap = UITapGestureRecognizer(target: self, action: #selector(gearVC.pulser(sender:)))
+    pulseLabel.addGestureRecognizer(pulseTap)
+  }
+  
+  @objc func pulser(sender: Any) {
+    refreshLabel.isHidden = true
+    precisionLabel.isHidden = true
+    autoLabel.isHidden = true
+    fastLabel.isHidden = true
+    pulseView.isHidden = false
+    pulseLabel.isHidden = true
   }
   
   var blinkCount = 0
