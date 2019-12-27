@@ -22,12 +22,26 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   var skip = false
   var tag:Int?
   var feeder:setty?
-
+  
+  @IBOutlet weak var settingsSV: UIStackView!
+  
   @IBOutlet weak var pulseView: UIView!
   @IBOutlet weak var refreshView: UIView!
   @IBOutlet weak var precisionView: UIView!
   @IBOutlet weak var autoView: UIView!
   @IBOutlet weak var fastView: UIView!
+  
+  @IBOutlet weak var pulseText: UILabel!
+  @IBOutlet weak var refreshText: UILabel!
+  @IBOutlet weak var precisionText: UILabel!
+  @IBOutlet weak var autoText: UILabel!
+  @IBOutlet weak var fastText: UILabel!
+  
+  @IBOutlet weak var fastSub: UILabel!
+  @IBOutlet weak var autoSub: UILabel!
+  @IBOutlet weak var precisionSub: UILabel!
+  @IBOutlet weak var refreshSub: UILabel!
+  @IBOutlet weak var pulseSub: UILabel!
   
   @IBOutlet weak var pulseLabel: UILabel!
   @IBOutlet weak var refreshLabel: UILabel!
@@ -190,7 +204,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     let backgroundImage = UIImageView(frame: self.view.bounds)
     backgroundImage.contentMode = .scaleAspectFit
     backgroundImage.image = UIImage(named: "lego.png")!
-    backgroundImage.alpha = 0.2
+    backgroundImage.alpha = 0.1
     
 //    self.view.backgroundColor = UIColor(patternImage: backgroundImage.image!)
     self.view.insertSubview(backgroundImage, at: 0)
@@ -215,7 +229,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     
     if !fastStart! {
     
-    infoText.text = "Enter a port number to use between 1024 and 32760. Tap on the screen to dismiss the keyboard."
+    infoText.text = "Enter a port number to use between 1024 and 32760. Tap on the screen to dismiss the keyboard. Tap on the heading below to find out more about app settings you can make"
     infoText.backgroundColor = .white
     infoText.isUserInteractionEnabled = true
 //
@@ -228,6 +242,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       if !self.skip {
         UIView.animate(withDuration: 1) {
           self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.minY - 256)
+          self.settingsSV.spacing = 10
         }
       }
       })
@@ -240,28 +255,117 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     }
     // Do any additional setup after loading the view.
     
-    let pulseTap = UITapGestureRecognizer(target: self, action: #selector(gearVC.pulser(sender:)))
+    let pulseTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+    pulseTap.sender = Vs.pulse.rawValue
     pulseLabel.addGestureRecognizer(pulseTap)
-    let pulseVTap = UITapGestureRecognizer(target: self, action: #selector(gearVC.pulserV(sender:)))
+    let pulseVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+    pulseVTap.sender = Vs.pulse.rawValue
+    pulseText.addGestureRecognizer(pulseVTap)
+    pulseSub.addGestureRecognizer(pulseVTap)
     pulseView.addGestureRecognizer(pulseVTap)
+    
+    let refreshTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+    refreshTap.sender = Vs.refresh.rawValue
+    refreshLabel.addGestureRecognizer(refreshTap)
+    let refreshVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+    refreshVTap.sender = Vs.refresh.rawValue
+    refreshText.addGestureRecognizer(refreshVTap)
+    refreshSub.addGestureRecognizer(refreshVTap)
+    
+    let autoTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+    autoTap.sender = Vs.auto.rawValue
+    autoLabel.addGestureRecognizer(autoTap)
+    let autoVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+    autoVTap.sender = Vs.auto.rawValue
+    autoText.addGestureRecognizer(autoVTap)
+    autoSub.addGestureRecognizer(autoVTap)
+    
+    let fastTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+    fastTap.sender = Vs.fast.rawValue
+    fastLabel.addGestureRecognizer(fastTap)
+    let fastVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+    fastVTap.sender = Vs.fast.rawValue
+    fastText.addGestureRecognizer(fastVTap)
+    fastSub.addGestureRecognizer(fastVTap)
+    
+    let precisionTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+    precisionTap.sender = Vs.precision.rawValue
+    precisionLabel.addGestureRecognizer(precisionTap)
+    let precisionVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+    precisionVTap.sender = Vs.precision.rawValue
+    precisionText.addGestureRecognizer(precisionVTap)
+    precisionSub.addGestureRecognizer(precisionVTap)
+    
   }
   
-  @objc func pulser(sender: Any) {
+  enum Vs: String {
+    case pulse = "pulse"
+    case precision = "precision"
+    case refresh = "refresh"
+    case auto = "auto"
+    case fast = "fast"
+  }
+  
+  @objc func actionB(sender: Any) {
+    let tag = sender as? customTap
+    switch tag?.sender {
+      case Vs.refresh.rawValue:
+        hideLabels()
+        refreshView.isHidden = false
+      case Vs.pulse.rawValue:
+        hideLabels()
+        pulseView.isHidden = false
+      case Vs.auto.rawValue:
+        hideLabels()
+        autoView.isHidden = false
+      case Vs.fast.rawValue:
+        hideLabels()
+        fastView.isHidden = false
+      case Vs.precision.rawValue:
+        hideLabels()
+        precisionView.isHidden = false
+      default:
+        break
+      }
+  }
+  
+  func hideLabels() {
     refreshLabel.isHidden = true
     precisionLabel.isHidden = true
     autoLabel.isHidden = true
     fastLabel.isHidden = true
-    pulseView.isHidden = false
     pulseLabel.isHidden = true
   }
   
-  @objc func pulserV(sender: Any) {
-    pulseView.isHidden = true
-    pulseLabel.isHidden = false
+  @objc func actionV(sender: Any) {
+    let tag = sender as? customTap
+    switch tag?.sender {
+    case Vs.refresh.rawValue:
+      refreshView.isHidden = true
+      showLabels()
+    case Vs.pulse.rawValue:
+      pulseView.isHidden = true
+      showLabels()
+    case Vs.auto.rawValue:
+      autoView.isHidden = true
+      showLabels()
+    case Vs.fast.rawValue:
+      fastView.isHidden = true
+      showLabels()
+    case Vs.precision.rawValue:
+      precisionView.isHidden = true
+      showLabels()
+    default:
+      break
+    }
+  }
+  
+  func showLabels() {
     refreshLabel.isHidden = false
     precisionLabel.isHidden = false
     autoLabel.isHidden = false
     fastLabel.isHidden = false
+    pulseLabel.isHidden = false
   }
   
   var blinkCount = 0
@@ -297,7 +401,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         self.infoText.isHidden = false
         self.infoText.textAlignment = .left
         self.infoText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-        self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.minY + 60)
+        self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
           let words = Array(textFeed)
@@ -339,7 +443,9 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       self.infoText.alpha = 0
 //      self.portNumber.alpha = 1
 //      self.ipAddress.alpha = 1
+      self.settingsSV.spacing = 10
     }
+    
 //    backButton.noblink()
   }
     
@@ -513,4 +619,6 @@ extension UIButton {
   }
 }
 
-
+class customTap: UITapGestureRecognizer {
+  var sender: String?
+}

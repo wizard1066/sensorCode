@@ -683,7 +683,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" alpha="0.20000000298023224" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cog" translatesAutoresizingMaskIntoConstraints="NO" id="kbx-3N-4WC">
+                            <imageView clipsSubviews="YES" alpha="0.10000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cog" translatesAutoresizingMaskIntoConstraints="NO" id="kbx-3N-4WC">
                                 <rect key="frame" x="128" y="20" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="64" id="ffW-as-9Ea"/>
@@ -750,34 +750,31 @@
                                     <action selector="connectSwitch:" destination="awx-S6-jLW" eventType="valueChanged" id="agL-Tq-Nvx"/>
                                 </connections>
                             </switch>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8D3-7U-dO2">
-                                <rect key="frame" x="8" y="2" width="304" height="200"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="8D3-7U-dO2">
+                                <rect key="frame" x="8" y="89" width="304" height="102.5"/>
                                 <subviews>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pulse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGk-Gk-xpG">
-                                        <rect key="frame" x="0.0" y="0.0" width="304" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="304" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZM-d2-WJh">
-                                        <rect key="frame" x="0.0" y="37" width="304" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="20.5" width="304" height="128"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pulse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMO-PV-9rd">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pulse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nMO-PV-9rd">
                                                 <rect key="frame" x="20" y="20" width="261" height="17"/>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="True to reports all the sensor readings in a single line.  False reports individual sensors on individual lines." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbI-B9-r4v">
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="True to reports all the sensor readings in a single line.  False reports individual sensors on individual lines." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbI-B9-r4v">
                                                 <rect key="frame" x="4" y="45" width="296" height="110"/>
-                                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="SbI-B9-r4v" firstAttribute="top" secondItem="nMO-PV-9rd" secondAttribute="bottom" constant="4" id="9ej-lu-zhg"/>
                                             <constraint firstItem="nMO-PV-9rd" firstAttribute="top" secondItem="PZM-d2-WJh" secondAttribute="top" constant="20" symbolic="YES" id="EDL-7G-EvZ"/>
@@ -785,88 +782,139 @@
                                             <constraint firstItem="nMO-PV-9rd" firstAttribute="leading" secondItem="PZM-d2-WJh" secondAttribute="leading" constant="20" symbolic="YES" id="RVk-02-OAQ"/>
                                             <constraint firstAttribute="trailing" secondItem="nMO-PV-9rd" secondAttribute="trailing" id="iSb-ic-viv"/>
                                             <constraint firstItem="SbI-B9-r4v" firstAttribute="leading" secondItem="PZM-d2-WJh" secondAttribute="leading" id="kVB-Jz-fPR"/>
+                                            <constraint firstAttribute="height" constant="128" id="uV4-oX-f5a"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="RefreshRate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMO-wi-JJu">
-                                        <rect key="frame" x="0.0" y="42" width="304" height="32"/>
+                                        <rect key="frame" x="0.0" y="20.5" width="304" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jxk-MC-lSc">
-                                        <rect key="frame" x="0.0" y="79" width="304" height="0.0"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EeV-B4-rcI">
+                                        <rect key="frame" x="0.0" y="41" width="304" height="128"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The rate at which pulse and/or motion reports get send." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imK-9y-a8g">
-                                                <rect key="frame" x="0.0" y="70" width="240" height="89"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Refresh Rate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z81-jh-z6x">
+                                                <rect key="frame" x="20" y="20" width="261" height="17"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="The rate at which pulse and/or motion reports get send." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hg8-h1-YtW">
+                                                <rect key="frame" x="4" y="45" width="296" height="110"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="z81-jh-z6x" firstAttribute="top" secondItem="EeV-B4-rcI" secondAttribute="top" constant="20" symbolic="YES" id="0Wa-Ec-58i"/>
+                                            <constraint firstAttribute="trailing" secondItem="z81-jh-z6x" secondAttribute="trailing" id="BEl-gM-lZL"/>
+                                            <constraint firstAttribute="height" constant="128" id="DgH-Qw-dTl"/>
+                                            <constraint firstAttribute="trailing" secondItem="Hg8-h1-YtW" secondAttribute="trailing" id="HEC-V1-dyH"/>
+                                            <constraint firstItem="Hg8-h1-YtW" firstAttribute="leading" secondItem="EeV-B4-rcI" secondAttribute="leading" id="aW8-i3-PFF"/>
+                                            <constraint firstItem="z81-jh-z6x" firstAttribute="leading" secondItem="EeV-B4-rcI" secondAttribute="leading" constant="20" symbolic="YES" id="hRL-Uc-ZTh"/>
+                                            <constraint firstItem="Hg8-h1-YtW" firstAttribute="top" secondItem="z81-jh-z6x" secondAttribute="bottom" constant="4" id="kxP-4A-Nca"/>
+                                        </constraints>
                                     </view>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Precision" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oNX-OS-2ji">
-                                        <rect key="frame" x="0.0" y="84" width="304" height="32"/>
+                                        <rect key="frame" x="0.0" y="41" width="304" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRB-Of-P4L">
-                                        <rect key="frame" x="0.0" y="121" width="304" height="0.0"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bPK-rA-YM8">
+                                        <rect key="frame" x="0.0" y="61.5" width="304" height="128"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="A number linked to motion and azimuth reporting, the number of significant digits reported." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHA-no-HF8">
-                                                <rect key="frame" x="0.0" y="70" width="240" height="89"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Precision" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWE-5d-4ra">
+                                                <rect key="frame" x="20" y="20" width="261" height="17"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="A number linked to motion and azimuth reporting, the number of significant digits reported." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0c-17-ITi">
+                                                <rect key="frame" x="4" y="45" width="296" height="110"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="pWE-5d-4ra" firstAttribute="leading" secondItem="bPK-rA-YM8" secondAttribute="leading" constant="20" symbolic="YES" id="1AX-EH-JD6"/>
+                                            <constraint firstAttribute="trailing" secondItem="pWE-5d-4ra" secondAttribute="trailing" id="5wP-zh-9eE"/>
+                                            <constraint firstAttribute="height" constant="128" id="DwL-CB-7M4"/>
+                                            <constraint firstAttribute="trailing" secondItem="i0c-17-ITi" secondAttribute="trailing" id="ICI-KG-zHi"/>
+                                            <constraint firstItem="pWE-5d-4ra" firstAttribute="top" secondItem="bPK-rA-YM8" secondAttribute="top" constant="20" symbolic="YES" id="KWU-fk-grd"/>
+                                            <constraint firstItem="i0c-17-ITi" firstAttribute="top" secondItem="pWE-5d-4ra" secondAttribute="bottom" constant="4" id="Mmy-lH-JSx"/>
+                                            <constraint firstItem="i0c-17-ITi" firstAttribute="leading" secondItem="bPK-rA-YM8" secondAttribute="leading" id="xaL-sy-J70"/>
+                                        </constraints>
                                     </view>
-                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AutoClose" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlZ-7a-obN">
-                                        <rect key="frame" x="0.0" y="126" width="304" height="32"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto Close" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WlZ-7a-obN">
+                                        <rect key="frame" x="0.0" y="61.5" width="304" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UVO-cb-a4T">
-                                        <rect key="frame" x="0.0" y="163" width="304" height="0.0"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xyD-o4-vhy">
+                                        <rect key="frame" x="0.0" y="82" width="304" height="128"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="True closes sensors automatically when you leave their menu pages. False leaves sensors reporting." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DrI-Sg-LF3">
-                                                <rect key="frame" x="0.0" y="70" width="240" height="89"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Auto Close" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gh-Pd-Gg5">
+                                                <rect key="frame" x="20" y="20" width="261" height="17"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="True closes sensors automatically when you leave their menu pages. False leaves sensors reporting." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgi-Sc-dxq">
+                                                <rect key="frame" x="4" y="45" width="296" height="110"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="0gh-Pd-Gg5" firstAttribute="leading" secondItem="xyD-o4-vhy" secondAttribute="leading" constant="20" symbolic="YES" id="1aB-kU-nZS"/>
+                                            <constraint firstItem="pgi-Sc-dxq" firstAttribute="top" secondItem="0gh-Pd-Gg5" secondAttribute="bottom" constant="4" id="H4V-ee-Nt0"/>
+                                            <constraint firstAttribute="height" constant="128" id="S4Y-mb-Q1E"/>
+                                            <constraint firstItem="0gh-Pd-Gg5" firstAttribute="top" secondItem="xyD-o4-vhy" secondAttribute="top" constant="20" symbolic="YES" id="irC-tA-ClT"/>
+                                            <constraint firstItem="pgi-Sc-dxq" firstAttribute="leading" secondItem="xyD-o4-vhy" secondAttribute="leading" id="rFC-dr-ldJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="pgi-Sc-dxq" secondAttribute="trailing" id="uEL-NQ-6bh"/>
+                                            <constraint firstAttribute="trailing" secondItem="0gh-Pd-Gg5" secondAttribute="trailing" id="z4B-2w-rwA"/>
+                                        </constraints>
                                     </view>
-                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FastStart" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbz-kS-7YI">
-                                        <rect key="frame" x="0.0" y="168" width="304" height="32"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast Start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbz-kS-7YI">
+                                        <rect key="frame" x="0.0" y="82" width="304" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-D0-ogs">
-                                        <rect key="frame" x="0.0" y="200" width="304" height="0.0"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFJ-2g-Jom">
+                                        <rect key="frame" x="0.0" y="102.5" width="304" height="128"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="True skips explainations given on startup. False runs them everytime." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpK-xX-0XJ">
-                                                <rect key="frame" x="0.0" y="70" width="240" height="89"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Fast Start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpI-2e-p8y">
+                                                <rect key="frame" x="20" y="20" width="261" height="17"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="True skips explainations given on startup. False runs them everytime." textAlignment="justified" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cud-HH-255">
+                                                <rect key="frame" x="4" y="45" width="296" height="110"/>
+                                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Cud-HH-255" firstAttribute="leading" secondItem="TFJ-2g-Jom" secondAttribute="leading" id="3Z0-zb-Tpx"/>
+                                            <constraint firstItem="TpI-2e-p8y" firstAttribute="top" secondItem="TFJ-2g-Jom" secondAttribute="top" constant="20" symbolic="YES" id="G6e-u1-aws"/>
+                                            <constraint firstItem="Cud-HH-255" firstAttribute="top" secondItem="TpI-2e-p8y" secondAttribute="bottom" constant="4" id="KhE-vj-DVT"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cud-HH-255" secondAttribute="trailing" id="gdm-C8-2pS"/>
+                                            <constraint firstAttribute="height" constant="128" id="qOk-IN-IP0"/>
+                                            <constraint firstAttribute="trailing" secondItem="TpI-2e-p8y" secondAttribute="trailing" id="sJM-rE-aWX"/>
+                                            <constraint firstItem="TpI-2e-p8y" firstAttribute="leading" secondItem="TFJ-2g-Jom" secondAttribute="leading" constant="20" symbolic="YES" id="yYR-Ws-xr3"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="Pa7-nT-1qq"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -876,7 +924,7 @@
                             <constraint firstItem="8D3-7U-dO2" firstAttribute="centerX" secondItem="Ozc-HD-kHC" secondAttribute="centerX" id="Aof-YO-9iB"/>
                             <constraint firstItem="kbx-3N-4WC" firstAttribute="top" secondItem="qld-QT-R0m" secondAttribute="top" constant="20" id="HxC-Pi-I3C"/>
                             <constraint firstItem="iwS-Gd-KJa" firstAttribute="centerY" secondItem="Ozc-HD-kHC" secondAttribute="centerY" id="O4K-Vo-EdU"/>
-                            <constraint firstItem="8D3-7U-dO2" firstAttribute="centerY" secondItem="Ozc-HD-kHC" secondAttribute="centerY" constant="-128" id="daZ-fO-dZV"/>
+                            <constraint firstItem="8D3-7U-dO2" firstAttribute="centerY" secondItem="Ozc-HD-kHC" secondAttribute="centerY" constant="-90" id="daZ-fO-dZV"/>
                             <constraint firstItem="8D3-7U-dO2" firstAttribute="leading" secondItem="qld-QT-R0m" secondAttribute="leading" constant="8" id="hF9-Uf-tIE"/>
                             <constraint firstItem="8sG-lU-046" firstAttribute="centerX" secondItem="Ozc-HD-kHC" secondAttribute="centerX" id="iXF-tO-P6Z"/>
                             <constraint firstItem="qld-QT-R0m" firstAttribute="trailing" secondItem="8D3-7U-dO2" secondAttribute="trailing" constant="8" id="lbq-MN-zdk"/>
@@ -891,21 +939,32 @@
                     <navigationItem key="navigationItem" id="FAl-rA-fjj"/>
                     <connections>
                         <outlet property="autoLabel" destination="WlZ-7a-obN" id="3eu-tQ-RFh"/>
-                        <outlet property="autoView" destination="UVO-cb-a4T" id="75w-id-0qR"/>
+                        <outlet property="autoSub" destination="0gh-Pd-Gg5" id="XQh-Y0-Emy"/>
+                        <outlet property="autoText" destination="pgi-Sc-dxq" id="6v9-l0-KbS"/>
+                        <outlet property="autoView" destination="xyD-o4-vhy" id="UgT-UF-dgt"/>
                         <outlet property="backButton" destination="t9m-2M-PnP" id="rje-Pu-v2Y"/>
                         <outlet property="cameraIcon" destination="UJA-k3-flQ" id="Lfa-6J-FMX"/>
                         <outlet property="connectBSwitch" destination="iwS-Gd-KJa" id="pbz-Qz-D7b"/>
                         <outlet property="fastLabel" destination="qbz-kS-7YI" id="ioe-sN-yHh"/>
-                        <outlet property="fastView" destination="ajR-D0-ogs" id="CKb-we-XoX"/>
+                        <outlet property="fastSub" destination="TpI-2e-p8y" id="JhU-WT-1o1"/>
+                        <outlet property="fastText" destination="Cud-HH-255" id="MbP-m9-Hnl"/>
+                        <outlet property="fastView" destination="TFJ-2g-Jom" id="Faz-6V-k9c"/>
                         <outlet property="ipAddress" destination="xa9-Iv-aIy" id="hdK-Mr-20E"/>
                         <outlet property="pictureIcon" destination="syW-YE-7Iv" id="XBI-AG-x4S"/>
                         <outlet property="portNumber" destination="TJ9-b2-nug" id="G2M-B4-5FP"/>
                         <outlet property="precisionLabel" destination="oNX-OS-2ji" id="730-ns-eDe"/>
-                        <outlet property="precisionView" destination="zRB-Of-P4L" id="z9c-OM-zmV"/>
+                        <outlet property="precisionSub" destination="pWE-5d-4ra" id="nau-dB-NYD"/>
+                        <outlet property="precisionText" destination="i0c-17-ITi" id="Q6u-PL-IbN"/>
+                        <outlet property="precisionView" destination="bPK-rA-YM8" id="4ku-iu-FVT"/>
                         <outlet property="pulseLabel" destination="SGk-Gk-xpG" id="W5d-X4-YJY"/>
+                        <outlet property="pulseSub" destination="nMO-PV-9rd" id="CVO-De-cnk"/>
+                        <outlet property="pulseText" destination="SbI-B9-r4v" id="dYX-ZY-ptb"/>
                         <outlet property="pulseView" destination="PZM-d2-WJh" id="36n-ab-Yb8"/>
                         <outlet property="refreshLabel" destination="MMO-wi-JJu" id="xqN-ji-6DH"/>
-                        <outlet property="refreshView" destination="Jxk-MC-lSc" id="yQv-Vx-L45"/>
+                        <outlet property="refreshSub" destination="z81-jh-z6x" id="pjs-OA-tNR"/>
+                        <outlet property="refreshText" destination="Hg8-h1-YtW" id="uI5-m5-SYJ"/>
+                        <outlet property="refreshView" destination="EeV-B4-rcI" id="w1b-BS-PnH"/>
+                        <outlet property="settingsSV" destination="8D3-7U-dO2" id="RRP-t4-e9X"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="MdY-8v-bLJ"/>
                         <segue destination="H4p-HX-YGm" kind="unwind" identifier="sensorCodeMM" unwindAction="unwindToRootViewControllerWithSegue:" id="dP3-MT-jm7"/>
                     </connections>
