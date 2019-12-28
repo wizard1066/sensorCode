@@ -15,6 +15,7 @@ protocol setty {
 }
 
 class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, lostLink {
+  
   func sendAlert(error: String) {
     redo(error)
   }
@@ -22,6 +23,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   var skip = false
   var tag:Int?
   var feeder:setty?
+  var status:running?
   
   @IBOutlet weak var settingsSV: UIStackView!
   
@@ -60,13 +62,12 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     } else {
       let alert = UIAlertController(title: "TURN On the switch to make the connection live", message: "Confirm", preferredStyle: .alert)
 
-      alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+      alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+          self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+        })
+        }))
       alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-//        if let url = URL(string:UIApplication.openSettingsURLString) {
-//           if UIApplication.shared.canOpenURL(url) {
-//             UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//           }
-//        }
         self.turnOn()
         self.connectBSwitch.setOn(true, animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -148,7 +149,11 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     lastSwitch = connectBSwitch
-    
+    if lastSwitch!.isOn {
+      status?.turnOn(views2G: self.tag!)
+    } else {
+      status?.turnOff(views2G: self.tag!)
+    }
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -229,7 +234,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     
     if !fastStart! {
     
-    infoText.text = "Enter a port number to use between 1024 and 32760. Tap on the screen to dismiss the keyboard. Tap on the heading below to find out more about app settings you can make"
+    infoText.text = "Start by entering a port number to use between 1024 and 32760, than tap on the screen to dismiss the keyboard. Tap on the headings below to find out more about other app settings you can make"
     infoText.backgroundColor = .white
     infoText.isUserInteractionEnabled = true
 //
@@ -243,6 +248,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         UIView.animate(withDuration: 1) {
           self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.minY - 256)
           self.settingsSV.spacing = 10
+          
         }
       }
       })
@@ -291,6 +297,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     let precisionTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
     precisionTap.sender = Vs.precision.rawValue
     precisionLabel.addGestureRecognizer(precisionTap)
+    
     let precisionVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
     precisionVTap.sender = Vs.precision.rawValue
     precisionText.addGestureRecognizer(precisionVTap)
@@ -310,31 +317,45 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     let tag = sender as? customTap
     switch tag?.sender {
       case Vs.refresh.rawValue:
-        hideLabels()
+        hideLabels(fast: refreshLabel)
         refreshView.isHidden = false
       case Vs.pulse.rawValue:
-        hideLabels()
+        hideLabels(fast: pulseLabel)
         pulseView.isHidden = false
       case Vs.auto.rawValue:
-        hideLabels()
+        hideLabels(fast: autoLabel)
         autoView.isHidden = false
       case Vs.fast.rawValue:
-        hideLabels()
+        hideLabels(fast: fastLabel)
         fastView.isHidden = false
       case Vs.precision.rawValue:
-        hideLabels()
+        hideLabels(fast: precisionLabel)
         precisionView.isHidden = false
       default:
         break
       }
   }
   
-  func hideLabels() {
-    refreshLabel.isHidden = true
-    precisionLabel.isHidden = true
-    autoLabel.isHidden = true
-    fastLabel.isHidden = true
-    pulseLabel.isHidden = true
+  func hideLabels(fast:UILabel) {
+    fast.isHidden = true
+    fast.alpha = 0
+//    UIView.animate(
+//        withDuration: 2.0,
+//        delay: 0.0,
+//        options: [.curveEaseOut],
+//        animations: {
+            self.refreshLabel.isHidden = true
+            self.precisionLabel.isHidden = true
+            self.autoLabel.isHidden = true
+            self.fastLabel.isHidden = true
+            self.pulseLabel.isHidden = true
+            self.refreshLabel.alpha = 0
+            self.precisionLabel.alpha = 0
+            self.autoLabel.alpha = 0
+            self.fastLabel.alpha = 0
+            self.pulseLabel.alpha = 0
+//    })
+    
   }
   
   @objc func actionV(sender: Any) {
@@ -361,11 +382,33 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   }
   
   func showLabels() {
-    refreshLabel.isHidden = false
-    precisionLabel.isHidden = false
-    autoLabel.isHidden = false
-    fastLabel.isHidden = false
-    pulseLabel.isHidden = false
+    UIView.animate(
+        withDuration: 1.0,
+        delay: 0.0,
+        options: [.curveEaseOut],
+        animations: {
+            self.refreshLabel.isHidden = false
+            self.precisionLabel.isHidden = false
+            self.autoLabel.isHidden = false
+            self.fastLabel.isHidden = false
+            self.pulseLabel.isHidden = false
+            self.refreshLabel.alpha = 1
+            self.precisionLabel.alpha = 1
+            self.autoLabel.alpha = 1
+            self.fastLabel.alpha = 1
+            self.pulseLabel.alpha = 1
+            
+    })
+  
+    
+  }
+  
+  func enableLabels() {
+    self.pulseLabel.isUserInteractionEnabled = true
+    self.precisionLabel.isUserInteractionEnabled = true
+    self.autoLabel.isUserInteractionEnabled = true
+    self.refreshLabel.isUserInteractionEnabled = true
+    self.fastLabel.isUserInteractionEnabled = true
   }
   
   var blinkCount = 0
@@ -388,7 +431,10 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
           ipAddress.placeholder = ipAddress.text!
           feeder?.returnPostNHost(port: portNumber.text!, host: ipAddress.text!)
         }
-        
+      UIView.animate(withDuration: 4) {
+        self.settingsSV.spacing = 10
+      }
+      enableLabels()
       var paused = DispatchTimeInterval.seconds(12)
       if !fastStart! {
         let textFeed = "Wait, before you go. Load a wallpaper thru the icons below. Double tap to dismiss it and shake your iphone to bring it back."
@@ -441,12 +487,9 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   @objc func tapped() {
     UIView.animate(withDuration: 4) {
       self.infoText.alpha = 0
-//      self.portNumber.alpha = 1
-//      self.ipAddress.alpha = 1
       self.settingsSV.spacing = 10
+      
     }
-    
-//    backButton.noblink()
   }
     
     @IBOutlet weak var portNumber: UITextField!

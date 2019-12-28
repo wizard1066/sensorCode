@@ -161,6 +161,7 @@ class motionVC: UIViewController, lostLink {
     if autoClose! {
       motionManager!.stopAccelerometerUpdates()
       motionManager = nil
+      switchGyroOutlet.setOn(false, animated: false)
     }
     lastSwitch = switchGyroOutlet
     if lastSwitch!.isOn {

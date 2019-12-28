@@ -154,6 +154,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
         if autoClose! {
           directionManager!.stopUpdatingHeading()
           directionManager = nil
+          compassSwitchOutlet.setOn(false, animated: false)
         }
         lastSwitch = compassSwitchOutlet
         if lastSwitch!.isOn {

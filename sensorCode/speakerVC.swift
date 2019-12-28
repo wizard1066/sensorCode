@@ -125,6 +125,11 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
     
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      if autoClose! {
+            communications?.stopListening()
+            speakerToggle = false
+            speakerSwitchOutput?.setOn(false, animated: false)
+           }
        lastSwitch = speakerSwitchOutput
        if lastSwitch!.isOn {
          status?.turnOn(views2G: self.tag!)

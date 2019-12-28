@@ -108,6 +108,7 @@ class proximityVC: UIViewController, lostLink {
 //       NotificationCenter.default.removeObserver(NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"))
       NotificationCenter.default.removeObserver(self)
       proximityValue = false
+      proximitySwitchOutlet?.setOn(false, animated: false)
      }
      lastSwitch = proximitySwitchOutlet
      if lastSwitch!.isOn {

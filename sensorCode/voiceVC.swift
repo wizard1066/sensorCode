@@ -44,8 +44,8 @@ class voiceVC: UIViewController, lostLink {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     if autoClose! {
-      switchListeningOutput.isOn = false
-      stop()
+      switchListeningOutput.setOn(false, animated: false)
+      stopRecording()
     }
     lastSwitch = switchListeningOutput
     if lastSwitch!.isOn {
@@ -61,6 +61,8 @@ class voiceVC: UIViewController, lostLink {
   @IBAction func switchListening(_ sender: UISwitch) {
     if sender.isOn {
       askPermission()
+    } else {
+      stopRecording()
     }
   }
   
@@ -183,18 +185,11 @@ class voiceVC: UIViewController, lostLink {
         }
         
         if result!.isFinal {
-          //              print("stop recording!")
-          
-//          self.start()
-          
-          self.switchListeningOutput.isOn = false
-          DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-//          self.stopRecording()
-            self.start()
-            self.switchListeningOutput.isOn = true
-            
-//
-          })
+          if self.switchListeningOutput.isOn {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+              self.start()
+            })
+          }
         }
         
       }})

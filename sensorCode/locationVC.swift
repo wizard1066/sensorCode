@@ -145,6 +145,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if autoClose! {
       locationManager!.stopUpdatingLocation()
+      locationButtonOutlet?.setOn(false, animated: false)
     }
     lastSwitch = locationButtonOutlet
     if lastSwitch!.isOn {

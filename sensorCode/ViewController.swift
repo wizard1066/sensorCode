@@ -58,6 +58,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         proximityTag.noblinkText(tag: views2G(rawValue: label)!)
       case views2G.speaker.rawValue:
         talkTag.noblinkText(tag: views2G(rawValue: label)!)
+      case views2G.gear.rawValue:
+        connectTag.noblinkText(tag: views2G(rawValue: label)!)
       default:
         break
     }
@@ -78,6 +80,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         proximityTag.blinkText(tag: views2G(rawValue: label)!)
       case views2G.speaker.rawValue:
         talkTag.blinkText(tag: views2G(rawValue: label)!)
+      case views2G.gear.rawValue:
+        connectTag.blinkText(tag: views2G(rawValue: label)!)
       default:
         break
     }
@@ -105,6 +109,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   
 
   @IBOutlet weak var inapp: UILabel!
+  @IBOutlet weak var moreText: UILabel!
   
   var purchases:[String:Bool] = [:]
 
@@ -789,6 +794,8 @@ func secondJump() {
     communications?.missing = self
   }
   
+  var paused = DispatchTimeInterval.seconds(12)
+  
   func firstShown() {
     
     if firstShow {
@@ -861,6 +868,48 @@ func secondJump() {
                         communications?.pulseUDP(superRec)
                       }
                     }
+                    if !fastStart! {
+                      let textFeed = "A reminder, auto close will shutdown transmissions if you return to this screen, change it in app settings to use sensors firing concurrently. Transmitting sensors text blinks when they are sending data out."
+                      
+                      self.moreText.text = ""
+                      self.moreText.alpha = 1
+                      self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 40
+                      self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
+                      self.moreText.adjustsFontForContentSizeCategory = true
+                      self.moreText.isHidden = false
+                      self.moreText.textAlignment = .left
+                      self.moreText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
+                      self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+                      
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        let words = Array(textFeed)
+                        var i = 0
+                        let pause = 0.1
+                       
+                        let delay = pause * Double(textFeed.count)
+                        
+                        self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
+                        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+                          
+                          self.moreText.text = self.moreText.text! + String(words[i])
+                          if i == words.count - 1 {
+                            timer.invalidate()
+                            UIView.animate(withDuration: 12) {
+                              self.moreText.alpha = 0
+                            }
+                                    
+                          } else {
+                            i = i + 1
+                            
+                          }
+                        }
+                      })
+                    }
+                    
+                    
+                    
+                    
+                    
                   })
                 })
               })
@@ -963,6 +1012,7 @@ func secondJump() {
       if let nextViewController = segue.destination as? gearVC {
         nextViewController.tag = views2G.gear.rawValue
         nextViewController.feeder = self
+        nextViewController.status = self
         communications?.missing = nextViewController
         strongGear = nextViewController
         
