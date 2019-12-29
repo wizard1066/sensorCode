@@ -8,11 +8,27 @@
 	<array>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Output</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Pulse</string>
 			<key>Key</key>
 			<string>PULSE</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Variable</string>
+			<key>Key</key>
+			<string>VARIABLE</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

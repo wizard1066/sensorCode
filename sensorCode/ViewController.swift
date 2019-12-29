@@ -176,6 +176,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var proximityTag: UILabel!
   @IBOutlet weak var talkTag: UILabel!
   @IBOutlet weak var connectTag: UILabel!
+  @IBOutlet weak var toolsTag: UILabel!
   
   @IBOutlet weak var portOutlet: UILabel!
   @IBOutlet weak var sendingOutlet: UILabel!
@@ -193,6 +194,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var voiceBOutlet: UIButton!
   @IBOutlet weak var motionBOutlet: UIButton!
   @IBOutlet weak var azimuthBOutlet: UIButton!
+  @IBOutlet weak var toolBOutlet: UIButton!
   
   
   var strongCompass:azimuthVC?
@@ -202,6 +204,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   var strongLocation: locationVC?
   var strongGear: gearVC?
   var strongProximity: proximityVC?
+  var strongTool: toolsVC?
   
   
 
@@ -237,6 +240,17 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       present(strongGear!, animated: true, completion: nil)
     } else {
       self.performSegue(withIdentifier: "config", sender: self)
+    }
+    
+  }
+  
+  @IBAction func toolBAction(_ sender: UIButton) {
+  
+    lastButton = toolBOutlet
+    if strongTool != nil {
+      present(strongTool!, animated: true, completion: nil)
+    } else {
+      self.performSegue(withIdentifier: "tools", sender: self)
     }
     
   }
@@ -459,7 +473,11 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       robotLabel.isHidden = true
     }
     
-    superRec = pulser(proximity: nil, latitude: nil, longitude: nil, altitude: nil, trueNorth: nil, magneticNorth: nil, roll: nil, pitch: nil, yaw: nil, word: nil)
+    if variable! {
+      superRec = pulser(proximity: nil, latitude: nil, longitude: nil, altitude: nil, trueNorth: nil, magneticNorth: nil, roll: nil, pitch: nil, yaw: nil, word: nil)
+    } else {
+      superRec = pulser(proximity: "", latitude: "", longitude: "", altitude: "", trueNorth: "", magneticNorth: "", roll: "", pitch: "", yaw: "", word: "")
+    }
   }
   
   @objc func defaultsChanged(){
@@ -478,6 +496,11 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         pulse = true
       } else {
         pulse = false
+      }
+      if UserDefaults.standard.bool(forKey: "VARIABLE") {
+        variable = true
+      } else {
+        variable = false
       }
     if (UserDefaults.standard.string(forKey: "PRECISION") != nil) {
         precision = UserDefaults.standard.string(forKey: "PRECISION")
@@ -623,6 +646,10 @@ func secondJump() {
           self.gearBOutlet.isHidden = false
           self.gearBOutlet.isEnabled = true
           self.connectTag.isHidden = false
+          
+          self.toolsTag.isHidden = false
+          self.toolBOutlet.isEnabled = true
+          self.toolBOutlet.isHidden = false
           self.gearBOutlet.grow()
         })
       

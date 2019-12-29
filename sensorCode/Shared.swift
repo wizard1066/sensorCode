@@ -21,6 +21,7 @@ var precision: String?
 var fastStart: Bool?
 var refreshRate: Double?
 var pulse: Bool?
+var variable: Bool?
 
 var motionManager: CMMotionManager?
 var directionManager: CLLocationManager?

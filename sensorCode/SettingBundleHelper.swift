@@ -28,6 +28,11 @@ struct SettingsBundleKeys {
     } else {
       pulse = false
     }
+    if UserDefaults.standard.bool(forKey: "VARIABLE") {
+      variable = true
+    } else {
+      variable = false
+    }
     if (UserDefaults.standard.string(forKey: "PRECISION") != nil) {
       precision = UserDefaults.standard.string(forKey: "PRECISION")
     } else {
