@@ -481,27 +481,33 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   }
   
   @objc func defaultsChanged(){
-      if UserDefaults.standard.bool(forKey: "AUTO_CLOSE") {
-        autoClose = true
-      }
-      else {
-        autoClose = false
-      }
-      if UserDefaults.standard.bool(forKey: "FAST_START") {
-        fastStart = true
-      } else {
-        fastStart = false
-      }
-      if UserDefaults.standard.bool(forKey: "PULSE") {
-        pulse = true
-      } else {
-        pulse = false
-      }
-      if UserDefaults.standard.bool(forKey: "VARIABLE") {
-        variable = true
-      } else {
-        variable = false
-      }
+      autoClose = UserDefaults.standard.bool(forKey: "AUTO_CLOSE")
+      fastStart = UserDefaults.standard.bool(forKey: "FAST_START")
+      pulse = UserDefaults.standard.bool(forKey: "PULSE")
+      variable = UserDefaults.standard.bool(forKey: "VARIABLE")
+  
+  
+//      if UserDefaults.standard.bool(forKey: "AUTO_CLOSE") {
+//        autoClose = true
+//      }
+//      else {
+//        autoClose = false
+//      }
+//      if UserDefaults.standard.bool(forKey: "FAST_START") {
+//        fastStart = true
+//      } else {
+//        fastStart = false
+//      }
+//      if UserDefaults.standard.bool(forKey: "PULSE") {
+//        pulse = true
+//      } else {
+//        pulse = false
+//      }
+//      if UserDefaults.standard.bool(forKey: "VARIABLE") {
+//        variable = true
+//      } else {
+//        variable = false
+//      }
     if (UserDefaults.standard.string(forKey: "PRECISION") != nil) {
         precision = UserDefaults.standard.string(forKey: "PRECISION")
       } else {

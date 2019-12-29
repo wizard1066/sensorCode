@@ -6,12 +6,16 @@
 	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Output</string>
-		</dict>
+  <dict>
+    <key>Type</key>
+    <string>PSToggleSwitchSpecifier</string>
+    <key>Title</key>
+    <string>Auto Close</string>
+    <key>Key</key>
+    <string>AUTO_CLOSE</string>
+    <key>DefaultValue</key>
+    <true/>
+  </dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
@@ -62,16 +66,7 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Auto Close</string>
-			<key>Key</key>
-			<string>AUTO_CLOSE</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
+		
 	</array>
 </dict>
 </plist>

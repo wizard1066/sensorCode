@@ -30,15 +30,23 @@ class toolsVC: UIViewController {
         
         if pulse! {
           pulseSwitch.setOn(true, animated: false)
+        } else {
+          pulseSwitch.setOn(false, animated: false)
         }
         if variable! {
           fixedSwitch.setOn(true, animated: false)
+        } else {
+          fixedSwitch.setOn(false, animated: false)
         }
         if autoClose! {
           autoSwitch.setOn(true, animated: false)
+        } else {
+          autoSwitch.setOn(false, animated: false)
         }
         if fastStart! {
           fastSwitch.setOn(true, animated: false)
+        } else {
+          fastSwitch.setOn(false, animated: false)
         }
         refreshValue.text = "\(refreshRate!)"
         precisionValue.text = precision
