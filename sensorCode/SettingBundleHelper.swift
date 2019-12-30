@@ -18,50 +18,50 @@ struct SettingsBundleKeys {
     static let pulse = "PULSE"
 }
 
+  
+
   class func checkAndExecuteSettings() {
-
+  
     let defaults = UserDefaults.standard
-    let settingsUrl = Bundle.main.path(forResource: "Settings", ofType: "bundle")
-    var rate: String?
     
-    let rootList = settingsUrl! + "/Root.plist"
-    if let rootDictionary = NSDictionary(contentsOfFile: rootList) {
-        let preferences = rootDictionary["PreferenceSpecifiers"] as! [NSDictionary]
+    func isFirstTimeOpening() -> Bool {
+      let defaults = UserDefaults.standard
+//      let answer = defaults.bool(forKey:"hasRun") ? false : true
+      if(defaults.integer(forKey: "hasRun") == 0) {
+          defaults.set(1, forKey: "hasRun")
+          return true
+      }
+      return false
 
-        for preference in preferences {
-            guard let key = preference["Key"] as? String else {
-                NSLog("Key not fount")
-                continue
-            }
-
-           
-            defaults.set(preference["DefaultValue"], forKey: key)
-            switch key {
-              case SettingsBundleKeys.auto:
-                autoClose = preference["DefaultValue"] as? Bool
-              case SettingsBundleKeys.pulse:
-                pulse = preference["DefaultValue"] as? Bool
-              case SettingsBundleKeys.fast:
-                fastStart = preference["DefaultValue"] as? Bool
-              case SettingsBundleKeys.precision:
-                precision = preference["DefaultValue"] as? String
-              case SettingsBundleKeys.rate:
-                rate = preference["DefaultValue"] as? String
-              case SettingsBundleKeys.variable:
-                variable = preference["DefaultValue"] as? Bool
-              default:
-                break
-              
-            }
-            
-//            print("defaultsToRegister",defaultsToRegister)
-        }
     }
     
+    let fuck = defaults.integer(forKey: "hasRun")
+    
+    fastStart = UserDefaults.standard.bool(forKey: SettingsBundleKeys.fast)
+    autoClose = UserDefaults.standard.bool(forKey: SettingsBundleKeys.auto)
+    precision = UserDefaults.standard.string(forKey: SettingsBundleKeys.precision)
+    variable = UserDefaults.standard.bool(forKey: SettingsBundleKeys.variable)
+    refreshRate = UserDefaults.standard.string(forKey: SettingsBundleKeys.rate)
+    variable = UserDefaults.standard.bool(forKey: SettingsBundleKeys.variable)
+    pulse = UserDefaults.standard.bool(forKey: SettingsBundleKeys.pulse)
+    
+    if isFirstTimeOpening() {
+      defaults.set(false, forKey: SettingsBundleKeys.fast)
+      defaults.set(true, forKey: SettingsBundleKeys.auto)
+      defaults.set(true, forKey: SettingsBundleKeys.variable)
+      defaults.set(true, forKey: SettingsBundleKeys.auto)
+      defaults.set(true, forKey: SettingsBundleKeys.pulse)
+      defaults.set("0.1", forKey: SettingsBundleKeys.rate)
+      defaults.set("2", forKey: SettingsBundleKeys.precision)
+      precision = "2"
+      refreshRate = "0.1"
+    }
+    
+    print("x",fastStart,autoClose,precision,variable,refreshRate,variable)
     
     let ps = Double(precision!.doubleValue)
-    let rr = Double(rate!.doubleValue)
-    
+    let rr = Double(refreshRate!.doubleValue)
+
     if ps > 10.0 {
       precision = "10"
     }
@@ -69,12 +69,12 @@ struct SettingsBundleKeys {
       precision = "0.01"
     }
     if rr > 10.0 {
-      refreshRate = 10
+      refreshRate = "10"
     }
     if rr < 0.01 {
-      refreshRate = 0.01
+      refreshRate = "0.01"
     }
-    
+
   }
 }
 

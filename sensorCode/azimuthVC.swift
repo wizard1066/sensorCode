@@ -142,6 +142,8 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
           }
           superRec?.trueNorth = tNValue
           superRec?.magneticNorth = mNValue
+          superRec2?.direct?.magneticNorth = mNValue
+          superRec2?.direct?.trueNorth = tNValue
       }
       
       func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -458,6 +458,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       tapMe()
     } else {
       gearBOutlet.isEnabled = true
+      gearBOutlet.isHidden = false
       nextOutlet.isHidden = true
       topImage.isHidden = true
       delay = DispatchTimeInterval.nanoseconds(500)
@@ -474,18 +475,36 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
     
     if variable! {
-      superRec = pulser(proximity: nil, latitude: nil, longitude: nil, altitude: nil, trueNorth: nil, magneticNorth: nil, roll: nil, pitch: nil, yaw: nil, word: nil)
+//      superRec = pulser(proximity: nil, latitude: nil, longitude: nil, altitude: nil, trueNorth: nil, magneticNorth: nil, roll: nil, pitch: nil, yaw: nil, word: nil)
+        superRec2 = pulser2(wd: nil, px: nil, pos: nil, mov: nil, dir: nil)
     } else {
-      superRec = pulser(proximity: "", latitude: "", longitude: "", altitude: "", trueNorth: "", magneticNorth: "", roll: "", pitch: "", yaw: "", word: "")
+//      superRec = pulser(proximity:"false", latitude:"", longitude:"", altitude:"", trueNorth:"", magneticNorth:"", roll:"", pitch:"", yaw:"", word:"")
+      let superGPS = gps(latitude: "", longitude: "", altitude: "")
+      let superMOV = fly(roll: "", pitch: "", yaw: "")
+      let superDIR = globe(trueNorth: "", magneticNorth: "")
+   
+      superRec2 = pulser2(wd: "", px: "", pos: superGPS, mov: superMOV, dir: superDIR)
     }
   }
   
   @objc func defaultsChanged(){
-      autoClose = UserDefaults.standard.bool(forKey: "AUTO_CLOSE")
-      fastStart = UserDefaults.standard.bool(forKey: "FAST_START")
-      pulse = UserDefaults.standard.bool(forKey: "PULSE")
-      variable = UserDefaults.standard.bool(forKey: "VARIABLE")
+      print("defaultsChanged")
+//        let fast:Bool? = UserDefaults.standard.bool(forKey: "FAST_START")
+//        if fast == nil {
+//          UserDefaults.standard.set(fast, forKey: "FAST_START")
+//        }
+      let fast:Bool? = UserDefaults.standard.bool(forKey: "FAST_START")
+
+
+
+      print("defaultsChanged",fast)
+        
+//      autoClose = UserDefaults.standard.bool(forKey: "AUTO_CLOSE")
+//      fastStart = UserDefaults.standard.bool(forKey: "FAST_START")
+//      pulse = UserDefaults.standard.bool(forKey: "PULSE")
+//      variable = UserDefaults.standard.bool(forKey: "VARIABLE")
   
+        
   
 //      if UserDefaults.standard.bool(forKey: "AUTO_CLOSE") {
 //        autoClose = true
@@ -508,16 +527,16 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
 //      } else {
 //        variable = false
 //      }
-    if (UserDefaults.standard.string(forKey: "PRECISION") != nil) {
-        precision = UserDefaults.standard.string(forKey: "PRECISION")
-      } else {
-        precision = "2"
-      }
-    if (UserDefaults.standard.string(forKey: "RATE") != nil) {
-      refreshRate = UserDefaults.standard.string(forKey: "RATE")?.doubleValue
-    } else {
-      refreshRate = 0.1
-    }
+//    if (UserDefaults.standard.string(forKey: "PRECISION") != nil) {
+//        precision = UserDefaults.standard.string(forKey: "PRECISION")
+//      } else {
+//        precision = "2"
+//      }
+//    if (UserDefaults.standard.string(forKey: "RATE") != nil) {
+//      refreshRate = UserDefaults.standard.string(forKey: "RATE")?.doubleValue
+//    } else {
+//      refreshRate = 0.1
+//    }
   }
   
   @objc func applicationDidBecomeActive(notification: NSNotification) {
@@ -648,7 +667,6 @@ func secondJump() {
         self.topImage.alpha = 0.2
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-//          self.gearBOutlet.alpha = 0
           self.gearBOutlet.isHidden = false
           self.gearBOutlet.isEnabled = true
           self.connectTag.isHidden = false
@@ -897,8 +915,9 @@ func secondJump() {
                     self.infoText!.text = ""
                     self.firstShow = false
                     if pulse! {
-                      Timer.scheduledTimer(withTimeInterval: refreshRate!, repeats: true) { (timer) in
-                        communications?.pulseUDP(superRec)
+                      Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
+                        
+                        communications?.pulseUDP2(superRec2)
                       }
                     }
                     if !fastStart! {

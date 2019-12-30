@@ -278,29 +278,53 @@ class connect: NSObject {
   
   var word: String?
   
-  func pulseUDP(_ content: pulser) {
-
-         // put this in cause speaking will send multiple copies of the same word
-      do {
-        let encoder = JSONEncoder()
-        var newContent = content
-        if newContent.word == word {
-          newContent.word = nil
-        }
-        let jsonData = try encoder.encode(newContent)
-        let jsonString = String(data: jsonData, encoding: .utf8)!
-        let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
-        self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
+  func pulseUDP2(_ content: pulser2) {
+    
+    // put this in cause speaking will send multiple copies of the same word
+    do {
+      let encoder = JSONEncoder()
+      var newContent = content
+      if newContent.word == word {
+        newContent.word = ""
+      }
+      let jsonData = try encoder.encode(newContent)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
         if (NWError == nil) {
           self.word = content.word
         } else {
           print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
         }
       })))
-      } catch {
-        print("error",error)
+    } catch {
+      print("error",error)
     }
+  }
+  
+  func pulseUDP(_ content: pulser) {
+    
+    // put this in cause speaking will send multiple copies of the same word
+    do {
+      let encoder = JSONEncoder()
+      var newContent = content
+      if newContent.word == word {
+        newContent.word = nil
+      }
+      let jsonData = try encoder.encode(newContent)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
+        if (NWError == nil) {
+          self.word = content.word
+        } else {
+          print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
+        }
+      })))
+    } catch {
+      print("error",error)
     }
+  }
   
   func receiveUDP() {
     self.connection?.receive(minimumIncompleteLength: 1, maximumLength: 65536, completion: { (data, context, isComplete, error) in

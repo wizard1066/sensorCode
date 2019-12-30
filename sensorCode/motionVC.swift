@@ -11,6 +11,8 @@ import CoreMotion
 
 class motionVC: UIViewController, lostLink {
 
+var motionManager: CMMotionManager?
+
   func sendAlert(error: String) {
     let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)
     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -18,7 +20,6 @@ class motionVC: UIViewController, lostLink {
     self.present(alertController, animated: true, completion: nil)
   }
   
-
   var tag:Int?
   var status:running?
 
@@ -28,7 +29,7 @@ class motionVC: UIViewController, lostLink {
   @IBAction func switchGyro(_ sender: UISwitch) {
     if sender.isOn {
       if motionManager!.isAccelerometerAvailable {
-          motionManager!.accelerometerUpdateInterval = refreshRate!
+          motionManager!.accelerometerUpdateInterval = refreshRate!.doubleValue
           motionManager!.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
             
                 self.senddata(data: data!)
@@ -60,6 +61,9 @@ class motionVC: UIViewController, lostLink {
     superRec?.pitch = pN
     superRec?.yaw = yN
     
+    superRec2?.movement?.roll = rN
+    superRec2?.movement?.pitch = pN
+    superRec2?.movement?.yaw = yN
     
     if lastRoll == rN && lastPitch == pN && lastYaw == yN {
       return
@@ -146,7 +150,7 @@ class motionVC: UIViewController, lostLink {
       }
       self.switchGyroOutlet.isOn = true
       if motionManager!.isAccelerometerAvailable {
-        motionManager!.accelerometerUpdateInterval = refreshRate!
+        motionManager!.accelerometerUpdateInterval = Double(refreshRate!.doubleValue)
                 motionManager!.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
                       self.senddata(data: data!)
                 }

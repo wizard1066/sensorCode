@@ -92,9 +92,11 @@ class proximityVC: UIViewController, lostLink {
               if UIDevice.current.proximityState {
                 word = neighbours(proximity: "true")
                 superRec.proximity = "true"
+                superRec2.proximity = "true"
               } else {
                 word = neighbours(proximity: "false")
                 superRec.proximity = "false"
+                superRec2.proximity = "false"
             }
             communications?.sendUDP(word!)
             

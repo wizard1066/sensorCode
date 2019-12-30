@@ -179,6 +179,7 @@ class voiceVC: UIViewController, lostLink {
               communications?.sendUDP(w2S)
             }
             superRec.word = word
+            superRec2.word = word
           } else {
             superRec.word = nil
           }

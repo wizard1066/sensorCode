@@ -19,11 +19,12 @@ var autoClose: Bool?
 var lastButton: UIButton?
 var precision: String?
 var fastStart: Bool?
-var refreshRate: Double?
+
+var refreshRate: String?
 var pulse: Bool?
 var variable: Bool?
 
-var motionManager: CMMotionManager?
+
 var directionManager: CLLocationManager?
 var lastSwitch: UISwitch?
 
@@ -101,6 +102,22 @@ struct simple:Codable {
   }
 }
 
+struct pulser2: Codable {
+  var word: String?
+  var proximity: String?
+  var position:gps?
+  var movement:fly?
+  var direct:globe?
+  
+  init(wd:String?, px: String?, pos:gps?, mov:fly?, dir: globe?) {
+    self.word = wd
+    self.proximity = px
+    self.position = pos
+    self.movement = mov
+    self.direct = dir
+  }
+}
+
 struct pulser: Codable {
   // proximity
   var proximity: String?
@@ -133,6 +150,7 @@ struct pulser: Codable {
 }
 
 var superRec:pulser!
+var superRec2: pulser2!
 
 
 

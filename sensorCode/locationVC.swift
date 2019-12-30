@@ -135,6 +135,9 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
           superRec?.latitude = "\(currentLocation.coordinate.latitude.description)"
           superRec?.longitude = "\(currentLocation.coordinate.longitude.description)"
           superRec?.altitude = "\(currentLocation.altitude.description)"
+          superRec2?.position?.altitude = "\(currentLocation.coordinate.latitude.description)"
+          superRec2?.position?.longitude = "\(currentLocation.coordinate.longitude.description)"
+          superRec2?.position?.latitude = "\(currentLocation.coordinate.latitude.description)"
       }
   }
 
