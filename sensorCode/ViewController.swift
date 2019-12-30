@@ -921,7 +921,7 @@ func secondJump() {
                       }
                     }
                     if !fastStart! {
-                      let textFeed = "A reminder, auto close will shutdown transmissions if you return to this screen, change it in app settings to use sensors firing concurrently. Transmitting sensors text blinks when they are sending data out."
+                      let textFeed = "A reminder, auto close will shutdown transmissions if you return to this screen, change it in app settings to use more than one sensor. Transmitting sensors text blinks when they are sending data out."
                       
                       self.moreText.text = ""
                       self.moreText.alpha = 1
