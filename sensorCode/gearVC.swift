@@ -26,30 +26,35 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   var status:running?
   
   @IBOutlet weak var settingsSV: UIStackView!
+  @IBOutlet weak var textSV: UIStackView!
   
   @IBOutlet weak var pulseView: UIView!
   @IBOutlet weak var refreshView: UIView!
   @IBOutlet weak var precisionView: UIView!
   @IBOutlet weak var autoView: UIView!
   @IBOutlet weak var fastView: UIView!
+  @IBOutlet weak var variableView: UIView!
   
   @IBOutlet weak var pulseText: UILabel!
   @IBOutlet weak var refreshText: UILabel!
   @IBOutlet weak var precisionText: UILabel!
   @IBOutlet weak var autoText: UILabel!
   @IBOutlet weak var fastText: UILabel!
+  @IBOutlet weak var variableText: UILabel!
   
   @IBOutlet weak var fastSub: UILabel!
   @IBOutlet weak var autoSub: UILabel!
   @IBOutlet weak var precisionSub: UILabel!
   @IBOutlet weak var refreshSub: UILabel!
   @IBOutlet weak var pulseSub: UILabel!
+  @IBOutlet weak var variableSub: UILabel!
   
   @IBOutlet weak var pulseLabel: UILabel!
   @IBOutlet weak var refreshLabel: UILabel!
   @IBOutlet weak var precisionLabel: UILabel!
   @IBOutlet weak var autoLabel: UILabel!
   @IBOutlet weak var fastLabel: UILabel!
+  @IBOutlet weak var variableLabel: UILabel!
   
   
   
@@ -234,7 +239,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     
     if !fastStart! {
     
-    infoText.text = "Start by entering a port number to use between 1024 and 32760, than tap on the screen to dismiss the keyboard. Tap on the headings below to find out more about other app settings you can make"
+    infoText.text = "Start by entering a port number to use between 1024 and 32760, tapping on the screen to dismiss the keyboard."
     infoText.backgroundColor = .white
     infoText.isUserInteractionEnabled = true
 //
@@ -242,12 +247,13 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     infoText.addGestureRecognizer(tapper)
     
     
+    
       DispatchQueue.main.asyncAfter(deadline: .now() + 16, execute: {
 //      self.backButton.noblink()
       if !self.skip {
         UIView.animate(withDuration: 1) {
           self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.minY - 256)
-          self.settingsSV.spacing = 10
+          self.settingsSV.spacing = 6
           
         }
       }
@@ -294,6 +300,15 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     fastText.addGestureRecognizer(fastVTap)
     fastSub.addGestureRecognizer(fastVTap)
     
+    let variableTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+    variableTap.sender = Vs.variable.rawValue
+    variableLabel.addGestureRecognizer(variableTap)
+    let variableVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+    variableVTap.sender = Vs.variable.rawValue
+    variableText.addGestureRecognizer(variableVTap)
+    variableSub.addGestureRecognizer(variableVTap)
+    
+    
     let precisionTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
     precisionTap.sender = Vs.precision.rawValue
     precisionLabel.addGestureRecognizer(precisionTap)
@@ -303,6 +318,8 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     precisionText.addGestureRecognizer(precisionVTap)
     precisionSub.addGestureRecognizer(precisionVTap)
     
+    
+    
   }
   
   enum Vs: String {
@@ -311,6 +328,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     case refresh = "refresh"
     case auto = "auto"
     case fast = "fast"
+    case variable = "variable"
   }
   
   @objc func actionB(sender: Any) {
@@ -331,6 +349,9 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       case Vs.precision.rawValue:
         hideLabels(fast: precisionLabel)
         precisionView.isHidden = false
+      case Vs.variable.rawValue:
+        hideLabels(fast: variableLabel)
+        variableView.isHidden = false
       default:
         break
       }
@@ -349,11 +370,13 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
             self.autoLabel.isHidden = true
             self.fastLabel.isHidden = true
             self.pulseLabel.isHidden = true
+            self.variableLabel.isHidden = true
             self.refreshLabel.alpha = 0
             self.precisionLabel.alpha = 0
             self.autoLabel.alpha = 0
             self.fastLabel.alpha = 0
             self.pulseLabel.alpha = 0
+            self.variableLabel.alpha = 0
 //    })
     
   }
@@ -376,6 +399,9 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     case Vs.precision.rawValue:
       precisionView.isHidden = true
       showLabels()
+    case Vs.variable.rawValue:
+      variableView.isHidden = true
+      showLabels()
     default:
       break
     }
@@ -392,12 +418,13 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
             self.autoLabel.isHidden = false
             self.fastLabel.isHidden = false
             self.pulseLabel.isHidden = false
+            self.variableLabel.isHidden = false
             self.refreshLabel.alpha = 1
             self.precisionLabel.alpha = 1
             self.autoLabel.alpha = 1
             self.fastLabel.alpha = 1
             self.pulseLabel.alpha = 1
-            
+            self.variableLabel.alpha = 1
     })
   
     
@@ -409,6 +436,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     self.autoLabel.isUserInteractionEnabled = true
     self.refreshLabel.isUserInteractionEnabled = true
     self.fastLabel.isUserInteractionEnabled = true
+    self.variableLabel.isUserInteractionEnabled = true
   }
   
   var blinkCount = 0
@@ -430,6 +458,8 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
           portNumber.placeholder = portNumber.text!
           ipAddress.placeholder = ipAddress.text!
           feeder?.returnPostNHost(port: portNumber.text!, host: ipAddress.text!)
+          showLabels()
+          textSV.isHidden = true
         }
       UIView.animate(withDuration: 4) {
         self.settingsSV.spacing = 10

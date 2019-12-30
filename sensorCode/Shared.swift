@@ -107,14 +107,14 @@ struct pulser2: Codable {
   var proximity: String?
   var position:gps?
   var movement:fly?
-  var direct:globe?
+  var direction:globe?
   
   init(wd:String?, px: String?, pos:gps?, mov:fly?, dir: globe?) {
     self.word = wd
     self.proximity = px
     self.position = pos
     self.movement = mov
-    self.direct = dir
+    self.direction = dir
   }
 }
 
