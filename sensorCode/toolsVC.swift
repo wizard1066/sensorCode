@@ -19,8 +19,10 @@ class toolsVC: UIViewController {
     case variable = "variable"
   }
 
+  @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var pulseLabel: UILabel!
-  @IBOutlet weak var fixedLabel: UILabel!
+
+  @IBOutlet weak var variableLabel: UILabel!
   @IBOutlet weak var refreshLabel: UILabel!
   @IBOutlet weak var precisionLabel: UILabel!
   @IBOutlet weak var autoLabel: UILabel!
@@ -50,6 +52,7 @@ class toolsVC: UIViewController {
   }
   
   private var paused = DispatchTimeInterval.seconds(12)
+  private var delay = DispatchTimeInterval.seconds(6)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -79,78 +82,171 @@ class toolsVC: UIViewController {
     precisionValue.font = UIFont.preferredFont(forTextStyle: .title2)
     precisionValue.text = precision
     
-    let pulseTap = customTap(target: self, action: #selector(toolsVC.showText(sender:)))
-    pulseTap.sender = "Pulse is the business"
+    let remTab = customLongPress(target: self, action: #selector(toolsVC.showPress(sender:)))
+    remTab.sender = "Remember you need to switch to the app settings on your iphone to make changes"
+    remTab.label = moreText
+    
+    let pulseTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    pulseTap.sender = "True [default] sends regular updates of all the sensor readings even if they haven't changed. False sends reaings only when they change."
+    pulseTap.label = infoText
     pulseLabel.addGestureRecognizer(pulseTap)
+    pulseLabel.addGestureRecognizer(remTab)
     pulseLabel.isUserInteractionEnabled = true
     
-    let textFeed = "Use the app settings to change the variables shown here. You will in some cases need to restart the app for the changes to take effect."
     
-    self.moreText.text = ""
-    self.moreText.alpha = 1
-    self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 40
-    self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
-    self.moreText.adjustsFontForContentSizeCategory = true
-    self.moreText.isHidden = false
-    self.moreText.textAlignment = .left
-    self.moreText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-    self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+    let variableTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    variableTap.sender = "True [default] sends JSON only for fields with values. False sends JSON for all fields."
+    variableTap.label = infoText
+    variableLabel.addGestureRecognizer(variableTap)
+    variableLabel.addGestureRecognizer(remTab)
+    variableLabel.isUserInteractionEnabled = true
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-      let words = Array(textFeed)
-      var i = 0
-      let pause = 0.1
-      
-      let delay = pause * Double(textFeed.count)
-      
-      self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
-      Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-        
-        self.moreText.text = self.moreText.text! + String(words[i])
-        if i == words.count - 1 {
-          timer.invalidate()
-          UIView.animate(withDuration: 12) {
-            self.moreText.alpha = 0
-          }
-          
-        } else {
-          i = i + 1
-          
-        }
-      }
+    let refreshTab = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    refreshTab.sender = "The rate at which pulse and/or motion reports get sent. "
+    refreshTab.label = infoText
+    refreshLabel.addGestureRecognizer(refreshTab)
+    refreshLabel.addGestureRecognizer(remTab)
+    refreshLabel.isUserInteractionEnabled = true
+    
+    let precisionTab = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    precisionTab.sender = "The number of significant digits reported in azimuth and motion sensor readings."
+    precisionTab.label = infoText
+    precisionLabel.addGestureRecognizer(precisionTab)
+    precisionLabel.addGestureRecognizer(remTab)
+    precisionLabel.isUserInteractionEnabled = true
+    
+    let autoTab = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    autoTab.sender = "True [default] stops sensors sending data when you return to the principle sensors page. False continues reporting."
+    autoTab.label = infoText
+    autoLabel.addGestureRecognizer(autoTab)
+    autoLabel.addGestureRecognizer(remTab)
+    autoLabel.isUserInteractionEnabled = true
+    
+    let fastTab = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    fastTab.sender = "True skips explainations given on startup. False [default] runs them everytime."
+    fastTab.label = infoText
+    fastLabel.addGestureRecognizer(fastTab)
+    fastLabel.addGestureRecognizer(remTab)
+    fastLabel.isUserInteractionEnabled = true
+    
+    let textFeed = "Use the app settings to change the variables shown here. You may need to restart the app for the changes to take effect."
+    showText(label: moreText, text: textFeed)
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+      self.autoLabel.textColor = UIColor.systemBlue
+      self.autoLabel.blinkText8()
+      DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+        self.pulseLabel.textColor = UIColor.systemBlue
+        self.pulseLabel.blinkText8()
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+          self.variableLabel.textColor = UIColor.systemBlue
+          self.variableLabel.blinkText8()
+          DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+            self.refreshLabel.textColor = UIColor.systemBlue
+            self.refreshLabel.blinkText8()
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+              self.precisionLabel.textColor = UIColor.systemBlue
+              self.precisionLabel.blinkText8()
+              DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+                self.fastLabel.textColor = UIColor.systemBlue
+                self.fastLabel.blinkText8()
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+                  self.backButton.blinkText()
+                })
+              })
+            })
+          })
+        })
+      })
     })
+//    self.moreText.text = ""
+//    self.moreText.alpha = 1
+//    self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 40
+//    self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
+//    self.moreText.adjustsFontForContentSizeCategory = true
+//    self.moreText.isHidden = false
+//    self.moreText.textAlignment = .left
+//    self.moreText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
+//    self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+//
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//      let words = Array(textFeed)
+//      var i = 0
+//      let pause = 0.1
+//
+//      let delay = pause * Double(textFeed.count)
+//
+//      self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
+//      Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+//
+//        self.moreText.text = self.moreText.text! + String(words[i])
+//        if i == words.count - 1 {
+//          timer.invalidate()
+//          UIView.animate(withDuration: 12) {
+//            self.moreText.alpha = 0
+//          }
+//
+//        } else {
+//          i = i + 1
+//
+//        }
+//      }
+//    })
   }
   
-  @objc func showText(sender: Any) {
+  @objc func showTap(sender: Any) {
     let tag = sender as? customTap
+    let label = tag!.label as? UILabel
     let textFeed = tag!.sender as? String
-    self.infoText.text = ""
-    self.infoText.alpha = 1
-    self.infoText.preferredMaxLayoutWidth = self.view.bounds.width - 40
-    self.infoText.font = UIFont.preferredFont(forTextStyle: .body)
-    self.infoText.adjustsFontForContentSizeCategory = true
-    self.infoText.isHidden = false
-    self.infoText.textAlignment = .left
-    self.infoText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-    self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+    showText(label: label!, text: textFeed!)
+  }
+  
+  @objc func showPress(sender: Any) {
+    print("SP")
+    let tag = sender as? customLongPress
+    let label = tag!.label as? UILabel
+    let textFeed = tag!.sender as? String
+    if tag?.state == .ended {
+      showText(label: label!, text: textFeed!)
+    }
+  }
+  
+  var running = false
+  
+  func showText(label: UILabel, text: String) {
+    if running { return }
+    running = true
+    label.text = ""
+    label.alpha = 1
+    label.preferredMaxLayoutWidth = self.view.bounds.width - 40
+    label.font = UIFont.preferredFont(forTextStyle: .body)
+    label.adjustsFontForContentSizeCategory = true
+    label.isHidden = false
+    label.textAlignment = .left
+    label.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
+    label.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-      let words = Array(textFeed!)
+      let words = Array(text)
       var i = 0
       let pause = 0.1
       
-      let delay = pause * Double(textFeed!.count)
+      let tweek = label.text?.count
+      let delay = pause * Double(tweek!)
       
       self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
       Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
         
-        self.infoText.text = self.infoText.text! + String(words[i])
+        label.text = label.text! + String(words[i])
         if i == words.count - 1 {
           timer.invalidate()
-          UIView.animate(withDuration: 12) {
-            self.infoText.alpha = 0
+          self.running = false
+          UIView.animate(withDuration: 12, animations: {
+          label.alpha = 0
+          }) { (action) in
+            // do nothing
           }
-          
+
         } else {
           i = i + 1
           

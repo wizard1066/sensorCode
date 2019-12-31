@@ -462,7 +462,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       nextOutlet.isHidden = true
       topImage.isHidden = true
       delay = DispatchTimeInterval.nanoseconds(500)
-      
+      toolBOutlet.isEnabled = true
+      toolBOutlet.isHidden = false
     }
     
     if port2G == nil {
@@ -921,7 +922,7 @@ func secondJump() {
                       }
                     }
                     if !fastStart! {
-                      let textFeed = "A reminder, auto close will shutdown transmissions if you return to this screen, change it in app settings to use more than one sensor. Transmitting sensors text blinks when they are sending data out."
+                      let textFeed = "Remember Tansmitting sensors text blinks when they are sending data out."
                       
                       self.moreText.text = ""
                       self.moreText.alpha = 1
@@ -1169,7 +1170,22 @@ extension UILabel {
     timer??.invalidate()
     blinkers[tag] = nil
   }
-
-
+  
+  func blinkText8() {
+    var count = 0
+    Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { (timer) in
+            
+          if self.textColor == UIColor.systemBlue {
+              self.textColor = UIColor.blue
+              count = count + 1
+            } else {
+              self.textColor = UIColor.systemBlue
+            }
+          if count > 8 {
+            self.textColor = UIColor.systemBlue
+            timer.invalidate()
+          }
+        }
+  }
 }
 

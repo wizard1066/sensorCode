@@ -694,4 +694,10 @@ extension UIButton {
 
 class customTap: UITapGestureRecognizer {
   var sender: String?
+  var label: UILabel?
+}
+
+class customLongPress: UILongPressGestureRecognizer {
+  var sender: String?
+  var label: UILabel?
 }
