@@ -505,36 +505,36 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @objc func defaultsChanged(notification:NSNotification){
       print("defaultsChanged")
 
-      if let defaults = notification.object as? UserDefaults {
-        if defaults.bool(forKey: "PULSE") {
-          print("Pulse changed")
-//          appRestartRequest()
-        }
-        if defaults.bool(forKey: "RAW") {
-          print("Raw changed")
-//          appRestartRequest()
-        }
-        if defaults.bool(forKey: "VARIABLE") {
-          print("Variable changed")
-//          appRestartRequest()
-        }
-        if defaults.bool(forKey: "AUTO_CLOSE") {
-          print("Variable changed")
-//          appRestartRequest()
-        }
-        if defaults.bool(forKey: "FAST_START") {
-          print("Variable changed")
-//          appRestartRequest()
-        }
-        if (defaults.string(forKey: "PRECISION") != nil) {
-          print("Precision changed")
-//          appRestartRequest()
-        }
-        if (defaults.string(forKey: "RATE") != nil) {
-          print("Rate changed")
-//          appRestartRequest()
-        }
-      }
+//      if let defaults = notification.object as? UserDefaults {
+//        if defaults.bool(forKey: "PULSE") {
+//          print("Pulse changed")
+////          appRestartRequest()
+//        }
+//        if defaults.bool(forKey: "RAW") {
+//          print("Raw changed")
+////          appRestartRequest()
+//        }
+//        if defaults.bool(forKey: "VARIABLE") {
+//          print("Variable changed")
+////          appRestartRequest()
+//        }
+//        if defaults.bool(forKey: "AUTO_CLOSE") {
+//          print("Variable changed")
+////          appRestartRequest()
+//        }
+//        if defaults.bool(forKey: "FAST_START") {
+//          print("Variable changed")
+////          appRestartRequest()
+//        }
+//        if (defaults.string(forKey: "PRECISION") != nil) {
+//          print("Precision changed")
+////          appRestartRequest()
+//        }
+//        if (defaults.string(forKey: "RATE") != nil) {
+//          print("Rate changed")
+////          appRestartRequest()
+//        }
+//      }
   }
   
   @objc func applicationDidBecomeActive(notification: NSNotification) {

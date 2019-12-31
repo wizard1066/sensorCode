@@ -8,6 +8,7 @@
 
 import UIKit
 import Speech
+import AVFoundation
 
 
 
@@ -154,6 +155,8 @@ class voiceVC: UIViewController, lostLink {
     began = true
   }
   
+  var toggle = true
+  
   func startRecording() throws {
     // Setup Audio
     request = SFSpeechAudioBufferRecognitionRequest()
@@ -178,11 +181,13 @@ class voiceVC: UIViewController, lostLink {
 //              let w2S = voice(word: word)
 //              communications?.sendUDP(w2S)
               superRec2.word = word
+              if word == "torch" {
+                self.toggleTorch(on: self.toggle)
+                self.toggle = !self.toggle
+              }
               communications?.pulseUDP2(superRec2)
             }
-//            superRec.word = word
           } else {
-//            superRec.word = nil
             superRec2.word = nil
           }
         
@@ -221,6 +226,27 @@ class voiceVC: UIViewController, lostLink {
   
   func stop() {
     self.stopRecording()
+  }
+  
+  func toggleTorch(on: Bool) {
+      guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+      guard device.hasTorch else { print("Torch isn't available"); return }
+
+      do {
+          try device.lockForConfiguration()
+          device.torchMode = on ? .on : .off
+          // Optional thing you may want when the torch it's on, is to manipulate the level of the torch
+//          if on { try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel) }
+          if on { try device.setTorchModeOn(level: 0.1) }
+//          do {
+//            try device.setTorchModeOn(level: 0.5)
+//          } catch {
+//              print(error)
+//          }
+          device.unlockForConfiguration()
+      } catch {
+          print("Torch can't be used")
+      }
   }
 
 
