@@ -67,7 +67,7 @@ class proximityVC: UIViewController, lostLink {
     } else {
 //      NotificationCenter.default.removeObserver(self)
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: nil)
-      superRec.proximity = nil
+//      superRec.proximity = nil
     }
   }
   
@@ -91,15 +91,15 @@ class proximityVC: UIViewController, lostLink {
               var word:neighbours?
               if UIDevice.current.proximityState {
                 word = neighbours(proximity: "true")
-                superRec.proximity = "true"
+//                superRec.proximity = "true"
                 superRec2.proximity = "true"
               } else {
                 word = neighbours(proximity: "false")
-                superRec.proximity = "false"
+//                superRec.proximity = "false"
                 superRec2.proximity = "false"
             }
-            communications?.sendUDP(word!)
-            
+//            communications?.sendUDP(word!)
+            communications?.pulseUDP2(superRec2)
             
            }
        }
@@ -117,6 +117,7 @@ class proximityVC: UIViewController, lostLink {
        status?.turnOn(views2G: self.tag!)
      } else {
        status?.turnOff(views2G: self.tag!)
+       superRec2.proximity = nil
      }
    }
   

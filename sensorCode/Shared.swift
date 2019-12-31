@@ -49,7 +49,7 @@ struct globe:Codable {
   var trueNorth: String?
   var magneticNorth: String?
   
-  init(trueNorth: String?, magneticNorth: String) {
+  init(trueNorth: String?, magneticNorth: String?) {
     self.trueNorth = trueNorth
     self.magneticNorth = magneticNorth
   }
@@ -60,7 +60,7 @@ struct gps:Codable {
   var longitude: String?
   var altitude: String?
   
-  init(latitude: String, longitude:String?, altitude: String?) {
+  init(latitude: String?, longitude:String?, altitude: String?) {
     self.latitude = latitude
     self.longitude = longitude
     self.altitude = altitude
@@ -118,6 +118,27 @@ struct pulser2: Codable {
   }
 }
 
+struct pulser3: Codable {
+  var word: String?
+  var proximity: String?
+  var position: gps?
+  var movement: fly?
+}
+
+struct pulser4: Codable {
+  var word: String?
+  var proximity: String?
+  var position: gps?
+  var direction: globe?
+}
+
+struct pulser5: Codable {
+  var word: String?
+  var proximity: String?
+  var movement: fly?
+  var dirrection: globe?
+}
+
 struct pulser: Codable {
   // proximity
   var proximity: String?
@@ -149,7 +170,7 @@ struct pulser: Codable {
   }
 }
 
-var superRec:pulser!
+//var superRec:pulser!
 var superRec2: pulser2!
 
 

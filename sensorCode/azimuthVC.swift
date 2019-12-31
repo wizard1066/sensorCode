@@ -36,8 +36,10 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
       directionManager?.startUpdatingHeading()
     } else {
       directionManager?.stopUpdatingHeading()
-      superRec?.trueNorth = nil
-      superRec?.magneticNorth = nil
+//      superRec?.trueNorth = nil
+//      superRec?.magneticNorth = nil
+      superRec2?.direction?.magneticNorth = nil
+      superRec2?.direction?.trueNorth = nil
     }
   }
   
@@ -138,10 +140,11 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
           let word = globe(trueNorth: tNValue, magneticNorth: mNValue)
         
           if port2G != nil && connect2G != "" {
-            communications?.sendUDP(word)
+//            communications?.sendUDP(word)
+            communications?.pulseUDP2(superRec2)
           }
-          superRec?.trueNorth = tNValue
-          superRec?.magneticNorth = mNValue
+//          superRec?.trueNorth = tNValue
+//          superRec?.magneticNorth = mNValue
           superRec2?.direction?.magneticNorth = mNValue
           superRec2?.direction?.trueNorth = tNValue
       }

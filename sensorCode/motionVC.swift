@@ -42,9 +42,12 @@ var motionManager: CMMotionManager?
           
         }
       }
-      superRec?.roll = nil
-      superRec?.pitch = nil
-      superRec?.yaw = nil
+//      superRec?.roll = nil
+//      superRec?.pitch = nil
+//      superRec?.yaw = nil
+      superRec2?.movement?.roll = nil
+      superRec2?.movement?.pitch = nil
+      superRec2?.movement?.yaw = nil
     }
   }
   
@@ -57,9 +60,9 @@ var motionManager: CMMotionManager?
     let pN = String(format:"%.\(precision!)f",data.acceleration.y)
     let yN = String(format:"%.\(precision!)f",data.acceleration.z)
     
-    superRec?.roll = rN
-    superRec?.pitch = pN
-    superRec?.yaw = yN
+//    superRec?.roll = rN
+//    superRec?.pitch = pN
+//    superRec?.yaw = yN
     
     superRec2?.movement?.roll = rN
     superRec2?.movement?.pitch = pN
@@ -76,7 +79,8 @@ var motionManager: CMMotionManager?
 //    let word = "\(rN) \(pN) \(yN)"
     let word = fly(roll: rN, pitch: pN, yaw: yN)
     if port2G != nil && connect2G != "" {
-      communications?.sendUDP(word)
+//      communications?.sendUDP(word)
+      communications?.pulseUDP2(superRec2)
     }
     
     lastRoll = rN

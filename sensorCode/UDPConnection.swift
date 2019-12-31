@@ -285,10 +285,26 @@ class connect: NSObject {
       let encoder = JSONEncoder()
       var newContent = content
       if newContent.word == word {
-        newContent.word = ""
+        if variable! {
+          newContent.word = nil
+        } else {
+          newContent.word = ""
+        }
+      }
+      if variable! {
+        if newContent.movement?.roll == nil {
+          newContent.movement = nil
+        }
+        if newContent.position?.latitude == nil {
+          newContent.position = nil
+        }
+        if newContent.direction?.magneticNorth == nil {
+          newContent.direction = nil
+        }
       }
       let jsonData = try encoder.encode(newContent)
       let jsonString = String(data: jsonData, encoding: .utf8)!
+      print("jsonString ",jsonString)
       let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
       self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
         if (NWError == nil) {

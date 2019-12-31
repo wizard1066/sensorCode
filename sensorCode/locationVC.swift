@@ -47,13 +47,16 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
 //      let word = "-122.03073097 37.33121136 0.0"
       let word = gps(latitude: "\(self.latitudeOutput.text!)", longitude: "\(self.longitudeOutput.text!)", altitude: "\(self.altitudeOutput.text!)")
       communications?.sendUDP(word)
-      superRec?.latitude = "\(self.latitudeOutput.text!)"
-      superRec?.longitude = "\(self.longitudeOutput.text!)"
-      superRec?.altitude = "\(self.longitudeOutput.text!)"
+//      superRec?.latitude = "\(self.latitudeOutput.text!)"
+//      superRec?.longitude = "\(self.longitudeOutput.text!)"
+//      superRec?.altitude = "\(self.longitudeOutput.text!)"
     } else {
-      superRec?.latitude = nil
-      superRec?.longitude = nil
-      superRec?.altitude = nil
+//      superRec?.latitude = nil
+//      superRec?.longitude = nil
+//      superRec?.altitude = nil
+      superRec2?.position?.altitude = nil
+      superRec2?.position?.longitude = nil
+      superRec2?.position?.latitude = nil
     }
   }
   
@@ -131,13 +134,15 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
 //      let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
       let word = gps(latitude: "\(currentLocation.coordinate.latitude)", longitude: "\(currentLocation.coordinate.longitude)", altitude: "\(currentLocation.altitude)")
       if port2G != nil && connect2G != "" {
-          communications?.sendUDP(word)
-          superRec?.latitude = "\(currentLocation.coordinate.latitude.description)"
-          superRec?.longitude = "\(currentLocation.coordinate.longitude.description)"
-          superRec?.altitude = "\(currentLocation.altitude.description)"
+//          communications?.sendUDP(word)
+          
+//          superRec?.latitude = "\(currentLocation.coordinate.latitude.description)"
+//          superRec?.longitude = "\(currentLocation.coordinate.longitude.description)"
+//          superRec?.altitude = "\(currentLocation.altitude.description)"
           superRec2?.position?.altitude = "\(currentLocation.coordinate.latitude.description)"
           superRec2?.position?.longitude = "\(currentLocation.coordinate.longitude.description)"
           superRec2?.position?.latitude = "\(currentLocation.coordinate.latitude.description)"
+          communications?.pulseUDP2(superRec2)
       }
   }
 

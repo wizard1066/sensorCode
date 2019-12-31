@@ -477,14 +477,19 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     if variable! {
 //      superRec = pulser(proximity: nil, latitude: nil, longitude: nil, altitude: nil, trueNorth: nil, magneticNorth: nil, roll: nil, pitch: nil, yaw: nil, word: nil)
-        superRec2 = pulser2(wd: nil, px: nil, pos: nil, mov: nil, dir: nil)
+      let superGPS = gps(latitude: nil, longitude: nil, altitude: nil)
+      let superMOV = fly(roll: nil, pitch: nil, yaw: nil)
+      let superDIR = globe(trueNorth: nil, magneticNorth: nil)
+      superRec2 = pulser2(wd: nil, px: nil, pos: superGPS, mov: superMOV, dir: superDIR)
+     
     } else {
 //      superRec = pulser(proximity:"false", latitude:"", longitude:"", altitude:"", trueNorth:"", magneticNorth:"", roll:"", pitch:"", yaw:"", word:"")
+     
       let superGPS = gps(latitude: "", longitude: "", altitude: "")
       let superMOV = fly(roll: "", pitch: "", yaw: "")
       let superDIR = globe(trueNorth: "", magneticNorth: "")
-   
       superRec2 = pulser2(wd: "", px: "", pos: superGPS, mov: superMOV, dir: superDIR)
+      
     }
   }
   
