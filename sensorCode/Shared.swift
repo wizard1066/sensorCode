@@ -23,6 +23,7 @@ var fastStart: Bool?
 var refreshRate: String?
 var pulse: Bool?
 var variable: Bool?
+var raw: Bool?
 
 
 var directionManager: CLLocationManager?
@@ -79,21 +80,21 @@ struct fly:Codable {
   }
 }
 
-struct neighbours:Codable {
-  var proximity:String
-  
-  init(proximity: String) {
-    self.proximity = proximity
-  }
-}
-
-struct voice:Codable {
-  var word: String?
-  
-  init(word: String?) {
-    self.word = word
-  }
-}
+//struct neighbours:Codable {
+//  var proximity:String
+//
+//  init(proximity: String) {
+//    self.proximity = proximity
+//  }
+//}
+//
+//struct voice:Codable {
+//  var word: String?
+//
+//  init(word: String?) {
+//    self.word = word
+//  }
+//}
 
 struct simple:Codable {
   var online:String
@@ -118,57 +119,38 @@ struct pulser2: Codable {
   }
 }
 
-struct pulser3: Codable {
-  var word: String?
-  var proximity: String?
-  var position: gps?
-  var movement: fly?
-}
 
-struct pulser4: Codable {
-  var word: String?
-  var proximity: String?
-  var position: gps?
-  var direction: globe?
-}
 
-struct pulser5: Codable {
-  var word: String?
-  var proximity: String?
-  var movement: fly?
-  var dirrection: globe?
-}
-
-struct pulser: Codable {
-  // proximity
-  var proximity: String?
-  // location
-  var latitude: String?
-  var longitude: String?
-  var altitude: String?
-  // azimuth
-  var trueNorth: String?
-  var magneticNorth: String?
-  // motion
-  var roll: String?
-  var pitch: String?
-  var yaw: String?
-  // voice
-  var word: String?
-  
-  init(proximity: String?, latitude: String?, longitude: String?, altitude: String?, trueNorth: String?, magneticNorth:String?, roll:String?, pitch: String?, yaw:String?, word:String?) {
-    self.proximity = proximity
-    self.latitude = latitude
-    self.longitude = longitude
-    self.altitude = altitude
-    self.trueNorth = trueNorth
-    self.magneticNorth = magneticNorth
-    self.roll = roll
-    self.pitch = pitch
-    self.yaw = yaw
-    self.word = word
-  }
-}
+//struct pulser: Codable {
+//  // proximity
+//  var proximity: String?
+//  // location
+//  var latitude: String?
+//  var longitude: String?
+//  var altitude: String?
+//  // azimuth
+//  var trueNorth: String?
+//  var magneticNorth: String?
+//  // motion
+//  var roll: String?
+//  var pitch: String?
+//  var yaw: String?
+//  // voice
+//  var word: String?
+//
+//  init(proximity: String?, latitude: String?, longitude: String?, altitude: String?, trueNorth: String?, magneticNorth:String?, roll:String?, pitch: String?, yaw:String?, word:String?) {
+//    self.proximity = proximity
+//    self.latitude = latitude
+//    self.longitude = longitude
+//    self.altitude = altitude
+//    self.trueNorth = trueNorth
+//    self.magneticNorth = magneticNorth
+//    self.roll = roll
+//    self.pitch = pitch
+//    self.yaw = yaw
+//    self.word = word
+//  }
+//}
 
 //var superRec:pulser!
 var superRec2: pulser2!

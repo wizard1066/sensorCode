@@ -175,7 +175,7 @@ class voiceVC: UIViewController, lostLink {
             globalWord = word
             self.said?.wordUsed(word2D: word)
             if port2G != nil && connect2G != "" {
-              let w2S = voice(word: word)
+//              let w2S = voice(word: word)
 //              communications?.sendUDP(w2S)
               superRec2.word = word
               communications?.pulseUDP2(superRec2)
@@ -185,6 +185,7 @@ class voiceVC: UIViewController, lostLink {
 //            superRec.word = nil
             superRec2.word = nil
           }
+        
         }
         
         if result!.isFinal {

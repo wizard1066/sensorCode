@@ -65,9 +65,7 @@ class proximityVC: UIViewController, lostLink {
     if sender.isOn {
       activateProximitySensor()
     } else {
-//      NotificationCenter.default.removeObserver(self)
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: nil)
-//      superRec.proximity = nil
     }
   }
   
@@ -85,20 +83,13 @@ class proximityVC: UIViewController, lostLink {
      }
    
   @objc func proximityChanged(notification: NSNotification) {
-        
        if let _ = notification.object as? UIDevice {
            if port2G != nil && connect2G != "" {
-              var word:neighbours?
               if UIDevice.current.proximityState {
-                word = neighbours(proximity: "true")
-//                superRec.proximity = "true"
                 superRec2.proximity = "true"
               } else {
-                word = neighbours(proximity: "false")
-//                superRec.proximity = "false"
                 superRec2.proximity = "false"
             }
-//            communications?.sendUDP(word!)
             communications?.pulseUDP2(superRec2)
             
            }

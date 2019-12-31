@@ -87,7 +87,7 @@ class toolsVC: UIViewController {
     remTab.label = moreText
     
     let pulseTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
-    pulseTap.sender = "True [default] sends regular updates of all the sensor readings even if they haven't changed. False sends reaings only when they change."
+    pulseTap.sender = "True [default] sends regular updates of all the sensor readings even if they haven't changed. False sends sensor reading only when they have changed."
     pulseTap.label = infoText
     pulseLabel.addGestureRecognizer(pulseTap)
     pulseLabel.addGestureRecognizer(remTab)
@@ -95,7 +95,7 @@ class toolsVC: UIViewController {
     
     
     let variableTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
-    variableTap.sender = "True [default] sends JSON only for fields with values. False sends JSON for all fields."
+    variableTap.sender = "True [default] sends JSON fields only for fields with values. False sends JSON for all fields."
     variableTap.label = infoText
     variableLabel.addGestureRecognizer(variableTap)
     variableLabel.addGestureRecognizer(remTab)

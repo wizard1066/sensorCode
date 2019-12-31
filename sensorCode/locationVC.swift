@@ -45,8 +45,12 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
       self.longitudeOutput.text = "37.33121136"
       self.altitudeOutput.text = "0"
 //      let word = "-122.03073097 37.33121136 0.0"
-      let word = gps(latitude: "\(self.latitudeOutput.text!)", longitude: "\(self.longitudeOutput.text!)", altitude: "\(self.altitudeOutput.text!)")
-      communications?.sendUDP(word)
+//      let word = gps(latitude: "\(self.latitudeOutput.text!)", longitude: "\(self.longitudeOutput.text!)", altitude: "\(self.altitudeOutput.text!)")
+//      communications?.sendUDP(word)
+      superRec2?.position?.altitude = "\(self.altitudeOutput.text!)"
+      superRec2?.position?.longitude = "\(self.longitudeOutput.text!)"
+      superRec2?.position?.latitude = "\(self.latitudeOutput.text!)"
+      communications?.pulseUDP2(superRec2)
 //      superRec?.latitude = "\(self.latitudeOutput.text!)"
 //      superRec?.longitude = "\(self.longitudeOutput.text!)"
 //      superRec?.altitude = "\(self.longitudeOutput.text!)"
@@ -71,9 +75,12 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
       }
       if self.currentLocation != nil {
 //        let word = "\(self.currentLocation.coordinate.latitude) \(self.currentLocation.coordinate.longitude) \(self.currentLocation.altitude)"
-        let word = gps(latitude: "\(self.currentLocation.coordinate.latitude)", longitude: "\(self.currentLocation.coordinate.longitude)", altitude: "\(self.currentLocation.altitude)")
+//        let word = gps(latitude: "\(self.currentLocation.coordinate.latitude)", longitude: "\(self.currentLocation.coordinate.longitude)", altitude: "\(self.currentLocation.altitude)")
+        superRec2?.position?.altitude = "\(self.currentLocation.altitude)"
+        superRec2?.position?.longitude = "\(self.currentLocation.coordinate.longitude)"
+        superRec2?.position?.latitude = "\(self.currentLocation.coordinate.latitude)"
         if port2G != nil && connect2G != "" {
-          communications?.sendUDP(word)
+          communications?.pulseUDP2(superRec2)
         }
       }
       })
@@ -132,7 +139,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
       longitudeOutput.text = "\(currentLocation.coordinate.longitude.description)"
       altitudeOutput.text = "\(currentLocation.altitude.description)"
 //      let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
-      let word = gps(latitude: "\(currentLocation.coordinate.latitude)", longitude: "\(currentLocation.coordinate.longitude)", altitude: "\(currentLocation.altitude)")
+//      let word = gps(latitude: "\(currentLocation.coordinate.latitude)", longitude: "\(currentLocation.coordinate.longitude)", altitude: "\(currentLocation.altitude)")
       if port2G != nil && connect2G != "" {
 //          communications?.sendUDP(word)
           

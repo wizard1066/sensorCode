@@ -16,6 +16,7 @@ struct SettingsBundleKeys {
     static let rate = "RATE"
     static let variable = "VARIABLE"
     static let pulse = "PULSE"
+    static let raw = "RAW"
 }
 
   
@@ -35,8 +36,6 @@ struct SettingsBundleKeys {
 
     }
     
-    let fuck = defaults.integer(forKey: "hasRun")
-    
     fastStart = UserDefaults.standard.bool(forKey: SettingsBundleKeys.fast)
     autoClose = UserDefaults.standard.bool(forKey: SettingsBundleKeys.auto)
     precision = UserDefaults.standard.string(forKey: SettingsBundleKeys.precision)
@@ -44,6 +43,7 @@ struct SettingsBundleKeys {
     refreshRate = UserDefaults.standard.string(forKey: SettingsBundleKeys.rate)
     variable = UserDefaults.standard.bool(forKey: SettingsBundleKeys.variable)
     pulse = UserDefaults.standard.bool(forKey: SettingsBundleKeys.pulse)
+    raw = UserDefaults.standard.bool(forKey: SettingsBundleKeys.raw)
     
     if isFirstTimeOpening() {
       defaults.set(false, forKey: SettingsBundleKeys.fast)
@@ -53,11 +53,10 @@ struct SettingsBundleKeys {
       defaults.set(true, forKey: SettingsBundleKeys.pulse)
       defaults.set("0.1", forKey: SettingsBundleKeys.rate)
       defaults.set("2", forKey: SettingsBundleKeys.precision)
+      defaults.set(false, forKey: SettingsBundleKeys.raw)
       precision = "2"
       refreshRate = "0.1"
     }
-    
-    print("x",fastStart,autoClose,precision,variable,refreshRate,variable)
     
     let ps = Double(precision!.doubleValue)
     let rr = Double(refreshRate!.doubleValue)

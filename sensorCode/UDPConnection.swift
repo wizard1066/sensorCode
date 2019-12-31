@@ -102,7 +102,7 @@ class connect: NSObject {
     
     
     
-    var messageToUDP = simple(online:"online")
+    let messageToUDP = simple(online:"online")
     
     self.connection?.viabilityUpdateHandler = { (isViable) in
       if (!isViable) {
@@ -211,31 +211,31 @@ class connect: NSObject {
     }
   }
   
-  func sendUDP(_ content: neighbours) {
-    if pulse! { return }
-    do {
-      let encoder = JSONEncoder()
-      let jsonData = try encoder.encode(content)
-      let jsonString = String(data: jsonData, encoding: .utf8)!
-      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
-      sendUDP(contentToSendUDP!)
-    } catch {
-      print("error",error)
-    }
-  }
-  
-  func sendUDP(_ content: voice) {
-    if pulse! { return }
-    do {
-      let encoder = JSONEncoder()
-      let jsonData = try encoder.encode(content)
-      let jsonString = String(data: jsonData, encoding: .utf8)!
-      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
-      sendUDP(contentToSendUDP!)
-    } catch {
-      print("error",error)
-    }
-  }
+//  func sendUDP(_ content: neighbours) {
+//    if pulse! { return }
+//    do {
+//      let encoder = JSONEncoder()
+//      let jsonData = try encoder.encode(content)
+//      let jsonString = String(data: jsonData, encoding: .utf8)!
+//      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+//      sendUDP(contentToSendUDP!)
+//    } catch {
+//      print("error",error)
+//    }
+//  }
+//
+//  func sendUDP(_ content: voice) {
+//    if pulse! { return }
+//    do {
+//      let encoder = JSONEncoder()
+//      let jsonData = try encoder.encode(content)
+//      let jsonString = String(data: jsonData, encoding: .utf8)!
+//      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+//      sendUDP(contentToSendUDP!)
+//    } catch {
+//      print("error",error)
+//    }
+//  }
   
   func sendUDP(_ content: fly) {
     if pulse! { return }
@@ -303,8 +303,13 @@ class connect: NSObject {
         }
       }
       let jsonData = try encoder.encode(newContent)
-      let jsonString = String(data: jsonData, encoding: .utf8)!
-      print("jsonString ",jsonString)
+      var jsonString = String(data: jsonData, encoding: .utf8)!
+      
+      if raw! {
+        let otherstring = "abcdefghijklmnopqrstuvwxyz{}\":N"
+        jsonString = jsonString.removeCharacters(from: otherstring)
+      }
+      
       let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
       self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
         if (NWError == nil) {
@@ -318,29 +323,29 @@ class connect: NSObject {
     }
   }
   
-  func pulseUDP(_ content: pulser) {
-    
-    // put this in cause speaking will send multiple copies of the same word
-    do {
-      let encoder = JSONEncoder()
-      var newContent = content
-      if newContent.word == word {
-        newContent.word = nil
-      }
-      let jsonData = try encoder.encode(newContent)
-      let jsonString = String(data: jsonData, encoding: .utf8)!
-      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
-      self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
-        if (NWError == nil) {
-          self.word = content.word
-        } else {
-          print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
-        }
-      })))
-    } catch {
-      print("error",error)
-    }
-  }
+//  func pulseUDP(_ content: pulser) {
+//
+//    // put this in cause speaking will send multiple copies of the same word
+//    do {
+//      let encoder = JSONEncoder()
+//      var newContent = content
+//      if newContent.word == word {
+//        newContent.word = nil
+//      }
+//      let jsonData = try encoder.encode(newContent)
+//      let jsonString = String(data: jsonData, encoding: .utf8)!
+//      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+//      self.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
+//        if (NWError == nil) {
+//          self.word = content.word
+//        } else {
+//          print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
+//        }
+//      })))
+//    } catch {
+//      print("error",error)
+//    }
+//  }
   
   func receiveUDP() {
     self.connection?.receive(minimumIncompleteLength: 1, maximumLength: 65536, completion: { (data, context, isComplete, error) in
@@ -438,3 +443,17 @@ class NetStatus {
   }
   
 }
+
+extension String {
+
+    func removeCharacters(from forbiddenChars: CharacterSet) -> String {
+        let passed = self.unicodeScalars.filter { !forbiddenChars.contains($0) }
+        return String(String.UnicodeScalarView(passed))
+    }
+
+    func removeCharacters(from: String) -> String {
+        return removeCharacters(from: CharacterSet(charactersIn: from))
+    }
+}
+
+

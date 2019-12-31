@@ -6,6 +6,16 @@
 	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
+  <dict>
+    <key>Type</key>
+    <string>PSToggleSwitchSpecifier</string>
+    <key>Title</key>
+    <string>Raw</string>
+    <key>Key</key>
+    <string>RAW</string>
+    <key>DefaultValue</key>
+    <false/>
+  </dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>

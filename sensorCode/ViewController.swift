@@ -464,6 +464,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       delay = DispatchTimeInterval.nanoseconds(500)
       toolBOutlet.isEnabled = true
       toolBOutlet.isHidden = false
+      connectTag.isHidden = false
+      toolsTag.isHidden = false
     }
     
     if port2G == nil {
@@ -493,56 +495,46 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
   }
   
-  @objc func defaultsChanged(){
+  func appRestartRequest() {
+    let alertController = UIAlertController(title: "Restart Required", message: "Changing the app defaults will ONLY take effect after an app restart", preferredStyle: .alert)
+    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+    alertController.addAction(defaultAction)
+    self.present(alertController, animated: true, completion: nil)
+  }
+  
+  @objc func defaultsChanged(notification:NSNotification){
       print("defaultsChanged")
-//        let fast:Bool? = UserDefaults.standard.bool(forKey: "FAST_START")
-//        if fast == nil {
-//          UserDefaults.standard.set(fast, forKey: "FAST_START")
-//        }
-      let fast:Bool? = UserDefaults.standard.bool(forKey: "FAST_START")
 
-
-
-      print("defaultsChanged",fast)
-        
-//      autoClose = UserDefaults.standard.bool(forKey: "AUTO_CLOSE")
-//      fastStart = UserDefaults.standard.bool(forKey: "FAST_START")
-//      pulse = UserDefaults.standard.bool(forKey: "PULSE")
-//      variable = UserDefaults.standard.bool(forKey: "VARIABLE")
-  
-        
-  
-//      if UserDefaults.standard.bool(forKey: "AUTO_CLOSE") {
-//        autoClose = true
-//      }
-//      else {
-//        autoClose = false
-//      }
-//      if UserDefaults.standard.bool(forKey: "FAST_START") {
-//        fastStart = true
-//      } else {
-//        fastStart = false
-//      }
-//      if UserDefaults.standard.bool(forKey: "PULSE") {
-//        pulse = true
-//      } else {
-//        pulse = false
-//      }
-//      if UserDefaults.standard.bool(forKey: "VARIABLE") {
-//        variable = true
-//      } else {
-//        variable = false
-//      }
-//    if (UserDefaults.standard.string(forKey: "PRECISION") != nil) {
-//        precision = UserDefaults.standard.string(forKey: "PRECISION")
-//      } else {
-//        precision = "2"
-//      }
-//    if (UserDefaults.standard.string(forKey: "RATE") != nil) {
-//      refreshRate = UserDefaults.standard.string(forKey: "RATE")?.doubleValue
-//    } else {
-//      refreshRate = 0.1
-//    }
+      if let defaults = notification.object as? UserDefaults {
+        if defaults.bool(forKey: "PULSE") {
+          print("Pulse changed")
+//          appRestartRequest()
+        }
+        if defaults.bool(forKey: "RAW") {
+          print("Raw changed")
+//          appRestartRequest()
+        }
+        if defaults.bool(forKey: "VARIABLE") {
+          print("Variable changed")
+//          appRestartRequest()
+        }
+        if defaults.bool(forKey: "AUTO_CLOSE") {
+          print("Variable changed")
+//          appRestartRequest()
+        }
+        if defaults.bool(forKey: "FAST_START") {
+          print("Variable changed")
+//          appRestartRequest()
+        }
+        if (defaults.string(forKey: "PRECISION") != nil) {
+          print("Precision changed")
+//          appRestartRequest()
+        }
+        if (defaults.string(forKey: "RATE") != nil) {
+          print("Rate changed")
+//          appRestartRequest()
+        }
+      }
   }
   
   @objc func applicationDidBecomeActive(notification: NSNotification) {
@@ -577,11 +569,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         introCurrent = introValue.second
         
           page1.image = UIImage(named: "blackDot")
-        
-        
           page2.image = UIImage(named: "whiteDot")
-        
-       
           page3.image = UIImage(named: "whiteDot")
         
       }
@@ -719,27 +707,30 @@ func secondJump() {
   }
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
-//      print("Unwind to Root View Controller")
+      print("Unwind to Root View Controller")
     communications?.missing = self
-    if lastSwitch?.isOn == false {
-      switch lastButton?.tag {
-        case views2G.voice.rawValue:
-          self.strongMic = nil
-        case views2G.speaker.rawValue:
-          strongSpeaker = nil
-        case views2G.motion.rawValue:
-          strongMotion = nil
-        case views2G.azimuth.rawValue:
-          strongCompass = nil
-        case views2G.location.rawValue:
-          strongLocation = nil
-        case views2G.gear.rawValue:
-          strongGear = nil
-        default:
-          break
-        }
-      }
-      
+    // this code made the app crash!!
+//    if lastSwitch?.isOn == false {
+//      switch lastButton?.tag {
+//        case views2G.voice.rawValue:
+//          self.strongMic = nil
+//        case views2G.speaker.rawValue:
+//          strongSpeaker = nil
+//        case views2G.motion.rawValue:
+//          strongMotion = nil
+//        case views2G.azimuth.rawValue:
+//          strongCompass = nil
+//        case views2G.location.rawValue:
+//          strongLocation = nil
+//        case views2G.gear.rawValue:
+//          strongGear = nil
+//        case views2G.proximity.rawValue:
+//          strongProximity = nil
+//        default:
+//          break
+//        }
+//      }
+//
       if introText != nil {
         introText.text = ""
       }
@@ -799,28 +790,6 @@ func secondJump() {
   
   let words = ["forward","backward","left","right","stop"]
   var ok2Connect = false
- 
-  func activateProximitySensor() {
-    proximityValue = !proximityValue
-       let device = UIDevice.current
-       device.isProximityMonitoringEnabled = true
-       if device.isProximityMonitoringEnabled {
-         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.proximityChanged), name:  NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: device)
-       } else {
-          print("pox disabled")
-       }
-     }
-   
-  @objc func proximityChanged(notification: NSNotification) {
-      
-       if let _ = notification.object as? UIDevice {
-           if port2G != nil && connect2G != "" {
-              let foobar = UIDevice.current.proximityState
-             communications?.sendUDP("proximity \(foobar)")
-           }
-       }
-   }
-  
   
   var toggle: Bool = true
   var delay:DispatchTimeInterval = DispatchTimeInterval.seconds(1)
@@ -1172,7 +1141,7 @@ extension UILabel {
   
   func noblinkText(tag: views2G) {
     let timer = blinkers[tag]
-    timer??.invalidate()
+    timer!?.invalidate()
     blinkers[tag] = nil
   }
   

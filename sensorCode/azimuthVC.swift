@@ -137,7 +137,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
           magneticNorthOutlet.text = mNValue
         }
 //        let word = "\(tNValue)" + " \(mNValue)"
-          let word = globe(trueNorth: tNValue, magneticNorth: mNValue)
+//          let word = globe(trueNorth: tNValue, magneticNorth: mNValue)
         
           if port2G != nil && connect2G != "" {
 //            communications?.sendUDP(word)

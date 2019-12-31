@@ -77,7 +77,7 @@ var motionManager: CMMotionManager?
     self.yawOutput.text = yN
     
 //    let word = "\(rN) \(pN) \(yN)"
-    let word = fly(roll: rN, pitch: pN, yaw: yN)
+//    let word = fly(roll: rN, pitch: pN, yaw: yN)
     if port2G != nil && connect2G != "" {
 //      communications?.sendUDP(word)
       communications?.pulseUDP2(superRec2)
