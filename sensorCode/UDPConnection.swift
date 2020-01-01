@@ -26,7 +26,7 @@ class connect: NSObject {
     do {
       let port = NWEndpoint.Port.init(port2G!.description)
       self.listen = try NWListener(using: .udp, on: port!)
-      self.listen?.service = NWListener.Service(name: "talkCode", type: "_tc._udp", domain: nil, txtRecord: nil)
+//      self.listen?.service = NWListener.Service(name: "talkCode", type: "_tc._udp", domain: nil, txtRecord: nil)
       
       self.listen?.stateUpdateHandler = {(newState) in
         switch newState {
@@ -45,6 +45,7 @@ class connect: NSObject {
           case .ready:
             self.receive(on: newConnection)
             print("newConnection", newConnection.endpoint, newConnection.currentPath?.localEndpoint)
+            self.missing?.incoming(ipaddr: (newConnection.currentPath?.localEndpoint!.debugDescription)!)
           case .failed(let error):
             print("client failed with error: \(error)")
           case .cancelled:

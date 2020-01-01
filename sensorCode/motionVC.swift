@@ -10,6 +10,10 @@ import UIKit
 import CoreMotion
 
 class motionVC: UIViewController, lostLink {
+  func incoming(ipaddr: String) {
+    // ignore
+  }
+  
 
 var motionManager: CMMotionManager?
 

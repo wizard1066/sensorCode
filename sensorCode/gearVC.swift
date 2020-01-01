@@ -15,6 +15,10 @@ protocol setty {
 }
 
 class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, lostLink {
+  func incoming(ipaddr: String) {
+    // ignore
+  }
+  
   
   func sendAlert(error: String) {
     redo(error)

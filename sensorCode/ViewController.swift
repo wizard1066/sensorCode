@@ -26,6 +26,7 @@ protocol running {
 
 protocol lostLink {
   func sendAlert(error: String)
+  func incoming(ipaddr: String)
 }
 
 enum views2G: Int {
@@ -39,6 +40,15 @@ enum views2G: Int {
 }
 
 class ViewController: UIViewController, speaker, transaction, spoken, setty, running, lostLink {
+  func incoming(ipaddr: String) {
+    print("fuck ",ipaddr)
+    DispatchQueue.main.async {
+      self.recievingOutlet.text = ipaddr
+      self.recievingOutlet.isHidden = false
+      self.iphoneLabel.isHidden = false
+    }
+  }
+  
   func sendAlert(error: String) {
     redo(error)
   }
@@ -184,6 +194,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var spokenOutlet: NSLayoutConstraint!
   @IBOutlet weak var portLabel: UILabel!
   @IBOutlet weak var robotLabel: UILabel!
+  @IBOutlet weak var iphoneLabel: UILabel!
   
   
   @IBOutlet weak var stackviewDots: UIStackView!
@@ -475,6 +486,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       spokenText.isHidden = true
       portLabel.isHidden = true
       robotLabel.isHidden = true
+      iphoneLabel.isHidden = true
     }
     
     if variable! {

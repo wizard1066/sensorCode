@@ -9,6 +9,10 @@
 import UIKit
 
 class photoViewController: UIViewController, lostLink {
+  func incoming(ipaddr: String) {
+    // ignore
+  }
+  
 
   func sendAlert(error: String) {
     let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)

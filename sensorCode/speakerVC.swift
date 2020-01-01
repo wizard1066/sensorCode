@@ -10,6 +10,10 @@ import UIKit
 import Speech
 
 class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, lostLink {
+  func incoming(ipaddr: String) {
+    // ignore
+  }
+  
 
   func sendAlert(error: String) {
     let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)
