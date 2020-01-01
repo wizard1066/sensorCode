@@ -1141,8 +1141,10 @@ extension UILabel {
   
   func noblinkText(tag: views2G) {
     let timer = blinkers[tag]
-    timer!?.invalidate()
-    blinkers[tag] = nil
+    if timer != nil {
+      timer!?.invalidate()
+      blinkers[tag] = nil
+    }
   }
   
   func blinkText8() {
