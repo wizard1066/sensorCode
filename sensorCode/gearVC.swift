@@ -163,6 +163,9 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   
   override func viewDidAppear(_ animated: Bool) {
 //    spokenOutput.text = ""
+
+//    textSV.isHidden = false
+    settingsSV.isHidden = true
     
     if communications!.connectedStatus {
       connectBSwitch.setOn(true, animated: true)
@@ -459,7 +462,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
           ipAddress.placeholder = ipAddress.text!
           feeder?.returnPostNHost(port: portNumber.text!, host: ipAddress.text!)
           showLabels()
-          textSV.isHidden = true
+//          textSV.isHidden = true
         }
       UIView.animate(withDuration: 4) {
         self.settingsSV.spacing = 10
@@ -477,7 +480,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         self.infoText.isHidden = false
         self.infoText.textAlignment = .left
         self.infoText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-        self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+        self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 80)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
           let words = Array(textFeed)

@@ -709,6 +709,11 @@ func secondJump() {
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
       print("Unwind to Root View Controller")
     communications?.missing = self
+    if communications!.connectedStatus {
+      connectTag.text = "connected"
+    } else {
+      connectTag.text = "connect"
+    }
     // this code made the app crash!!
 //    if lastSwitch?.isOn == false {
 //      switch lastButton?.tag {
@@ -818,6 +823,7 @@ func secondJump() {
     
 //    spokenText.text = ""
     communications?.missing = self
+    
   }
   
   var paused = DispatchTimeInterval.seconds(12)
@@ -896,7 +902,7 @@ func secondJump() {
                       }
                     }
                     if !fastStart! {
-                      let textFeed = "Remember Tansmitting sensors text blinks when they are sending data out."
+                      let textFeed = "Remember Transmitting sensors text blinks when they are sending data out."
                       
                       self.moreText.text = ""
                       self.moreText.alpha = 1
@@ -906,7 +912,7 @@ func secondJump() {
                       self.moreText.isHidden = false
                       self.moreText.textAlignment = .left
                       self.moreText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-                      self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+//                      self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 140)
                       
                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                         let words = Array(textFeed)
