@@ -185,9 +185,11 @@ class voiceVC: UIViewController, lostLink {
 //              let w2S = voice(word: word)
 //              communications?.sendUDP(w2S)
               superRec2.word = word
-              if word == "torch" {
-                self.toggleTorch(on: self.toggle)
-                self.toggle = !self.toggle
+              if word == lightOn {
+                self.toggleTorch(on: true)
+              }
+              if word == lightOff {
+                self.toggleTorch(on: false)
               }
               communications?.pulseUDP2(superRec2)
             }

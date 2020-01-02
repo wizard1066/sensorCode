@@ -8,6 +8,7 @@
 
 import Foundation
 import Network
+import AVFoundation
 
 protocol speaker {
   func speak(_ comm:String, para:String)
@@ -26,7 +27,7 @@ class connect: NSObject {
     do {
       let port = NWEndpoint.Port.init(port2G!.description)
       self.listen = try NWListener(using: .udp, on: port!)
-//      self.listen?.service = NWListener.Service(name: "talkCode", type: "_tc._udp", domain: nil, txtRecord: nil)
+      self.listen?.service = NWListener.Service(name: "_sensorCode", type: "_tc._udp", domain: nil, txtRecord: nil)
       
       self.listen?.stateUpdateHandler = {(newState) in
         switch newState {
@@ -76,6 +77,14 @@ class connect: NSObject {
       if let data = data, !data.isEmpty {
         let backToString = String(decoding: data, as: UTF8.self)
 //        print("context",context?.protocolMetadata)
+        if backToString == lightOn {
+          self.toggleTorch(on: true)
+          return
+        }
+        if backToString == lightOff {
+          self.toggleTorch(on: false)
+          return
+        }
         self.spoken?.speak(backToString, para: backToString)
       }
       connection.send(content: "ok".data(using: .utf8), completion: .contentProcessed({error in
@@ -370,6 +379,26 @@ class connect: NSObject {
     }
   }
   
+  func toggleTorch(on: Bool) {
+         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+         guard device.hasTorch else { print("Torch isn't available"); return }
+
+         do {
+             try device.lockForConfiguration()
+             device.torchMode = on ? .on : .off
+             // Optional thing you may want when the torch it's on, is to manipulate the level of the torch
+   //          if on { try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel) }
+             if on { try device.setTorchModeOn(level: 0.1) }
+   //          do {
+   //            try device.setTorchModeOn(level: 0.5)
+   //          } catch {
+   //              print(error)
+   //          }
+             device.unlockForConfiguration()
+         } catch {
+             print("Torch can't be used")
+         }
+     }
   
 }
 
@@ -442,6 +471,8 @@ class NetStatus {
     print(monitor.currentPath.availableInterfaces)
     
   }
+  
+ 
   
 }
 

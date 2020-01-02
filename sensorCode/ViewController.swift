@@ -37,11 +37,12 @@ enum views2G: Int {
   case location = 4
   case proximity = 5
   case speaker = 6
+  case light = 7
 }
 
 class ViewController: UIViewController, speaker, transaction, spoken, setty, running, lostLink {
   func incoming(ipaddr: String) {
-    print("fuck ",ipaddr)
+    
     DispatchQueue.main.async {
       self.recievingOutlet.text = ipaddr
       self.recievingOutlet.isHidden = false
@@ -70,6 +71,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         talkTag.noblinkText(tag: views2G(rawValue: label)!)
       case views2G.gear.rawValue:
         connectTag.noblinkText(tag: views2G(rawValue: label)!)
+      case views2G.light.rawValue:
+        lightTag.noblinkText(tag: views2G(rawValue: label)!)
       default:
         break
     }
@@ -92,6 +95,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         talkTag.blinkText(tag: views2G(rawValue: label)!)
       case views2G.gear.rawValue:
         connectTag.blinkText(tag: views2G(rawValue: label)!)
+      case views2G.light.rawValue:
+        lightTag.blinkText(tag: views2G(rawValue: label)!)
       default:
         break
     }
@@ -187,6 +192,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var talkTag: UILabel!
   @IBOutlet weak var connectTag: UILabel!
   @IBOutlet weak var toolsTag: UILabel!
+  @IBOutlet weak var lightTag: UILabel!
   
   @IBOutlet weak var portOutlet: UILabel!
   @IBOutlet weak var sendingOutlet: UILabel!
@@ -490,6 +496,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       toolBOutlet.isHidden = false
       connectTag.isHidden = false
       toolsTag.isHidden = false
+      talkTag.isHidden = false
+      talkTag.isEnabled = true
     }
     
     if port2G == nil {
@@ -689,11 +697,17 @@ func secondJump() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
           self.gearBOutlet.isHidden = false
           self.gearBOutlet.isEnabled = true
-          self.connectTag.isHidden = false
           
+          
+          self.connectTag.isHidden = false
           self.toolsTag.isHidden = false
+          self.talkTag.isHidden = false
+          self.talkTag.isEnabled = true
+          
           self.toolBOutlet.isEnabled = true
           self.toolBOutlet.isHidden = false
+          
+          self.speakerBOutlet.isEnabled = true
           self.gearBOutlet.grow()
         })
       
@@ -923,7 +937,7 @@ func secondJump() {
                   self.lightBOutlet.grow()
                   self.lightBOutlet.isEnabled = true
                   self.lightBOutlet.isHidden = false
-                  
+                  self.lightTag.isHidden = false
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""
                     self.firstShow = false
@@ -938,7 +952,7 @@ func secondJump() {
                       
                       self.moreText.text = ""
                       self.moreText.alpha = 1
-                      self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 40
+                      self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 80
                       self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
                       self.moreText.adjustsFontForContentSizeCategory = true
                       self.moreText.isHidden = false
@@ -1110,6 +1124,16 @@ func secondJump() {
         nextViewController.status = self
         communications?.missing = nextViewController
         strongProximity = nextViewController
+        
+      }
+    }
+    
+    if segue.identifier == "light" {
+      if let nextViewController = segue.destination as? LightVC {
+        nextViewController.tag = views2G.light.rawValue
+        nextViewController.status = self
+        communications?.missing = nextViewController
+        strongLight = nextViewController
         
       }
     }

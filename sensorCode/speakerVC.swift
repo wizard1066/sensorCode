@@ -82,9 +82,10 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if port2G == nil{
-          speakerSwitchOutput.isEnabled = false
+        if port2G == nil {
+          port2G = 32767
         }
+
         
         let voices = AVSpeechSynthesisVoice.speechVoices()
         var langs = Set<String>()
@@ -147,6 +148,8 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
         self.performSegue(withIdentifier: "photo", sender: self)
       }
     }
+    
+    
 
 }
 
