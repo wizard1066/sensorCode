@@ -442,17 +442,54 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     NetStatus.shared.startMonitoring()
     NetStatus.shared.getInfo()
     
+
+
+    let rad:CGFloat = 8
     
-    voiceBOutlet.layer.cornerRadius = 32
-    motionBOutlet.layer.cornerRadius = 32
-    azimuthBOutlet.layer.cornerRadius = 32
-    
-    voiceBOutlet.clipsToBounds = true
-    motionBOutlet.clipsToBounds = true
-    azimuthBOutlet.clipsToBounds = true
-    
-    azimuthBOutlet.layer.borderWidth = 2
+    azimuthBOutlet.layer.borderWidth = 1
     azimuthBOutlet.layer.borderColor = UIColor.black.cgColor
+    azimuthBOutlet.clipsToBounds = true
+    azimuthBOutlet.layer.cornerRadius = rad
+    
+    voiceBOutlet.layer.borderWidth = 1
+    voiceBOutlet.layer.borderColor = UIColor.black.cgColor
+    voiceBOutlet.clipsToBounds = true
+    voiceBOutlet.layer.cornerRadius = rad
+    
+    lightBOutlet.layer.borderWidth = 1
+    lightBOutlet.layer.borderColor = UIColor.black.cgColor
+    lightBOutlet.clipsToBounds = true
+    lightBOutlet.layer.cornerRadius = rad
+    
+    speakerBOutlet.layer.borderWidth = 1
+    speakerBOutlet.layer.borderColor = UIColor.black.cgColor
+    speakerBOutlet.clipsToBounds = true
+    speakerBOutlet.layer.cornerRadius = rad
+    
+    locationBOutlet.layer.borderWidth = 1
+    locationBOutlet.layer.borderColor = UIColor.black.cgColor
+    locationBOutlet.clipsToBounds = true
+    locationBOutlet.layer.cornerRadius = rad
+    
+    proximityBOutlet.layer.borderWidth = 1
+    proximityBOutlet.layer.borderColor = UIColor.black.cgColor
+    proximityBOutlet.clipsToBounds = true
+    proximityBOutlet.layer.cornerRadius = rad
+    
+    motionBOutlet.layer.borderWidth = 1
+    motionBOutlet.layer.borderColor = UIColor.black.cgColor
+    motionBOutlet.clipsToBounds = true
+    motionBOutlet.layer.cornerRadius = rad
+    
+    gearBOutlet.layer.borderWidth = 1
+    gearBOutlet.layer.borderColor = UIColor.black.cgColor
+    gearBOutlet.clipsToBounds = true
+    gearBOutlet.layer.cornerRadius = rad * 4
+    
+    toolBOutlet.layer.borderWidth = 1
+    toolBOutlet.layer.borderColor = UIColor.black.cgColor
+    toolBOutlet.clipsToBounds = true
+    toolBOutlet.layer.cornerRadius = rad * 4
     
 //    nextOutlet.layer.borderWidth = 1
 //    nextOutlet.layer.borderColor = UIColor.gray.cgColor
