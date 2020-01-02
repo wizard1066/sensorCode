@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B751C3B23B8B2B700189FA5 /* toolsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B751C3A23B8B2B700189FA5 /* toolsVC.swift */; };
+		7B751C3E23BDF7B400189FA5 /* LightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B751C3D23BDF7B400189FA5 /* LightVC.swift */; };
 		7B8A0D8C2338B2D300D2E2A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A0D8B2338B2D300D2E2A4 /* AppDelegate.swift */; };
 		7B8A0D912338B2D300D2E2A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0D8F2338B2D300D2E2A4 /* Main.storyboard */; };
 		7B8A0D932338B2D500D2E2A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A0D922338B2D500D2E2A4 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		7B751C3A23B8B2B700189FA5 /* toolsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toolsVC.swift; sourceTree = "<group>"; };
+		7B751C3D23BDF7B400189FA5 /* LightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightVC.swift; sourceTree = "<group>"; };
 		7B8A0D882338B2D300D2E2A4 /* sensorCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sensorCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B8A0D8B2338B2D300D2E2A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B8A0D902338B2D300D2E2A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				7B751C3A23B8B2B700189FA5 /* toolsVC.swift */,
 				7BE254FC23A3EDE400C45047 /* speakerVC.swift */,
 				7B8A0D8F2338B2D300D2E2A4 /* Main.storyboard */,
+				7B751C3D23BDF7B400189FA5 /* LightVC.swift */,
 				7B8A0D922338B2D500D2E2A4 /* Assets.xcassets */,
 				7B8A0D942338B2D500D2E2A4 /* LaunchScreen.storyboard */,
 				7B8A0D972338B2D500D2E2A4 /* Info.plist */,
@@ -204,6 +207,7 @@
 				7BE254F423A3C2E100C45047 /* IAPproduct.swift in Sources */,
 				7BE2550423A3EDE400C45047 /* motionVC.swift in Sources */,
 				7BE2550823A3EDF000C45047 /* photoViewController.swift in Sources */,
+				7B751C3E23BDF7B400189FA5 /* LightVC.swift in Sources */,
 				7BE2550623A3EDE400C45047 /* azimuthVC.swift in Sources */,
 				7BE2550E23A407E200C45047 /* SettingBundleHelper.swift in Sources */,
 				7BE2550323A3EDE400C45047 /* speakerVC.swift in Sources */,

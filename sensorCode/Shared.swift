@@ -25,6 +25,8 @@ var pulse: Bool?
 var variable: Bool?
 var raw: Bool?
 
+var lightOn: String?
+var lightOff: String?
 
 var directionManager: CLLocationManager?
 var lastSwitch: UISwitch?

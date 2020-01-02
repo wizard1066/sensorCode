@@ -206,6 +206,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var motionBOutlet: UIButton!
   @IBOutlet weak var azimuthBOutlet: UIButton!
   @IBOutlet weak var toolBOutlet: UIButton!
+  @IBOutlet weak var lightBOutlet: UIButton!
   
   
   var strongCompass:azimuthVC?
@@ -216,6 +217,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   var strongGear: gearVC?
   var strongProximity: proximityVC?
   var strongTool: toolsVC?
+  var strongLight: LightVC?
   
   
 
@@ -277,6 +279,16 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
     
   }
+  
+  @IBAction func lightBAction(_ sender: UIButton) {
+    lastButton = lightBOutlet
+    if strongLight != nil {
+      present(strongLight!, animated: true, completion: nil)
+    } else {
+      self.performSegue(withIdentifier: "light", sender: self)
+    }
+  }
+  
 
   
   @IBAction func azimuthBAction(_ sender: Any) {
@@ -332,6 +344,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         self.azimuthBOutlet.alpha = 1
         self.motionBOutlet.alpha = 1
         self.gearBOutlet.alpha = 1
+        self.lightBOutlet.alpha = 1
       }
     }
     
@@ -570,6 +583,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       azimuthBOutlet.alpha = 0
       motionBOutlet.alpha = 0
       gearBOutlet.alpha = 0
+      lightBOutlet.alpha = 0
 
       if introCurrent == introValue.first {
 
@@ -905,6 +919,12 @@ func secondJump() {
                   self.azimuthBOutlet.isEnabled = true
                   self.azimuthTag.isHidden = false
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+                  self.infoText!.text = "Turn iphone light on/off"
+                  self.lightBOutlet.grow()
+                  self.lightBOutlet.isEnabled = true
+                  self.lightBOutlet.isHidden = false
+                  
+                  DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""
                     self.firstShow = false
                     if pulse! {
@@ -952,7 +972,7 @@ func secondJump() {
                     }
                     
                     
-                    
+                    })
                     
                     
                   })
