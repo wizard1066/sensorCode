@@ -42,7 +42,8 @@ class toolsVC: UIViewController {
   func format(tag: UILabel, text:String) {
     tag.text = text
     tag.textColor = .white
-    tag.font = UIFont.preferredFont(forTextStyle: .title2)
+//    tag.font = UIFont.preferredFont(forTextStyle: .title2)
+    tag.font = UIFont(name: "Futura-CondensedMedium", size: 17)
     if text == "TRUE" {
       tag.backgroundColor = .green
       tag.textColor = .darkGray
@@ -77,9 +78,12 @@ class toolsVC: UIViewController {
     } else {
       format(tag: fastTag, text: "FALSE")
     }
-    refreshValue.font = UIFont.preferredFont(forTextStyle: .title2)
+//    refreshValue.font = UIFont.preferredFont(forTextStyle: .title2)
+    refreshValue.font = UIFont(name: "Futura-CondensedMedium", size: 17)
     refreshValue.text = "\(refreshRate!)"
-    precisionValue.font = UIFont.preferredFont(forTextStyle: .title2)
+    
+//    precisionValue.font = UIFont.preferredFont(forTextStyle: .title2)
+    precisionValue.font = UIFont(name: "Futura-CondensedMedium", size: 17)
     precisionValue.text = precision
     
     let remTab = customLongPress(target: self, action: #selector(toolsVC.showPress(sender:)))
@@ -219,10 +223,11 @@ class toolsVC: UIViewController {
     label.text = ""
     label.alpha = 1
     label.preferredMaxLayoutWidth = self.view.bounds.width - 40
-    label.font = UIFont.preferredFont(forTextStyle: .body)
+//    label.font = UIFont.preferredFont(forTextStyle: .body)
+    label.font = UIFont(name: "Futura-CondensedMedium", size: 17)
     label.adjustsFontForContentSizeCategory = true
     label.isHidden = false
-    label.textAlignment = .left
+    label.textAlignment = .center
     label.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
     label.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
     

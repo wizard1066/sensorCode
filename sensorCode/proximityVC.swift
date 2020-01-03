@@ -50,7 +50,8 @@ class proximityVC: UIViewController, lostLink {
             self.view.addSubview(infoText)
             
             infoText.text = "Turns on the proximity monitor. It turns off the screen if you get too close and sends the word proximity true/false."
-            infoText.font = UIFont.preferredFont(forTextStyle: .body)
+//            infoText.font = UIFont.preferredFont(forTextStyle: .body)
+            infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
             infoText.adjustsFontForContentSizeCategory = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
               UIView.animate(withDuration: 1) {

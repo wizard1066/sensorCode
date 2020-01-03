@@ -104,7 +104,8 @@ class voiceVC: UIViewController, lostLink {
          infoText.numberOfLines = 0
          infoText.textAlignment = .justified
          self.view.addSubview(infoText)
-         infoText.font = UIFont.preferredFont(forTextStyle: .body)
+//         infoText.font = UIFont.preferredFont(forTextStyle: .body)
+         infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
          infoText.adjustsFontForContentSizeCategory = true
          infoText.text = "Listens with the iPhone mic. And sends to the port configured the words it picks up."
          

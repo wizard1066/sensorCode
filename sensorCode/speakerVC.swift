@@ -115,7 +115,8 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
             self.view.addSubview(infoText)
             
             infoText.text = "Lets you ask the iPhone to read out text. You need to send it via UDP to the iPhone IP address, on the port you already defined."
-            infoText.font = UIFont.preferredFont(forTextStyle: .body)
+//            infoText.font = UIFont.preferredFont(forTextStyle: .body)
+            infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
             infoText.adjustsFontForContentSizeCategory = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 12, execute: {
               UIView.animate(withDuration: 1) {

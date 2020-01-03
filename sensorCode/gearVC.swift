@@ -176,6 +176,16 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     }
     connectBSwitch.grow()
     communications?.missing = self
+    
+    let rad:CGFloat = 32
+    
+    pictureIcon.layer.borderWidth = 2
+    pictureIcon.layer.cornerRadius = rad
+    pictureIcon.clipsToBounds = true
+    
+    cameraIcon.layer.borderWidth = 2
+    cameraIcon.layer.cornerRadius = rad
+    cameraIcon.clipsToBounds = true
   }
   
   override func viewDidLoad() {
@@ -483,7 +493,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         self.infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
         self.infoText.adjustsFontForContentSizeCategory = true
         self.infoText.isHidden = false
-        self.infoText.textAlignment = .left
+        self.infoText.textAlignment = .center
         self.infoText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
         self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 80)
         

@@ -462,13 +462,13 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    for family in UIFont.familyNames {
-        print("\(family)")
-
-        for name in UIFont.fontNames(forFamilyName: family) {
-            print("   \(name)")
-        }
-    }
+//    for family in UIFont.familyNames {
+//        print("\(family)")
+//
+//        for name in UIFont.fontNames(forFamilyName: family) {
+//            print("   \(name)")
+//        }
+//    }
     
     NetStatus.shared.didStartMonitoringHandler = { [unowned self] in
 //        print("Start Monitoring",NetStatus.shared.getInfo())
@@ -840,6 +840,12 @@ func secondJump() {
           
           self.speakerBOutlet.isEnabled = true
           self.gearBOutlet.grow()
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.speakerBOutlet.grow()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+              self.toolBOutlet.grow()
+            })
+          })
         })
       
       DispatchQueue.main.asyncAfter(deadline: .now() + 12, execute: {
@@ -1036,41 +1042,47 @@ func secondJump() {
 //      infoText!.font = UIFont.preferredFont(forTextStyle: .body)
       infoText!.font = UIFont(name: "Futura-CondensedMedium", size: 17)
       infoText!.adjustsFontForContentSizeCategory = true
-      DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-        self.infoText!.text = "Report location"
-        self.locationBOutlet.grow()
-        self.locationBOutlet.isEnabled = true
-        self.locationTag.isHidden = false
+      
+      highMoreBO.sendActions(for: .touchUpInside)
+      
+      DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
+        self.infoText!.text = "Stream phone motion"
+        self.motionBOutlet.grow()
+        self.motionBOutlet.isEnabled = true
+        self.motionTag.isHidden = false
+
         DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-          self.infoText!.text = "Turn on proximity alerts"
-          self.proximityBOutlet.grow()
-          self.proximityBOutlet.isEnabled = true
-          self.proximityTag.isHidden = false
+           self.infoText!.text = "Stream compass position"
+           self.azimuthBOutlet.grow()
+           self.azimuthBOutlet.isEnabled = true
+           self.azimuthTag.isHidden = false
+
           DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-            self.infoText!.text = "Speak text sent"
-            self.speakerBOutlet.grow()
-            self.speakerBOutlet.isEnabled = true
-            self.talkTag.isHidden = false
+              
+              self.infoText!.text = "Report location"
+              self.locationBOutlet.grow()
+              self.locationBOutlet.isEnabled = true
+              self.locationTag.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-              self.infoText!.text = "Listen to voice"
-              self.voiceBOutlet.grow()
-              self.voiceBOutlet.isEnabled = true
-              self.voiceTag.isHidden = false
-              DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                self.infoText!.text = "Stream phone motion"
-                self.motionBOutlet.grow()
-                self.motionBOutlet.isEnabled = true
-                self.motionTag.isHidden = false
+                self.lowMoreBO.sendActions(for: .touchUpInside)
+
+              DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
+                self.infoText!.text = "Turn on proximity alerts"
+                self.proximityBOutlet.grow()
+                self.proximityBOutlet.isEnabled = true
+                self.proximityTag.isHidden = false
+ 
                 DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                  self.infoText!.text = "Stream compass position"
-                  self.azimuthBOutlet.grow()
-                  self.azimuthBOutlet.isEnabled = true
-                  self.azimuthTag.isHidden = false
-                  DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                   self.infoText!.text = "Turn iphone light on/off"
-                  self.lightBOutlet.grow()
-                  self.lightBOutlet.isEnabled = true
-                  self.lightTag.isHidden = false
+                   self.lightBOutlet.grow()
+                   self.lightBOutlet.isEnabled = true
+                   self.lightTag.isHidden = false
+ 
+                  DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+                    self.infoText!.text = "Listen to voice"
+                     self.voiceBOutlet.grow()
+                     self.voiceBOutlet.isEnabled = true
+                     self.voiceTag.isHidden = false
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""
                     self.firstShow = false
@@ -1081,18 +1093,19 @@ func secondJump() {
                       }
                     }
                     if !fastStart! {
-                      let textFeed = "Remember Transmitting sensors text blinks when they are sending data out."
+                      let textFeed = "Note the indicator on the right side listing all the sensors turns green and the text blinks when they are turned on."
                       
                       self.moreText.text = ""
                       self.moreText.alpha = 1
                       self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 80
-                      self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
+//                      self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
                       self.moreText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
                       self.moreText.adjustsFontForContentSizeCategory = true
                       self.moreText.isHidden = false
-                      self.moreText.textAlignment = .left
+                      self.moreText.textAlignment = .center
                       self.moreText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-//                      self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 140)
+                      self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 140)
+                      
                       
                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                         let words = Array(textFeed)

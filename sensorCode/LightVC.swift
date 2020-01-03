@@ -97,7 +97,8 @@ class LightVC: UIViewController, UITextFieldDelegate, lostLink {
              self.view.addSubview(infoText)
              
              infoText.text = "Looks to either speech or listening hardware to the defined names to turn the iphone light on or off"
-             infoText.font = UIFont.preferredFont(forTextStyle: .body)
+//             infoText.font = UIFont.preferredFont(forTextStyle: .body)
+             infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
              infoText.adjustsFontForContentSizeCategory = true
              DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
                UIView.animate(withDuration: 1) {
