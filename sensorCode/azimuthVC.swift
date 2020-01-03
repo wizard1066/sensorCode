@@ -94,7 +94,8 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
           self.view.addSubview(infoText)
           
           infoText.text = "Sends a stream of tuples of data, as the value changes. The first value is the true north, the second the magnetic north."
-          infoText.font = UIFont.preferredFont(forTextStyle: .body)
+//          infoText.font = UIFont.preferredFont(forTextStyle: .body)
+          infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
           infoText.adjustsFontForContentSizeCategory = true
           DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
             UIView.animate(withDuration: 1) {

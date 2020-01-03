@@ -479,7 +479,8 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         self.infoText.text = ""
         self.infoText.alpha = 1
         self.infoText.preferredMaxLayoutWidth = self.view.bounds.width - 40
-        self.infoText.font = UIFont.preferredFont(forTextStyle: .body)
+//        self.infoText.font = UIFont.preferredFont(forTextStyle: .body)
+        self.infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
         self.infoText.adjustsFontForContentSizeCategory = true
         self.infoText.isHidden = false
         self.infoText.textAlignment = .left

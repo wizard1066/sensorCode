@@ -140,7 +140,8 @@ var motionManager: CMMotionManager?
       self.view.addSubview(infoText)
       
       infoText.text = "Sends a stream of tuples. The first the roll, the second the pitch and the third the yaw."
-      infoText.font = UIFont.preferredFont(forTextStyle: .body)
+//      infoText.font = UIFont.preferredFont(forTextStyle: .body)
+      infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
       infoText.adjustsFontForContentSizeCategory = true
       DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
         UIView.animate(withDuration: 1) {

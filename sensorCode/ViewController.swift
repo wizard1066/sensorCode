@@ -59,20 +59,27 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     switch label {
       case views2G.azimuth.rawValue:
         azimuthTag.noblinkText(tag: views2G(rawValue: label)!)
+        azimuthID.backgroundColor = .systemRed
       case views2G.motion.rawValue:
         motionTag.noblinkText(tag: views2G(rawValue: label)!)
+        motionID.backgroundColor = .systemRed
       case views2G.voice.rawValue:
         voiceTag.noblinkText(tag: views2G(rawValue: label)!)
+        voiceID.backgroundColor = .systemRed
       case views2G.location.rawValue:
         locationTag.noblinkText(tag: views2G(rawValue: label)!)
+        locationID.backgroundColor = .systemRed
       case views2G.proximity.rawValue:
         proximityTag.noblinkText(tag: views2G(rawValue: label)!)
+        proximityID.backgroundColor = .systemRed
       case views2G.speaker.rawValue:
         talkTag.noblinkText(tag: views2G(rawValue: label)!)
+        talkID.backgroundColor = .systemRed
       case views2G.gear.rawValue:
         connectTag.noblinkText(tag: views2G(rawValue: label)!)
       case views2G.light.rawValue:
         lightTag.noblinkText(tag: views2G(rawValue: label)!)
+        lightID.backgroundColor = .systemRed
       default:
         break
     }
@@ -83,28 +90,31 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     switch label {
       case views2G.azimuth.rawValue:
         azimuthTag.blinkText(tag: views2G(rawValue: label)!)
+        azimuthID.backgroundColor = .systemGreen
       case views2G.motion.rawValue:
         motionTag.blinkText(tag: views2G(rawValue: label)!)
+        motionID.backgroundColor = .systemGreen
       case views2G.voice.rawValue:
         voiceTag.blinkText(tag: views2G(rawValue: label)!)
+        voiceID.backgroundColor = .systemGreen
       case views2G.location.rawValue:
         locationTag.blinkText(tag: views2G(rawValue: label)!)
+        locationID.backgroundColor = .systemGreen
       case views2G.proximity.rawValue:
         proximityTag.blinkText(tag: views2G(rawValue: label)!)
+        proximityID.backgroundColor = .systemGreen
       case views2G.speaker.rawValue:
         talkTag.blinkText(tag: views2G(rawValue: label)!)
+        talkID.backgroundColor = .systemGreen
       case views2G.gear.rawValue:
         connectTag.blinkText(tag: views2G(rawValue: label)!)
       case views2G.light.rawValue:
         lightTag.blinkText(tag: views2G(rawValue: label)!)
+        lightID.backgroundColor = .systemGreen
       default:
         break
     }
   }
-  
-
- 
-  
 
   func returnPostNHost(port: String, host: String) {
     DispatchQueue.main.asyncAfter(deadline: .now() + 12 , execute: {
@@ -144,7 +154,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       } else {
         self.performSegue(withIdentifier: "azimuth", sender: self)
       }
-      azimuthBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
+//      azimuthBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
     }
     if service == IAPProduct.voice.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMic != nil {
@@ -152,7 +162,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       } else {
         self.performSegue(withIdentifier: "voice", sender: self)
       }
-      voiceBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
+//      voiceBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
     }
     if service == IAPProduct.motion.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMotion != nil {
@@ -160,18 +170,18 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       } else {
         self.performSegue(withIdentifier: "motion", sender: self)
       }
-      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
+//      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
     }
     
     
     if service == IAPProduct.motion.rawValue && message == IAPStatus.restored.rawValue {
-      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
+//      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
     }
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.restored.rawValue {
-      azimuthBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
+//      azimuthBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
     }
     if service == IAPProduct.voice.rawValue && message == IAPStatus.restored.rawValue {
-      voiceBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
+//      voiceBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
     }
     if message == IAPStatus.restored.rawValue {
       purchases[service] = true
@@ -191,7 +201,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var proximityTag: UILabel!
   @IBOutlet weak var talkTag: UILabel!
   @IBOutlet weak var connectTag: UILabel!
-  @IBOutlet weak var toolsTag: UILabel!
+//  @IBOutlet weak var toolsTag: UILabel!
   @IBOutlet weak var lightTag: UILabel!
   
   @IBOutlet weak var portOutlet: UILabel!
@@ -214,6 +224,43 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var toolBOutlet: UIButton!
   @IBOutlet weak var lightBOutlet: UIButton!
   
+  @IBOutlet weak var proximityID: UIButton!
+  @IBOutlet weak var azimuthID: UIButton!
+  @IBOutlet weak var locationID: UIButton!
+  @IBOutlet weak var motionID: UIButton!
+  @IBOutlet weak var voiceID: UIButton!
+  @IBOutlet weak var lightID: UIButton!
+  @IBOutlet weak var talkID: UIButton!
+  
+  
+  
+  
+  
+  @IBOutlet weak var highMoreBO: UIButton!
+  @IBAction func highMoreB(_ sender: Any) {
+    self.lightBOutlet.isHidden = true
+      self.voiceBOutlet.isHidden = true
+      self.highMoreBO.isHidden = true
+    UIView.animate(withDuration: 2) {
+      self.motionBOutlet.isHidden = false
+      self.azimuthBOutlet.isHidden = false
+      self.lowMoreBO.isHidden = false
+    }
+  }
+
+  
+  @IBOutlet weak var lowMoreBO: UIButton!
+  @IBAction func lowMoreBA(_ sender: Any) {
+    self.motionBOutlet.isHidden = true
+    self.azimuthBOutlet.isHidden = true
+    self.lowMoreBO.isHidden = true
+    UIView.animate(withDuration: 2) {
+      self.lightBOutlet.isHidden = false
+      self.voiceBOutlet.isHidden = false
+      self.highMoreBO.isHidden = false
+      
+    }
+  }
   
   var strongCompass:azimuthVC?
   var strongMotion:motionVC?
@@ -224,9 +271,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   var strongProximity: proximityVC?
   var strongTool: toolsVC?
   var strongLight: LightVC?
-  
-  
-
 
   @IBAction func motionBAction(_ sender: UIButton) {
 
@@ -351,6 +395,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         self.motionBOutlet.alpha = 1
         self.gearBOutlet.alpha = 1
         self.lightBOutlet.alpha = 1
+        self.highMoreBO.isHidden = false
+        self.lowMoreBO.isHidden = false
       }
     }
     
@@ -382,6 +428,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     introText.addGestureRecognizer(swipeLeft)
     introText.numberOfLines = 0
     introText.textAlignment = .justified
+    introText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
 
     self.view.addSubview(introText)
     tapFunction(sender: self)
@@ -415,7 +462,13 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
+    for family in UIFont.familyNames {
+        print("\(family)")
+
+        for name in UIFont.fontNames(forFamilyName: family) {
+            print("   \(name)")
+        }
+    }
     
     NetStatus.shared.didStartMonitoringHandler = { [unowned self] in
 //        print("Start Monitoring",NetStatus.shared.getInfo())
@@ -442,54 +495,95 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     NetStatus.shared.startMonitoring()
     NetStatus.shared.getInfo()
     
-
-
-    let rad:CGFloat = 8
+    let rad2:CGFloat = 8
     
-    azimuthBOutlet.layer.borderWidth = 1
+    azimuthID.layer.borderWidth = 0
+    azimuthID.layer.cornerRadius = rad2
+    azimuthID.clipsToBounds = true
+    
+    proximityID.layer.borderWidth = 0
+    proximityID.layer.cornerRadius = rad2
+    proximityID.clipsToBounds = true
+    
+    locationID.layer.borderWidth = 0
+    locationID.layer.cornerRadius = rad2
+    locationID.clipsToBounds = true
+    
+    motionID.layer.borderWidth = 0
+    motionID.layer.cornerRadius = rad2
+    motionID.clipsToBounds = true
+    
+    voiceID.layer.borderWidth = 0
+    voiceID.layer.cornerRadius = rad2
+    voiceID.clipsToBounds = true
+    
+    lightID.layer.borderWidth = 0
+    lightID.layer.cornerRadius = rad2
+    lightID.clipsToBounds = true
+    
+    talkID.layer.borderWidth = 0
+    talkID.layer.cornerRadius = rad2
+    talkID.clipsToBounds = true
+
+    let rad:CGFloat = 25
+    let wid:CGFloat = 2
+    
+    highMoreBO.layer.borderWidth = wid
+    highMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
+    highMoreBO.clipsToBounds = true
+    highMoreBO.layer.cornerRadius = rad
+    
+    lowMoreBO.layer.borderWidth = wid
+    lowMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
+    lowMoreBO.clipsToBounds = true
+    lowMoreBO.layer.cornerRadius = rad
+    
+    azimuthBOutlet.layer.borderWidth = wid
     azimuthBOutlet.layer.borderColor = UIColor.black.cgColor
     azimuthBOutlet.clipsToBounds = true
     azimuthBOutlet.layer.cornerRadius = rad
     
-    voiceBOutlet.layer.borderWidth = 1
+    voiceBOutlet.layer.borderWidth = wid
     voiceBOutlet.layer.borderColor = UIColor.black.cgColor
     voiceBOutlet.clipsToBounds = true
     voiceBOutlet.layer.cornerRadius = rad
     
-    lightBOutlet.layer.borderWidth = 1
+    lightBOutlet.layer.borderWidth = wid
     lightBOutlet.layer.borderColor = UIColor.black.cgColor
     lightBOutlet.clipsToBounds = true
     lightBOutlet.layer.cornerRadius = rad
     
-    speakerBOutlet.layer.borderWidth = 1
+    speakerBOutlet.layer.borderWidth = wid
     speakerBOutlet.layer.borderColor = UIColor.black.cgColor
     speakerBOutlet.clipsToBounds = true
-    speakerBOutlet.layer.cornerRadius = rad
+    speakerBOutlet.layer.cornerRadius = 33
     
-    locationBOutlet.layer.borderWidth = 1
+    locationBOutlet.layer.borderWidth = wid
     locationBOutlet.layer.borderColor = UIColor.black.cgColor
     locationBOutlet.clipsToBounds = true
-    locationBOutlet.layer.cornerRadius = rad
+    locationBOutlet.layer.cornerRadius = 30
     
-    proximityBOutlet.layer.borderWidth = 1
+    proximityBOutlet.layer.borderWidth = wid
     proximityBOutlet.layer.borderColor = UIColor.black.cgColor
     proximityBOutlet.clipsToBounds = true
-    proximityBOutlet.layer.cornerRadius = rad
+    proximityBOutlet.layer.cornerRadius = 30
     
-    motionBOutlet.layer.borderWidth = 1
+    motionBOutlet.layer.borderWidth = wid
     motionBOutlet.layer.borderColor = UIColor.black.cgColor
     motionBOutlet.clipsToBounds = true
     motionBOutlet.layer.cornerRadius = rad
     
-    gearBOutlet.layer.borderWidth = 1
+    let rad3:CGFloat = 33
+    
+    gearBOutlet.layer.borderWidth = wid
     gearBOutlet.layer.borderColor = UIColor.black.cgColor
     gearBOutlet.clipsToBounds = true
-    gearBOutlet.layer.cornerRadius = rad * 4
+    gearBOutlet.layer.cornerRadius = rad3
     
-    toolBOutlet.layer.borderWidth = 1
+    toolBOutlet.layer.borderWidth = wid
     toolBOutlet.layer.borderColor = UIColor.black.cgColor
     toolBOutlet.clipsToBounds = true
-    toolBOutlet.layer.cornerRadius = rad * 4
+    toolBOutlet.layer.cornerRadius = rad3
     
 //    nextOutlet.layer.borderWidth = 1
 //    nextOutlet.layer.borderColor = UIColor.gray.cgColor
@@ -532,7 +626,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       toolBOutlet.isEnabled = true
       toolBOutlet.isHidden = false
       connectTag.isHidden = false
-      toolsTag.isHidden = false
+//      toolsTag.isHidden = false
       talkTag.isHidden = false
       talkTag.isEnabled = true
     }
@@ -737,7 +831,7 @@ func secondJump() {
           
           
           self.connectTag.isHidden = false
-          self.toolsTag.isHidden = false
+//          self.toolsTag.isHidden = false
           self.talkTag.isHidden = false
           self.talkTag.isEnabled = true
           
@@ -791,6 +885,8 @@ func secondJump() {
     } else {
       connectTag.text = "connect"
     }
+    
+    
     // this code made the app crash!!
 //    if lastSwitch?.isOn == false {
 //      switch lastButton?.tag {
@@ -937,7 +1033,8 @@ func secondJump() {
       UIView.animate(withDuration: 0.5) {
         self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.minY + 128)
       }
-      infoText!.font = UIFont.preferredFont(forTextStyle: .body)
+//      infoText!.font = UIFont.preferredFont(forTextStyle: .body)
+      infoText!.font = UIFont(name: "Futura-CondensedMedium", size: 17)
       infoText!.adjustsFontForContentSizeCategory = true
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
         self.infoText!.text = "Report location"
@@ -973,7 +1070,6 @@ func secondJump() {
                   self.infoText!.text = "Turn iphone light on/off"
                   self.lightBOutlet.grow()
                   self.lightBOutlet.isEnabled = true
-                  self.lightBOutlet.isHidden = false
                   self.lightTag.isHidden = false
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""
@@ -991,6 +1087,7 @@ func secondJump() {
                       self.moreText.alpha = 1
                       self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 80
                       self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
+                      self.moreText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
                       self.moreText.adjustsFontForContentSizeCategory = true
                       self.moreText.isHidden = false
                       self.moreText.textAlignment = .left
