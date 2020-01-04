@@ -256,6 +256,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     
     if !fastStart! {
     
+    infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
     infoText.text = "Start by entering a port number to use between 1024 and 32760, tapping on the screen to dismiss the keyboard."
     infoText.backgroundColor = .white
     infoText.isUserInteractionEnabled = true

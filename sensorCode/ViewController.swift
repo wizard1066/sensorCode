@@ -44,9 +44,13 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   func incoming(ipaddr: String) {
     
     DispatchQueue.main.async {
+      
       self.recievingOutlet.text = ipaddr
       self.recievingOutlet.isHidden = false
-      self.iphoneLabel.isHidden = false
+//      self.iphoneLabel.isHidden = false
+// fuck
+      self.recieve.isHidden = false
+      self.recieve.text = "reciving"
     }
   }
   
@@ -118,12 +122,12 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
 
   func returnPostNHost(port: String, host: String) {
     DispatchQueue.main.asyncAfter(deadline: .now() + 12 , execute: {
-      self.portOutlet.isHidden = false
+//      self.portOutlet.isHidden = false
       self.sendingOutlet.isHidden = false
-      self.portLabel.isHidden = false
-      self.robotLabel.isHidden = false
-      self.portOutlet.text = port
-      self.sendingOutlet.text = host
+//      self.portLabel.isHidden = false
+//      self.robotLabel.isHidden = false
+//      self.portOutlet.text = port
+      self.sendingOutlet.text = host + ":" + port
     })
   }
 
@@ -211,6 +215,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var portLabel: UILabel!
   @IBOutlet weak var robotLabel: UILabel!
   @IBOutlet weak var iphoneLabel: UILabel!
+  @IBOutlet weak var recieve: UILabel!
   
   
   @IBOutlet weak var stackviewDots: UIStackView!
@@ -244,12 +249,12 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBAction func voiceIDAction(_ sender: Any) {
     lowMoreBO.sendActions(for: .touchUpInside)
   }
-  // fuck
+  
   @objc func swipe(sender: UISwipeGestureRecognizer) {
-    if sender.direction == .up {
+    if sender.direction == .down {
       highMoreBO.sendActions(for: .touchUpInside)
     }
-    if sender.direction == .down {
+    if sender.direction == .up {
       lowMoreBO.sendActions(for: .touchUpInside)
     }
   }
@@ -421,24 +426,38 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
     if introCurrent == introValue.third {
       secondJump()
+      self.gearBOutlet.alpha = 1
+      self.speakerBOutlet.alpha = 1
       nextOutlet.isHidden = true
-      UIView.animate(withDuration: 1) {
-        self.voiceBOutlet.alpha = 1
-        self.speakerBOutlet.alpha = 1
-        self.proximityBOutlet.alpha = 1
-        self.locationBOutlet.alpha = 1
-        self.azimuthBOutlet.alpha = 1
-        self.motionBOutlet.alpha = 1
-        self.gearBOutlet.alpha = 1
-        self.lightBOutlet.alpha = 1
-        self.highMoreBO.isHidden = false
-        self.lowMoreBO.isHidden = false
-      }
+//      UIView.animate(withDuration: 1) {
+//        self.voiceBOutlet.alpha = 1
+//        self.speakerBOutlet.alpha = 1
+//        self.proximityBOutlet.alpha = 1
+//        self.locationBOutlet.alpha = 1
+//        self.azimuthBOutlet.alpha = 1
+//        self.motionBOutlet.alpha = 1
+//        self.gearBOutlet.alpha = 1
+//        self.lightBOutlet.alpha = 1
+//        self.highMoreBO.isHidden = false
+//        self.lowMoreBO.isHidden = false
+//      }
     }
     
     
   }
   
+  func showButtonBar() {
+    self.voiceBOutlet.alpha = 1
+    self.speakerBOutlet.alpha = 1
+    self.proximityBOutlet.alpha = 1
+    self.locationBOutlet.alpha = 1
+    self.azimuthBOutlet.alpha = 1
+    self.motionBOutlet.alpha = 1
+    self.gearBOutlet.alpha = 1
+    self.lightBOutlet.alpha = 1
+    self.highMoreBO.isHidden = false
+    self.lowMoreBO.isHidden = false
+  }
   
   
   @IBOutlet weak var page1: UIImageView!
@@ -673,13 +692,14 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
     
     if port2G == nil {
-      portOutlet.isHidden = true
+//      portOutlet.isHidden = true
+      connectTag.isHidden = false
       sendingOutlet.isHidden = true
       recievingOutlet.isHidden = true
       spokenText.isHidden = true
-      portLabel.isHidden = true
-      robotLabel.isHidden = true
-      iphoneLabel.isHidden = true
+//      portLabel.isHidden = true
+//      robotLabel.isHidden = true
+//      iphoneLabel.isHidden = true
     }
     
     if variable! {
@@ -811,7 +831,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   }
   
   func firstJump() {
-    nextOutlet.splitWord()
+//    nextOutlet.splitWord()
     UIView.animate(withDuration: 0.5) {
       self.introText.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
       self.topImage.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
@@ -876,7 +896,7 @@ func secondJump() {
           self.gearBOutlet.isEnabled = true
           
           
-          self.connectTag.isHidden = false
+//          self.connectTag.isHidden = false
 //          self.toolsTag.isHidden = false
           self.talkTag.isHidden = false
           self.talkTag.isEnabled = true
@@ -934,6 +954,7 @@ func secondJump() {
     communications?.missing = self
     if communications!.connectedStatus {
       connectTag.text = "connected"
+      showButtonBar()
     } else {
       connectTag.text = "connect"
     }
@@ -1083,7 +1104,7 @@ func secondJump() {
       stackviewDots.isHidden = true
       infoText!.text = "The Sensors"
       UIView.animate(withDuration: 0.5) {
-        self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.minY + 128)
+        self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.maxY - 80)
       }
 //      infoText!.font = UIFont.preferredFont(forTextStyle: .body)
       infoText!.font = UIFont(name: "Futura-CondensedMedium", size: 17)

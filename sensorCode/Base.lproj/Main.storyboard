@@ -43,45 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="B6V-yk-Y30">
-                                <rect key="frame" x="135" y="8" width="50.5" height="105"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Port" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fH9-Vb-LVx">
-                                        <rect key="frame" x="14" y="0.0" width="22" height="20.5"/>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="port" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pZ-6p-9yp">
-                                        <rect key="frame" x="17.5" y="20.5" width="15.5" height="14.5"/>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBA-F6-Tya">
-                                        <rect key="frame" x="3.5" y="35" width="43.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="robot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odb-30-yfz">
-                                        <rect key="frame" x="15" y="55.5" width="20" height="14.5"/>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recieving" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="So0-jm-Ald">
-                                        <rect key="frame" x="0.0" y="70" width="50.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iphone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAw-9F-eIj">
-                                        <rect key="frame" x="12" y="90.5" width="26" height="14.5"/>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
+                                <rect key="frame" x="149" y="8" width="22" height="20.5"/>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pYU-6V-neg">
                                 <rect key="frame" x="110" y="492" width="100" height="20"/>
@@ -267,7 +229,7 @@
                                             <constraint firstAttribute="width" constant="66" id="EFb-ao-KCT"/>
                                             <constraint firstAttribute="height" constant="66" id="gnd-VE-Yu8"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="20"/>
                                         <state key="normal" title="talking">
                                             <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -406,15 +368,43 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qdY-EF-HL0">
-                                <rect key="frame" x="140" y="430" width="40.5" height="20.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sZv-Pt-6G0">
+                                <rect key="frame" x="136" y="20" width="48.5" height="41"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h56-q2-06i">
-                                        <rect key="frame" x="0.0" y="0.0" width="40.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oGg-rA-pBY">
+                                        <rect key="frame" x="0.0" y="0.0" width="48.5" height="20.5"/>
+                                        <subviews>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="connect" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h56-q2-06i">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sending" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBA-F6-Tya">
+                                                <rect key="frame" x="0.0" y="0.0" width="48.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="prf-Mn-lCN">
+                                        <rect key="frame" x="0.0" y="20.5" width="48.5" height="20.5"/>
+                                        <subviews>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recieve" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fH9-Vb-LVx">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recieving" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="So0-jm-Ald">
+                                                <rect key="frame" x="0.0" y="0.0" width="48.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -428,12 +418,15 @@
                             <constraint firstItem="uLv-4O-d9d" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="EXH-Yv-u6X"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="alG-za-MsB" secondAttribute="bottom" id="ExR-Vq-cbJ"/>
                             <constraint firstItem="B6V-yk-Y30" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GMq-sE-OAF"/>
+                            <constraint firstAttribute="bottom" secondItem="B6V-yk-Y30" secondAttribute="bottom" constant="539.5" id="Gym-oL-06K"/>
                             <constraint firstItem="alG-za-MsB" firstAttribute="top" secondItem="pYU-6V-neg" secondAttribute="bottom" constant="8" id="HPX-3C-VWN"/>
                             <constraint firstItem="Fbj-Db-htt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kxu-qQ-M61"/>
                             <constraint firstItem="PIX-ju-lJ7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="NwY-yo-9rR"/>
                             <constraint firstItem="B6V-yk-Y30" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="OQl-4f-7f8"/>
-                            <constraint firstItem="uLv-4O-d9d" firstAttribute="top" secondItem="qdY-EF-HL0" secondAttribute="bottom" constant="1.5" id="YRm-rQ-GFQ"/>
+                            <constraint firstItem="B6V-yk-Y30" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="149" id="SQb-bI-3a8"/>
+                            <constraint firstItem="sZv-Pt-6G0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="WxF-ge-mm1"/>
                             <constraint firstItem="c9L-AL-jaL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="b7p-Nq-JmC"/>
+                            <constraint firstItem="sZv-Pt-6G0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cZG-qA-wFl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ufQ-gg-USp" secondAttribute="trailing" constant="8" id="eSA-96-MNX"/>
                             <constraint firstItem="pYU-6V-neg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eug-XI-Yi0"/>
                             <constraint firstItem="ufQ-gg-USp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="flu-P5-TdF"/>
@@ -445,7 +438,6 @@
                             <constraint firstItem="alG-za-MsB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nzX-We-KTm"/>
                             <constraint firstAttribute="trailing" secondItem="uLv-4O-d9d" secondAttribute="trailing" constant="40" id="ovX-ci-owC"/>
                             <constraint firstItem="Dh8-bh-Sst" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="pSi-5W-913"/>
-                            <constraint firstItem="qdY-EF-HL0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qRl-qA-GQq"/>
                             <constraint firstItem="PIX-ju-lJ7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-74" id="tOz-vH-Ckk"/>
                             <constraint firstItem="6gN-2i-e3I" firstAttribute="top" secondItem="pYU-6V-neg" secondAttribute="bottom" constant="4" id="uW7-M4-gwH"/>
                         </constraints>
@@ -459,7 +451,6 @@
                         <outlet property="gearBOutlet" destination="SuO-b6-iYP" id="aNz-WI-crS"/>
                         <outlet property="highMoreBO" destination="JQI-U1-vBB" id="9Rq-r3-xNI"/>
                         <outlet property="inapp" destination="uLv-4O-d9d" id="X0Z-hO-AVl"/>
-                        <outlet property="iphoneLabel" destination="vAw-9F-eIj" id="uL7-oa-ULA"/>
                         <outlet property="lightBOutlet" destination="rHz-KG-HWV" id="zUC-G1-dhX"/>
                         <outlet property="lightID" destination="Q6G-ql-zKZ" id="0aj-Wd-gsC"/>
                         <outlet property="lightTag" destination="EFn-V4-ZEl" id="zPR-FJ-fL3"/>
@@ -475,13 +466,11 @@
                         <outlet property="page1" destination="6bL-UO-glk" id="Sew-eU-bxa"/>
                         <outlet property="page2" destination="DnG-Xg-jL0" id="vWR-Ap-jcP"/>
                         <outlet property="page3" destination="kVh-d2-Trv" id="ouu-nU-8ma"/>
-                        <outlet property="portLabel" destination="7pZ-6p-9yp" id="6Wu-t0-gyt"/>
-                        <outlet property="portOutlet" destination="fH9-Vb-LVx" id="sH8-BP-Ya2"/>
                         <outlet property="proximityBOutlet" destination="NBQ-cb-Yy6" id="sPk-DR-v26"/>
                         <outlet property="proximityID" destination="sMD-oM-O8g" id="G1X-or-3Dx"/>
                         <outlet property="proximityTag" destination="CRc-oy-A5w" id="a9e-Bq-qMZ"/>
+                        <outlet property="recieve" destination="fH9-Vb-LVx" id="J5H-Or-hhl"/>
                         <outlet property="recievingOutlet" destination="So0-jm-Ald" id="pGq-Lk-uOF"/>
-                        <outlet property="robotLabel" destination="odb-30-yfz" id="zkI-ah-kOi"/>
                         <outlet property="sendingOutlet" destination="qBA-F6-Tya" id="rV9-tO-XWY"/>
                         <outlet property="speakerBOutlet" destination="dO3-yE-Kca" id="zob-Km-KZJ"/>
                         <outlet property="spokenOutlet" destination="5KM-yH-53a" id="pml-m5-gf9"/>
