@@ -232,19 +232,49 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var lightID: UIButton!
   @IBOutlet weak var talkID: UIButton!
   
+  @IBAction func motionIDAction(_ sender: Any) {
+    highMoreBO.sendActions(for: .touchUpInside)
+  }
+  @IBAction func azimuthIDAction(_ sender: Any) {
+    highMoreBO.sendActions(for: .touchUpInside)
+  }
+  @IBAction func lightIDAction(_ sender: Any) {
+    lowMoreBO.sendActions(for: .touchUpInside)
+  }
+  @IBAction func voiceIDAction(_ sender: Any) {
+    lowMoreBO.sendActions(for: .touchUpInside)
+  }
+  // fuck
+  @objc func swipe(sender: UISwipeGestureRecognizer) {
+    if sender.direction == .up {
+      highMoreBO.sendActions(for: .touchUpInside)
+    }
+    if sender.direction == .down {
+      lowMoreBO.sendActions(for: .touchUpInside)
+    }
+  }
   
-  
+//  @objc func hover(sender: UIHoverGestureRecognizer) {
+//
+//  }
   
   
   @IBOutlet weak var highMoreBO: UIButton!
   @IBAction func highMoreB(_ sender: Any) {
     self.lightBOutlet.isHidden = true
-      self.voiceBOutlet.isHidden = true
-      self.highMoreBO.isHidden = true
-    UIView.animate(withDuration: 2) {
-      self.motionBOutlet.isHidden = false
+    self.voiceBOutlet.isHidden = true
+    self.voiceID.layer.borderColor = UIColor.clear.cgColor
+    self.lightID.layer.borderColor = UIColor.clear.cgColor
+    self.highMoreBO.isHidden = true
+    self.lowMoreBO.isHidden = false
+    UIView.animate(withDuration: 1, animations: {
       self.azimuthBOutlet.isHidden = false
-      self.lowMoreBO.isHidden = false
+      self.azimuthID.layer.borderColor = UIColor.systemBlue.cgColor
+    }) { (action) in
+      UIView.animate(withDuration: 1) {
+        self.motionBOutlet.isHidden = false
+        self.motionID.layer.borderColor = UIColor.systemBlue.cgColor
+      }
     }
   }
 
@@ -253,12 +283,18 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBAction func lowMoreBA(_ sender: Any) {
     self.motionBOutlet.isHidden = true
     self.azimuthBOutlet.isHidden = true
+    self.voiceID.layer.borderColor = UIColor.clear.cgColor
+    self.lightID.layer.borderColor = UIColor.clear.cgColor
     self.lowMoreBO.isHidden = true
-    UIView.animate(withDuration: 2) {
+    self.highMoreBO.isHidden = false
+    UIView.animate(withDuration: 1, animations: {
       self.lightBOutlet.isHidden = false
-      self.voiceBOutlet.isHidden = false
-      self.highMoreBO.isHidden = false
-      
+      self.lightID.layer.borderColor = UIColor.systemBlue.cgColor
+    }) { (action) in
+      UIView.animate(withDuration: 1) {
+        self.voiceBOutlet.isHidden = false
+        self.voiceID.layer.borderColor = UIColor.systemBlue.cgColor
+      }
     }
   }
   
@@ -497,33 +533,43 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     let rad2:CGFloat = 8
     
-    azimuthID.layer.borderWidth = 0
-    azimuthID.layer.cornerRadius = rad2
-    azimuthID.clipsToBounds = true
+    highMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
     
-    proximityID.layer.borderWidth = 0
-    proximityID.layer.cornerRadius = rad2
-    proximityID.clipsToBounds = true
-    
-    locationID.layer.borderWidth = 0
-    locationID.layer.cornerRadius = rad2
-    locationID.clipsToBounds = true
-    
-    motionID.layer.borderWidth = 0
+    motionID.layer.borderWidth = 1
     motionID.layer.cornerRadius = rad2
     motionID.clipsToBounds = true
+    motionID.layer.borderColor = UIColor.clear.cgColor
     
-    voiceID.layer.borderWidth = 0
-    voiceID.layer.cornerRadius = rad2
-    voiceID.clipsToBounds = true
+    azimuthID.layer.borderWidth = 1
+    azimuthID.layer.cornerRadius = rad2
+    azimuthID.clipsToBounds = true
+    azimuthID.layer.borderColor = UIColor.clear.cgColor
     
-    lightID.layer.borderWidth = 0
-    lightID.layer.cornerRadius = rad2
-    lightID.clipsToBounds = true
+    locationID.layer.borderWidth = 1
+    locationID.layer.cornerRadius = rad2
+    locationID.clipsToBounds = true
+    locationID.layer.borderColor = UIColor.systemBlue.cgColor
     
-    talkID.layer.borderWidth = 0
+    talkID.layer.borderWidth = 1
     talkID.layer.cornerRadius = rad2
     talkID.clipsToBounds = true
+    talkID.layer.borderColor = UIColor.systemBlue.cgColor
+    
+    proximityID.layer.borderWidth = 1
+    proximityID.layer.cornerRadius = rad2
+    proximityID.clipsToBounds = true
+    proximityID.layer.borderColor = UIColor.systemBlue.cgColor
+    
+    lightID.layer.borderWidth = 1
+    lightID.layer.cornerRadius = rad2
+    lightID.clipsToBounds = true
+    lightID.layer.borderColor = UIColor.clear.cgColor
+    
+    voiceID.layer.borderWidth = 1
+    voiceID.layer.cornerRadius = rad2
+    voiceID.clipsToBounds = true
+    voiceID.layer.borderColor = UIColor.clear.cgColor
+    
 
     let rad:CGFloat = 25
     let wid:CGFloat = 2
@@ -585,11 +631,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     toolBOutlet.clipsToBounds = true
     toolBOutlet.layer.cornerRadius = rad3
     
-//    nextOutlet.layer.borderWidth = 1
-//    nextOutlet.layer.borderColor = UIColor.gray.cgColor
-//    nextOutlet.clipsToBounds = true
-//    nextOutlet.layer.cornerRadius = 8
-    
     topMargin = view.safeAreaInsets.top
     leftMargin = view.safeAreaInsets.left + 20
     rightMargin = view.safeAreaInsets.right - 20
@@ -642,21 +683,26 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
     
     if variable! {
-//      superRec = pulser(proximity: nil, latitude: nil, longitude: nil, altitude: nil, trueNorth: nil, magneticNorth: nil, roll: nil, pitch: nil, yaw: nil, word: nil)
       let superGPS = gps(latitude: nil, longitude: nil, altitude: nil)
       let superMOV = fly(roll: nil, pitch: nil, yaw: nil)
       let superDIR = globe(trueNorth: nil, magneticNorth: nil)
       superRec2 = pulser2(wd: nil, px: nil, pos: superGPS, mov: superMOV, dir: superDIR)
      
     } else {
-//      superRec = pulser(proximity:"false", latitude:"", longitude:"", altitude:"", trueNorth:"", magneticNorth:"", roll:"", pitch:"", yaw:"", word:"")
-     
       let superGPS = gps(latitude: "", longitude: "", altitude: "")
       let superMOV = fly(roll: "", pitch: "", yaw: "")
       let superDIR = globe(trueNorth: "", magneticNorth: "")
       superRec2 = pulser2(wd: "", px: "", pos: superGPS, mov: superMOV, dir: superDIR)
       
     }
+    
+    let swipeU = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
+    swipeU.direction = .up
+    let swipeD = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
+    swipeD.direction = .down
+    self.view.addGestureRecognizer(swipeU)
+    self.view.addGestureRecognizer(swipeD)
+//    let hover = UIHoverGestureRecognizer(target: self, action: hover)
   }
   
   func appRestartRequest() {

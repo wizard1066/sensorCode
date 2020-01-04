@@ -127,8 +127,8 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="i0W-BB-yhq">
                                 <rect key="frame" x="246" y="204" width="48.5" height="160.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="proximity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRc-oy-A5w">
-                                        <rect key="frame" x="0.0" y="0.0" width="48.5" height="19.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="motion" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF5-VC-O8G">
+                                        <rect key="frame" x="0.0" y="0.0" width="35.5" height="19.5"/>
                                         <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -145,14 +145,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="motion" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF5-VC-O8G">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="talking" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7F-1R-21Z">
                                         <rect key="frame" x="0.0" y="70.5" width="35.5" height="19.5"/>
                                         <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="voice" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjB-tQ-MdT">
-                                        <rect key="frame" x="0.0" y="94" width="25.5" height="19.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="proximity" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRc-oy-A5w">
+                                        <rect key="frame" x="0.0" y="94" width="48.5" height="19.5"/>
                                         <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -163,8 +163,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="talk" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7F-1R-21Z">
-                                        <rect key="frame" x="0.0" y="141" width="19.5" height="19.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="voice" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjB-tQ-MdT">
+                                        <rect key="frame" x="0.0" y="141" width="25.5" height="19.5"/>
                                         <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -336,13 +336,16 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c9L-AL-jaL">
                                 <rect key="frame" x="226" y="204" width="16" height="160"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMD-oM-O8g">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KS9-mU-6ds">
                                         <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
                                         <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="CSq-Nx-2Ls"/>
-                                            <constraint firstAttribute="height" constant="16" id="r9M-3l-Eok"/>
+                                            <constraint firstAttribute="height" constant="16" id="IYS-7z-sha"/>
+                                            <constraint firstAttribute="width" constant="16" id="oS6-GA-gsf"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="motionIDAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ubh-cD-suy"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGj-Sb-aSV">
                                         <rect key="frame" x="0.0" y="24" width="16" height="16"/>
@@ -351,6 +354,9 @@
                                             <constraint firstAttribute="height" constant="16" id="UFJ-I9-dh9"/>
                                             <constraint firstAttribute="width" constant="16" id="aXL-2B-zHO"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="azimuthIDAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ReK-lN-AjM"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGX-bF-XLM">
                                         <rect key="frame" x="0.0" y="48" width="16" height="16"/>
@@ -360,20 +366,20 @@
                                             <constraint firstAttribute="height" constant="16" id="oHi-b0-Fey"/>
                                         </constraints>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KS9-mU-6ds">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGO-MS-0uB">
                                         <rect key="frame" x="0.0" y="72" width="16" height="16"/>
                                         <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="IYS-7z-sha"/>
-                                            <constraint firstAttribute="width" constant="16" id="oS6-GA-gsf"/>
+                                            <constraint firstAttribute="width" constant="16" id="C6b-Jh-LQC"/>
+                                            <constraint firstAttribute="height" constant="16" id="CS1-nf-hCH"/>
                                         </constraints>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wa3-3u-Odh">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sMD-oM-O8g">
                                         <rect key="frame" x="0.0" y="96" width="16" height="16"/>
                                         <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="Jf2-4L-71l"/>
-                                            <constraint firstAttribute="height" constant="16" id="Lwl-Nx-UML"/>
+                                            <constraint firstAttribute="width" constant="16" id="CSq-Nx-2Ls"/>
+                                            <constraint firstAttribute="height" constant="16" id="r9M-3l-Eok"/>
                                         </constraints>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6G-ql-zKZ">
@@ -383,14 +389,20 @@
                                             <constraint firstAttribute="width" constant="16" id="G5c-Hi-uvp"/>
                                             <constraint firstAttribute="height" constant="16" id="H7a-4X-fij"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="lightIDAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wus-HE-hoq"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGO-MS-0uB">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wa3-3u-Odh">
                                         <rect key="frame" x="0.0" y="144" width="16" height="16"/>
                                         <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="16" id="C6b-Jh-LQC"/>
-                                            <constraint firstAttribute="height" constant="16" id="CS1-nf-hCH"/>
+                                            <constraint firstAttribute="width" constant="16" id="Jf2-4L-71l"/>
+                                            <constraint firstAttribute="height" constant="16" id="Lwl-Nx-UML"/>
                                         </constraints>
+                                        <connections>
+                                            <action selector="voiceIDAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xhU-8x-G82"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -1853,6 +1865,6 @@
         <image name="whiteDot" width="597" height="597"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MdY-8v-bLJ"/>
+        <segue reference="prt-Yu-7In"/>
     </inferredMetricsTieBreakers>
 </document>
