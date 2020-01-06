@@ -50,7 +50,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
 //      self.iphoneLabel.isHidden = false
 // fuck
       self.recieve.isHidden = false
-      self.recieve.text = "reciving"
+//      self.recieve.text = "receiving"
     }
   }
   
@@ -457,6 +457,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.lightBOutlet.alpha = 1
     self.highMoreBO.isHidden = false
     self.lowMoreBO.isHidden = false
+    self.proximityBOutlet.isHidden = false
   }
   
   
@@ -480,6 +481,10 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   func tapMe() {
     introText = UILabel(frame: CGRect(x: leftMargin, y: topMargin, width: self.view.bounds.width - 40, height: 180))
     introText.isUserInteractionEnabled = true
+    swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeLeftFunction(sender:)))
+    swipeLeft.direction = .left
+    swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeRightFunction(sender:)))
+    swipeRight.direction = .right
     introText.addGestureRecognizer(swipeLeft)
     introText.numberOfLines = 0
     introText.textAlignment = .justified
@@ -567,17 +572,17 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     locationID.layer.borderWidth = 1
     locationID.layer.cornerRadius = rad2
     locationID.clipsToBounds = true
-    locationID.layer.borderColor = UIColor.systemBlue.cgColor
+
     
     talkID.layer.borderWidth = 1
     talkID.layer.cornerRadius = rad2
     talkID.clipsToBounds = true
-    talkID.layer.borderColor = UIColor.systemBlue.cgColor
+//    talkID.layer.borderColor = UIColor.systemBlue.cgColor
     
     proximityID.layer.borderWidth = 1
     proximityID.layer.cornerRadius = rad2
     proximityID.clipsToBounds = true
-    proximityID.layer.borderColor = UIColor.systemBlue.cgColor
+//    proximityID.layer.borderColor = UIColor.systemBlue.cgColor
     
     lightID.layer.borderWidth = 1
     lightID.layer.cornerRadius = rad2
@@ -654,10 +659,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     leftMargin = view.safeAreaInsets.left + 20
     rightMargin = view.safeAreaInsets.right - 20
     
-    swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeLeftFunction(sender:)))
-    swipeLeft.direction = .left
-    swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeRightFunction(sender:)))
-    swipeRight.direction = .right
+
     tapper = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapper(sender:)))
     introCurrent = introValue.first
    
@@ -674,18 +676,18 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     NotificationCenter.default.addObserver(self, selector: #selector(ViewController.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
     
     if !fastStart! {
-//      nextOutlet.showWord()
-      nextOutlet.splitWord()
+      nextOutlet.grow()
+      nextOutlet.blinkText()
       tapMe()
     } else {
       gearBOutlet.isEnabled = true
       gearBOutlet.isHidden = false
       nextOutlet.isHidden = true
-      topImage.isHidden = true
+//      topImage.isHidden = true
       delay = DispatchTimeInterval.nanoseconds(500)
       toolBOutlet.isEnabled = true
       toolBOutlet.isHidden = false
-      connectTag.isHidden = false
+//      connectTag.isHidden = false
 //      toolsTag.isHidden = false
       talkTag.isHidden = false
       talkTag.isEnabled = true
@@ -693,7 +695,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     if port2G == nil {
 //      portOutlet.isHidden = true
-      connectTag.isHidden = false
+//      connectTag.isHidden = false
       sendingOutlet.isHidden = true
       recievingOutlet.isHidden = true
       spokenText.isHidden = true
@@ -716,12 +718,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       
     }
     
-    let swipeU = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
-    swipeU.direction = .up
-    let swipeD = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
-    swipeD.direction = .down
-    self.view.addGestureRecognizer(swipeU)
-    self.view.addGestureRecognizer(swipeD)
+
 //    let hover = UIHoverGestureRecognizer(target: self, action: hover)
   }
   
@@ -805,7 +802,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         
       }
       introText.addGestureRecognizer(swipeLeft)
-      topImage.image = nil
+//      topImage.image = nil
 
   }
   
@@ -834,13 +831,13 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
 //    nextOutlet.splitWord()
     UIView.animate(withDuration: 0.5) {
       self.introText.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
-      self.topImage.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
+//      self.topImage.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
     }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
       
       if self.introCurrent == introValue.second {
-
+        self.nextOutlet.blinkText()
         self.introText.text = "Access the data thru a common UDP port you define. Write code on your robot to capture and process data sent and received..."
         self.introCurrent = introValue.third
           self.page1.image = UIImage(named: "whiteDot")
@@ -866,7 +863,7 @@ func secondJump() {
     
     UIView.animate(withDuration: 0.5) {
       self.introText.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
-      self.topImage.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
+//      self.topImage.center = CGPoint(x:-self.view.bounds.maxX,y:self.introCord)
     }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
@@ -884,12 +881,12 @@ func secondJump() {
       
       UIView.animate(withDuration: 0.5) {
         self.introText.center = CGPoint(x:self.view.bounds.midX,y:self.introCord)
-        self.topImage.center = CGPoint(x:self.view.bounds.midX,y:self.introCord)
+//        self.topImage.center = CGPoint(x:self.view.bounds.midX,y:self.introCord)
       }
       
 
-        self.topImage.image = UIImage(named: "cog")
-        self.topImage.alpha = 0.2
+//        self.topImage.image = UIImage(named: "cog")
+//        self.topImage.alpha = 0.2
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
           self.gearBOutlet.isHidden = false
@@ -918,11 +915,11 @@ func secondJump() {
         
         UIView.animate(withDuration: 4) {
           self.introText.center = CGPoint(x:self.introCordX,y:-self.view.bounds.maxY)
-          self.topImage.center = CGPoint(x:self.introCordX,y:-self.view.bounds.maxY)
+//          self.topImage.center = CGPoint(x:self.introCordX,y:-self.view.bounds.maxY)
         }
         
         UIView.animate(withDuration: 0.5) {
-          self.topImage.alpha = 0
+//          self.topImage.alpha = 0
           self.page3.image = UIImage(named: "whiteDot")
         }
         
@@ -935,11 +932,11 @@ func secondJump() {
   @objc func tapper(sender: Any) {
     UIView.animate(withDuration: 0.5) {
               self.introText.center = CGPoint(x:self.introCordX,y:-self.view.bounds.maxY)
-              self.topImage.center = CGPoint(x:self.introCordX,y:-self.view.bounds.maxY)
+//              self.topImage.center = CGPoint(x:self.introCordX,y:-self.view.bounds.maxY)
             }
             
             UIView.animate(withDuration: 0.5) {
-              self.topImage.alpha = 0
+//              self.topImage.alpha = 0
               self.gearBOutlet.alpha = 1.0
               self.gearBOutlet.isEnabled = true
               self.page3.image = UIImage(named: "whiteDot")
@@ -950,43 +947,54 @@ func secondJump() {
   }
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
-      print("Unwind to Root View Controller")
+    print("Unwind to Root View Controller")
     communications?.missing = self
     if communications!.connectedStatus {
-      connectTag.text = "connected"
+      sendingOutlet.text = "sending"
+      print("pork")
+      proximityID.layer.borderColor = UIColor.systemBlue.cgColor
+      locationID.layer.borderColor = UIColor.systemBlue.cgColor
+      talkID.layer.borderColor = UIColor.systemBlue.cgColor
+      
+      let swipeU = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
+      swipeU.direction = .up
+      let swipeD = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
+      swipeD.direction = .down
+      self.view.addGestureRecognizer(swipeU)
+      self.view.addGestureRecognizer(swipeD)
+      
       showButtonBar()
-    } else {
-      connectTag.text = "connect"
+      
+      
     }
     
     
-    // this code made the app crash!!
-//    if lastSwitch?.isOn == false {
-//      switch lastButton?.tag {
-//        case views2G.voice.rawValue:
-//          self.strongMic = nil
-//        case views2G.speaker.rawValue:
-//          strongSpeaker = nil
-//        case views2G.motion.rawValue:
-//          strongMotion = nil
-//        case views2G.azimuth.rawValue:
-//          strongCompass = nil
-//        case views2G.location.rawValue:
-//          strongLocation = nil
-//        case views2G.gear.rawValue:
-//          strongGear = nil
-//        case views2G.proximity.rawValue:
-//          strongProximity = nil
-//        default:
-//          break
-//        }
-//      }
-//
-      if introText != nil {
-        introText.text = ""
+    if introText != nil {
+      introText.text = ""
+    }
+    if strongSpeaker != nil {
+      if (strongSpeaker?.speakerSwitchOutput.isOn)! && (!communications!.connectedStatus) {
+        lightTag.isHidden = false
+        lightBOutlet.isHidden = false
+        lightBOutlet.isEnabled = true
+        lightBOutlet.alpha = 1
+        
+        proximityBOutlet.isHidden = true
+        moreText?.isHidden = false
+        moreText?.alpha = 0
+        moreText!.text = "You need to use the connect button to get full functionaliyt running"
+        UIView.animate(withDuration: 2, animations: {
+          self.moreText.alpha = 1
+        }) { (action) in
+          UIView.animate(withDuration: 4) {
+            self.moreText.alpha = 0
+          }
+        }
       }
-      firstShown()
+      // code
     }
+    firstShown()
+  }
 
 
   func speak(_ comm: String, para: String) {
@@ -1099,8 +1107,8 @@ func secondJump() {
       }
     }
         
-    if port2G != nil && firstShow {
-//      gearBOutlet.isEnabled = false
+    if port2G != nil && firstShow && communications!.connectedStatus {
+      
       stackviewDots.isHidden = true
       infoText!.text = "The Sensors"
       UIView.animate(withDuration: 0.5) {
