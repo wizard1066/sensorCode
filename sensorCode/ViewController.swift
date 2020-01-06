@@ -47,10 +47,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       
       self.recievingOutlet.text = ipaddr
       self.recievingOutlet.isHidden = false
-//      self.iphoneLabel.isHidden = false
-// fuck
       self.recieve.isHidden = false
-//      self.recieve.text = "receiving"
     }
   }
   
@@ -121,12 +118,10 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   }
 
   func returnPostNHost(port: String, host: String) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 12 , execute: {
-//      self.portOutlet.isHidden = false
+    DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
       self.sendingOutlet.isHidden = false
-//      self.portLabel.isHidden = false
-//      self.robotLabel.isHidden = false
-//      self.portOutlet.text = port
+      self.connectTag.isHidden = false
+      self.connectTag.text = "sending"
       self.sendingOutlet.text = host + ":" + port
     })
   }
@@ -699,6 +694,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       sendingOutlet.isHidden = true
       recievingOutlet.isHidden = true
       spokenText.isHidden = true
+      self.connectTag.isHidden = true
 //      portLabel.isHidden = true
 //      robotLabel.isHidden = true
 //      iphoneLabel.isHidden = true
@@ -950,8 +946,8 @@ func secondJump() {
     print("Unwind to Root View Controller")
     communications?.missing = self
     if communications!.connectedStatus {
-      sendingOutlet.text = "sending"
-      print("pork")
+      
+      
       proximityID.layer.borderColor = UIColor.systemBlue.cgColor
       locationID.layer.borderColor = UIColor.systemBlue.cgColor
       talkID.layer.borderColor = UIColor.systemBlue.cgColor
