@@ -147,13 +147,21 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       }
   
     }
+    if service == IAPProduct.light.rawValue && message == IAPStatus.purchased.rawValue {
+      if strongLight != nil {
+        present(strongLight!, animated: true, completion: nil)
+      } else {
+        self.performSegue(withIdentifier: "light", sender: self)
+      }
+      lightBOutlet.setBackgroundImage(nil, for: .normal)
+    }
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.purchased.rawValue {
       if strongCompass != nil {
         present(strongCompass!, animated: true, completion: nil)
       } else {
         self.performSegue(withIdentifier: "azimuth", sender: self)
       }
-//      azimuthBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
+      azimuthBOutlet.setBackgroundImage(nil, for: .normal)
     }
     if service == IAPProduct.voice.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMic != nil {
@@ -161,7 +169,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       } else {
         self.performSegue(withIdentifier: "voice", sender: self)
       }
-//      voiceBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
+      voiceBOutlet.setBackgroundImage(nil, for: .normal)
     }
     if service == IAPProduct.motion.rawValue && message == IAPStatus.purchased.rawValue {
       if strongMotion != nil {
@@ -169,18 +177,21 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       } else {
         self.performSegue(withIdentifier: "motion", sender: self)
       }
-//      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
+      motionBOutlet.setBackgroundImage(nil, for: .normal)
     }
-    
     
     if service == IAPProduct.motion.rawValue && message == IAPStatus.restored.rawValue {
-//      motionBOutlet.setBackgroundImage(UIImage(named:"motion"), for: .normal)
+      lightBOutlet.setBackgroundImage(nil, for: .normal)
+    }
+    
+    if service == IAPProduct.motion.rawValue && message == IAPStatus.restored.rawValue {
+      motionBOutlet.setBackgroundImage(nil, for: .normal)
     }
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.restored.rawValue {
-//      azimuthBOutlet.setBackgroundImage(UIImage(named:"azimuth"), for: .normal)
+      azimuthBOutlet.setBackgroundImage(nil, for: .normal)
     }
     if service == IAPProduct.voice.rawValue && message == IAPStatus.restored.rawValue {
-//      voiceBOutlet.setBackgroundImage(UIImage(named:"voice"), for: .normal)
+      voiceBOutlet.setBackgroundImage(nil, for: .normal)
     }
     if message == IAPStatus.restored.rawValue {
       purchases[service] = true
@@ -265,14 +276,18 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.voiceBOutlet.isHidden = true
     self.voiceID.layer.borderColor = UIColor.clear.cgColor
     self.lightID.layer.borderColor = UIColor.clear.cgColor
+    self.lightTag.textColor = UIColor.darkGray
+    self.voiceTag.textColor = UIColor.darkGray
     self.highMoreBO.isHidden = true
     self.lowMoreBO.isHidden = false
     UIView.animate(withDuration: 1, animations: {
       self.azimuthBOutlet.isHidden = false
+      self.azimuthTag.textColor = UIColor.black
       self.azimuthID.layer.borderColor = UIColor.systemBlue.cgColor
     }) { (action) in
       UIView.animate(withDuration: 1) {
         self.motionBOutlet.isHidden = false
+        self.motionTag.textColor = UIColor.black
         self.motionID.layer.borderColor = UIColor.systemBlue.cgColor
       }
     }
@@ -285,14 +300,18 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.azimuthBOutlet.isHidden = true
     self.voiceID.layer.borderColor = UIColor.clear.cgColor
     self.lightID.layer.borderColor = UIColor.clear.cgColor
+    self.motionTag.textColor = UIColor.darkGray
+    self.azimuthTag.textColor = UIColor.darkGray
     self.lowMoreBO.isHidden = true
     self.highMoreBO.isHidden = false
     UIView.animate(withDuration: 1, animations: {
       self.lightBOutlet.isHidden = false
+      self.lightTag.textColor = UIColor.black
       self.lightID.layer.borderColor = UIColor.systemBlue.cgColor
     }) { (action) in
       UIView.animate(withDuration: 1) {
         self.voiceBOutlet.isHidden = false
+        self.voiceTag.textColor = UIColor.black
         self.voiceID.layer.borderColor = UIColor.systemBlue.cgColor
       }
     }
@@ -368,10 +387,16 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   
   @IBAction func lightBAction(_ sender: UIButton) {
     lastButton = lightBOutlet
-    if strongLight != nil {
-      present(strongLight!, animated: true, completion: nil)
+//    if strongLight != nil {
+//      present(strongLight!, animated: true, completion: nil)
+//    } else {
+//      self.performSegue(withIdentifier: "light", sender: self)
+//    }
+    if purchases[IAPProduct.light.rawValue] == nil {
+      IAPService.shared.ordered = self
+      IAPService.shared.purchase(product: .light)
     } else {
-      self.performSegue(withIdentifier: "light", sender: self)
+      feedback(service: IAPProduct.light.rawValue, message: IAPStatus.purchased.rawValue)
     }
   }
   

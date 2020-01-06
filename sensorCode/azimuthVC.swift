@@ -24,8 +24,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
 
   var tag:Int?
   var status:running?
-
-
+  var directionManager: CLLocationManager?
   
   @IBOutlet var compassSwitchOutlet: UISwitch!
   @IBOutlet weak var magneticNorthOutlet: UILabel!
