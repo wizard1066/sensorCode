@@ -25,7 +25,8 @@ class IAPService: NSObject {
   func getProducts() {
     let products: Set = [IAPProduct.azimuth.rawValue,
                           IAPProduct.motion.rawValue,
-                          IAPProduct.voice.rawValue]
+                          IAPProduct.voice.rawValue,
+                          IAPProduct.light.rawValue]
     let request = SKProductsRequest(productIdentifiers: products)
     request.delegate = self
     request.start()

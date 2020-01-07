@@ -265,7 +265,6 @@
                                         </state>
                                         <connections>
                                             <action selector="lightBAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hgs-IS-5nq"/>
-                                            <action selector="proximityBAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tnR-fR-Cbt"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTr-Ed-09D">
@@ -1233,7 +1232,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iwS-Gd-KJa">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="iwS-Gd-KJa">
                                 <rect key="frame" x="135.5" y="266.5" width="51" height="31"/>
                                 <connections>
                                     <action selector="connectSwitch:" destination="awx-S6-jLW" eventType="valueChanged" id="agL-Tq-Nvx"/>
@@ -1836,6 +1835,6 @@
         <image name="whiteDot" width="597" height="597"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="prt-Yu-7In"/>
+        <segue reference="MdY-8v-bLJ"/>
     </inferredMetricsTieBreakers>
 </document>

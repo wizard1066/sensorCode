@@ -138,6 +138,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   var purchases:[String:Bool] = [:]
 
   func feedback(service: String, message: String) {
+    print("feedback ",service,"message ",message)
     inapp.text = message
     if message != IAPStatus.restored.rawValue {
       UIView.animate(withDuration: 4, animations: {
@@ -180,7 +181,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       motionBOutlet.setBackgroundImage(nil, for: .normal)
     }
     
-    if service == IAPProduct.motion.rawValue && message == IAPStatus.restored.rawValue {
+    if service == IAPProduct.light.rawValue && message == IAPStatus.restored.rawValue {
       lightBOutlet.setBackgroundImage(nil, for: .normal)
     }
     
@@ -971,25 +972,17 @@ func secondJump() {
     print("Unwind to Root View Controller")
     communications?.missing = self
     if communications!.connectedStatus {
-      
-      
       proximityID.layer.borderColor = UIColor.systemBlue.cgColor
       locationID.layer.borderColor = UIColor.systemBlue.cgColor
       talkID.layer.borderColor = UIColor.systemBlue.cgColor
-      
       let swipeU = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
       swipeU.direction = .up
       let swipeD = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
       swipeD.direction = .down
       self.view.addGestureRecognizer(swipeU)
       self.view.addGestureRecognizer(swipeD)
-      
       showButtonBar()
-      
-      
     }
-    
-    
     if introText != nil {
       introText.text = ""
     }
@@ -1072,7 +1065,7 @@ func secondJump() {
   var ok2Connect = false
   
   var toggle: Bool = true
-  var delay:DispatchTimeInterval = DispatchTimeInterval.seconds(1)
+  var delay:DispatchTimeInterval = DispatchTimeInterval.nanoseconds(500)
   var timer:Timer?
   var infoText: UILabel?
   var firstShow = true
@@ -1127,11 +1120,17 @@ func secondJump() {
         }
       }
     }
-        
-    if port2G != nil && firstShow && communications!.connectedStatus {
+    print("port2G firstShow",port2G,firstShow)
+    if port2G != nil && firstShow {
       
       stackviewDots.isHidden = true
       infoText!.text = "The Sensors"
+      self.motionBOutlet.isEnabled = true
+      self.azimuthBOutlet.isEnabled = true
+      self.locationBOutlet.isEnabled = true
+      self.proximityBOutlet.isEnabled = true
+      self.lightBOutlet.isEnabled = true
+      self.voiceBOutlet.isEnabled = true
       UIView.animate(withDuration: 0.5) {
         self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.maxY - 80)
       }
@@ -1144,20 +1143,19 @@ func secondJump() {
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
         self.infoText!.text = "Stream phone motion"
         self.motionBOutlet.grow()
-        self.motionBOutlet.isEnabled = true
         self.motionTag.isHidden = false
 
         DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
            self.infoText!.text = "Stream compass position"
            self.azimuthBOutlet.grow()
-           self.azimuthBOutlet.isEnabled = true
+           
            self.azimuthTag.isHidden = false
 
           DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
               
               self.infoText!.text = "Report location"
               self.locationBOutlet.grow()
-              self.locationBOutlet.isEnabled = true
+              
               self.locationTag.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                 self.lowMoreBO.sendActions(for: .touchUpInside)
@@ -1165,19 +1163,19 @@ func secondJump() {
               DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
                 self.infoText!.text = "Turn on proximity alerts"
                 self.proximityBOutlet.grow()
-                self.proximityBOutlet.isEnabled = true
+                
                 self.proximityTag.isHidden = false
  
                 DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                   self.infoText!.text = "Turn iphone light on/off"
                    self.lightBOutlet.grow()
-                   self.lightBOutlet.isEnabled = true
+                   
                    self.lightTag.isHidden = false
  
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = "Listen to voice"
                      self.voiceBOutlet.grow()
-                     self.voiceBOutlet.isEnabled = true
+                     
                      self.voiceTag.isHidden = false
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""

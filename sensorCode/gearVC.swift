@@ -69,22 +69,26 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     if connectBSwitch.isOn {
       performSegue(withIdentifier: "sensorCodeMM", sender: nil)
     } else {
-      let alert = UIAlertController(title: "TURN On the switch to make the connection live", message: "Confirm", preferredStyle: .alert)
+      if port2G != nil && connect2G != nil {
+        let alert = UIAlertController(title: "TURN On the switch to make the connection live", message: "Confirm", preferredStyle: .alert)
 
-      alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action) in
-        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
-          self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
-        })
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+          DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+            self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+          })
+          }))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+          self.turnOn()
+          self.connectBSwitch.setOn(true, animated: true)
+          DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+          })
         }))
-      alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-        self.turnOn()
-        self.connectBSwitch.setOn(true, animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-          self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
-        })
-      }))
-      self.present(alert, animated: true)
+        self.present(alert, animated: true)
+      }
+      
     }
+    self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
   }
   
   @IBAction func cameraButton(_ sender: UIButton) {
@@ -483,55 +487,57 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         self.settingsSV.spacing = 10
       }
       enableLabels()
-      var paused = DispatchTimeInterval.seconds(12)
-      if !fastStart! {
-        let textFeed = "Wait, before you go. Load a wallpaper thru the icons below. Double tap to dismiss it and shake your iphone to bring it back."
-        
-        self.infoText.text = ""
-        self.infoText.alpha = 1
-        self.infoText.preferredMaxLayoutWidth = self.view.bounds.width - 40
-//        self.infoText.font = UIFont.preferredFont(forTextStyle: .body)
-        self.infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
-        self.infoText.adjustsFontForContentSizeCategory = true
-        self.infoText.isHidden = false
-        self.infoText.textAlignment = .center
-        self.infoText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-        self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 80)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-          let words = Array(textFeed)
-          var i = 0
-          let pause = 0.1
-         
-          let delay = pause * Double(textFeed.count)
-          
-          paused = DispatchTimeInterval.seconds(Int(delay + 4))
-          Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-            
-            self.infoText.text = self.infoText.text! + String(words[i])
-            if i == words.count - 1 {
-              timer.invalidate()
-              UIView.animate(withDuration: 4) {
-                self.infoText.alpha = 0
-              }
-            
-              self.cameraIcon.isEnabled = true
-              self.pictureIcon.isEnabled = true
-
-              self.backButton.blinkText()
-              self.cameraIcon.grow()
-              self.pictureIcon.grow()
-                      
-            } else {
-              i = i + 1
-              
-            }
-          }
-        })
+      
+      if !fastStart! && port2G != nil {
+        spoonFeed(textFeed: "Wait, before you go. Load a wallpaper thru the icons below. Double tap to dismiss it and shake your iphone to bring it back.")
       }
-      print("paused",paused)
+      if port2G == nil || ipAddress == nil {
+        spoonFeed(textFeed: "YOU MUST enter an IP address AND a Port number for this to work.")
+      } else {
+        connectBSwitch.isEnabled = true
+      }
+      
         
     }
+    
+  func spoonFeed(textFeed:String) {
+    var paused = DispatchTimeInterval.seconds(12)
+    
+    self.infoText.text = ""
+    self.infoText.alpha = 1
+    self.infoText.preferredMaxLayoutWidth = self.view.bounds.width - 40
+    //        self.infoText.font = UIFont.preferredFont(forTextStyle: .body)
+    self.infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
+    self.infoText.adjustsFontForContentSizeCategory = true
+    self.infoText.isHidden = false
+    self.infoText.textAlignment = .center
+    self.infoText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
+    self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 80)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+      let words = Array(textFeed)
+      var i = 0
+      let pause = 0.1
+      let delay = pause * Double(textFeed.count)
+      paused = DispatchTimeInterval.seconds(Int(delay + 4))
+      Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+        self.infoText.text = self.infoText.text! + String(words[i])
+        if i == words.count - 1 {
+          timer.invalidate()
+          UIView.animate(withDuration: 4) {
+            self.infoText.alpha = 0
+          }
+          self.cameraIcon.isEnabled = true
+          self.pictureIcon.isEnabled = true
+          self.backButton.blinkText()
+          self.cameraIcon.grow()
+          self.pictureIcon.grow()
+        } else {
+          i = i + 1
+          
+        }
+      }
+    })
+  }
     
   @objc func tapped() {
     UIView.animate(withDuration: 4) {
@@ -559,14 +565,16 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
 //           connectLabel.isEnabled = false
            return
          } else {
-           if Int(textField.text!)! < 1025 && Int(textField.text!)! < Int16.max {
+           if (Int(textField.text!)! < 1025) || (Int(textField.text!)! > Int16.max) {
              redo("Port numbers MUST be greater than 1024 and less than 32767")
 //             connectLabel.isEnabled = false
+            
              return
            }
          }
        }
        if textField == ipAddress {
+        print("textField")
          if textField.text!.isEmpty {
            redo("You MUST enter an IP address")
 //           connectLabel.isEnabled = false
