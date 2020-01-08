@@ -1101,6 +1101,7 @@ func secondJump() {
   }
   
   var paused = DispatchTimeInterval.seconds(12)
+  var remindme = true
   
   func firstShown() {
     
@@ -1178,7 +1179,8 @@ func secondJump() {
                         communications?.pulseUDP2(superRec2)
                       }
                     }
-                    if !fastStart! {
+                    if !fastStart! && self.remindme {
+                      self.remindme = false
                       let textFeed = "Note the indicator on the right side listing all the sensors turns green and the text blinks when they are turned on."
                       
                       self.moreText.text = ""
