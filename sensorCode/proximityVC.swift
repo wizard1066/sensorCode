@@ -71,6 +71,11 @@ class proximityVC: UIViewController, lostLink {
       activateProximitySensor()
     } else {
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: nil)
+      if variable! {
+        superRec2.proximity = nil
+      } else {
+        superRec2.proximity = ""
+      }
     }
   }
   

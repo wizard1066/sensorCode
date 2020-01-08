@@ -49,9 +49,15 @@ var motionManager: CMMotionManager?
 //      superRec?.roll = nil
 //      superRec?.pitch = nil
 //      superRec?.yaw = nil
-      superRec2?.movement?.roll = nil
-      superRec2?.movement?.pitch = nil
-      superRec2?.movement?.yaw = nil
+      if variable! {
+        superRec2?.movement?.roll = nil
+        superRec2?.movement?.pitch = nil
+        superRec2?.movement?.yaw = nil
+      } else {
+        superRec2?.movement?.roll = ""
+        superRec2?.movement?.pitch = ""
+        superRec2?.movement?.yaw = ""
+      }
     }
   }
   

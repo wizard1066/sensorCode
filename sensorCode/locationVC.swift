@@ -90,6 +90,15 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
       })
     } else {
       locationManager!.stopUpdatingLocation()
+      if variable! {
+        superRec2?.position?.altitude = nil
+        superRec2?.position?.longitude = nil
+        superRec2?.position?.latitude = nil
+      } else {
+        superRec2?.position?.altitude = ""
+        superRec2?.position?.longitude = ""
+        superRec2?.position?.latitude = ""
+      }
     }
   }
   

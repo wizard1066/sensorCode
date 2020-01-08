@@ -195,7 +195,11 @@ class voiceVC: UIViewController, lostLink {
               communications?.pulseUDP2(superRec2)
             }
           } else {
-            superRec2.word = nil
+            if variable! {
+              superRec2.word = nil
+            } else {
+              superRec2.word = ""
+            }
           }
         
         }

@@ -71,12 +71,12 @@ extension SKPaymentTransactionState {
 
   func status() -> String {
     switch self {
-      case .deferred: return "Deferred"
-      case .failed: return "Failed"
-      case .purchased: return "Purchased"
-      case .purchasing: return "Purchasing"
-      case .restored: return "Restored"
-      default: return "Unknown"
+      case .deferred: return IAPStatus.deferred.rawValue
+      case .failed: return IAPStatus.failed.rawValue
+      case .purchased: return IAPStatus.purchased.rawValue
+      case .purchasing: return IAPStatus.purchasing.rawValue
+      case .restored: return IAPStatus.restored.rawValue
+      default: return IAPStatus.unknown.rawValue
     }
   }
 }

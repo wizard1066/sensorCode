@@ -364,7 +364,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qUC-xK-vAi">
-                                <rect key="frame" x="0.0" y="416" width="320" height="136"/>
+                                <rect key="frame" x="0.0" y="441.5" width="320" height="110.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLv-4O-d9d">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
@@ -381,14 +381,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufQ-gg-USp">
-                                        <rect key="frame" x="0.0" y="62.5" width="320" height="20.5"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufQ-gg-USp">
+                                        <rect key="frame" x="0.0" y="60" width="320" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alG-za-MsB">
-                                        <rect key="frame" x="0.0" y="88" width="320" height="48"/>
+                                        <rect key="frame" x="0.0" y="62.5" width="320" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="iRu-5t-1GO"/>
                                         </constraints>
@@ -1830,6 +1830,6 @@
         <image name="whiteDot" width="597" height="597"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="m4F-lQ-irz"/>
+        <segue reference="prt-Yu-7In"/>
     </inferredMetricsTieBreakers>
 </document>
