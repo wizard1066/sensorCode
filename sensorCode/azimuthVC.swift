@@ -140,6 +140,9 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
           trueNorthOutlet.text = tNValue
           magneticNorthOutlet.text = mNValue
         }
+        
+        superRec2?.direction?.magneticNorth = mNValue
+        superRec2?.direction?.trueNorth = tNValue
 //        let word = "\(tNValue)" + " \(mNValue)"
 //          let word = globe(trueNorth: tNValue, magneticNorth: mNValue)
         
@@ -149,8 +152,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
           }
 //          superRec?.trueNorth = tNValue
 //          superRec?.magneticNorth = mNValue
-          superRec2?.direction?.magneticNorth = mNValue
-          superRec2?.direction?.trueNorth = tNValue
+          
       }
       
       func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

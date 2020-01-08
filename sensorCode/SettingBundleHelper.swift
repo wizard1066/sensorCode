@@ -47,10 +47,10 @@ struct SettingsBundleKeys {
     
     if isFirstTimeOpening() {
       defaults.set(false, forKey: SettingsBundleKeys.fast)
-      defaults.set(true, forKey: SettingsBundleKeys.auto)
+      defaults.set(false, forKey: SettingsBundleKeys.auto)
       defaults.set(true, forKey: SettingsBundleKeys.variable)
-      defaults.set(true, forKey: SettingsBundleKeys.auto)
-      defaults.set(true, forKey: SettingsBundleKeys.pulse)
+      defaults.set(false, forKey: SettingsBundleKeys.auto)
+      defaults.set(false, forKey: SettingsBundleKeys.pulse)
       defaults.set("0.1", forKey: SettingsBundleKeys.rate)
       defaults.set("2", forKey: SettingsBundleKeys.precision)
       defaults.set(false, forKey: SettingsBundleKeys.raw)

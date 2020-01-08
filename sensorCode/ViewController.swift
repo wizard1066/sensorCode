@@ -124,6 +124,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       self.connectTag.text = "sending"
       self.sendingOutlet.text = host + ":" + port
     })
+    displayButtons = true
   }
 
   func wordUsed(word2D: String) {
@@ -135,7 +136,9 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var inapp: UILabel!
   @IBOutlet weak var moreText: UILabel!
   
+  
   var purchases:[String:Bool] = [:]
+  var displayButtons = false
 
   func feedback(service: String, message: String) {
     print("feedback ",service,"message ",message)
@@ -299,8 +302,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBAction func lowMoreBA(_ sender: Any) {
     self.motionBOutlet.isHidden = true
     self.azimuthBOutlet.isHidden = true
-    self.voiceID.layer.borderColor = UIColor.clear.cgColor
-    self.lightID.layer.borderColor = UIColor.clear.cgColor
+    self.motionID.layer.borderColor = UIColor.clear.cgColor
+    self.azimuthID.layer.borderColor = UIColor.clear.cgColor
     self.motionTag.textColor = UIColor.darkGray
     self.azimuthTag.textColor = UIColor.darkGray
     self.lowMoreBO.isHidden = true
@@ -593,17 +596,18 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     locationID.layer.borderWidth = 1
     locationID.layer.cornerRadius = rad2
     locationID.clipsToBounds = true
+    locationID.layer.borderColor = UIColor.clear.cgColor
 
     
     talkID.layer.borderWidth = 1
     talkID.layer.cornerRadius = rad2
     talkID.clipsToBounds = true
-//    talkID.layer.borderColor = UIColor.systemBlue.cgColor
+    talkID.layer.borderColor = UIColor.clear.cgColor
     
     proximityID.layer.borderWidth = 1
     proximityID.layer.cornerRadius = rad2
     proximityID.clipsToBounds = true
-//    proximityID.layer.borderColor = UIColor.systemBlue.cgColor
+    proximityID.layer.borderColor = UIColor.clear.cgColor
     
     lightID.layer.borderWidth = 1
     lightID.layer.cornerRadius = rad2
@@ -969,9 +973,10 @@ func secondJump() {
   }
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
-    print("Unwind to Root View Controller")
+    print("Unwind to Root View Controller",displayButtons)
     communications?.missing = self
-    if communications!.connectedStatus {
+    
+    if displayButtons {
       proximityID.layer.borderColor = UIColor.systemBlue.cgColor
       locationID.layer.borderColor = UIColor.systemBlue.cgColor
       talkID.layer.borderColor = UIColor.systemBlue.cgColor
@@ -1008,6 +1013,7 @@ func secondJump() {
       // code
     }
     firstShown()
+    
   }
 
 
@@ -1120,11 +1126,11 @@ func secondJump() {
         }
       }
     }
-    print("port2G firstShow",port2G,firstShow)
-    if port2G != nil && firstShow {
+    
+    if port2G != nil && displayButtons {
       
       stackviewDots.isHidden = true
-      infoText!.text = "The Sensors"
+      
       self.motionBOutlet.isEnabled = true
       self.azimuthBOutlet.isEnabled = true
       self.locationBOutlet.isEnabled = true
@@ -1141,42 +1147,28 @@ func secondJump() {
       highMoreBO.sendActions(for: .touchUpInside)
       
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
-        self.infoText!.text = "Stream phone motion"
+//        self.infoText!.text = "Stream phone motion"
         self.motionBOutlet.grow()
         self.motionTag.isHidden = false
+        self.azimuthBOutlet.grow()
+        self.azimuthTag.isHidden = false
+        self.locationBOutlet.grow()
+        self.locationTag.isHidden = false
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-           self.infoText!.text = "Stream compass position"
-           self.azimuthBOutlet.grow()
-           
-           self.azimuthTag.isHidden = false
 
-          DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
               
-              self.infoText!.text = "Report location"
-              self.locationBOutlet.grow()
-              
-              self.locationTag.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                 self.lowMoreBO.sendActions(for: .touchUpInside)
 
               DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
-                self.infoText!.text = "Turn on proximity alerts"
+//                self.infoText!.text = "Turn on proximity alerts"
                 self.proximityBOutlet.grow()
-                
                 self.proximityTag.isHidden = false
- 
-                DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                  self.infoText!.text = "Turn iphone light on/off"
-                   self.lightBOutlet.grow()
-                   
-                   self.lightTag.isHidden = false
- 
-                  DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                    self.infoText!.text = "Listen to voice"
-                     self.voiceBOutlet.grow()
-                     
-                     self.voiceTag.isHidden = false
+                self.lightBOutlet.grow()
+                self.lightTag.isHidden = false
+                self.voiceBOutlet.grow()
+                self.voiceTag.isHidden = false
+
                   DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                     self.infoText!.text = ""
                     self.firstShow = false
@@ -1230,10 +1222,7 @@ func secondJump() {
                     })
                     
                     
-                  })
-                })
-              })
-            })
+   
           })
         })
       })

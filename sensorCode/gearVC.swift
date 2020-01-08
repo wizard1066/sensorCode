@@ -88,7 +88,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       }
       
     }
-    self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+//    self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
   }
   
   @IBAction func cameraButton(_ sender: UIButton) {
@@ -108,6 +108,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   }
   
   func turnOn() {
+    connectBSwitch.setOn(true, animated: false)
     if !ipAddress.text!.isEmpty && !portNumber.text!.isEmpty {
        let ipa = ipAddress!.text!
        let ipp = portNumber!.text!
@@ -118,6 +119,8 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   }
   
   func turnOff() {
+    connectBSwitch.setOn(false, animated: false)
+    connectBSwitch.isOn = false
     communications?.disconnectUDP()
   }
   
@@ -289,56 +292,56 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     }
     // Do any additional setup after loading the view.
     
-    let pulseTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
-    pulseTap.sender = Vs.pulse.rawValue
-    pulseLabel.addGestureRecognizer(pulseTap)
-    let pulseVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
-    pulseVTap.sender = Vs.pulse.rawValue
-    pulseText.addGestureRecognizer(pulseVTap)
-    pulseSub.addGestureRecognizer(pulseVTap)
-    pulseView.addGestureRecognizer(pulseVTap)
-    
-    let refreshTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
-    refreshTap.sender = Vs.refresh.rawValue
-    refreshLabel.addGestureRecognizer(refreshTap)
-    let refreshVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
-    refreshVTap.sender = Vs.refresh.rawValue
-    refreshText.addGestureRecognizer(refreshVTap)
-    refreshSub.addGestureRecognizer(refreshVTap)
-    
-    let autoTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
-    autoTap.sender = Vs.auto.rawValue
-    autoLabel.addGestureRecognizer(autoTap)
-    let autoVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
-    autoVTap.sender = Vs.auto.rawValue
-    autoText.addGestureRecognizer(autoVTap)
-    autoSub.addGestureRecognizer(autoVTap)
-    
-    let fastTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
-    fastTap.sender = Vs.fast.rawValue
-    fastLabel.addGestureRecognizer(fastTap)
-    let fastVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
-    fastVTap.sender = Vs.fast.rawValue
-    fastText.addGestureRecognizer(fastVTap)
-    fastSub.addGestureRecognizer(fastVTap)
-    
-    let variableTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
-    variableTap.sender = Vs.variable.rawValue
-    variableLabel.addGestureRecognizer(variableTap)
-    let variableVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
-    variableVTap.sender = Vs.variable.rawValue
-    variableText.addGestureRecognizer(variableVTap)
-    variableSub.addGestureRecognizer(variableVTap)
-    
-    
-    let precisionTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
-    precisionTap.sender = Vs.precision.rawValue
-    precisionLabel.addGestureRecognizer(precisionTap)
-    
-    let precisionVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
-    precisionVTap.sender = Vs.precision.rawValue
-    precisionText.addGestureRecognizer(precisionVTap)
-    precisionSub.addGestureRecognizer(precisionVTap)
+//    let pulseTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+//    pulseTap.sender = Vs.pulse.rawValue
+//    pulseLabel.addGestureRecognizer(pulseTap)
+//    let pulseVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+//    pulseVTap.sender = Vs.pulse.rawValue
+//    pulseText.addGestureRecognizer(pulseVTap)
+//    pulseSub.addGestureRecognizer(pulseVTap)
+//    pulseView.addGestureRecognizer(pulseVTap)
+//
+//    let refreshTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+//    refreshTap.sender = Vs.refresh.rawValue
+//    refreshLabel.addGestureRecognizer(refreshTap)
+//    let refreshVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+//    refreshVTap.sender = Vs.refresh.rawValue
+//    refreshText.addGestureRecognizer(refreshVTap)
+//    refreshSub.addGestureRecognizer(refreshVTap)
+//
+//    let autoTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+//    autoTap.sender = Vs.auto.rawValue
+//    autoLabel.addGestureRecognizer(autoTap)
+//    let autoVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+//    autoVTap.sender = Vs.auto.rawValue
+//    autoText.addGestureRecognizer(autoVTap)
+//    autoSub.addGestureRecognizer(autoVTap)
+//
+//    let fastTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+//    fastTap.sender = Vs.fast.rawValue
+//    fastLabel.addGestureRecognizer(fastTap)
+//    let fastVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+//    fastVTap.sender = Vs.fast.rawValue
+//    fastText.addGestureRecognizer(fastVTap)
+//    fastSub.addGestureRecognizer(fastVTap)
+//
+//    let variableTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+//    variableTap.sender = Vs.variable.rawValue
+//    variableLabel.addGestureRecognizer(variableTap)
+//    let variableVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+//    variableVTap.sender = Vs.variable.rawValue
+//    variableText.addGestureRecognizer(variableVTap)
+//    variableSub.addGestureRecognizer(variableVTap)
+//
+//
+//    let precisionTap = customTap(target: self, action: #selector(gearVC.actionB(sender:)))
+//    precisionTap.sender = Vs.precision.rawValue
+//    precisionLabel.addGestureRecognizer(precisionTap)
+//
+//    let precisionVTap = customTap(target: self, action: #selector(gearVC.actionV(sender:)))
+//    precisionVTap.sender = Vs.precision.rawValue
+//    precisionText.addGestureRecognizer(precisionVTap)
+//    precisionSub.addGestureRecognizer(precisionVTap)
     
     
     
@@ -353,104 +356,104 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
     case variable = "variable"
   }
   
-  @objc func actionB(sender: Any) {
-    let tag = sender as? customTap
-    switch tag?.sender {
-      case Vs.refresh.rawValue:
-        hideLabels(fast: refreshLabel)
-        refreshView.isHidden = false
-      case Vs.pulse.rawValue:
-        hideLabels(fast: pulseLabel)
-        pulseView.isHidden = false
-      case Vs.auto.rawValue:
-        hideLabels(fast: autoLabel)
-        autoView.isHidden = false
-      case Vs.fast.rawValue:
-        hideLabels(fast: fastLabel)
-        fastView.isHidden = false
-      case Vs.precision.rawValue:
-        hideLabels(fast: precisionLabel)
-        precisionView.isHidden = false
-      case Vs.variable.rawValue:
-        hideLabels(fast: variableLabel)
-        variableView.isHidden = false
-      default:
-        break
-      }
-  }
-  
-  func hideLabels(fast:UILabel) {
-    fast.isHidden = true
-    fast.alpha = 0
+//  @objc func actionB(sender: Any) {
+//    let tag = sender as? customTap
+//    switch tag?.sender {
+//      case Vs.refresh.rawValue:
+//        hideLabels(fast: refreshLabel)
+//        refreshView.isHidden = false
+//      case Vs.pulse.rawValue:
+//        hideLabels(fast: pulseLabel)
+//        pulseView.isHidden = false
+//      case Vs.auto.rawValue:
+//        hideLabels(fast: autoLabel)
+//        autoView.isHidden = false
+//      case Vs.fast.rawValue:
+//        hideLabels(fast: fastLabel)
+//        fastView.isHidden = false
+//      case Vs.precision.rawValue:
+//        hideLabels(fast: precisionLabel)
+//        precisionView.isHidden = false
+//      case Vs.variable.rawValue:
+//        hideLabels(fast: variableLabel)
+//        variableView.isHidden = false
+//      default:
+//        break
+//      }
+//  }
+//
+//  func hideLabels(fast:UILabel) {
+//    fast.isHidden = true
+//    fast.alpha = 0
+////    UIView.animate(
+////        withDuration: 2.0,
+////        delay: 0.0,
+////        options: [.curveEaseOut],
+////        animations: {
+//            self.refreshLabel.isHidden = true
+//            self.precisionLabel.isHidden = true
+//            self.autoLabel.isHidden = true
+//            self.fastLabel.isHidden = true
+//            self.pulseLabel.isHidden = true
+//            self.variableLabel.isHidden = true
+//            self.refreshLabel.alpha = 0
+//            self.precisionLabel.alpha = 0
+//            self.autoLabel.alpha = 0
+//            self.fastLabel.alpha = 0
+//            self.pulseLabel.alpha = 0
+//            self.variableLabel.alpha = 0
+////    })
+//
+//  }
+//
+//  @objc func actionV(sender: Any) {
+//    let tag = sender as? customTap
+//    switch tag?.sender {
+//    case Vs.refresh.rawValue:
+//      refreshView.isHidden = true
+//      showLabels()
+//    case Vs.pulse.rawValue:
+//      pulseView.isHidden = true
+//      showLabels()
+//    case Vs.auto.rawValue:
+//      autoView.isHidden = true
+//      showLabels()
+//    case Vs.fast.rawValue:
+//      fastView.isHidden = true
+//      showLabels()
+//    case Vs.precision.rawValue:
+//      precisionView.isHidden = true
+//      showLabels()
+//    case Vs.variable.rawValue:
+//      variableView.isHidden = true
+//      showLabels()
+//    default:
+//      break
+//    }
+//  }
+//
+//  func showLabels() {
 //    UIView.animate(
-//        withDuration: 2.0,
+//        withDuration: 1.0,
 //        delay: 0.0,
 //        options: [.curveEaseOut],
 //        animations: {
-            self.refreshLabel.isHidden = true
-            self.precisionLabel.isHidden = true
-            self.autoLabel.isHidden = true
-            self.fastLabel.isHidden = true
-            self.pulseLabel.isHidden = true
-            self.variableLabel.isHidden = true
-            self.refreshLabel.alpha = 0
-            self.precisionLabel.alpha = 0
-            self.autoLabel.alpha = 0
-            self.fastLabel.alpha = 0
-            self.pulseLabel.alpha = 0
-            self.variableLabel.alpha = 0
+//            self.refreshLabel.isHidden = false
+//            self.precisionLabel.isHidden = false
+//            self.autoLabel.isHidden = false
+//            self.fastLabel.isHidden = false
+//            self.pulseLabel.isHidden = false
+//            self.variableLabel.isHidden = false
+//            self.refreshLabel.alpha = 1
+//            self.precisionLabel.alpha = 1
+//            self.autoLabel.alpha = 1
+//            self.fastLabel.alpha = 1
+//            self.pulseLabel.alpha = 1
+//            self.variableLabel.alpha = 1
 //    })
-    
-  }
-  
-  @objc func actionV(sender: Any) {
-    let tag = sender as? customTap
-    switch tag?.sender {
-    case Vs.refresh.rawValue:
-      refreshView.isHidden = true
-      showLabels()
-    case Vs.pulse.rawValue:
-      pulseView.isHidden = true
-      showLabels()
-    case Vs.auto.rawValue:
-      autoView.isHidden = true
-      showLabels()
-    case Vs.fast.rawValue:
-      fastView.isHidden = true
-      showLabels()
-    case Vs.precision.rawValue:
-      precisionView.isHidden = true
-      showLabels()
-    case Vs.variable.rawValue:
-      variableView.isHidden = true
-      showLabels()
-    default:
-      break
-    }
-  }
-  
-  func showLabels() {
-    UIView.animate(
-        withDuration: 1.0,
-        delay: 0.0,
-        options: [.curveEaseOut],
-        animations: {
-            self.refreshLabel.isHidden = false
-            self.precisionLabel.isHidden = false
-            self.autoLabel.isHidden = false
-            self.fastLabel.isHidden = false
-            self.pulseLabel.isHidden = false
-            self.variableLabel.isHidden = false
-            self.refreshLabel.alpha = 1
-            self.precisionLabel.alpha = 1
-            self.autoLabel.alpha = 1
-            self.fastLabel.alpha = 1
-            self.pulseLabel.alpha = 1
-            self.variableLabel.alpha = 1
-    })
-  
-    
-  }
+//
+//
+//  }
   
   func enableLabels() {
     self.pulseLabel.isUserInteractionEnabled = true
@@ -480,7 +483,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
           portNumber.placeholder = portNumber.text!
           ipAddress.placeholder = ipAddress.text!
           feeder?.returnPostNHost(port: portNumber.text!, host: ipAddress.text!)
-          showLabels()
+//          showLabels()
 //          textSV.isHidden = true
         }
       UIView.animate(withDuration: 4) {
