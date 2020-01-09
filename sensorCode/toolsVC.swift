@@ -17,17 +17,20 @@ class toolsVC: UIViewController {
     case auto = "auto"
     case fast = "fast"
     case variable = "variable"
+    case raw = "raw"
   }
 
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var pulseLabel: UILabel!
 
+  @IBOutlet weak var rawLabel: UILabel!
   @IBOutlet weak var variableLabel: UILabel!
   @IBOutlet weak var refreshLabel: UILabel!
   @IBOutlet weak var precisionLabel: UILabel!
   @IBOutlet weak var autoLabel: UILabel!
   @IBOutlet weak var fastLabel: UILabel!
   
+  @IBOutlet weak var rawTag: UILabel!
   @IBOutlet weak var autoTag: UILabel!
   @IBOutlet weak var pulseTag: UILabel!
   @IBOutlet weak var fastTag: UILabel!
@@ -53,11 +56,16 @@ class toolsVC: UIViewController {
   }
   
   private var paused = DispatchTimeInterval.seconds(12)
-  private var delay = DispatchTimeInterval.seconds(6)
+  private var delay = DispatchTimeInterval.seconds(2)
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    if raw! {
+      format(tag: rawTag, text: "TRUE")
+    } else {
+      format(tag: rawTag, text: "FALSE")
+    }
     if pulse! {
       format(tag: pulseTag, text: "TRUE")
     } else {
@@ -89,6 +97,13 @@ class toolsVC: UIViewController {
     let remTab = customLongPress(target: self, action: #selector(toolsVC.showPress(sender:)))
     remTab.sender = "Remember you need to switch to the app settings on your iphone to make changes"
     remTab.label = moreText
+    
+    let rawTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    rawTap.sender = "True strips the JSON output, leaving numbers only. False [default] leaves everything unchanged. Neither word nor proximity will report correctly with this set to True."
+    rawTap.label = infoText
+    rawLabel.addGestureRecognizer(rawTap)
+    rawLabel.addGestureRecognizer(remTab)
+    rawLabel.isUserInteractionEnabled = true
     
     let pulseTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
     pulseTap.sender = "True [default] sends regular updates of all the sensor readings even if they haven't changed. False sends sensor reading only when they have changed."
@@ -135,6 +150,9 @@ class toolsVC: UIViewController {
     
     let textFeed = "Use the app settings to change the variables shown here. You may need to restart the app for the changes to take effect."
     showText(label: moreText, text: textFeed)
+    DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+    self.rawLabel.textColor = UIColor.systemBlue
+    self.rawLabel.blinkText8()
     
     DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
       self.autoLabel.textColor = UIColor.systemBlue
@@ -163,39 +181,8 @@ class toolsVC: UIViewController {
         })
       })
     })
-//    self.moreText.text = ""
-//    self.moreText.alpha = 1
-//    self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 40
-//    self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
-//    self.moreText.adjustsFontForContentSizeCategory = true
-//    self.moreText.isHidden = false
-//    self.moreText.textAlignment = .left
-//    self.moreText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-//    self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
-//
-//    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-//      let words = Array(textFeed)
-//      var i = 0
-//      let pause = 0.1
-//
-//      let delay = pause * Double(textFeed.count)
-//
-//      self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
-//      Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-//
-//        self.moreText.text = self.moreText.text! + String(words[i])
-//        if i == words.count - 1 {
-//          timer.invalidate()
-//          UIView.animate(withDuration: 12) {
-//            self.moreText.alpha = 0
-//          }
-//
-//        } else {
-//          i = i + 1
-//
-//        }
-//      }
-//    })
+    })
+
   }
   
   @objc func showTap(sender: Any) {
