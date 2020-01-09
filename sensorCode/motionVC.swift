@@ -88,9 +88,16 @@ var motionManager: CMMotionManager?
     
 //    let word = "\(rN) \(pN) \(yN)"
 //    let word = fly(roll: rN, pitch: pN, yaw: yN)
-    if port2G != nil && connect2G != "" {
-//      communications?.sendUDP(word)
-      communications?.pulseUDP2(superRec2)
+        if port2G != nil && connect2G != "" {
+      if pulse != nil {
+        // send only is pulse if off or azimuthPass is on
+        if pulse! == false {
+          communications?.pulseUDP2(superRec2)
+        }
+        if pulse! == true && motionBPass.isOn {
+          communications?.pulseUDP2(superRec2)
+        }
+      }
     }
     
     lastRoll = rN
@@ -107,6 +114,7 @@ var motionManager: CMMotionManager?
   @IBOutlet weak var pitchOutput: UILabel!
   @IBOutlet weak var rollOutput: UILabel!
   @IBOutlet weak var yawOutput: UILabel!
+  @IBOutlet weak var motionBPass: UISwitch!
   
 
   @IBOutlet weak var backButton: UIButton!
@@ -132,6 +140,12 @@ var motionManager: CMMotionManager?
   
   override func viewDidLoad() {
       super.viewDidLoad()
+      
+      let passTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+      passTap.sender = "True changes the default behaviour of PULSE, will send additional data if changes seen."
+      passTap.label = infoText
+      motionBPass.addGestureRecognizer(passTap)
+      motionBPass.isUserInteractionEnabled = true
         
     if motionManager == nil {
       motionManager = CMMotionManager()

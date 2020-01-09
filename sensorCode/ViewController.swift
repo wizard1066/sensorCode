@@ -1275,8 +1275,69 @@ func secondJump() {
       
     }
     
- 
+   @objc func showTap(sender: Any) {
+      let tag = sender as? customTap
+      let label = tag!.label as? UILabel
+      let textFeed = tag!.sender as? String
+      showText(label: label!, text: textFeed!)
+    }
     
+    @objc func showPress(sender: Any) {
+      print("SP")
+      let tag = sender as? customLongPress
+      let label = tag!.label as? UILabel
+      let textFeed = tag!.sender as? String
+      if tag?.state == .ended {
+        showText(label: label!, text: textFeed!)
+      }
+    }
+    
+    var running = false
+    
+    func showText(label: UILabel, text: String) {
+      if running { return }
+      running = true
+      label.text = ""
+      label.alpha = 1
+      label.preferredMaxLayoutWidth = self.view.bounds.width - 40
+  //    label.font = UIFont.preferredFont(forTextStyle: .body)
+      label.font = UIFont(name: "Futura-CondensedMedium", size: 17)
+      label.adjustsFontForContentSizeCategory = true
+      label.isHidden = false
+      label.textAlignment = .center
+      label.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
+      label.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+      
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        let words = Array(text)
+        var i = 0
+        let pause = 0.1
+        
+        let tweek = label.text?.count
+        let delay = pause * Double(tweek!)
+        
+        self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+          
+          label.text = label.text! + String(words[i])
+          if i == words.count - 1 {
+            timer.invalidate()
+            self.running = false
+            UIView.animate(withDuration: 12, animations: {
+            label.alpha = 0
+            }) { (action) in
+              // do nothing
+            }
+
+          } else {
+            i = i + 1
+            
+          }
+        }
+      })
+    }
+
+
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     timer?.invalidate()
     
@@ -1303,6 +1364,7 @@ func secondJump() {
       if let nextViewController = segue.destination as? azimuthVC {
         nextViewController.tag = views2G.azimuth.rawValue
         nextViewController.status = self
+        nextViewController.parentVC = self
         communications?.missing = nextViewController
         strongCompass = nextViewController
         
@@ -1369,6 +1431,8 @@ func secondJump() {
         
       }
     }
+    
+    
   }
   
   

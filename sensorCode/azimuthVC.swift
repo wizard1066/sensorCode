@@ -22,6 +22,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
     self.present(alertController, animated: true, completion: nil)
   }
   
+  var bPass:Bool? = false
   var tag:Int?
   var status:running?
   var directionManager: CLLocationManager?
@@ -29,8 +30,13 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
   @IBOutlet var compassSwitchOutlet: UISwitch!
   @IBOutlet weak var magneticNorthOutlet: UILabel!
   @IBOutlet weak var trueNorthOutlet: UILabel!
-  
+  @IBOutlet weak var azimuthBPass: UISwitch!
   @IBOutlet weak var backButton: UIButton!
+  @IBOutlet weak var bPassLabel: UILabel!
+  @IBOutlet weak var mainLabel: UILabel!
+  @IBOutlet weak var bPassText: UILabel!
+  @IBOutlet weak var moreText: UILabel!
+  
   
   
   
@@ -75,8 +81,97 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
     
   }
   
+  @objc func debug(sender: Any) {
+      print("debug")
+//    let tag = sender as? customTap
+//    let label = tag!.label as? UILabel
+//    let textFeed = tag!.sender as? String
+//    showText(label: label!, text: textFeed!)
+  }
+  
+  var parentVC: ViewController?
+  
+  @objc func showTap(sender: Any) {
+      let tag = sender as? customTap
+      let label = tag!.label as? UILabel
+      let textFeed = tag!.sender as? String
+      showText(label: label!, text: textFeed!)
+    }
+    
+    @objc func showPress(sender: Any) {
+      print("SP")
+      let tag = sender as? customLongPress
+      let label = tag!.label as? UILabel
+      let textFeed = tag!.sender as? String
+      if tag?.state == .ended {
+        showText(label: label!, text: textFeed!)
+      }
+    }
+    
+    var running = false
+    private var paused = DispatchTimeInterval.seconds(12)
+    
+    func showText(label: UILabel, text: String) {
+      if running { return }
+      running = true
+      label.text = ""
+      label.alpha = 1
+      label.preferredMaxLayoutWidth = self.view.bounds.width - 40
+  //    label.font = UIFont.preferredFont(forTextStyle: .body)
+      label.font = UIFont(name: "Futura-CondensedMedium", size: 17)
+      label.adjustsFontForContentSizeCategory = true
+      label.isHidden = false
+      label.textAlignment = .center
+      label.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
+      label.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+      
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        let words = Array(text)
+        var i = 0
+        let pause = 0.1
+        
+        let tweek = label.text?.count
+        let delay = pause * Double(tweek!)
+        
+        self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+          
+          label.text = label.text! + String(words[i])
+          if i == words.count - 1 {
+            timer.invalidate()
+            self.running = false
+            UIView.animate(withDuration: 12, animations: {
+            label.alpha = 0
+            }) { (action) in
+              // do nothing
+            }
+
+          } else {
+            i = i + 1
+            
+          }
+        }
+      })
+    }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let passTap = customTap(target: self, action: #selector(azimuthVC.showTap(sender:)))
+//    let passTap = customTap(target: self, action: #selector(azimuthVC.debug(sender:)))
+    passTap.sender = "TURN ON in PULSE mode to send data outside of the polling window."
+    passTap.label = bPassText
+    bPassLabel.addGestureRecognizer(passTap)
+    bPassLabel.isUserInteractionEnabled = true
+    bPassLabel.numberOfLines = 0
+    
+    let mainTap = customTap(target: self, action: #selector(azimuthVC.showTap(sender:)))
+    //    let passTap = customTap(target: self, action: #selector(azimuthVC.debug(sender:)))
+        mainTap.sender = "TURN ON to start the sensor reporting."
+        mainTap.label = moreText
+        mainLabel.addGestureRecognizer(mainTap)
+        mainLabel.isUserInteractionEnabled = true
+        mainLabel.numberOfLines = 0
     
     if directionManager == nil {
       directionManager = CLLocationManager()
@@ -149,7 +244,11 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
     
     if port2G != nil && connect2G != "" {
       if pulse != nil {
+        // send only is pulse if off or azimuthPass is on
         if pulse! == false {
+          communications?.pulseUDP2(superRec2)
+        }
+        if pulse! == true && azimuthBPass.isOn {
           communications?.pulseUDP2(superRec2)
         }
       }

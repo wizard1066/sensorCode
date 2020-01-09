@@ -37,6 +37,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
   @IBOutlet weak var longitudeOutput: UILabel!
   @IBOutlet weak var altitudeOutput: UILabel!
  
+  @IBOutlet weak var locationBPass: UISwitch!
   @IBOutlet weak var backButton: UIButton!
   
   
@@ -54,7 +55,19 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
       superRec2?.position?.altitude = "\(self.altitudeOutput.text!)"
       superRec2?.position?.longitude = "\(self.longitudeOutput.text!)"
       superRec2?.position?.latitude = "\(self.latitudeOutput.text!)"
-      communications?.pulseUDP2(superRec2)
+      
+          if port2G != nil && connect2G != "" {
+        if pulse != nil {
+          // send only is pulse if off or azimuthPass is on
+          if pulse! == false {
+            communications?.pulseUDP2(superRec2)
+          }
+          if pulse! == true && locationBPass.isOn {
+            communications?.pulseUDP2(superRec2)
+          }
+        }
+      }
+      
 //      superRec?.latitude = "\(self.latitudeOutput.text!)"
 //      superRec?.longitude = "\(self.longitudeOutput.text!)"
 //      superRec?.altitude = "\(self.longitudeOutput.text!)"
@@ -109,6 +122,13 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let passTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    passTap.sender = "True changes the default behaviour of PULSE, will send additional data if changes seen."
+    passTap.label = infoText
+    locationBPass.addGestureRecognizer(passTap)
+    locationBPass.isUserInteractionEnabled = true
+    
 //    primeController.said = self
     locationManager = CLLocationManager()
     locationManager!.requestWhenInUseAuthorization()

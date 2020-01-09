@@ -17,7 +17,7 @@ class voiceVC: UIViewController, lostLink {
     // ignore
   }
   
-
+  
   func sendAlert(error: String) {
     let alertController = UIAlertController(title: "Unable to Connect", message: error, preferredStyle: .alert)
     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -25,15 +25,16 @@ class voiceVC: UIViewController, lostLink {
     self.present(alertController, animated: true, completion: nil)
   }
   
-
-
   
-
+  
+  
+  
   @IBOutlet var spokenOutlet: UILabel!
-//  @IBOutlet weak var backButton: UIButton!
+  //  @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
+  @IBOutlet weak var voiceBPass: UISwitch!
   
- 
+  
   let audioEngine = AVAudioEngine()
   let speechReconizer = SFSpeechRecognizer()
   var request:SFSpeechAudioBufferRecognitionRequest?
@@ -96,29 +97,36 @@ class voiceVC: UIViewController, lostLink {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-     primeController = self
-     
-     infoText = UILabel(frame: CGRect(x: self.view.bounds.minX + 20, y: 0, width: self.view.bounds.width - 40, height: 128))
-         infoText.isUserInteractionEnabled = true
-     //    infoText.addGestureRecognizer(swipeUp)
-         infoText.numberOfLines = 0
-         infoText.textAlignment = .justified
-         self.view.addSubview(infoText)
-//         infoText.font = UIFont.preferredFont(forTextStyle: .body)
-         infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
-         infoText.adjustsFontForContentSizeCategory = true
-         infoText.text = "Listens with the iPhone mic. And sends to the port configured the words it picks up."
-         
-         DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
-           UIView.animate(withDuration: 1) {
-             self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.minY - 256)
-           }
-           DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-             self.infoText.isHidden = true
-             self.backButton.blinkText()
-           })
-         })
-     
+    
+    let passTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
+    passTap.sender = "True changes the default behaviour of PULSE, will send additional data if changes seen."
+    passTap.label = infoText
+    voiceBPass.addGestureRecognizer(passTap)
+    voiceBPass.isUserInteractionEnabled = true
+    
+    primeController = self
+    
+    infoText = UILabel(frame: CGRect(x: self.view.bounds.minX + 20, y: 0, width: self.view.bounds.width - 40, height: 128))
+    infoText.isUserInteractionEnabled = true
+    //    infoText.addGestureRecognizer(swipeUp)
+    infoText.numberOfLines = 0
+    infoText.textAlignment = .justified
+    self.view.addSubview(infoText)
+    //         infoText.font = UIFont.preferredFont(forTextStyle: .body)
+    infoText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
+    infoText.adjustsFontForContentSizeCategory = true
+    infoText.text = "Listens with the iPhone mic. And sends to the port configured the words it picks up."
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
+      UIView.animate(withDuration: 1) {
+        self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.minY - 256)
+      }
+      DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+        self.infoText.isHidden = true
+        self.backButton.blinkText()
+      })
+    })
+    
     // Do any additional setup after loading the view.
   }
   
@@ -175,16 +183,12 @@ class voiceVC: UIViewController, lostLink {
         let soundByte = transcription.segments.last
         if soundByte != nil {
           let word = String(soundByte!.substring)
-          
           if self.previousMessage != word {
-            
             self.spokenOutlet.text = word
             self.previousMessage = word
             globalWord = word
             self.said?.wordUsed(word2D: word)
             if port2G != nil && connect2G != "" {
-//              let w2S = voice(word: word)
-//              communications?.sendUDP(w2S)
               superRec2.word = word
               if word == lightOn {
                 self.toggleTorch(on: true)
@@ -192,7 +196,15 @@ class voiceVC: UIViewController, lostLink {
               if word == lightOff {
                 self.toggleTorch(on: false)
               }
-              communications?.pulseUDP2(superRec2)
+              if pulse != nil {
+                // send only is pulse if off or azimuthPass is on
+                if pulse! == false {
+                  communications?.pulseUDP2(superRec2)
+                }
+                if pulse! == true && self.voiceBPass.isOn {
+                  communications?.pulseUDP2(superRec2)
+                }
+              }
             }
           } else {
             if variable! {
@@ -201,7 +213,7 @@ class voiceVC: UIViewController, lostLink {
               superRec2.word = ""
             }
           }
-        
+          
         }
         
         if result!.isFinal {
@@ -240,25 +252,25 @@ class voiceVC: UIViewController, lostLink {
   }
   
   func toggleTorch(on: Bool) {
-      guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
-      guard device.hasTorch else { print("Torch isn't available"); return }
-
-      do {
-          try device.lockForConfiguration()
-          device.torchMode = on ? .on : .off
-          // Optional thing you may want when the torch it's on, is to manipulate the level of the torch
-//          if on { try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel) }
-          if on { try device.setTorchModeOn(level: 0.1) }
-//          do {
-//            try device.setTorchModeOn(level: 0.5)
-//          } catch {
-//              print(error)
-//          }
-          device.unlockForConfiguration()
-      } catch {
-          print("Torch can't be used")
-      }
+    guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
+    guard device.hasTorch else { print("Torch isn't available"); return }
+    
+    do {
+      try device.lockForConfiguration()
+      device.torchMode = on ? .on : .off
+      // Optional thing you may want when the torch it's on, is to manipulate the level of the torch
+      //          if on { try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel) }
+      if on { try device.setTorchModeOn(level: 0.1) }
+      //          do {
+      //            try device.setTorchModeOn(level: 0.5)
+      //          } catch {
+      //              print(error)
+      //          }
+      device.unlockForConfiguration()
+    } catch {
+      print("Torch can't be used")
+    }
   }
-
-
+  
+  
 }

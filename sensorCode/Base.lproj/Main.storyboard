@@ -542,8 +542,8 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sNZ-mo-yhJ">
                                         <rect key="frame" x="0.0" y="65" width="51" height="31"/>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aux" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nI-uC-Mnh">
-                                        <rect key="frame" x="15" y="104" width="19" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BPass" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nI-uC-Mnh">
+                                        <rect key="frame" x="10.5" y="104" width="28" height="18"/>
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -565,6 +565,7 @@
                     <navigationItem key="navigationItem" id="BXD-v8-W6k"/>
                     <connections>
                         <outlet property="backButton" destination="xng-2p-ntq" id="4UZ-Rk-a0j"/>
+                        <outlet property="motionBPass" destination="sNZ-mo-yhJ" id="AVD-20-w70"/>
                         <outlet property="pitchOutput" destination="Rxa-0H-suc" id="EXA-HN-KXB"/>
                         <outlet property="rollOutput" destination="O1c-hw-D6J" id="czH-Wj-gXS"/>
                         <outlet property="switchGyroOutlet" destination="oiD-P4-tcq" id="tiU-r5-sfe"/>
@@ -677,8 +678,8 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wqg-Kj-ZbV">
                                         <rect key="frame" x="0.0" y="65" width="51" height="31"/>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aux" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITg-4Z-Abf">
-                                        <rect key="frame" x="15" y="104" width="19" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BPass" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITg-4Z-Abf">
+                                        <rect key="frame" x="10.5" y="104" width="28" height="18"/>
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -702,6 +703,7 @@
                         <outlet property="backButton" destination="MSJ-ff-hUm" id="awp-rA-L7q"/>
                         <outlet property="spokenOutlet" destination="cBQ-E7-IBF" id="qEd-Z9-5Su"/>
                         <outlet property="switchListeningOutput" destination="rNU-nL-LpD" id="o9V-MG-96o"/>
+                        <outlet property="voiceBPass" destination="wqg-Kj-ZbV" id="RcI-3J-n9N"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="m4F-lQ-irz"/>
                     </connections>
                 </viewController>
@@ -841,26 +843,50 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="28a-q7-Ou0">
-                                <rect key="frame" x="135.5" y="213" width="49" height="122"/>
+                                <rect key="frame" x="32" y="183.5" width="256" height="181"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAT-rM-zX4">
-                                        <rect key="frame" x="12" y="0.0" width="25.5" height="18"/>
-                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="13"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ak-hd-roz">
+                                        <rect key="frame" x="0.0" y="0.0" width="256" height="19.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="256" id="XZe-r2-Dm0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAT-rM-zX4">
+                                        <rect key="frame" x="84" y="27.5" width="88" height="19.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="88" id="HJb-VY-w2D"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yl5-2b-kzC">
-                                        <rect key="frame" x="0.0" y="26" width="51" height="31"/>
+                                        <rect key="frame" x="103.5" y="55" width="51" height="31"/>
                                         <connections>
                                             <action selector="compassSwitch:" destination="6c3-cn-Ffs" eventType="valueChanged" id="psf-Fh-hfm"/>
                                         </connections>
                                     </switch>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="93T-Jj-mfI">
-                                        <rect key="frame" x="0.0" y="65" width="51" height="31"/>
+                                        <rect key="frame" x="103.5" y="94" width="51" height="31"/>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aux" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KU-jh-cWF">
-                                        <rect key="frame" x="15" y="104" width="19" height="18"/>
-                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="13"/>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BPass" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6KU-jh-cWF">
+                                        <rect key="frame" x="84" y="133" width="88" height="19.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="88" id="MYe-Po-Jiq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2e-On-hpi">
+                                        <rect key="frame" x="0.0" y="160.5" width="256" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="256" id="xDF-wF-W1G"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -880,9 +906,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="yxh-gV-bn8"/>
                     <connections>
+                        <outlet property="azimuthBPass" destination="93T-Jj-mfI" id="dqq-3h-uWi"/>
+                        <outlet property="bPassLabel" destination="6KU-jh-cWF" id="xbt-Zs-Bv4"/>
+                        <outlet property="bPassText" destination="v2e-On-hpi" id="nHn-Wy-2US"/>
                         <outlet property="backButton" destination="RmO-JL-CNx" id="gwr-kE-vRn"/>
                         <outlet property="compassSwitchOutlet" destination="yl5-2b-kzC" id="IC5-gF-xgy"/>
                         <outlet property="magneticNorthOutlet" destination="w1e-Kt-PUd" id="3uk-9D-3Ke"/>
+                        <outlet property="mainLabel" destination="KAT-rM-zX4" id="bvR-1q-bwC"/>
+                        <outlet property="moreText" destination="2ak-hd-roz" id="5EJ-I1-DaV"/>
                         <outlet property="trueNorthOutlet" destination="j4k-I6-nq5" id="QWc-TY-thV"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="XgP-Ts-0bo"/>
                     </connections>
@@ -1869,8 +1900,8 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E0h-Op-cVF">
-                                <rect key="frame" x="144" y="194" width="49" height="122"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E0h-Op-cVF">
+                                <rect key="frame" x="135.5" y="213" width="49" height="122"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGh-vB-q5p">
                                         <rect key="frame" x="12" y="0.0" width="25.5" height="18"/>
@@ -1887,8 +1918,8 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="U0O-nG-0AM">
                                         <rect key="frame" x="0.0" y="65" width="51" height="31"/>
                                     </switch>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aux" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJ7-zi-cSf">
-                                        <rect key="frame" x="15" y="104" width="19" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BPass" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJ7-zi-cSf">
+                                        <rect key="frame" x="10.5" y="104" width="28" height="18"/>
                                         <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1898,7 +1929,9 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="E0h-Op-cVF" firstAttribute="centerY" secondItem="yJR-5E-KX1" secondAttribute="centerY" id="GSM-s6-xhe"/>
                             <constraint firstItem="lel-Z1-6be" firstAttribute="top" secondItem="5kJ-Y8-Zot" secondAttribute="top" constant="20" id="Lcr-Qp-9mF"/>
+                            <constraint firstItem="E0h-Op-cVF" firstAttribute="centerX" secondItem="yJR-5E-KX1" secondAttribute="centerX" id="oyO-5Y-QLs"/>
                             <constraint firstItem="7HA-vz-pIH" firstAttribute="centerX" secondItem="yJR-5E-KX1" secondAttribute="centerX" id="v9c-IJ-fb0"/>
                             <constraint firstItem="lel-Z1-6be" firstAttribute="centerX" secondItem="yJR-5E-KX1" secondAttribute="centerX" id="y1b-vQ-jH7"/>
                         </constraints>
@@ -1909,6 +1942,7 @@
                         <outlet property="altitudeOutput" destination="9vo-eM-ek2" id="9S8-U2-usb"/>
                         <outlet property="backButton" destination="LU1-zi-5dH" id="tXg-lF-FhR"/>
                         <outlet property="latitudeOutput" destination="alD-Pn-BTL" id="kvc-ed-ZBF"/>
+                        <outlet property="locationBPass" destination="U0O-nG-0AM" id="Aw1-Cb-qlp"/>
                         <outlet property="locationButtonOutlet" destination="2Ef-76-k20" id="HpT-ar-11u"/>
                         <outlet property="longitudeOutput" destination="rrm-Ke-Grf" id="i6P-4c-xVM"/>
                         <segue destination="6Ha-zn-3O8" kind="show" identifier="photo" id="YhF-Y8-mm7"/>
@@ -1936,6 +1970,6 @@
         <image name="whiteDot" width="597" height="597"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="prt-Yu-7In"/>
+        <segue reference="XgP-Ts-0bo"/>
     </inferredMetricsTieBreakers>
 </document>
