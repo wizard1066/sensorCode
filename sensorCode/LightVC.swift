@@ -74,6 +74,24 @@ class LightVC: UIViewController, UITextFieldDelegate, lostLink {
     }
   }
   
+  private var background = false
+  
+  override func viewDidAppear(_ animated: Bool) {
+    if !background {
+      let backgroundImage = UIImageView(frame: self.view.bounds)
+      backgroundImage.alpha = 0
+      backgroundImage.contentMode = .scaleAspectFit
+      self.view.insertSubview(backgroundImage, at: 0)
+      UIView.animate(withDuration: 0.5, animations: {
+        backgroundImage.image = UIImage(named: "lego.png")!
+        backgroundImage.alpha = 0.2
+        self.background = true
+      }) { ( _ ) in
+        self.lightSwitch.grow()
+      }
+    }
+  }
+  
   
   override func viewDidLoad() {
         super.viewDidLoad()

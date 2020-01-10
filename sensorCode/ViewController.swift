@@ -204,7 +204,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   
 
 
-  @IBOutlet weak var topImage: UIImageView!
+ 
   var blinkStatus:Bool?
   var once: Bool = false
 
@@ -218,13 +218,10 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
 //  @IBOutlet weak var toolsTag: UILabel!
   @IBOutlet weak var lightTag: UILabel!
   
-  @IBOutlet weak var portOutlet: UILabel!
+
   @IBOutlet weak var sendingOutlet: UILabel!
   @IBOutlet weak var recievingOutlet: UILabel!
-  @IBOutlet weak var spokenOutlet: NSLayoutConstraint!
-  @IBOutlet weak var portLabel: UILabel!
-  @IBOutlet weak var robotLabel: UILabel!
-  @IBOutlet weak var iphoneLabel: UILabel!
+
   @IBOutlet weak var recieve: UILabel!
   
   
@@ -284,17 +281,28 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.voiceTag.textColor = UIColor.darkGray
     self.highMoreBO.isHidden = true
     self.lowMoreBO.isHidden = false
-    UIView.animate(withDuration: 1, animations: {
-      self.azimuthBOutlet.isHidden = false
-      self.azimuthTag.textColor = UIColor.black
-      self.azimuthID.layer.borderColor = UIColor.systemBlue.cgColor
-    }) { (action) in
-      UIView.animate(withDuration: 1) {
-        self.motionBOutlet.isHidden = false
-        self.motionTag.textColor = UIColor.black
-        self.motionID.layer.borderColor = UIColor.systemBlue.cgColor
-      }
-    }
+    
+    self.azimuthBOutlet.isHidden = false
+    self.azimuthTag.textColor = UIColor.black
+//    self.azimuthID.layer.borderColor = UIColor.systemBlue.cgColor
+    self.motionBOutlet.isHidden = false
+    self.motionTag.textColor = UIColor.black
+//    self.motionID.layer.borderColor = UIColor.systemBlue.cgColor
+    
+    self.azimuthID.layer.borderColor = UIColor.white.cgColor
+    self.motionID.layer.borderColor = UIColor.white.cgColor
+    
+//    UIView.animate(withDuration: 1, animations: {
+//      self.azimuthBOutlet.isHidden = false
+//      self.azimuthTag.textColor = UIColor.black
+//      self.azimuthID.layer.borderColor = UIColor.systemBlue.cgColor
+//    }) { (action) in
+//      UIView.animate(withDuration: 1) {
+//        self.motionBOutlet.isHidden = false
+//        self.motionTag.textColor = UIColor.black
+//        self.motionID.layer.borderColor = UIColor.systemBlue.cgColor
+//      }
+//    }
   }
 
   
@@ -308,17 +316,28 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.azimuthTag.textColor = UIColor.darkGray
     self.lowMoreBO.isHidden = true
     self.highMoreBO.isHidden = false
-    UIView.animate(withDuration: 1, animations: {
-      self.lightBOutlet.isHidden = false
-      self.lightTag.textColor = UIColor.black
-      self.lightID.layer.borderColor = UIColor.systemBlue.cgColor
-    }) { (action) in
-      UIView.animate(withDuration: 1) {
-        self.voiceBOutlet.isHidden = false
-        self.voiceTag.textColor = UIColor.black
-        self.voiceID.layer.borderColor = UIColor.systemBlue.cgColor
-      }
-    }
+    
+    self.lightBOutlet.isHidden = false
+    self.lightTag.textColor = UIColor.black
+//    self.lightID.layer.borderColor = UIColor.systemBlue.cgColor
+    self.voiceBOutlet.isHidden = false
+    self.voiceTag.textColor = UIColor.black
+//    self.voiceID.layer.borderColor = UIColor.systemBlue.cgColor
+    
+    self.lightID.layer.borderColor = UIColor.white.cgColor
+    self.voiceID.layer.borderColor = UIColor.white.cgColor
+    
+//    UIView.animate(withDuration: 1, animations: {
+//      self.lightBOutlet.isHidden = false
+//      self.lightTag.textColor = UIColor.black
+//      self.lightID.layer.borderColor = UIColor.systemBlue.cgColor
+//    }) { (action) in
+//      UIView.animate(withDuration: 1) {
+//        self.voiceBOutlet.isHidden = false
+//        self.voiceTag.textColor = UIColor.black
+//        self.voiceID.layer.borderColor = UIColor.systemBlue.cgColor
+//      }
+//    }
   }
   
   var strongCompass:azimuthVC?
@@ -453,18 +472,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       self.gearBOutlet.alpha = 1
       self.speakerBOutlet.alpha = 1
       nextOutlet.isHidden = true
-//      UIView.animate(withDuration: 1) {
-//        self.voiceBOutlet.alpha = 1
-//        self.speakerBOutlet.alpha = 1
-//        self.proximityBOutlet.alpha = 1
-//        self.locationBOutlet.alpha = 1
-//        self.azimuthBOutlet.alpha = 1
-//        self.motionBOutlet.alpha = 1
-//        self.gearBOutlet.alpha = 1
-//        self.lightBOutlet.alpha = 1
-//        self.highMoreBO.isHidden = false
-//        self.lowMoreBO.isHidden = false
-//      }
     }
     
     
@@ -482,6 +489,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.highMoreBO.isHidden = false
     self.lowMoreBO.isHidden = false
     self.proximityBOutlet.isHidden = false
+    self.locationBOutlet.isHidden = false
   }
   
   
@@ -716,18 +724,15 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
 //      toolsTag.isHidden = false
       talkTag.isHidden = false
       talkTag.isEnabled = true
+      
+      self.speakerBOutlet.isEnabled = true
     }
     
     if port2G == nil {
-//      portOutlet.isHidden = true
-//      connectTag.isHidden = false
       sendingOutlet.isHidden = true
       recievingOutlet.isHidden = true
       spokenText.isHidden = true
       self.connectTag.isHidden = true
-//      portLabel.isHidden = true
-//      robotLabel.isHidden = true
-//      iphoneLabel.isHidden = true
     }
     
     if variable! {
@@ -977,9 +982,9 @@ func secondJump() {
     communications?.missing = self
     
     if displayButtons {
-      proximityID.layer.borderColor = UIColor.systemBlue.cgColor
-      locationID.layer.borderColor = UIColor.systemBlue.cgColor
-      talkID.layer.borderColor = UIColor.systemBlue.cgColor
+      proximityID.layer.borderColor = UIColor.white.cgColor
+      locationID.layer.borderColor = UIColor.white.cgColor
+      talkID.layer.borderColor = UIColor.white.cgColor
       let swipeU = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
       swipeU.direction = .up
       let swipeD = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
@@ -1111,7 +1116,7 @@ func secondJump() {
       
       infoText!.numberOfLines = 0
       infoText!.textAlignment = .center
-    //    introText.backgroundColor = .yellow
+      //    introText.backgroundColor = .yellow
       self.view.addSubview(infoText!)
     }
     
@@ -1128,10 +1133,27 @@ func secondJump() {
       }
     }
     
-    if port2G != nil && displayButtons {
-      
+    if fastStart! {
       stackviewDots.isHidden = true
+      self.motionBOutlet.isEnabled = true
+      self.azimuthBOutlet.isEnabled = true
+      self.locationBOutlet.isEnabled = true
+      self.proximityBOutlet.isEnabled = true
+      self.lightBOutlet.isEnabled = true
+      self.voiceBOutlet.isEnabled = true
       
+      self.motionBOutlet.isHidden = false
+      self.azimuthBOutlet.isHidden = false
+      self.locationBOutlet.isHidden = false
+      self.proximityBOutlet.isHidden = false
+//      self.lightBOutlet.isHidden = false
+//      self.voiceBOutlet.isHidden = false
+      self.highMoreBO.isHidden = true
+      
+    } else {
+    
+    if port2G != nil && displayButtons {
+      stackviewDots.isHidden = true
       self.motionBOutlet.isEnabled = true
       self.azimuthBOutlet.isEnabled = true
       self.locationBOutlet.isEnabled = true
@@ -1141,95 +1163,75 @@ func secondJump() {
       UIView.animate(withDuration: 0.5) {
         self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.maxY - 80)
       }
-//      infoText!.font = UIFont.preferredFont(forTextStyle: .body)
       infoText!.font = UIFont(name: "Futura-CondensedMedium", size: 17)
       infoText!.adjustsFontForContentSizeCategory = true
+      infoText!.backgroundColor = .red
       
       highMoreBO.sendActions(for: .touchUpInside)
-      
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
-//        self.infoText!.text = "Stream phone motion"
         self.motionBOutlet.grow()
         self.motionTag.isHidden = false
         self.azimuthBOutlet.grow()
         self.azimuthTag.isHidden = false
         self.locationBOutlet.grow()
         self.locationTag.isHidden = false
-
-
-              
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+          self.lowMoreBO.sendActions(for: .touchUpInside)
+          DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
+            //                self.infoText!.text = "Turn on proximity alerts"
+            self.proximityBOutlet.grow()
+            self.proximityTag.isHidden = false
+            self.lightBOutlet.grow()
+            self.lightTag.isHidden = false
+            self.voiceBOutlet.grow()
+            self.voiceTag.isHidden = false
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                self.lowMoreBO.sendActions(for: .touchUpInside)
-
-              DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
-//                self.infoText!.text = "Turn on proximity alerts"
-                self.proximityBOutlet.grow()
-                self.proximityTag.isHidden = false
-                self.lightBOutlet.grow()
-                self.lightTag.isHidden = false
-                self.voiceBOutlet.grow()
-                self.voiceTag.isHidden = false
-
-                  DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                    self.infoText!.text = ""
-                    self.firstShow = false
-                    if pulse! {
-                      Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
-                        
-                        communications?.pulseUDP2(superRec2)
+              self.infoText!.text = ""
+              self.firstShow = false
+              if pulse! {
+                Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
+                  communications?.pulseUDP2(superRec2)
+                }
+              }
+              if !fastStart! && self.remindme {
+                self.remindme = false
+                let textFeed = "Note the indicator on the right side listing all the sensors turns green and the text blinks when they are turned on."
+                self.moreText.text = ""
+                self.moreText.alpha = 1
+                self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 80
+                self.moreText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
+                self.moreText.adjustsFontForContentSizeCategory = true
+                self.moreText.isHidden = false
+                self.moreText.textAlignment = .center
+                self.moreText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
+                self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 140)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                  let words = Array(textFeed)
+                  var i = 0
+                  let pause = 0.1
+                  let delay = pause * Double(textFeed.count)
+                  self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
+                  Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+                    self.moreText.text = self.moreText.text! + String(words[i])
+                    if i == words.count - 1 {
+                      timer.invalidate()
+                      UIView.animate(withDuration: 12) {
+                        self.moreText.alpha = 0
                       }
+                    } else {
+                      i = i + 1
+                      
                     }
-                    if !fastStart! && self.remindme {
-                      self.remindme = false
-                      let textFeed = "Note the indicator on the right side listing all the sensors turns green and the text blinks when they are turned on."
-                      
-                      self.moreText.text = ""
-                      self.moreText.alpha = 1
-                      self.moreText.preferredMaxLayoutWidth = self.view.bounds.width - 80
-//                      self.moreText.font = UIFont.preferredFont(forTextStyle: .body)
-                      self.moreText.font = UIFont(name: "Futura-CondensedMedium", size: 17)
-                      self.moreText.adjustsFontForContentSizeCategory = true
-                      self.moreText.isHidden = false
-                      self.moreText.textAlignment = .center
-                      self.moreText.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
-                      self.moreText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 140)
-                      
-                      
-                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                        let words = Array(textFeed)
-                        var i = 0
-                        let pause = 0.1
-                       
-                        let delay = pause * Double(textFeed.count)
-                        
-                        self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
-                        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
-                          
-                          self.moreText.text = self.moreText.text! + String(words[i])
-                          if i == words.count - 1 {
-                            timer.invalidate()
-                            UIView.animate(withDuration: 12) {
-                              self.moreText.alpha = 0
-                            }
-                                    
-                          } else {
-                            i = i + 1
-                            
-                          }
-                        }
-                      })
-                    }
-                    
-                    
-                    })
-                    
-                    
-   
+                  }
+                })
+              }
+            })
           })
         })
       })
     }
     lastButton?.grow()
+    }
   }
     
 
