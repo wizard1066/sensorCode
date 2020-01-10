@@ -55,7 +55,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     redo(error)
   }
   
-
   func turnOff(views2G label: Int) {
     switch label {
       case views2G.azimuth.rawValue:
@@ -86,7 +85,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
   }
   
-
   func turnOn(views2G label: Int) {
     switch label {
       case views2G.azimuth.rawValue:
@@ -136,7 +134,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var inapp: UILabel!
   @IBOutlet weak var moreText: UILabel!
   
-  
   var purchases:[String:Bool] = [:]
   var displayButtons = false
 
@@ -149,7 +146,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       }) { (finished) in
         self.inapp.alpha = 0
       }
-  
     }
     if service == IAPProduct.light.rawValue && message == IAPStatus.purchased.rawValue {
       if strongLight != nil {
@@ -201,9 +197,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       purchases[service] = true
     }
   }
-  
-
-
  
   var blinkStatus:Bool?
   var once: Bool = false
@@ -266,17 +259,13 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
   }
   
-//  @objc func hover(sender: UIHoverGestureRecognizer) {
-//
-//  }
-  
   
   @IBOutlet weak var highMoreBO: UIButton!
   @IBAction func highMoreB(_ sender: Any) {
     self.lightBOutlet.isHidden = true
     self.voiceBOutlet.isHidden = true
-    self.voiceID.layer.borderColor = UIColor.clear.cgColor
-    self.lightID.layer.borderColor = UIColor.clear.cgColor
+    self.voiceID.layer.borderColor = UIColor.white.cgColor
+    self.lightID.layer.borderColor = UIColor.white.cgColor
     self.lightTag.textColor = UIColor.darkGray
     self.voiceTag.textColor = UIColor.darkGray
     self.highMoreBO.isHidden = true
@@ -284,25 +273,12 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     self.azimuthBOutlet.isHidden = false
     self.azimuthTag.textColor = UIColor.black
-//    self.azimuthID.layer.borderColor = UIColor.systemBlue.cgColor
+
     self.motionBOutlet.isHidden = false
     self.motionTag.textColor = UIColor.black
-//    self.motionID.layer.borderColor = UIColor.systemBlue.cgColor
-    
-    self.azimuthID.layer.borderColor = UIColor.white.cgColor
-    self.motionID.layer.borderColor = UIColor.white.cgColor
-    
-//    UIView.animate(withDuration: 1, animations: {
-//      self.azimuthBOutlet.isHidden = false
-//      self.azimuthTag.textColor = UIColor.black
-//      self.azimuthID.layer.borderColor = UIColor.systemBlue.cgColor
-//    }) { (action) in
-//      UIView.animate(withDuration: 1) {
-//        self.motionBOutlet.isHidden = false
-//        self.motionTag.textColor = UIColor.black
-//        self.motionID.layer.borderColor = UIColor.systemBlue.cgColor
-//      }
-//    }
+
+    self.azimuthID.layer.borderColor = UIColor.clear.cgColor
+    self.motionID.layer.borderColor = UIColor.clear.cgColor
   }
 
   
@@ -310,8 +286,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBAction func lowMoreBA(_ sender: Any) {
     self.motionBOutlet.isHidden = true
     self.azimuthBOutlet.isHidden = true
-    self.motionID.layer.borderColor = UIColor.clear.cgColor
-    self.azimuthID.layer.borderColor = UIColor.clear.cgColor
+    self.motionID.layer.borderColor = UIColor.white.cgColor
+    self.azimuthID.layer.borderColor = UIColor.white.cgColor
     self.motionTag.textColor = UIColor.darkGray
     self.azimuthTag.textColor = UIColor.darkGray
     self.lowMoreBO.isHidden = true
@@ -319,25 +295,12 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     self.lightBOutlet.isHidden = false
     self.lightTag.textColor = UIColor.black
-//    self.lightID.layer.borderColor = UIColor.systemBlue.cgColor
+
     self.voiceBOutlet.isHidden = false
     self.voiceTag.textColor = UIColor.black
-//    self.voiceID.layer.borderColor = UIColor.systemBlue.cgColor
     
-    self.lightID.layer.borderColor = UIColor.white.cgColor
-    self.voiceID.layer.borderColor = UIColor.white.cgColor
-    
-//    UIView.animate(withDuration: 1, animations: {
-//      self.lightBOutlet.isHidden = false
-//      self.lightTag.textColor = UIColor.black
-//      self.lightID.layer.borderColor = UIColor.systemBlue.cgColor
-//    }) { (action) in
-//      UIView.animate(withDuration: 1) {
-//        self.voiceBOutlet.isHidden = false
-//        self.voiceTag.textColor = UIColor.black
-//        self.voiceID.layer.borderColor = UIColor.systemBlue.cgColor
-//      }
-//    }
+    self.lightID.layer.borderColor = UIColor.clear.cgColor
+    self.voiceID.layer.borderColor = UIColor.clear.cgColor
   }
   
   var strongCompass:azimuthVC?
@@ -363,58 +326,43 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   }
   
   @IBAction func locationBAction(_ sender: UIButton) {
-  
-
     lastButton = locationBOutlet
     if strongLocation != nil {
       present(strongLocation!, animated: true, completion: nil)
     } else {
       self.performSegue(withIdentifier: "location", sender: self)
     }
-    
   }
   
   @IBAction func configBAction(_ sender: UIButton) {
-  
     lastButton = gearBOutlet
     if strongGear != nil {
       present(strongGear!, animated: true, completion: nil)
     } else {
       self.performSegue(withIdentifier: "config", sender: self)
     }
-    
   }
   
   @IBAction func toolBAction(_ sender: UIButton) {
-  
     lastButton = toolBOutlet
     if strongTool != nil {
       present(strongTool!, animated: true, completion: nil)
     } else {
       self.performSegue(withIdentifier: "tools", sender: self)
     }
-    
   }
   
   @IBAction func speakerBAction(_ sender: UIButton) {
-  
- 
     lastButton = speakerBOutlet
     if strongSpeaker != nil {
       present(strongSpeaker!, animated: true, completion: nil)
     } else {
       self.performSegue(withIdentifier: "speaker", sender: self)
     }
-    
   }
   
   @IBAction func lightBAction(_ sender: UIButton) {
     lastButton = lightBOutlet
-//    if strongLight != nil {
-//      present(strongLight!, animated: true, completion: nil)
-//    } else {
-//      self.performSegue(withIdentifier: "light", sender: self)
-//    }
     if purchases[IAPProduct.light.rawValue] == nil {
       IAPService.shared.ordered = self
       IAPService.shared.purchase(product: .light)
@@ -423,10 +371,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     }
   }
   
-
-  
   @IBAction func azimuthBAction(_ sender: Any) {
-//    feedback(service: IAPProduct.azimuth.rawValue, message: IAPStatus.purchased.rawValue)
     lastButton = azimuthBOutlet
     if purchases[IAPProduct.azimuth.rawValue] == nil {
       IAPService.shared.ordered = self
@@ -435,22 +380,16 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       feedback(service: IAPProduct.azimuth.rawValue, message: IAPStatus.purchased.rawValue)
     }
   }
-  
-
 
   @IBAction func voiceBAction(_ sender: Any) {
     lastButton = voiceBOutlet
-    
-//    feedback(service: IAPProduct.voice.rawValue, message: IAPStatus.purchased.rawValue)
     if purchases[IAPProduct.voice.rawValue] == nil {
       IAPService.shared.ordered = self
       IAPService.shared.purchase(product: .voice)
     } else {
       feedback(service: IAPProduct.voice.rawValue, message: IAPStatus.purchased.rawValue)
     }
-    
   }
-
 
   @IBAction func proximityBAction(_ sender: UIButton) {
   lastButton = proximityBOutlet
@@ -459,7 +398,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     } else {
       self.performSegue(withIdentifier: "proximity", sender: self)
     }
-    
   }
   
   @IBOutlet var nextOutlet: UIButton!
@@ -473,8 +411,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       self.speakerBOutlet.alpha = 1
       nextOutlet.isHidden = true
     }
-    
-    
   }
   
   func showButtonBar() {
@@ -492,11 +428,9 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.locationBOutlet.isHidden = false
   }
   
-  
   @IBOutlet weak var page1: UIImageView!
   @IBOutlet weak var page2: UIImageView!
   @IBOutlet weak var page3: UIImageView!
-  
   @IBOutlet weak var spokenText: UILabel!
   
   enum introValue: Int8 {
@@ -507,7 +441,6 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   }
   
   var introCurrent: introValue = introValue.first
-  
 
   @IBOutlet weak var tapMeOutlet: UIButton!
   func tapMe() {
@@ -1100,7 +1033,6 @@ func secondJump() {
       background = true
     }
     
-//    spokenText.text = ""
     communications?.missing = self
     
   }
@@ -1160,12 +1092,10 @@ func secondJump() {
       self.proximityBOutlet.isEnabled = true
       self.lightBOutlet.isEnabled = true
       self.voiceBOutlet.isEnabled = true
-      UIView.animate(withDuration: 0.5) {
-        self.infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.maxY - 80)
-      }
+      
+      infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.maxY - 80)
       infoText!.font = UIFont(name: "Futura-CondensedMedium", size: 17)
       infoText!.adjustsFontForContentSizeCategory = true
-      infoText!.backgroundColor = .red
       
       highMoreBO.sendActions(for: .touchUpInside)
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
@@ -1178,7 +1108,6 @@ func secondJump() {
         DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
           self.lowMoreBO.sendActions(for: .touchUpInside)
           DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
-            //                self.infoText!.text = "Turn on proximity alerts"
             self.proximityBOutlet.grow()
             self.proximityTag.isHidden = false
             self.lightBOutlet.grow()

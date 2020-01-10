@@ -70,7 +70,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
     }
   }
   
-  func turnOn() {
+  func false_turnOn() {
     self.latitudeOutput.text = "-122.03073097"
     self.longitudeOutput.text = "37.33121136"
     self.altitudeOutput.text = "0"
@@ -98,6 +98,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
     if sender.isOn {
       turnOn()
     } else {
+      locationManager!.stopUpdatingLocation()
       if variable! {
         superRec2?.position?.altitude = nil
         superRec2?.position?.longitude = nil
@@ -110,14 +111,37 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
     }
   }
   
-  func real_turnOn() {
+  func turnOn() {
     locationManager!.startUpdatingLocation()
-    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
+    print("debug ",self.currentLocation.coordinate)
     if self.currentLocation != nil {
+    
       self.latitudeOutput.text = "\(self.currentLocation.coordinate.longitude.description)"
       self.longitudeOutput.text = "\(self.currentLocation.coordinate.latitude.description)"
       self.altitudeOutput.text = "\(self.currentLocation.altitude.description)"
     }
+    self.logLocation()
+//    if self.currentLocation != nil {
+//      superRec2?.position?.altitude = "\(self.currentLocation.altitude)"
+//      superRec2?.position?.longitude = "\(self.currentLocation.coordinate.longitude)"
+//      superRec2?.position?.latitude = "\(self.currentLocation.coordinate.latitude)"
+//            if port2G != nil && connect2G != "" {
+//        if pulse != nil {
+//          // send only is pulse if off or azimuthPass is on
+//          if pulse! == false {
+//            communications?.pulseUDP2(superRec2)
+//          }
+//          if pulse! == true && self.locationBPass.isOn {
+//            communications?.pulseUDP2(superRec2)
+//          }
+//        }
+//      }
+//    }
+    })
+  }
+  
+  func logLocation() {
     if self.currentLocation != nil {
       superRec2?.position?.altitude = "\(self.currentLocation.altitude)"
       superRec2?.position?.longitude = "\(self.currentLocation.coordinate.longitude)"
@@ -134,26 +158,25 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
         }
       }
     }
-    })
   }
   
-  func realSwitch(_ sender: UISwitch) {
-    if sender.isOn {
-      locationBPass.isEnabled = true
-      real_turnOn()
-    } else {
-      locationManager!.stopUpdatingLocation()
-      if variable! {
-        superRec2?.position?.altitude = nil
-        superRec2?.position?.longitude = nil
-        superRec2?.position?.latitude = nil
-      } else {
-        superRec2?.position?.altitude = ""
-        superRec2?.position?.longitude = ""
-        superRec2?.position?.latitude = ""
-      }
-    }
-  }
+//  func realSwitch(_ sender: UISwitch) {
+//    if sender.isOn {
+//      locationBPass.isEnabled = true
+//      turnOn()
+//    } else {
+//      locationManager!.stopUpdatingLocation()
+//      if variable! {
+//        superRec2?.position?.altitude = nil
+//        superRec2?.position?.longitude = nil
+//        superRec2?.position?.latitude = nil
+//      } else {
+//        superRec2?.position?.altitude = ""
+//        superRec2?.position?.longitude = ""
+//        superRec2?.position?.latitude = ""
+//      }
+//    }
+//  }
   
   override func viewWillAppear(_ animated: Bool) {
       if pulse == false {
@@ -254,18 +277,9 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
       latitudeOutput.text = "\(currentLocation.coordinate.latitude.description)"
       longitudeOutput.text = "\(currentLocation.coordinate.longitude.description)"
       altitudeOutput.text = "\(currentLocation.altitude.description)"
-//      let word = "\(currentLocation.coordinate.longitude) \(currentLocation.coordinate.latitude) \(currentLocation.altitude)"
-//      let word = gps(latitude: "\(currentLocation.coordinate.latitude)", longitude: "\(currentLocation.coordinate.longitude)", altitude: "\(currentLocation.altitude)")
+
       if port2G != nil && connect2G != "" {
-//          communications?.sendUDP(word)
-          
-//          superRec?.latitude = "\(currentLocation.coordinate.latitude.description)"
-//          superRec?.longitude = "\(currentLocation.coordinate.longitude.description)"
-//          superRec?.altitude = "\(currentLocation.altitude.description)"
-          superRec2?.position?.altitude = "\(currentLocation.coordinate.latitude.description)"
-          superRec2?.position?.longitude = "\(currentLocation.coordinate.longitude.description)"
-          superRec2?.position?.latitude = "\(currentLocation.coordinate.latitude.description)"
-          communications?.pulseUDP2(superRec2)
+        logLocation()
       }
   }
 
