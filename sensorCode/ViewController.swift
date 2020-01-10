@@ -1364,7 +1364,6 @@ func secondJump() {
       if let nextViewController = segue.destination as? azimuthVC {
         nextViewController.tag = views2G.azimuth.rawValue
         nextViewController.status = self
-        nextViewController.parentVC = self
         communications?.missing = nextViewController
         strongCompass = nextViewController
         

@@ -37,12 +37,39 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
   @IBOutlet weak var bPassText: UILabel!
   @IBOutlet weak var moreText: UILabel!
   
+  @IBAction func backButtonAction(_ sender: UIButton) {
+    if compassSwitchOutlet.isOn {
+      performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+    } else {
+      if port2G != nil && connect2G != nil {
+        let alert = UIAlertController(title: "Did you forget to TURN ON reporting?", message: "Confirm", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+          DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+            self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+          })
+          }))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+          self.turnOn()
+          self.compassSwitchOutlet.setOn(true, animated: true)
+          DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+          })
+        }))
+        self.present(alert, animated: true)
+      }
+      
+    }
+  }
   
-  
+  func turnOn() {
+    directionManager?.startUpdatingHeading()
+    azimuthBPass.isEnabled = true
+  }
   
   @IBAction func compassSwitch(_ sender: UISwitch) {
     if sender.isOn {
-      directionManager?.startUpdatingHeading()
+      turnOn()
     } else {
       directionManager?.stopUpdatingHeading()
       if variable! {
@@ -62,6 +89,17 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
   //    var lastLocation: CLLocation!
   
   private var background = false
+  
+  override func viewWillAppear(_ animated: Bool) {
+    if pulse == false {
+      azimuthBPass.isHidden = true
+      bPassLabel.isHidden = true
+      bPassText.isHidden = true
+    }
+    if compassSwitchOutlet.isOn == false {
+      azimuthBPass.isEnabled = false
+    }
+}
   
   override func viewDidAppear(_ animated: Bool) {
     
@@ -89,7 +127,6 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
 //    showText(label: label!, text: textFeed!)
   }
   
-  var parentVC: ViewController?
   
   @objc func showTap(sender: Any) {
       let tag = sender as? customTap
@@ -167,7 +204,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
     
     let mainTap = customTap(target: self, action: #selector(azimuthVC.showTap(sender:)))
     //    let passTap = customTap(target: self, action: #selector(azimuthVC.debug(sender:)))
-        mainTap.sender = "TURN ON to start the sensor reporting."
+        mainTap.sender = "TURN ON the Main Switch to start the sensor reporting."
         mainTap.label = moreText
         mainLabel.addGestureRecognizer(mainTap)
         mainLabel.isUserInteractionEnabled = true

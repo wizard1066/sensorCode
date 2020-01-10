@@ -27,28 +27,16 @@ var motionManager: CMMotionManager?
   var tag:Int?
   var status:running?
 
- 
-  
 
   @IBAction func switchGyro(_ sender: UISwitch) {
     if sender.isOn {
-      if motionManager!.isAccelerometerAvailable {
-          motionManager!.accelerometerUpdateInterval = refreshRate!.doubleValue
-          motionManager!.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
-            
-                self.senddata(data: data!)
-          }
-      }
+      turnOn()
     } else {
       if motionManager != nil {
         if motionManager!.isAccelerometerAvailable {
           motionManager?.stopAccelerometerUpdates()
-          
         }
       }
-//      superRec?.roll = nil
-//      superRec?.pitch = nil
-//      superRec?.yaw = nil
       if variable! {
         superRec2?.movement?.roll = nil
         superRec2?.movement?.pitch = nil
@@ -61,6 +49,15 @@ var motionManager: CMMotionManager?
     }
   }
   
+  func turnOn() {
+    if motionManager!.isAccelerometerAvailable {
+        motionManager!.accelerometerUpdateInterval = refreshRate!.doubleValue
+        motionManager!.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
+              self.senddata(data: data!)
+        }
+    }
+  }
+  
   var lastRoll:String?
   var lastPitch:String?
   var lastYaw:String?
@@ -69,26 +66,16 @@ var motionManager: CMMotionManager?
     let rN = String(format:"%.\(precision!)f",data.acceleration.x)
     let pN = String(format:"%.\(precision!)f",data.acceleration.y)
     let yN = String(format:"%.\(precision!)f",data.acceleration.z)
-    
-//    superRec?.roll = rN
-//    superRec?.pitch = pN
-//    superRec?.yaw = yN
-    
     superRec2?.movement?.roll = rN
     superRec2?.movement?.pitch = pN
     superRec2?.movement?.yaw = yN
-    
     if lastRoll == rN && lastPitch == pN && lastYaw == yN {
       return
     }
-    
     self.rollOutput.text = rN
     self.pitchOutput.text = pN
     self.yawOutput.text = yN
-    
-//    let word = "\(rN) \(pN) \(yN)"
-//    let word = fly(roll: rN, pitch: pN, yaw: yN)
-        if port2G != nil && connect2G != "" {
+    if port2G != nil && connect2G != "" {
       if pulse != nil {
         // send only is pulse if off or azimuthPass is on
         if pulse! == false {
@@ -99,12 +86,9 @@ var motionManager: CMMotionManager?
         }
       }
     }
-    
     lastRoll = rN
     lastPitch = pN
     lastYaw = yN
-    
-
   }
   
   
@@ -115,11 +99,38 @@ var motionManager: CMMotionManager?
   @IBOutlet weak var rollOutput: UILabel!
   @IBOutlet weak var yawOutput: UILabel!
   @IBOutlet weak var motionBPass: UISwitch!
-  
-
+  @IBOutlet weak var auxLabel: UILabel!
+  @IBOutlet weak var auxText: UILabel!
+  @IBOutlet weak var mainLabel: UILabel!
+  @IBOutlet weak var mainText: UILabel!
   @IBOutlet weak var backButton: UIButton!
   
   private var background = false
+  
+  @IBAction func backButtonAction(_ sender: UIButton) {
+    if switchGyroOutlet.isOn {
+      performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+    } else {
+      if port2G != nil && connect2G != nil {
+        let alert = UIAlertController(title: "Did you forget to TURN ON reporting?", message: "Confirm", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action) in
+          DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
+            self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+          })
+          }))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+          self.turnOn()
+          self.switchGyroOutlet.setOn(true, animated: true)
+          DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            self.performSegue(withIdentifier: "sensorCodeMM", sender: nil)
+          })
+        }))
+        self.present(alert, animated: true)
+      }
+      
+    }
+  }
   
   override func viewDidAppear(_ animated: Bool) {
     
@@ -138,9 +149,37 @@ var motionManager: CMMotionManager?
     }
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+      if pulse == false {
+        motionBPass.isHidden = true
+        auxLabel.isHidden = true
+        auxText.isHidden = true
+      }
+      if switchGyroOutlet.isOn == false {
+        motionBPass.isEnabled = false
+      }
+  }
+  
+  func setupTaps() {
+        let passTap = customTap(target: self, action: #selector(motionVC.showTap(sender:)))
+    //    let passTap = customTap(target: self, action: #selector(azimuthVC.debug(sender:)))
+        passTap.sender = "TURN ON in PULSE mode to send data outside of the polling window."
+        passTap.label = auxText
+        auxLabel.addGestureRecognizer(passTap)
+        auxLabel.isUserInteractionEnabled = true
+        auxLabel.numberOfLines = 0
+        
+        let mainTap = customTap(target: self, action: #selector(motionVC.showTap(sender:)))
+        mainTap.sender = "TURN ON the Main Switch to start the sensor reporting."
+        mainTap.label = mainText
+        mainLabel.addGestureRecognizer(mainTap)
+        mainLabel.isUserInteractionEnabled = true
+        mainLabel.numberOfLines = 0
+  }
+  
   override func viewDidLoad() {
       super.viewDidLoad()
-      
+      setupTaps()
       let passTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
       passTap.sender = "True changes the default behaviour of PULSE, will send additional data if changes seen."
       passTap.label = infoText
@@ -203,6 +242,69 @@ var motionManager: CMMotionManager?
       status?.turnOff(views2G: self.tag!)
     }
   }
+  
+  @objc func showTap(sender: Any) {
+      let tag = sender as? customTap
+      let label = tag!.label as? UILabel
+      let textFeed = tag!.sender as? String
+      showText(label: label!, text: textFeed!)
+    }
+    
+    @objc func showPress(sender: Any) {
+      print("SP")
+      let tag = sender as? customLongPress
+      let label = tag!.label as? UILabel
+      let textFeed = tag!.sender as? String
+      if tag?.state == .ended {
+        showText(label: label!, text: textFeed!)
+      }
+    }
+    
+    var running = false
+    private var paused = DispatchTimeInterval.seconds(12)
+    
+    func showText(label: UILabel, text: String) {
+      if running { return }
+      running = true
+      label.text = ""
+      label.alpha = 1
+      label.preferredMaxLayoutWidth = self.view.bounds.width - 40
+  //    label.font = UIFont.preferredFont(forTextStyle: .body)
+      label.font = UIFont(name: "Futura-CondensedMedium", size: 17)
+      label.adjustsFontForContentSizeCategory = true
+      label.isHidden = false
+      label.textAlignment = .center
+      label.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: 90)
+      label.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.midY + 112)
+      
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+        let words = Array(text)
+        var i = 0
+        let pause = 0.1
+        
+        let tweek = label.text?.count
+        let delay = pause * Double(tweek!)
+        
+        self.paused = DispatchTimeInterval.seconds(Int(delay + 4))
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+          
+          label.text = label.text! + String(words[i])
+          if i == words.count - 1 {
+            timer.invalidate()
+            self.running = false
+            UIView.animate(withDuration: 12, animations: {
+            label.alpha = 0
+            }) { (action) in
+              // do nothing
+            }
+
+          } else {
+            i = i + 1
+            
+          }
+        }
+      })
+    }
   
   override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
     if motion == .motionShake {
