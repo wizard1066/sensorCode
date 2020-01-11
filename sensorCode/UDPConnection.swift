@@ -132,8 +132,8 @@ class connect: NSObject {
       
       switch (newState) {
       case .ready:
-        
-        self.sendUDP(messageToUDP)
+        break
+      //        self.sendUDP(messageToUDP)
       //                self.receiveUDP()
       case .setup:
         print("State: Setup\n")
@@ -203,6 +203,18 @@ class connect: NSObject {
           self.missing?.sendAlert(error: NWError!.debugDescription)
         }
       })))
+    } catch {
+      print("error",error)
+    }
+  }
+  
+  func sendUDP(_ content: settings) {
+    do {
+      let encoder = JSONEncoder()
+      let jsonData = try encoder.encode(content)
+      let jsonString = String(data: jsonData, encoding: .utf8)!
+      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
+      sendUDP(contentToSendUDP!)
     } catch {
       print("error",error)
     }

@@ -35,14 +35,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     print("applicationDidEnterBackground")
-    let appDefaults = ["FAST_START" : true]
-    UserDefaults.standard.register(defaults: appDefaults)
+    
     communications?.disconnectUDP()
   }
 
   func applicationWillEnterForeground(_ application: UIApplication) {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     communications?.reconnect()
+    
+    fastStart = UserDefaults.standard.bool(forKey: ap.fast.rawValue)
+    autoClose = UserDefaults.standard.bool(forKey: ap.auto.rawValue)
+    precision = UserDefaults.standard.string(forKey: ap.precision.rawValue)
+    variable = UserDefaults.standard.bool(forKey: ap.variable.rawValue)
+    refreshRate = UserDefaults.standard.string(forKey: ap.rate.rawValue)
+    variable = UserDefaults.standard.bool(forKey: ap.variable.rawValue)
+    pulse = UserDefaults.standard.bool(forKey: ap.pulse.rawValue)
+    raw = UserDefaults.standard.bool(forKey: ap.raw.rawValue)
+    
+    mode = settings(rw: raw?.description, pe: pulse?.description, ve: variable?.description, re: refreshRate?.description, pn: precision?.description, ao: autoClose?.description, ft: fastStart?.description)
+    communications?.sendUDP(mode!)
   }
 
   func applicationDidBecomeActive(_ application: UIApplication) {

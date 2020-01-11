@@ -111,7 +111,7 @@ class proximityVC: UIViewController, lostLink {
       if variable! {
         superRec2.proximity = nil
       } else {
-        superRec2.proximity = ""
+        superRec2.proximity = "false"
       }
     }
   }
@@ -182,7 +182,7 @@ class proximityVC: UIViewController, lostLink {
        status?.turnOn(views2G: self.tag!)
      } else {
        status?.turnOff(views2G: self.tag!)
-       superRec2.proximity = nil
+//       superRec2.proximity = nil
      }
    }
   

@@ -8,16 +8,27 @@
 
 import Foundation
 
-class SettingsBundleHelper {
-struct SettingsBundleKeys {
-    static let auto = "AUTO_CLOSE"
-    static let fast = "FAST_START"
-    static let precision = "PRECISION"
-    static let rate = "RATE"
-    static let variable = "VARIABLE"
-    static let pulse = "PULSE"
-    static let raw = "RAW"
+enum ap: String {
+    case auto = "AUTO_CLOSE"
+    case fast = "FAST_START"
+    case precision = "PRECISION"
+    case rate = "RATE"
+    case variable = "VARIABLE"
+    case pulse = "PULSE"
+    case raw = "RAW"
 }
+
+
+class SettingsBundleHelper {
+//struct SettingsBundleKeys {
+//    static let auto = "AUTO_CLOSE"
+//    static let fast = "FAST_START"
+//    static let precision = "PRECISION"
+//    static let rate = "RATE"
+//    static let variable = "VARIABLE"
+//    static let pulse = "PULSE"
+//    static let raw = "RAW"
+//}
 
   
 
@@ -36,27 +47,30 @@ struct SettingsBundleKeys {
 
     }
     
-    fastStart = UserDefaults.standard.bool(forKey: SettingsBundleKeys.fast)
-    autoClose = UserDefaults.standard.bool(forKey: SettingsBundleKeys.auto)
-    precision = UserDefaults.standard.string(forKey: SettingsBundleKeys.precision)
-    variable = UserDefaults.standard.bool(forKey: SettingsBundleKeys.variable)
-    refreshRate = UserDefaults.standard.string(forKey: SettingsBundleKeys.rate)
-    variable = UserDefaults.standard.bool(forKey: SettingsBundleKeys.variable)
-    pulse = UserDefaults.standard.bool(forKey: SettingsBundleKeys.pulse)
-    raw = UserDefaults.standard.bool(forKey: SettingsBundleKeys.raw)
+    fastStart = UserDefaults.standard.bool(forKey: ap.fast.rawValue)
+    autoClose = UserDefaults.standard.bool(forKey: ap.auto.rawValue)
+    precision = UserDefaults.standard.string(forKey: ap.precision.rawValue)
+    variable = UserDefaults.standard.bool(forKey: ap.variable.rawValue)
+    refreshRate = UserDefaults.standard.string(forKey: ap.rate.rawValue)
+    variable = UserDefaults.standard.bool(forKey: ap.variable.rawValue)
+    pulse = UserDefaults.standard.bool(forKey: ap.pulse.rawValue)
+    raw = UserDefaults.standard.bool(forKey: ap.raw.rawValue)
     
     if isFirstTimeOpening() {
-      defaults.set(false, forKey: SettingsBundleKeys.fast)
-      defaults.set(false, forKey: SettingsBundleKeys.auto)
-      defaults.set(true, forKey: SettingsBundleKeys.variable)
-      defaults.set(false, forKey: SettingsBundleKeys.auto)
-      defaults.set(false, forKey: SettingsBundleKeys.pulse)
-      defaults.set("0.1", forKey: SettingsBundleKeys.rate)
-      defaults.set("2", forKey: SettingsBundleKeys.precision)
-      defaults.set(false, forKey: SettingsBundleKeys.raw)
+      defaults.set(false, forKey: ap.fast.rawValue)
+      defaults.set(false, forKey: ap.auto.rawValue)
+      defaults.set(false, forKey: ap.variable.rawValue)
+      defaults.set(false, forKey: ap.auto.rawValue)
+      defaults.set(false, forKey: ap.pulse.rawValue)
+      defaults.set("0.1", forKey: ap.rate.rawValue)
+      defaults.set("2", forKey: ap.precision.rawValue)
+      defaults.set(false, forKey: ap.raw.rawValue)
       precision = "2"
       refreshRate = "0.1"
+      
     }
+    
+    mode = settings(rw: raw?.description, pe: pulse?.description, ve: variable?.description, re: refreshRate?.description, pn: precision?.description, ao: autoClose?.description, ft: fastStart?.description)
     
     let ps = Double(precision!.doubleValue)
     let rr = Double(refreshRate!.doubleValue)

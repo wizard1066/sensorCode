@@ -24,8 +24,12 @@
 	<string>Needed for access media library</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Needed to access camera</string>
+	<key>NSFileProviderDomainUsageDescription</key>
+	<string>LaunchScreen</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Needed to get location at client request</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Needed for location client request</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Needed if you want to use the location module</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -36,10 +40,8 @@
 	<string>Needed to access photo library</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Needed to understand commands spoken to the phone for the robot</string>
-	<key>NSFileProviderDomainUsageDescription</key>
+	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Needed for location client request</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

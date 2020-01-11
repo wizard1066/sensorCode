@@ -668,6 +668,13 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       self.connectTag.isHidden = true
     }
     
+    definePulse()
+    
+
+//    let hover = UIHoverGestureRecognizer(target: self, action: hover)
+  }
+  
+  func definePulse() {
     if variable! {
       let superGPS = gps(latitude: nil, longitude: nil, altitude: nil)
       let superMOV = fly(roll: nil, pitch: nil, yaw: nil)
@@ -679,11 +686,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       let superMOV = fly(roll: "", pitch: "", yaw: "")
       let superDIR = globe(trueNorth: "", magneticNorth: "")
       superRec2 = pulser2(wd: "", px: "", pos: superGPS, mov: superMOV, dir: superDIR)
-      
     }
-    
-
-//    let hover = UIHoverGestureRecognizer(target: self, action: hover)
   }
   
   func appRestartRequest() {
@@ -694,38 +697,24 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   }
   
   @objc func defaultsChanged(notification:NSNotification){
-      print("defaultsChanged")
-
-//      if let defaults = notification.object as? UserDefaults {
-//        if defaults.bool(forKey: "PULSE") {
-//          print("Pulse changed")
-////          appRestartRequest()
-//        }
-//        if defaults.bool(forKey: "RAW") {
-//          print("Raw changed")
-////          appRestartRequest()
-//        }
-//        if defaults.bool(forKey: "VARIABLE") {
-//          print("Variable changed")
-////          appRestartRequest()
-//        }
-//        if defaults.bool(forKey: "AUTO_CLOSE") {
-//          print("Variable changed")
-////          appRestartRequest()
-//        }
-//        if defaults.bool(forKey: "FAST_START") {
-//          print("Variable changed")
-////          appRestartRequest()
-//        }
-//        if (defaults.string(forKey: "PRECISION") != nil) {
-//          print("Precision changed")
-////          appRestartRequest()
-//        }
-//        if (defaults.string(forKey: "RATE") != nil) {
-//          print("Rate changed")
-////          appRestartRequest()
-//        }
-//      }
+      if let defaults = notification.object as? UserDefaults {
+        pulse = defaults.bool(forKey: ap.pulse.rawValue)
+        autoClose = UserDefaults.standard.bool(forKey: ap.auto.rawValue)
+        variable = UserDefaults.standard.bool(forKey: ap.variable.rawValue)
+        pulse = UserDefaults.standard.bool(forKey: ap.pulse.rawValue)
+        raw = UserDefaults.standard.bool(forKey: ap.raw.rawValue)
+        precision = UserDefaults.standard.string(forKey: ap.precision.rawValue)
+        refreshRate = UserDefaults.standard.string(forKey: ap.rate.rawValue)
+      }
+      if pulseTimer != nil && pulse == false {
+        timer?.invalidate()
+      }
+      if pulseTimer == nil && pulse == true {
+        self.timer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
+          communications?.pulseUDP2(superRec2)
+        }
+      }
+      definePulse()
   }
   
   @objc func applicationDidBecomeActive(notification: NSNotification) {
@@ -911,7 +900,6 @@ func secondJump() {
   }
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
-    print("Unwind to Root View Controller",displayButtons)
     communications?.missing = self
     
     if displayButtons {
@@ -1011,12 +999,13 @@ func secondJump() {
   var toggle: Bool = true
   var delay:DispatchTimeInterval = DispatchTimeInterval.nanoseconds(500)
   var timer:Timer?
+  var pulseTimer: Timer?
   var infoText: UILabel?
   var firstShow = true
   var background = false
   
   override func viewDidAppear(_ animated: Bool) {
-  
+    
     // disable screen dim/lock
     UIApplication.shared.isIdleTimerDisabled = true
 
@@ -1118,7 +1107,7 @@ func secondJump() {
               self.infoText!.text = ""
               self.firstShow = false
               if pulse! {
-                Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
+                self.pulseTimer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
                   communications?.pulseUDP2(superRec2)
                 }
               }
@@ -1184,6 +1173,7 @@ func secondJump() {
                       let hostUDPx = NWEndpoint.Host.init(connect2G!)
                       let portUDPx = NWEndpoint.Port.init(String(port2G!))
                       communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
+                      communications?.sendUDP(mode!)
                   })
                 }))
                 alert.addAction(UIAlertAction(title: "Goto Settings", style: .default, handler: { action in

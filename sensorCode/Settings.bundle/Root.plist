@@ -6,26 +6,26 @@
 	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
-  <dict>
-    <key>Type</key>
-    <string>PSTextFieldSpecifier</string>
-    <key>Title</key>
-    <string>Refresh Rate</string>
-    <key>Key</key>
-    <string>RATE</string>
-    <key>DefaultValue</key>
-    <string>0.1</string>
-  </dict>
-  <dict>
-    <key>Type</key>
-    <string>PSTextFieldSpecifier</string>
-    <key>Title</key>
-    <string>Precision</string>
-    <key>Key</key>
-    <string>PRECISION</string>
-    <key>DefaultValue</key>
-    <string>2</string>
-  </dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Refresh Rate</string>
+			<key>Key</key>
+			<string>RATE</string>
+			<key>DefaultValue</key>
+			<string>0.1</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Precision</string>
+			<key>Key</key>
+			<string>PRECISION</string>
+			<key>DefaultValue</key>
+			<string>2</string>
+		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
@@ -54,9 +54,8 @@
 			<key>Key</key>
 			<string>VARIABLE</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
-		
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>

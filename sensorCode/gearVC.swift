@@ -29,7 +29,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   var feeder:setty?
   var status:running?
   
-  @IBOutlet weak var settingsSV: UIStackView!
+//  @IBOutlet weak var settingsSV: UIStackView!
   @IBOutlet weak var textSV: UIStackView!
   
   @IBOutlet weak var pulseView: UIView!
@@ -115,6 +115,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
        let hostUDPx = NWEndpoint.Host.init(ipa)
        let portUDPx = NWEndpoint.Port.init(ipp)
        communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
+      communications?.sendUDP(mode!)
     }
   }
   
@@ -176,7 +177,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
 //    spokenOutput.text = ""
 
 //    textSV.isHidden = false
-    settingsSV.isHidden = true
+//    settingsSV.isHidden = true
     
     if communications!.connectedStatus {
       connectBSwitch.setOn(true, animated: true)
@@ -278,7 +279,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       if !self.skip {
         UIView.animate(withDuration: 1) {
           self.infoText.center = CGPoint(x:self.view.bounds.midX + 20,y:self.view.bounds.minY - 256)
-          self.settingsSV.spacing = 6
+//          self.settingsSV.spacing = 6
           
         }
       }
@@ -455,14 +456,14 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
 //
 //  }
   
-  func enableLabels() {
-    self.pulseLabel.isUserInteractionEnabled = true
-    self.precisionLabel.isUserInteractionEnabled = true
-    self.autoLabel.isUserInteractionEnabled = true
-    self.refreshLabel.isUserInteractionEnabled = true
-    self.fastLabel.isUserInteractionEnabled = true
-    self.variableLabel.isUserInteractionEnabled = true
-  }
+//  func enableLabels() {
+//    self.pulseLabel.isUserInteractionEnabled = true
+//    self.precisionLabel.isUserInteractionEnabled = true
+//    self.autoLabel.isUserInteractionEnabled = true
+//    self.refreshLabel.isUserInteractionEnabled = true
+//    self.fastLabel.isUserInteractionEnabled = true
+//    self.variableLabel.isUserInteractionEnabled = true
+//  }
   
   var blinkCount = 0
   
@@ -486,10 +487,10 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
 //          showLabels()
 //          textSV.isHidden = true
         }
-      UIView.animate(withDuration: 4) {
-        self.settingsSV.spacing = 10
-      }
-      enableLabels()
+//      UIView.animate(withDuration: 4) {
+//        self.settingsSV.spacing = 10
+//      }
+//      enableLabels()
       
       if !fastStart! && port2G != nil {
         spoonFeed(textFeed: "Wait, before you go. Load a wallpaper thru the icons below. Double tap to dismiss it and shake your iphone to bring it back.")
@@ -543,11 +544,11 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   }
     
   @objc func tapped() {
-    UIView.animate(withDuration: 4) {
-      self.infoText.alpha = 0
-      self.settingsSV.spacing = 10
-      
-    }
+//    UIView.animate(withDuration: 4) {
+//      self.infoText.alpha = 0
+//      self.settingsSV.spacing = 10
+//
+//    }
   }
     
     @IBOutlet weak var portNumber: UITextField!
