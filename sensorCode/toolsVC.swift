@@ -155,20 +155,20 @@ class toolsVC: UIViewController {
     self.rawLabel.blinkText8()
     
     DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-      self.autoLabel.textColor = UIColor.systemBlue
-      self.autoLabel.blinkText8()
+      self.pulseLabel.textColor = UIColor.systemBlue
+      self.pulseLabel.blinkText8()
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-        self.pulseLabel.textColor = UIColor.systemBlue
-        self.pulseLabel.blinkText8()
+        self.variableLabel.textColor = UIColor.systemBlue
+        self.variableLabel.blinkText8()
         DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-          self.variableLabel.textColor = UIColor.systemBlue
-          self.variableLabel.blinkText8()
+          self.refreshLabel.textColor = UIColor.systemBlue
+           self.refreshLabel.blinkText8()
           DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-            self.refreshLabel.textColor = UIColor.systemBlue
-            self.refreshLabel.blinkText8()
+           self.precisionLabel.textColor = UIColor.systemBlue
+           self.precisionLabel.blinkText8()
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-              self.precisionLabel.textColor = UIColor.systemBlue
-              self.precisionLabel.blinkText8()
+              self.autoLabel.textColor = UIColor.systemBlue
+              self.autoLabel.blinkText8()
               DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
                 self.fastLabel.textColor = UIColor.systemBlue
                 self.fastLabel.blinkText8()
