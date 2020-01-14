@@ -89,13 +89,14 @@ struct simple:Codable {
 }
 
 struct pulser2: Codable {
+  var id:String?
   var word: String?
   var proximity: String?
   var position:gps?
   var movement:fly?
   var direction:globe?
   
-  init(wd:String?, px: String?, pos:gps?, mov:fly?, dir: globe?) {
+  init(id:String?, wd:String?, px: String?, pos:gps?, mov:fly?, dir: globe?) {
     self.word = wd
     self.proximity = px
     self.position = pos

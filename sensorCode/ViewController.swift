@@ -675,17 +675,18 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   }
   
   func definePulse() {
+    let epoch = String(NSDate().timeIntervalSince1970)
     if variable! {
       let superGPS = gps(latitude: nil, longitude: nil, altitude: nil)
       let superMOV = fly(roll: nil, pitch: nil, yaw: nil)
       let superDIR = globe(trueNorth: nil, magneticNorth: nil)
-      superRec2 = pulser2(wd: nil, px: nil, pos: superGPS, mov: superMOV, dir: superDIR)
+      superRec2 = pulser2(id: epoch, wd: nil, px: nil, pos: superGPS, mov: superMOV, dir: superDIR)
      
     } else {
       let superGPS = gps(latitude: "", longitude: "", altitude: "")
       let superMOV = fly(roll: "", pitch: "", yaw: "")
       let superDIR = globe(trueNorth: "", magneticNorth: "")
-      superRec2 = pulser2(wd: "", px: "", pos: superGPS, mov: superMOV, dir: superDIR)
+      superRec2 = pulser2(id: epoch, wd: "", px: "", pos: superGPS, mov: superMOV, dir: superDIR)
     }
   }
   
