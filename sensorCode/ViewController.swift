@@ -138,7 +138,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   var displayButtons = false
 
   func feedback(service: String, message: String) {
-    print("feedback ",service,"message ",message)
+//    print("feedback ",service,"message ",message)
     inapp.text = message
     if message != IAPStatus.restored.rawValue {
       UIView.animate(withDuration: 4, animations: {
@@ -707,10 +707,10 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         refreshRate = UserDefaults.standard.string(forKey: ap.rate.rawValue)
       }
       if pulseTimer != nil && pulse == false {
-        timer?.invalidate()
+        pulseTimer?.invalidate()
       }
       if pulseTimer == nil && pulse == true {
-        self.timer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
+        self.pulseTimer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
           communications?.pulseUDP2(superRec2)
         }
       }
@@ -1106,11 +1106,11 @@ func secondJump() {
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
               self.infoText!.text = ""
               self.firstShow = false
-              if pulse! {
-                self.pulseTimer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
-                  communications?.pulseUDP2(superRec2)
-                }
-              }
+//              if pulse! {
+////                self.pulseTimer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
+////                  communications?.pulseUDP2(superRec2)
+////                }
+//              }
               if !fastStart! && self.remindme {
                 self.remindme = false
                 let textFeed = "Note the indicator on the right side listing all the sensors turns green and the text blinks when they are turned on."

@@ -113,6 +113,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
   
   func turnOn() {
     locationManager!.startUpdatingLocation()
+    showText(label: mainText, text: "Hang on, will take a few seconds to find you")
     DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
     print("debug ",self.currentLocation.coordinate)
     if self.currentLocation != nil {
@@ -146,7 +147,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
       superRec2?.position?.altitude = "\(self.currentLocation.altitude)"
       superRec2?.position?.longitude = "\(self.currentLocation.coordinate.longitude)"
       superRec2?.position?.latitude = "\(self.currentLocation.coordinate.latitude)"
-            if port2G != nil && connect2G != "" {
+      if port2G != nil && connect2G != "" {
         if pulse != nil {
           // send only is pulse if off or azimuthPass is on
           if pulse! == false {

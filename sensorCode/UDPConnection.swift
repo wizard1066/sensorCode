@@ -301,7 +301,8 @@ class connect: NSObject {
   var word: String?
   
   func pulseUDP2(_ content: pulser2) {
-    
+    let X = Date()
+    print("X",X)
     // put this in cause speaking will send multiple copies of the same word
     do {
       let encoder = JSONEncoder()
