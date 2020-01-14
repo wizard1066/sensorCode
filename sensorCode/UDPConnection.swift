@@ -301,14 +301,14 @@ class connect: NSObject {
   var word: String?
   
   func pulseUDP2(_ content: pulser2) {
-    let X = Date()
-    print("X",X)
+
     let epoch = String(Int(NSDate().timeIntervalSince1970))
-    superRec2.id = epoch
+
     // put this in cause speaking will send multiple copies of the same word
     do {
       let encoder = JSONEncoder()
       var newContent = content
+      newContent.id = epoch
       if newContent.word == word {
         if variable! {
           newContent.word = nil
