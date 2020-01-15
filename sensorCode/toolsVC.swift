@@ -61,6 +61,8 @@ class toolsVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    communications?.sendUDP(mode!)
+    
     if raw! {
       format(tag: rawTag, text: "TRUE")
     } else {

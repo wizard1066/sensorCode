@@ -225,9 +225,27 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
         mainLabel.isUserInteractionEnabled = true
         mainLabel.numberOfLines = 0
   }
+  
+  @objc func pulseChanged(sender:Notification) {
+    print("sender ",sender.userInfo)
+    if let state = sender.userInfo?["pulseBool"] as? Bool {
+      print("state ",state)
+      locationBPass.isHidden = state
+      locationBPass.isEnabled = !state
+      mainLabel.isHidden = state
+      mainText.isHidden = state
+    }
+    
+  }
+      
+      
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let nc = NotificationCenter.default
+    nc.addObserver(self, selector: #selector(pulseChanged), name: Notification.Name("pulseChanged"), object: nil)
+    
     setupTaps()
     let passTap = customTap(target: self, action: #selector(toolsVC.showTap(sender:)))
     passTap.sender = "True changes the default behaviour of PULSE, will send additional data if changes seen."

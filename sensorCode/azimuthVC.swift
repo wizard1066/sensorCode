@@ -190,9 +190,24 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
         }
       })
     }
+    
+  @objc func pulseChanged(sender:Notification) {
+    print("sender ",sender.userInfo)
+    if let state = sender.userInfo?["pulseBool"] as? Bool {
+      print("state ",state)
+      azimuthBPass.isHidden = state
+      bPassLabel.isHidden = state
+      bPassText.isHidden = state
+      azimuthBPass.isEnabled = !state
+    }
+    
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    let nc = NotificationCenter.default
+    nc.addObserver(self, selector: #selector(pulseChanged), name: Notification.Name("pulseChanged"), object: nil)
     
     let passTap = customTap(target: self, action: #selector(azimuthVC.showTap(sender:)))
 //    let passTap = customTap(target: self, action: #selector(azimuthVC.debug(sender:)))

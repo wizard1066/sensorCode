@@ -710,11 +710,18 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       }
       if pulseTimer != nil && pulse == false {
         pulseTimer?.invalidate()
+        pulseTimer = nil
+        let nc = NotificationCenter.default
+        let userInfo:[String:Bool] = ["pulseBool":true]
+        nc.post(name: Notification.Name("pulseChanged"), object: nil, userInfo: userInfo)
       }
       if pulseTimer == nil && pulse == true {
         self.pulseTimer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
           communications?.pulseUDP2(superRec2)
         }
+        let nc = NotificationCenter.default
+        let userInfo:[String:Bool] = ["pulseBool":false]
+        nc.post(name: Notification.Name("pulseChanged"), object: nil, userInfo: userInfo)
       }
       definePulse()
   }
