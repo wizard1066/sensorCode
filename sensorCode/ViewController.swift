@@ -27,6 +27,7 @@ protocol running {
 protocol lostLink {
   func sendAlert(error: String)
   func incoming(ipaddr: String)
+  func outgoing(ipaddr: String)
 }
 
 enum views2G: Int {
@@ -41,10 +42,13 @@ enum views2G: Int {
 }
 
 class ViewController: UIViewController, speaker, transaction, spoken, setty, running, lostLink {
+  func outgoing(ipaddr: String) {
+    let tmp = sendingOutlet.text
+    sendingOutlet.text = ipaddr + ":" + tmp!
+  }
+  
   func incoming(ipaddr: String) {
-    
     DispatchQueue.main.async {
-      
       self.recievingOutlet.text = ipaddr
       self.recievingOutlet.isHidden = false
       self.recieve.isHidden = false
@@ -200,6 +204,9 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
  
   var blinkStatus:Bool?
   var once: Bool = false
+  
+  @IBOutlet weak var highImage: UIImageView!
+  @IBOutlet weak var lowImage: UIImageView!
 
   @IBOutlet weak var voiceTag: UILabel!
   @IBOutlet weak var motionTag: UILabel!
@@ -522,7 +529,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     let rad2:CGFloat = 8
     
-    highMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
+//    highMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
     
     motionID.layer.borderWidth = 1
     motionID.layer.cornerRadius = rad2
@@ -564,15 +571,17 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     let rad:CGFloat = 25
     let wid:CGFloat = 2
     
-    highMoreBO.layer.borderWidth = wid
+    highMoreBO.layer.borderWidth = 2
     highMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
     highMoreBO.clipsToBounds = true
-    highMoreBO.layer.cornerRadius = rad
+    highMoreBO.layer.cornerRadius = 22
     
-    lowMoreBO.layer.borderWidth = wid
+    lowMoreBO.layer.borderWidth = 2
     lowMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
     lowMoreBO.clipsToBounds = true
-    lowMoreBO.layer.cornerRadius = rad
+    lowMoreBO.layer.cornerRadius = 22
+    
+    
     
     azimuthBOutlet.layer.borderWidth = wid
     azimuthBOutlet.layer.borderColor = UIColor.black.cgColor
@@ -1096,6 +1105,8 @@ func secondJump() {
       infoText!.adjustsFontForContentSizeCategory = true
       
       highMoreBO.sendActions(for: .touchUpInside)
+      highImage.alpha = 0.5
+      highImage.image = UIImage(named:"down")
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
         self.motionBOutlet.grow()
         self.motionTag.isHidden = false
@@ -1104,7 +1115,10 @@ func secondJump() {
         self.locationBOutlet.grow()
         self.locationTag.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+          self.highImage.image = nil
           self.lowMoreBO.sendActions(for: .touchUpInside)
+          self.lowImage.alpha = 0.5
+          self.lowImage.image = UIImage(named:"up")
           DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
             self.proximityBOutlet.grow()
             self.proximityTag.isHidden = false
@@ -1115,6 +1129,7 @@ func secondJump() {
             DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
               self.infoText!.text = ""
               self.firstShow = false
+              self.lowImage.image = nil
 //              if pulse! {
 ////                self.pulseTimer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
 ////                  communications?.pulseUDP2(superRec2)
@@ -1181,8 +1196,9 @@ func secondJump() {
                   DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                       let hostUDPx = NWEndpoint.Host.init(connect2G!)
                       let portUDPx = NWEndpoint.Port.init(String(port2G!))
+                      communications?.missing = self
                       communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
-                      communications?.sendUDP(mode!)
+//                      communications?.sendUDP(mode!)
                   })
                 }))
                 alert.addAction(UIAlertAction(title: "Goto Settings", style: .default, handler: { action in
@@ -1315,7 +1331,9 @@ func secondJump() {
         nextViewController.tag = views2G.gear.rawValue
         nextViewController.feeder = self
         nextViewController.status = self
-        communications?.missing = nextViewController
+        nextViewController.master = self
+//        communications?.missing = nextViewController
+        communications?.missing = self
         strongGear = nextViewController
         
       }
@@ -1360,6 +1378,8 @@ func secondJump() {
         
       }
     }
+    
+    
     
     
   }

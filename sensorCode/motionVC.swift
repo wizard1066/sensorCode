@@ -10,6 +10,10 @@ import UIKit
 import CoreMotion
 
 class motionVC: UIViewController, lostLink {
+  func outgoing(ipaddr: String) {
+    // ignore
+  }
+  
   func incoming(ipaddr: String) {
     // ignore
   }

@@ -10,6 +10,10 @@ import UIKit
 import Speech
 
 class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, lostLink {
+  func outgoing(ipaddr: String) {
+    // ignore
+  }
+  
   func incoming(ipaddr: String) {
     // ignore
   }

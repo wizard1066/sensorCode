@@ -13,6 +13,10 @@ import AVFoundation
 
 
 class voiceVC: UIViewController, lostLink {
+  func outgoing(ipaddr: String) {
+    // ignore
+  }
+  
   func incoming(ipaddr: String) {
     // ignore
   }

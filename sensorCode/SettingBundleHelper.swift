@@ -67,7 +67,9 @@ class SettingsBundleHelper {
       defaults.set(false, forKey: ap.raw.rawValue)
       precision = "2"
       refreshRate = "0.1"
-      
+    } else {
+      defaults.set(true, forKey: ap.fast.rawValue)
+      fastStart = true
     }
     
     mode = settings(rw: raw?.description, pe: pulse?.description, ve: variable?.description, re: refreshRate?.description, pn: precision?.description, ao: autoClose?.description, ft: fastStart?.description)

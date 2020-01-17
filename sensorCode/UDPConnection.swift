@@ -27,12 +27,14 @@ class connect: NSObject {
     do {
       let port = NWEndpoint.Port.init(port2G!.description)
       self.listen = try NWListener(using: .udp, on: port!)
-      self.listen?.service = NWListener.Service(name: "_sensorCode", type: "_tc._udp", domain: nil, txtRecord: nil)
+      self.listen?.service = NWListener.Service(name: "_sensorCode", type: "_tc._udp")
       
       self.listen?.stateUpdateHandler = {(newState) in
         switch newState {
         case .ready:
           print("Server ready.")
+          let debug = self.listen?.service?.debugDescription
+          print("debug ",debug)
         case .failed(let error):
           print("Server failure, error: \(error.localizedDescription)")
           exit(EXIT_FAILURE)
@@ -40,13 +42,19 @@ class connect: NSObject {
           break
         }
       }
+      
+      
       self.listen?.newConnectionHandler = {(newConnection) in
         newConnection.stateUpdateHandler = {newState in
           switch newState {
           case .ready:
-            self.receive(on: newConnection)
             print("newConnection", newConnection.endpoint, newConnection.currentPath?.localEndpoint)
-            self.missing?.incoming(ipaddr: (newConnection.currentPath?.localEndpoint!.debugDescription)!)
+            let localEndPoint = (newConnection.currentPath?.localEndpoint!.debugDescription)!
+            let remoteEndPoint = (newConnection.currentPath?.remoteEndpoint!.debugDescription)!
+            
+            self.missing?.incoming(ipaddr: localEndPoint + ":" + remoteEndPoint)
+            
+            self.receive(on: newConnection)
           case .failed(let error):
             print("client failed with error: \(error)")
           case .cancelled:
@@ -112,6 +120,10 @@ class connect: NSObject {
     
     
     
+    
+    
+    
+    
     let messageToUDP = simple(online:"online")
     
     self.connection?.viabilityUpdateHandler = { (isViable) in
@@ -128,10 +140,18 @@ class connect: NSObject {
     
     self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
     self.connection?.parameters.prohibitedInterfaceTypes = [ .cellular ]
+    
+    
+    
+    if let ipOptions = self.connection?.parameters.defaultProtocolStack.internetProtocol as? NWProtocolIP.Options {
+      ipOptions.version = .v4
+    }
+
     self.connection?.stateUpdateHandler = { (newState) in
       
       switch (newState) {
       case .ready:
+        self.missing?.outgoing(ipaddr: (self.connection?.currentPath?.localEndpoint!.debugDescription)!)
         break
       //        self.sendUDP(messageToUDP)
       //                self.receiveUDP()
@@ -302,12 +322,13 @@ class connect: NSObject {
   
   func pulseUDP2(_ content: pulser2) {
 
-    let epoch = String(Int(NSDate().timeIntervalSince1970))
+    let epoch = String(Int(NSDate().timeIntervalSince1970), radix: 16 , uppercase: false)
 
     // put this in cause speaking will send multiple copies of the same word
     do {
       let encoder = JSONEncoder()
       var newContent = content
+      print("middleMan",epoch)
       newContent.id = epoch
       if newContent.word == word {
         if variable! {

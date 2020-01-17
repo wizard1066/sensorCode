@@ -9,6 +9,10 @@
 import UIKit
 
 class proximityVC: UIViewController, lostLink {
+  func outgoing(ipaddr: String) {
+    // ignire
+  }
+  
   func incoming(ipaddr: String) {
     // ignore
   }

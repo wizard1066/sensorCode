@@ -10,6 +10,10 @@ import UIKit
 import CoreLocation
 
 class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
+  func outgoing(ipaddr: String) {
+    // ignore
+  }
+  
   func incoming(ipaddr: String) {
     // ignore
   }

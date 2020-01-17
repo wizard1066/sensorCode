@@ -15,6 +15,10 @@ protocol setty {
 }
 
 class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, lostLink {
+  func outgoing(ipaddr: String) {
+    // ignore
+  }
+  
   func incoming(ipaddr: String) {
     // ignore
   }
@@ -28,6 +32,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
   var tag:Int?
   var feeder:setty?
   var status:running?
+  var master:ViewController?
   
 //  @IBOutlet weak var settingsSV: UIStackView!
   @IBOutlet weak var textSV: UIStackView!
@@ -114,8 +119,10 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
        let ipp = portNumber!.text!
        let hostUDPx = NWEndpoint.Host.init(ipa)
        let portUDPx = NWEndpoint.Port.init(ipp)
+       
+       communications?.missing = master
        communications?.connectToUDP(hostUDP: hostUDPx, portUDP: portUDPx!)
-      communications?.sendUDP(mode!)
+//      communications?.sendUDP(mode!)
     }
   }
   
@@ -183,7 +190,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       connectBSwitch.setOn(true, animated: true)
     }
     connectBSwitch.grow()
-    communications?.missing = self
+    communications?.missing = master
     
     let rad:CGFloat = 32
     
@@ -494,6 +501,12 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
       
       if !fastStart! && port2G != nil {
         spoonFeed(textFeed: "Wait, before you go. Load a wallpaper thru the icons below. Double tap to dismiss it and shake your iphone to bring it back.")
+      } else {
+        self.cameraIcon.isEnabled = true
+        self.pictureIcon.isEnabled = true
+        self.backButton.blinkText()
+        self.cameraIcon.grow()
+        self.pictureIcon.grow()
       }
       if port2G == nil || ipAddress == nil {
         spoonFeed(textFeed: "YOU MUST enter an IP address AND a Port number for this to work.")

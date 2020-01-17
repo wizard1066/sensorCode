@@ -9,6 +9,10 @@
 import UIKit
 
 class photoViewController: UIViewController, lostLink {
+  func outgoing(ipaddr: String) {
+    // ignore
+  }
+  
   func incoming(ipaddr: String) {
     // ignore
   }
