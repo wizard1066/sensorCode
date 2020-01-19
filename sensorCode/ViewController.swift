@@ -43,9 +43,15 @@ enum views2G: Int {
 }
 
 class ViewController: UIViewController, speaker, transaction, spoken, setty, running, lostLink, UIScrollViewDelegate {
+
+  private var neverSet = true
+  
   func outgoing(ipaddr: String) {
-    let tmp = sendingOutlet.text
-    sendingOutlet.text = ipaddr + ":" + tmp!
+    if neverSet {
+      let tmp = sendingOutlet.text
+      sendingOutlet.text = ipaddr + ":" + tmp!
+      neverSet = false
+    }
   }
   
   func incoming(ipaddr: String) {
@@ -124,6 +130,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
 
   func returnPostNHost(port: String, host: String) {
     DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
+   
       self.sendingOutlet.isHidden = false
       self.connectTag.text = "connect"
       self.sendingOutlet.text = host + ":" + port

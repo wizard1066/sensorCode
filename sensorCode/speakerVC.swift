@@ -88,7 +88,8 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
         
         if port2G == nil {
           port2G = 49152
-        }
+        } 
+      
 
         
         let voices = AVSpeechSynthesisVoice.speechVoices()
