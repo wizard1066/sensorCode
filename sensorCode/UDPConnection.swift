@@ -22,6 +22,8 @@ class connect: NSObject {
   var listen: NWListener?
   var spoken: speaker?
   var missing: lostLink?
+  var localEndPoint: String?
+  var remoteEndPoint: String?
   
   func listenUDP() {
     do {
@@ -43,16 +45,17 @@ class connect: NSObject {
         }
       }
       
+
       
       self.listen?.newConnectionHandler = {(newConnection) in
         newConnection.stateUpdateHandler = {newState in
           switch newState {
           case .ready:
             print("newConnection", newConnection.endpoint, newConnection.currentPath?.localEndpoint)
-            let localEndPoint = (newConnection.currentPath?.localEndpoint!.debugDescription)!
-            let remoteEndPoint = (newConnection.currentPath?.remoteEndpoint!.debugDescription)!
+            self.localEndPoint = (newConnection.currentPath?.localEndpoint!.debugDescription)!
+            self.remoteEndPoint = (newConnection.currentPath?.remoteEndpoint!.debugDescription)!
             
-            self.missing?.incoming(ipaddr: localEndPoint + ":" + remoteEndPoint)
+            self.missing?.incoming(ipaddr: "T:" + self.localEndPoint! + ":" + self.remoteEndPoint!)
             
             self.receive(on: newConnection)
           case .failed(let error):
@@ -114,6 +117,11 @@ class connect: NSObject {
   }
   
 //  func connectToUDP(hostUDP:NWEndpoint.Host,portUDP:NWEndpoint.Port) {
+
+  func returnEndPoints() -> (String?,String?) {
+    return (localEndPoint,remoteEndPoint)
+  }
+
   func connectToUDP(hostUDP:NWEndpoint.Host,portUDP:NWEndpoint.Port) {
     hostX = hostUDP
     portX = portUDP
@@ -151,10 +159,12 @@ class connect: NSObject {
       
       switch (newState) {
       case .ready:
-        self.missing?.outgoing(ipaddr: (self.connection?.currentPath?.localEndpoint!.debugDescription)!)
-        break
-      //        self.sendUDP(messageToUDP)
+        self.localEndPoint = (self.connection?.currentPath?.localEndpoint!.debugDescription)!
+        self.missing?.outgoing(ipaddr: "C:" + self.localEndPoint!)
+        let messageToUDP = simple(online:self.localEndPoint!)
+        self.sendUDP(messageToUDP)
       //                self.receiveUDP()
+        
       case .setup:
         print("State: Setup\n")
       case .cancelled:

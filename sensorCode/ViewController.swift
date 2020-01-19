@@ -39,9 +39,10 @@ enum views2G: Int {
   case proximity = 5
   case speaker = 6
   case light = 7
+  case connect = 8
 }
 
-class ViewController: UIViewController, speaker, transaction, spoken, setty, running, lostLink {
+class ViewController: UIViewController, speaker, transaction, spoken, setty, running, lostLink, UIScrollViewDelegate {
   func outgoing(ipaddr: String) {
     let tmp = sendingOutlet.text
     sendingOutlet.text = ipaddr + ":" + tmp!
@@ -51,7 +52,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     DispatchQueue.main.async {
       self.recievingOutlet.text = ipaddr
       self.recievingOutlet.isHidden = false
-      self.recieve.isHidden = false
+//      self.recieve.isHidden = false
     }
   }
   
@@ -81,6 +82,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         talkID.backgroundColor = .systemRed
       case views2G.gear.rawValue:
         connectTag.noblinkText(tag: views2G(rawValue: label)!)
+        connectID.backgroundColor = .systemRed
       case views2G.light.rawValue:
         lightTag.noblinkText(tag: views2G(rawValue: label)!)
         lightID.backgroundColor = .systemRed
@@ -111,6 +113,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         talkID.backgroundColor = .systemGreen
       case views2G.gear.rawValue:
         connectTag.blinkText(tag: views2G(rawValue: label)!)
+        connectID.backgroundColor = .systemGreen
       case views2G.light.rawValue:
         lightTag.blinkText(tag: views2G(rawValue: label)!)
         lightID.backgroundColor = .systemGreen
@@ -122,8 +125,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   func returnPostNHost(port: String, host: String) {
     DispatchQueue.main.asyncAfter(deadline: .now() , execute: {
       self.sendingOutlet.isHidden = false
-      self.connectTag.isHidden = false
-      self.connectTag.text = "sending"
+      self.connectTag.text = "connect"
       self.sendingOutlet.text = host + ":" + port
     })
     displayButtons = true
@@ -137,6 +139,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
 
   @IBOutlet weak var inapp: UILabel!
   @IBOutlet weak var moreText: UILabel!
+  @IBOutlet weak var controls: UIStackView!
   
   var purchases:[String:Bool] = [:]
   var displayButtons = false
@@ -205,8 +208,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   var blinkStatus:Bool?
   var once: Bool = false
   
-  @IBOutlet weak var highImage: UIImageView!
-  @IBOutlet weak var lowImage: UIImageView!
+//  @IBOutlet weak var highImage: UIImageView!
+//  @IBOutlet weak var lowImage: UIImageView!
 
   @IBOutlet weak var voiceTag: UILabel!
   @IBOutlet weak var motionTag: UILabel!
@@ -222,7 +225,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var sendingOutlet: UILabel!
   @IBOutlet weak var recievingOutlet: UILabel!
 
-  @IBOutlet weak var recieve: UILabel!
+//  @IBOutlet weak var recieve: UILabel!
   
   
   @IBOutlet weak var stackviewDots: UIStackView!
@@ -243,6 +246,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   @IBOutlet weak var voiceID: UIButton!
   @IBOutlet weak var lightID: UIButton!
   @IBOutlet weak var talkID: UIButton!
+  @IBOutlet weak var connectID: UIButton!
   
   @IBAction func motionIDAction(_ sender: Any) {
     highMoreBO.sendActions(for: .touchUpInside)
@@ -257,26 +261,61 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     lowMoreBO.sendActions(for: .touchUpInside)
   }
   
+  var tweek = true
+  
+  @objc
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+     return true // IMPORTANT
+  }
+  
+  @objc func pan(sender: UIPanGestureRecognizer) {
+    var startCord: CGPoint?
+    var stopCord: CGPoint?
+
+    if sender.state == .began && tweek {
+      startCord = sender.location(in: self.view)
+      tweek = false
+      print("fuck")
+    }
+    if sender.state == .ended {
+      stopCord = sender.location(in: self.view)
+//      print("equa ",startCord!.y - stopCord!.y)
+    }
+  }
+  
   @objc func swipe(sender: UISwipeGestureRecognizer) {
     if sender.direction == .down {
-      highMoreBO.sendActions(for: .touchUpInside)
+      if sender.state == .ended {
+//        let now = cwindow.contentOffset
+//        if now.y + 128 < (cwindow.contentSize.height - 128) {
+//          cwindow.setContentOffset(CGPoint(x: 0, y: now.y + 128), animated: true)
+//        }
+        cwindow.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+      }
     }
     if sender.direction == .up {
-      lowMoreBO.sendActions(for: .touchUpInside)
+      if sender.state == .ended {
+//        let now = cwindow.contentOffset
+//        if now.y - 128 > -128 {
+//          cwindow.setContentOffset(CGPoint(x: 0, y: now.y - 128), animated: true)
+//        }
+        cwindow.setContentOffset(CGPoint(x: 0, y: cwindow.contentSize.height - 256), animated: true)
+      }
     }
   }
   
   
   @IBOutlet weak var highMoreBO: UIButton!
   @IBAction func highMoreB(_ sender: Any) {
-    self.lightBOutlet.isHidden = true
-    self.voiceBOutlet.isHidden = true
+//    self.lightBOutlet.isHidden = true
+//    self.voiceBOutlet.isHidden = true
     self.voiceID.layer.borderColor = UIColor.white.cgColor
     self.lightID.layer.borderColor = UIColor.white.cgColor
     self.lightTag.textColor = UIColor.darkGray
     self.voiceTag.textColor = UIColor.darkGray
     self.highMoreBO.isHidden = true
-    self.lowMoreBO.isHidden = false
+//    self.lowMoreBO.isHidden = false
     
     self.azimuthBOutlet.isHidden = false
     self.azimuthTag.textColor = UIColor.black
@@ -291,14 +330,14 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   
   @IBOutlet weak var lowMoreBO: UIButton!
   @IBAction func lowMoreBA(_ sender: Any) {
-    self.motionBOutlet.isHidden = true
-    self.azimuthBOutlet.isHidden = true
+//    self.motionBOutlet.isHidden = true
+//    self.azimuthBOutlet.isHidden = true
     self.motionID.layer.borderColor = UIColor.white.cgColor
     self.azimuthID.layer.borderColor = UIColor.white.cgColor
     self.motionTag.textColor = UIColor.darkGray
     self.azimuthTag.textColor = UIColor.darkGray
     self.lowMoreBO.isHidden = true
-    self.highMoreBO.isHidden = false
+//    self.highMoreBO.isHidden = false
     
     self.lightBOutlet.isHidden = false
     self.lightTag.textColor = UIColor.black
@@ -429,8 +468,8 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.motionBOutlet.alpha = 1
     self.gearBOutlet.alpha = 1
     self.lightBOutlet.alpha = 1
-    self.highMoreBO.isHidden = false
-    self.lowMoreBO.isHidden = false
+//    self.highMoreBO.isHidden = false
+//    self.lowMoreBO.isHidden = false
     self.proximityBOutlet.isHidden = false
     self.locationBOutlet.isHidden = false
   }
@@ -491,8 +530,25 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     self.present(alert, animated: true)
   }
   
+  var cwindow: UIScrollView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    cwindow = UIScrollView(frame: CGRect(x: self.view.bounds.midX - 64, y: self.view.bounds.midY - 128, width: controls.bounds.width + 64, height: 256))
+    cwindow.contentSize = CGSize(width: controls.bounds.width, height: 580)
+   
+    cwindow.isScrollEnabled = true
+    cwindow.isUserInteractionEnabled = true
+    cwindow.showsVerticalScrollIndicator = false
+    cwindow.showsHorizontalScrollIndicator = false
+    cwindow.delegate = self
+    cwindow.backgroundColor = .clear
+    cwindow.addSubview(controls)
+    cwindow.setContentOffset(CGPoint(x: 0, y: 160), animated: true)
+    self.view.addSubview(cwindow)
+    
+ 
     
 //    for family in UIFont.familyNames {
 //        print("\(family)")
@@ -541,6 +597,11 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     azimuthID.clipsToBounds = true
     azimuthID.layer.borderColor = UIColor.clear.cgColor
     
+    connectID.layer.borderWidth = 1
+    connectID.layer.cornerRadius = rad2
+    connectID.clipsToBounds = true
+    connectID.layer.borderColor = UIColor.clear.cgColor
+    
     locationID.layer.borderWidth = 1
     locationID.layer.cornerRadius = rad2
     locationID.clipsToBounds = true
@@ -571,32 +632,37 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     let rad:CGFloat = 25
     let wid:CGFloat = 2
     
-    highMoreBO.layer.borderWidth = 2
-    highMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
-    highMoreBO.clipsToBounds = true
-    highMoreBO.layer.cornerRadius = 22
-    
-    lowMoreBO.layer.borderWidth = 2
-    lowMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
-    lowMoreBO.clipsToBounds = true
-    lowMoreBO.layer.cornerRadius = 22
+//    highMoreBO.layer.borderWidth = 2
+//    highMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
+//    highMoreBO.clipsToBounds = true
+//    highMoreBO.layer.cornerRadius = 22
+//
+//    lowMoreBO.layer.borderWidth = 2
+//    lowMoreBO.layer.borderColor = UIColor.systemBlue.cgColor
+//    lowMoreBO.clipsToBounds = true
+//    lowMoreBO.layer.cornerRadius = 22
     
     
     
     azimuthBOutlet.layer.borderWidth = wid
     azimuthBOutlet.layer.borderColor = UIColor.black.cgColor
     azimuthBOutlet.clipsToBounds = true
-    azimuthBOutlet.layer.cornerRadius = rad
+    azimuthBOutlet.layer.cornerRadius = 30
+    
+    motionBOutlet.layer.borderWidth = wid
+    motionBOutlet.layer.borderColor = UIColor.black.cgColor
+    motionBOutlet.clipsToBounds = true
+    motionBOutlet.layer.cornerRadius = 30
     
     voiceBOutlet.layer.borderWidth = wid
     voiceBOutlet.layer.borderColor = UIColor.black.cgColor
     voiceBOutlet.clipsToBounds = true
-    voiceBOutlet.layer.cornerRadius = rad
+    voiceBOutlet.layer.cornerRadius = 30
     
     lightBOutlet.layer.borderWidth = wid
     lightBOutlet.layer.borderColor = UIColor.black.cgColor
     lightBOutlet.clipsToBounds = true
-    lightBOutlet.layer.cornerRadius = rad
+    lightBOutlet.layer.cornerRadius = 30
     
     speakerBOutlet.layer.borderWidth = wid
     speakerBOutlet.layer.borderColor = UIColor.black.cgColor
@@ -613,22 +679,19 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     proximityBOutlet.clipsToBounds = true
     proximityBOutlet.layer.cornerRadius = 30
     
-    motionBOutlet.layer.borderWidth = wid
-    motionBOutlet.layer.borderColor = UIColor.black.cgColor
-    motionBOutlet.clipsToBounds = true
-    motionBOutlet.layer.cornerRadius = rad
+
     
     let rad3:CGFloat = 33
     
     gearBOutlet.layer.borderWidth = wid
     gearBOutlet.layer.borderColor = UIColor.black.cgColor
     gearBOutlet.clipsToBounds = true
-    gearBOutlet.layer.cornerRadius = rad3
+    gearBOutlet.layer.cornerRadius = 33
     
     toolBOutlet.layer.borderWidth = wid
     toolBOutlet.layer.borderColor = UIColor.black.cgColor
     toolBOutlet.clipsToBounds = true
-    toolBOutlet.layer.cornerRadius = rad3
+    toolBOutlet.layer.cornerRadius = 36
     
     topMargin = view.safeAreaInsets.top
     leftMargin = view.safeAreaInsets.left + 20
@@ -674,7 +737,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       sendingOutlet.isHidden = true
       recievingOutlet.isHidden = true
       spokenText.isHidden = true
-      self.connectTag.isHidden = true
+//      self.connectTag.isHidden = true
     }
     
     definePulse()
@@ -898,7 +961,36 @@ func secondJump() {
         
       })
     })
+    
+  let swipeDemo = UIImageView(frame: CGRect(x: 72, y: 280, width: 50, height: 50))
+  swipeDemo.alpha = 0
+  swipeDemo.image = UIImage(named: "swipeA")
+  cwindow.addSubview(swipeDemo)
+  UIView.animate(withDuration: 2) {
+    swipeDemo.alpha = 0.8
   }
+  UIView.animate(withDuration: 3, animations: {
+    swipeDemo.transform = CGAffineTransform(translationX: 0, y: 64)
+  }) { (Good) in
+    UIView.animate(withDuration: 3, animations: {
+      swipeDemo.transform = CGAffineTransform(translationX: 0, y: -64)
+    }) { (Good) in
+      UIView.animate(withDuration: 3, animations: {
+        swipeDemo.transform = CGAffineTransform(translationX: 0, y: 64)
+      }) { (Good) in
+        UIView.animate(withDuration: 3, animations: {
+          swipeDemo.transform = .identity
+        }) { (Good) in
+          UIView.animate(withDuration: 2) {
+            swipeDemo.alpha = 0
+          }
+        }
+      }
+    }
+  }
+  }
+  
+  
   
   @objc func tapper(sender: Any) {
     UIView.animate(withDuration: 0.5) {
@@ -928,6 +1020,8 @@ func secondJump() {
       swipeU.direction = .up
       let swipeD = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
       swipeD.direction = .down
+//      let pan = UIPanGestureRecognizer(target: self, action: #selector(ViewController.pan))
+//      self.view.addGestureRecognizer(pan)
       self.view.addGestureRecognizer(swipeU)
       self.view.addGestureRecognizer(swipeD)
       showButtonBar()
@@ -1104,9 +1198,29 @@ func secondJump() {
       infoText!.font = UIFont(name: "Futura-CondensedMedium", size: 17)
       infoText!.adjustsFontForContentSizeCategory = true
       
-      highMoreBO.sendActions(for: .touchUpInside)
-      highImage.alpha = 0.5
-      highImage.image = UIImage(named:"down")
+      
+//      highImage.alpha = 0.5
+//      highImage.image = UIImage(named:"uswipeB")
+//      UIView.animate(withDuration: 1, animations: {
+//        self.highImage.transform = CGAffineTransform(translationX: 0, y: 128)
+//      }) { (blsh) in
+//        self.highImage.transform = .identity
+//        UIView.animate(withDuration: 1, animations: {
+//          self.highImage.transform = CGAffineTransform(translationX: 0, y: 128)
+//        }) { (blsh) in
+//          self.highImage.transform = .identity
+//          UIView.animate(withDuration: 1, animations: {
+//            self.highImage.transform = CGAffineTransform(translationX: 0, y: 128)
+//          }) { (blsh) in
+//            self.highImage.transform = .identity
+//            self.highMoreBO.sendActions(for: .touchUpInside)
+//            UIView.animate(withDuration: 2) {
+//                self.highImage.alpha = 0
+//            }
+//          }
+//        }
+//      }
+          
       DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
         self.motionBOutlet.grow()
         self.motionTag.isHidden = false
@@ -1114,11 +1228,29 @@ func secondJump() {
         self.azimuthTag.isHidden = false
         self.locationBOutlet.grow()
         self.locationTag.isHidden = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-          self.highImage.image = nil
-          self.lowMoreBO.sendActions(for: .touchUpInside)
-          self.lowImage.alpha = 0.5
-          self.lowImage.image = UIImage(named:"up")
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 4, execute: {
+  
+//          self.lowImage.alpha = 0.5
+//          self.lowImage.image = UIImage(named:"dswipeB")
+//          UIView.animate(withDuration: 1, animations: {
+//            self.lowImage.transform = CGAffineTransform(translationX: 0, y: -128)
+//          }) { (blsh) in
+//            self.lowImage.transform = .identity
+//            UIView.animate(withDuration: 1, animations: {
+//              self.lowImage.transform = CGAffineTransform(translationX: 0, y: -128)
+//            }) { (blsh) in
+//              self.lowImage.transform = .identity
+//              UIView.animate(withDuration: 1, animations: {
+//                self.lowImage.transform = CGAffineTransform(translationX: 0, y: -128)
+//              }) { (blsh) in
+//                self.lowImage.transform = .identity
+//                self.lowMoreBO.sendActions(for: .touchUpInside)
+//                UIView.animate(withDuration: 2) {
+//                  self.lowImage.alpha = 0
+//                }
+//              }
+//            }
+//          }
           DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
             self.proximityBOutlet.grow()
             self.proximityTag.isHidden = false
@@ -1126,15 +1258,10 @@ func secondJump() {
             self.lightTag.isHidden = false
             self.voiceBOutlet.grow()
             self.voiceTag.isHidden = false
-            DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.delay + 2, execute: {
               self.infoText!.text = ""
               self.firstShow = false
-              self.lowImage.image = nil
-//              if pulse! {
-////                self.pulseTimer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
-////                  communications?.pulseUDP2(superRec2)
-////                }
-//              }
+              
               if !fastStart! && self.remindme {
                 self.remindme = false
                 let textFeed = "Note the indicator on the right side listing all the sensors turns green and the text blinks when they are turned on."
