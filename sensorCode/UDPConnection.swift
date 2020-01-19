@@ -27,21 +27,25 @@ class connect: NSObject {
   
   func listenUDP() {
     do {
+//      print("port2G ",port2G,localEndPoint)
       let port = NWEndpoint.Port.init(port2G!.description)
-      self.listen = try NWListener(using: .udp, on: port!)
-      self.listen?.service = NWListener.Service(name: "_sensorCode", type: "_tc._udp")
+//      let port = NWEndpoint.Port.init("32767")
+      
+      self.listen = try NWListener(using: .udp, on: port! )
+//      self.listen?.parameters.requiredLocalEndpoint = .hostPort(host: "192.168.1.123", port: 32767)
+      self.listen?.service = NWListener.Service(name: "_sensorCode", type: "_tc._udp", domain: nil, txtRecord: nil)
       
       self.listen?.stateUpdateHandler = {(newState) in
         switch newState {
         case .ready:
           print("Server ready.")
-          let debug = self.listen?.service?.debugDescription
-          print("debug ",debug)
         case .failed(let error):
-          print("Server failure, error: \(error.localizedDescription)")
+          print("Failed Server failure, error: \(error.localizedDescription)")
           exit(EXIT_FAILURE)
+        case .waiting(let error):
+          print("Waiting Server failure, error: \(error.localizedDescription)")
         default:
-          break
+          print("No idea")
         }
       }
       
@@ -96,6 +100,10 @@ class connect: NSObject {
           self.toggleTorch(on: false)
           return
         }
+        if backToString == "32767" {
+          self.sendUDP(mode!)
+          return
+        }
         self.spoken?.speak(backToString, para: backToString)
       }
       connection.send(content: "ok".data(using: .utf8), completion: .contentProcessed({error in
@@ -120,6 +128,7 @@ class connect: NSObject {
 
   func returnEndPoints() -> (String?,String?) {
     return (localEndPoint,remoteEndPoint)
+//    return(nil,nil)
   }
 
   func connectToUDP(hostUDP:NWEndpoint.Host,portUDP:NWEndpoint.Port) {
@@ -151,9 +160,9 @@ class connect: NSObject {
     
     
     
-    if let ipOptions = self.connection?.parameters.defaultProtocolStack.internetProtocol as? NWProtocolIP.Options {
-      ipOptions.version = .v4
-    }
+//    if let ipOptions = self.connection?.parameters.defaultProtocolStack.internetProtocol as? NWProtocolIP.Options {
+//      ipOptions.version = .v4
+//    }
 
     self.connection?.stateUpdateHandler = { (newState) in
       
@@ -263,32 +272,6 @@ class connect: NSObject {
     }
   }
   
-//  func sendUDP(_ content: neighbours) {
-//    if pulse! { return }
-//    do {
-//      let encoder = JSONEncoder()
-//      let jsonData = try encoder.encode(content)
-//      let jsonString = String(data: jsonData, encoding: .utf8)!
-//      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
-//      sendUDP(contentToSendUDP!)
-//    } catch {
-//      print("error",error)
-//    }
-//  }
-//
-//  func sendUDP(_ content: voice) {
-//    if pulse! { return }
-//    do {
-//      let encoder = JSONEncoder()
-//      let jsonData = try encoder.encode(content)
-//      let jsonString = String(data: jsonData, encoding: .utf8)!
-//      let contentToSendUDP = jsonString.data(using: String.Encoding.utf8)
-//      sendUDP(contentToSendUDP!)
-//    } catch {
-//      print("error",error)
-//    }
-//  }
-  
   func sendUDP(_ content: fly) {
     if pulse! { return }
     do {
@@ -338,7 +321,7 @@ class connect: NSObject {
     do {
       let encoder = JSONEncoder()
       var newContent = content
-      print("middleMan",epoch)
+      
       newContent.id = epoch
       if newContent.word == word {
         if variable! {

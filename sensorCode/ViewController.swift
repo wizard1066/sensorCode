@@ -261,28 +261,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     lowMoreBO.sendActions(for: .touchUpInside)
   }
   
-  var tweek = true
-  
-  @objc
-  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-     return true // IMPORTANT
-  }
-  
-  @objc func pan(sender: UIPanGestureRecognizer) {
-    var startCord: CGPoint?
-    var stopCord: CGPoint?
 
-    if sender.state == .began && tweek {
-      startCord = sender.location(in: self.view)
-      tweek = false
-      print("fuck")
-    }
-    if sender.state == .ended {
-      stopCord = sender.location(in: self.view)
-//      print("equa ",startCord!.y - stopCord!.y)
-    }
-  }
   
   @objc func swipe(sender: UISwipeGestureRecognizer) {
     if sender.direction == .down {
@@ -1020,8 +999,7 @@ func secondJump() {
       swipeU.direction = .up
       let swipeD = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipe))
       swipeD.direction = .down
-//      let pan = UIPanGestureRecognizer(target: self, action: #selector(ViewController.pan))
-//      self.view.addGestureRecognizer(pan)
+
       self.view.addGestureRecognizer(swipeU)
       self.view.addGestureRecognizer(swipeD)
       showButtonBar()

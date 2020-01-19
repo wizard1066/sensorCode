@@ -60,7 +60,9 @@ class toolsVC: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    let (localEnd,remoteEnd) = communications?.returnEndPoints() ?? (nil,nil)
+    print("mode ",localEnd)
+    mode?.online = localEnd
     communications?.sendUDP(mode!)
     
     if raw! {

@@ -52,7 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     pulse = UserDefaults.standard.bool(forKey: ap.pulse.rawValue)
     raw = UserDefaults.standard.bool(forKey: ap.raw.rawValue)
     
-    mode = settings(rw: raw?.description, pe: pulse?.description, ve: variable?.description, re: refreshRate?.description, pn: precision?.description, ao: autoClose?.description, ft: fastStart?.description)
+    let (localEnd,remoteEnd) = (communications?.returnEndPoints())!
+    print("mode ",localEnd)
+    mode = settings(on: localEnd, rw: raw?.description, pe: pulse?.description, ve: variable?.description, re: refreshRate?.description, pn: precision?.description, ao: autoClose?.description, ft: fastStart?.description)
     communications?.sendUDP(mode!)
   }
 

@@ -108,6 +108,7 @@ struct pulser2: Codable {
 var superRec2: pulser2!
 
 struct settings: Codable {
+  var online: String?
   var raw:String?
   var pulse:String?
   var variable:String?
@@ -116,7 +117,7 @@ struct settings: Codable {
   var auto:String?
   var fast:String?
   
-  init(rw:String?, pe:String?, ve:String?, re:String?, pn:String?,ao:String?, ft:String?) {
+  init(on:String?, rw:String?, pe:String?, ve:String?, re:String?, pn:String?,ao:String?, ft:String?) {
     self.raw = rw
     self.pulse = pe
     self.variable = ve
@@ -124,6 +125,7 @@ struct settings: Codable {
     self.precision = pn
     self.auto = ao
     self.fast = ft
+    self.online = on
   }
 }
 
