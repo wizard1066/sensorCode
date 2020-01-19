@@ -69,7 +69,7 @@ class SettingsBundleHelper {
       refreshRate = "0.1"
     } else {
 //      defaults.set(true, forKey: ap.fast.rawValue)
-//      fastStart = true
+//      fastStart = false
     }
     
     let (localEnd,remoteEnd) = communications?.returnEndPoints() ?? (nil,nil)

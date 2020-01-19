@@ -28,7 +28,7 @@ var lightOff: String?
 
 var lastSwitch: UISwitch?
 
-var port2G: Int16?
+var port2G: Int32?
 var connect2G: String?
 var globalWord: String?
 var globalImage: UIImage?

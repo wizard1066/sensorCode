@@ -28,8 +28,8 @@ class connect: NSObject {
   func listenUDP() {
     do {
 //      print("port2G ",port2G,localEndPoint)
-      let port = NWEndpoint.Port.init(port2G!.description)
-//      let port = NWEndpoint.Port.init("32767")
+ //     let port = NWEndpoint.Port.init(port2G!.description)
+      let port = NWEndpoint.Port.init("49152")
       
       self.listen = try NWListener(using: .udp, on: port! )
 //      self.listen?.parameters.requiredLocalEndpoint = .hostPort(host: "192.168.1.123", port: 32767)
@@ -59,7 +59,7 @@ class connect: NSObject {
             self.localEndPoint = (newConnection.currentPath?.localEndpoint!.debugDescription)!
             self.remoteEndPoint = (newConnection.currentPath?.remoteEndpoint!.debugDescription)!
             
-            self.missing?.incoming(ipaddr: "T:" + self.localEndPoint! + ":" + self.remoteEndPoint!)
+            self.missing?.incoming(ipaddr: "T:" + self.remoteEndPoint! + ":" + self.localEndPoint!)
             
             self.receive(on: newConnection)
           case .failed(let error):
@@ -101,6 +101,7 @@ class connect: NSObject {
           return
         }
         if backToString == "32767" {
+          mode?.online = self.localEndPoint
           self.sendUDP(mode!)
           return
         }

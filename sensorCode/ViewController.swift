@@ -809,9 +809,9 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         
         introCurrent = introValue.second
         
-          page1.image = UIImage(named: "blackDot")
-          page2.image = UIImage(named: "whiteDot")
-          page3.image = UIImage(named: "whiteDot")
+          page1.image = UIImage(named: "black")
+          page2.image = UIImage(named: "white")
+          page3.image = UIImage(named: "white")
         
       }
       introText.addGestureRecognizer(swipeLeft)
@@ -853,9 +853,9 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         self.nextOutlet.blinkText()
         self.introText.text = "Access the data thru a common UDP port you define. Write code on your robot to capture and process data sent and received..."
         self.introCurrent = introValue.third
-          self.page1.image = UIImage(named: "whiteDot")
-          self.page2.image = UIImage(named: "blackDot")
-          self.page3.image = UIImage(named: "whiteDot")
+          self.page1.image = UIImage(named: "white")
+          self.page2.image = UIImage(named: "black")
+          self.page3.image = UIImage(named: "white")
         
       }
       
@@ -886,9 +886,9 @@ func secondJump() {
         self.introText.text = "Use the gear icon to get started. Azimuth, motion and voice are inapp purchases. Location, proximity and speaker are offered for free."
         self.introCurrent = introValue.all
         
-          self.page1.image = UIImage(named: "whiteDot")
-          self.page2.image = UIImage(named: "whiteDot")
-          self.page3.image = UIImage(named: "blackDot")
+          self.page1.image = UIImage(named: "white")
+          self.page2.image = UIImage(named: "white")
+          self.page3.image = UIImage(named: "black")
         
       }
       
@@ -933,7 +933,7 @@ func secondJump() {
         
         UIView.animate(withDuration: 0.5) {
 //          self.topImage.alpha = 0
-          self.page3.image = UIImage(named: "whiteDot")
+          self.page3.image = UIImage(named: "white")
         }
         
         
@@ -981,7 +981,7 @@ func secondJump() {
 //              self.topImage.alpha = 0
               self.gearBOutlet.alpha = 1.0
               self.gearBOutlet.isEnabled = true
-              self.page3.image = UIImage(named: "whiteDot")
+              self.page3.image = UIImage(named: "white")
     //          self.voiceBOutlet.shake()
               
               
@@ -990,6 +990,7 @@ func secondJump() {
   
   @IBAction func unwindToRootViewController(segue: UIStoryboardSegue) {
     communications?.missing = self
+    nextOutlet.isHidden = true
     
     if displayButtons {
       proximityID.layer.borderColor = UIColor.white.cgColor
@@ -1396,9 +1397,9 @@ func secondJump() {
       if !fastStart! {
         self.introText.text = "Having configured your port, your free to choose any of six sensors you wish to send data to it"
       }
-        self.page1.image = UIImage(named: "whiteDot")
-        self.page2.image = UIImage(named: "whiteDot")
-        self.page3.image = UIImage(named: "whiteDot")
+        self.page1.image = UIImage(named: "white")
+        self.page2.image = UIImage(named: "white")
+        self.page3.image = UIImage(named: "white")
     })
     
     if segue.identifier == "motion" {

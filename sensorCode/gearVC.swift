@@ -484,7 +484,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
         self.skip = true
         view.endEditing(true)
         if ipAddress.text != "" && portNumber.text != "" {
-          port2G = Int16(portNumber.text!)
+          port2G = Int32(portNumber.text!)
           connect2G = ipAddress.text!
           UserDefaults.standard.set(connect2G, forKey: "IPA")
           UserDefaults.standard.set(port2G, forKey: "IPP")
@@ -582,7 +582,8 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
 //           connectLabel.isEnabled = false
            return
          } else {
-           if (Int(textField.text!)! < 1025) || (Int(textField.text!)! > Int16.max - 1) {
+            print("max ",Int32.max )
+           if (Int(textField.text!)! < 1025) || (Int(textField.text!)! > Int32.max - 1) {
              redo("Port numbers MUST be greater than 1024 and less than 32766")
 //             connectLabel.isEnabled = false
             

@@ -87,7 +87,7 @@ class speakerVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,
         super.viewDidLoad()
         
         if port2G == nil {
-          port2G = 32767
+          port2G = 49152
         }
 
         
