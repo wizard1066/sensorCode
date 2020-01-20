@@ -28,8 +28,8 @@ class connect: NSObject {
   func listenUDP() {
     do {
 //      print("port2G ",port2G,localEndPoint)
- //     let port = NWEndpoint.Port.init(port2G!.description)
-      let port = NWEndpoint.Port.init("49152")
+      let port = NWEndpoint.Port.init(port2G!.description)
+//      let port = NWEndpoint.Port.init("49152")
       
       self.listen = try NWListener(using: .udp, on: port! )
 //      self.listen?.parameters.requiredLocalEndpoint = .hostPort(host: "192.168.1.123", port: 32767)
@@ -157,12 +157,12 @@ class connect: NSObject {
     }
     
     self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
-    self.connection?.parameters.prohibitedInterfaceTypes = [ .cellular ]
+//    self.connection?.parameters.prohibitedInterfaceTypes = [ .cellular ]
     
     
     
 //    if let ipOptions = self.connection?.parameters.defaultProtocolStack.internetProtocol as? NWProtocolIP.Options {
-//      ipOptions.version = .v4
+//      ipOptions.version = .v 4
 //    }
 
     self.connection?.stateUpdateHandler = { (newState) in
@@ -173,8 +173,7 @@ class connect: NSObject {
         self.missing?.outgoing(ipaddr: "C:" + self.localEndPoint!)
         let messageToUDP = simple(online:self.localEndPoint!)
         self.sendUDP(messageToUDP)
-      //                self.receiveUDP()
-        
+
       case .setup:
         print("State: Setup\n")
       case .cancelled:
