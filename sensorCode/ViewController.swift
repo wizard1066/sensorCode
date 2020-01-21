@@ -1270,9 +1270,12 @@ func secondJump() {
                     self.moreText.text = self.moreText.text! + String(words[i])
                     if i == words.count - 1 {
                       timer.invalidate()
-                      UIView.animate(withDuration: 12) {
+                      UIView.animate(withDuration: 12, animations: {
                         self.moreText.alpha = 0
+                      }) { (fart) in
+                        self.moreText.isHidden = true
                       }
+                      
                     } else {
                       i = i + 1
                       

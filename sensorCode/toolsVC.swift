@@ -61,7 +61,7 @@ class toolsVC: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     let (localEnd,remoteEnd) = communications?.returnEndPoints() ?? (nil,nil)
-    print("mode ",localEnd)
+    
     mode?.online = localEnd
     communications?.sendUDP(mode!)
     
@@ -197,7 +197,7 @@ class toolsVC: UIViewController {
   }
   
   @objc func showPress(sender: Any) {
-    print("SP")
+    
     let tag = sender as? customLongPress
     let label = tag!.label as? UILabel
     let textFeed = tag!.sender as? String

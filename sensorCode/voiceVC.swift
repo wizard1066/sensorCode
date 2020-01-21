@@ -159,9 +159,9 @@ class voiceVC: UIViewController, lostLink {
   }
   
   @objc func pulseChanged(sender:Notification) {
-     print("sender ",sender.userInfo)
+     
      if let state = sender.userInfo?["pulseBool"] as? Bool {
-       print("state ",state)
+       
        voiceBPass.isHidden = state
        voiceBPass.isEnabled = !state
        mainLabel.isHidden = state
@@ -338,7 +338,7 @@ class voiceVC: UIViewController, lostLink {
      }
      
      @objc func showPress(sender: Any) {
-       print("SP")
+       
        let tag = sender as? customLongPress
        let label = tag!.label as? UILabel
        let textFeed = tag!.sender as? String

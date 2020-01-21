@@ -198,7 +198,7 @@ class proximityVC: UIViewController, lostLink {
       }
       
       @objc func showPress(sender: Any) {
-        print("SP")
+        
         let tag = sender as? customLongPress
         let label = tag!.label as? UILabel
         let textFeed = tag!.sender as? String

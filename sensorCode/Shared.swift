@@ -82,9 +82,9 @@ struct fly:Codable {
 
 
 struct simple:Codable {
-  var online:String
-  init(online: String) {
-    self.online = online
+  var iphone:String
+  init(iphone: String) {
+    self.iphone = iphone
   }
 }
 

@@ -142,7 +142,7 @@ class connect: NSObject {
     
     
     
-    let messageToUDP = simple(online:"online")
+//    let messageToUDP = simple(online:"iphone")
     
     self.connection?.viabilityUpdateHandler = { (isViable) in
       if (!isViable) {
@@ -171,7 +171,7 @@ class connect: NSObject {
       case .ready:
         self.localEndPoint = (self.connection?.currentPath?.localEndpoint!.debugDescription)!
         self.missing?.outgoing(ipaddr: "C:" + self.localEndPoint!)
-        let messageToUDP = simple(online:self.localEndPoint!)
+        let messageToUDP = simple(iphone:self.localEndPoint!)
         self.sendUDP(messageToUDP)
 
       case .setup:

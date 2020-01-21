@@ -182,9 +182,9 @@ var motionManager: CMMotionManager?
   }
   
   @objc func pulseChanged(sender:Notification) {
-    print("sender ",sender.userInfo)
+    
     if let state = sender.userInfo?["pulseBool"] as? Bool {
-      print("state ",state)
+      
       motionBPass.isHidden = state
       motionBPass.isEnabled = !state
       mainLabel.isHidden = state
@@ -273,7 +273,7 @@ var motionManager: CMMotionManager?
     }
     
     @objc func showPress(sender: Any) {
-      print("SP")
+      
       let tag = sender as? customLongPress
       let label = tag!.label as? UILabel
       let textFeed = tag!.sender as? String
