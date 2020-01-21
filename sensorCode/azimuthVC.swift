@@ -75,13 +75,14 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
     if sender.isOn {
       turnOn()
     } else {
+//      superRec = superRec2
       directionManager?.stopUpdatingHeading()
       if variable! {
-        superRec2?.direction?.magneticNorth = nil
-        superRec2?.direction?.trueNorth = nil
+        let rex = globe(trueNorth: nil, magneticNorth: nil)
+        superRec2?.direction = rex
       } else {
-        superRec2?.direction?.magneticNorth = ""
-        superRec2?.direction?.trueNorth = ""
+        let rex = globe(trueNorth: "", magneticNorth: "")
+        superRec2?.direction = rex
       }
     }
   }
@@ -294,18 +295,17 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
       trueNorthOutlet.text = tNValue
       magneticNorthOutlet.text = mNValue
     }
-    
-    superRec2?.direction?.magneticNorth = mNValue
-    superRec2?.direction?.trueNorth = tNValue
+    let rex = globe(trueNorth: tNValue, magneticNorth: mNValue)
+    superRec2?.direction = rex
     
     if port2G != nil && connect2G != "" {
       if pulse != nil {
         // send only is pulse if off or azimuthPass is on
         if pulse! == false {
-          communications?.pulseUDP2(superRec2)
+          communications?.pulseUDP2(superRec2!)
         }
         if pulse! == true && azimuthBPass.isOn {
-          communications?.pulseUDP2(superRec2)
+          communications?.pulseUDP2(superRec2!)
         }
       }
     }

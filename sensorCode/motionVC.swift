@@ -36,19 +36,18 @@ var motionManager: CMMotionManager?
     if sender.isOn {
       turnOn()
     } else {
+//      superRec = superRec2
       if motionManager != nil {
         if motionManager!.isAccelerometerAvailable {
           motionManager?.stopAccelerometerUpdates()
         }
       }
       if variable! {
-        superRec2?.movement?.roll = nil
-        superRec2?.movement?.pitch = nil
-        superRec2?.movement?.yaw = nil
+        let rex = fly(roll: nil, pitch: nil, yaw: nil)
+        superRec2?.movement = rex
       } else {
-        superRec2?.movement?.roll = ""
-        superRec2?.movement?.pitch = ""
-        superRec2?.movement?.yaw = ""
+        let rex = fly(roll: "", pitch: "", yaw: "")
+        superRec2?.movement = rex
       }
     }
   }
@@ -70,9 +69,8 @@ var motionManager: CMMotionManager?
     let rN = String(format:"%.\(precision!)f",data.acceleration.x)
     let pN = String(format:"%.\(precision!)f",data.acceleration.y)
     let yN = String(format:"%.\(precision!)f",data.acceleration.z)
-    superRec2?.movement?.roll = rN
-    superRec2?.movement?.pitch = pN
-    superRec2?.movement?.yaw = yN
+    let rex = fly(roll: rN, pitch: pN, yaw: yN)
+    superRec2?.movement = rex
     if lastRoll == rN && lastPitch == pN && lastYaw == yN {
       return
     }
@@ -83,10 +81,10 @@ var motionManager: CMMotionManager?
       if pulse != nil {
         // send only is pulse if off or azimuthPass is on
         if pulse! == false {
-          communications?.pulseUDP2(superRec2)
+          communications?.pulseUDP2(superRec2!)
         }
         if pulse! == true && motionBPass.isOn {
-          communications?.pulseUDP2(superRec2)
+          communications?.pulseUDP2(superRec2!)
         }
       }
     }

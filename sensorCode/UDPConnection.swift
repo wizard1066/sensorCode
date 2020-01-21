@@ -35,6 +35,7 @@ class connect: NSObject {
 //      self.listen?.parameters.requiredLocalEndpoint = .hostPort(host: "192.168.1.123", port: 32767)
       self.listen?.service = NWListener.Service(name: "_sensorCode", type: "_tc._udp", domain: nil, txtRecord: nil)
       
+      
       self.listen?.stateUpdateHandler = {(newState) in
         switch newState {
         case .ready:
@@ -49,8 +50,6 @@ class connect: NSObject {
         }
       }
       
-
-      
       self.listen?.newConnectionHandler = {(newConnection) in
         newConnection.stateUpdateHandler = {newState in
           switch newState {
@@ -60,12 +59,13 @@ class connect: NSObject {
             self.remoteEndPoint = (newConnection.currentPath?.remoteEndpoint!.debugDescription)!
             
             self.missing?.incoming(ipaddr: "T:" + self.remoteEndPoint! + ":" + self.localEndPoint!)
-            
             self.receive(on: newConnection)
+          
           case .failed(let error):
             print("client failed with error: \(error)")
           case .cancelled:
             print("Cancelled connection")
+          
           default:
             break
           }
@@ -82,6 +82,7 @@ class connect: NSObject {
     self.listen?.cancel()
   }
   
+  
   func receive(on connection: NWConnection) {
     
     connection.receiveMessage { (data, context, isComplete, error) in
@@ -91,18 +92,13 @@ class connect: NSObject {
       }
       if let data = data, !data.isEmpty {
         let backToString = String(decoding: data, as: UTF8.self)
-//        print("context",context?.protocolMetadata)
+        print("b2s ",backToString)
         if backToString == lightOn {
           self.toggleTorch(on: true)
           return
         }
         if backToString == lightOff {
           self.toggleTorch(on: false)
-          return
-        }
-        if backToString == "32767" {
-          mode?.online = self.localEndPoint
-          self.sendUDP(mode!)
           return
         }
         self.spoken?.speak(backToString, para: backToString)
@@ -226,6 +222,7 @@ class connect: NSObject {
   }
   
   func sendUDP(_ content: String) {
+    print("sendUDP ",content)
     if pulse! { return }
     do {
       let encoder = JSONEncoder()

@@ -62,7 +62,7 @@ class toolsVC: UIViewController {
     super.viewDidLoad()
     let (localEnd,remoteEnd) = communications?.returnEndPoints() ?? (nil,nil)
     
-    mode?.online = localEnd
+    mode?.iphone = localEnd
     communications?.sendUDP(mode!)
     
     if raw! {

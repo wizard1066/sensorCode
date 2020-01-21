@@ -775,7 +775,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
       }
       if pulseTimer == nil && pulse == true {
         self.pulseTimer = Timer.scheduledTimer(withTimeInterval: refreshRate!.doubleValue, repeats: true) { (timer) in
-          communications?.pulseUDP2(superRec2)
+          communications?.pulseUDP2(superRec2!)
         }
         let nc = NotificationCenter.default
         let userInfo:[String:Bool] = ["pulseBool":false]

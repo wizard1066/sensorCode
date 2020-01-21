@@ -105,6 +105,7 @@ class voiceVC: UIViewController, lostLink {
     if sender.isOn {
       turnOn()
     } else {
+//      superRec = superRec2
       stopRecording()
     }
   }
@@ -268,7 +269,7 @@ class voiceVC: UIViewController, lostLink {
             globalWord = word
             self.said?.wordUsed(word2D: word)
             if port2G != nil && connect2G != "" {
-              superRec2.word = word
+              superRec2?.word = word
               if word == lightOn {
                 self.toggleTorch(on: true)
               }
@@ -278,18 +279,18 @@ class voiceVC: UIViewController, lostLink {
               if pulse != nil {
                 // send only is pulse if off or azimuthPass is on
                 if pulse! == false {
-                  communications?.pulseUDP2(superRec2)
+                  communications?.pulseUDP2(superRec2!)
                 }
                 if pulse! == true && self.voiceBPass.isOn {
-                  communications?.pulseUDP2(superRec2)
+                  communications?.pulseUDP2(superRec2!)
                 }
               }
             }
           } else {
             if variable! {
-              superRec2.word = nil
+              superRec2?.word = nil
             } else {
-              superRec2.word = ""
+              superRec2?.word = ""
             }
           }
           

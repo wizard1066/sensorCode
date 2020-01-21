@@ -105,10 +105,16 @@ struct pulser2: Codable {
   }
 }
 
-var superRec2: pulser2!
+var superRec:pulser2!
+//var superRec2:pulser2?
+var superRec2: pulser2? = nil {
+  didSet {
+    superRec = oldValue
+  }
+}
 
 struct settings: Codable {
-  var online: String?
+  var iphone: String?
   var raw:String?
   var pulse:String?
   var variable:String?
@@ -125,7 +131,7 @@ struct settings: Codable {
     self.precision = pn
     self.auto = ao
     self.fast = ft
-    self.online = on
+    self.iphone = on
   }
 }
 

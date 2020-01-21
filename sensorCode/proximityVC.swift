@@ -111,11 +111,12 @@ class proximityVC: UIViewController, lostLink {
     if sender.isOn {
       turnOn()
     } else {
+//      superRec = superRec2
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: nil)
       if variable! {
-        superRec2.proximity = nil
+        superRec2?.proximity = nil
       } else {
-        superRec2.proximity = "false"
+        superRec2?.proximity = "false"
       }
     }
   }
@@ -164,11 +165,11 @@ class proximityVC: UIViewController, lostLink {
        if let _ = notification.object as? UIDevice {
            if port2G != nil && connect2G != "" {
               if UIDevice.current.proximityState {
-                superRec2.proximity = "true"
+                superRec2?.proximity = "true"
               } else {
-                superRec2.proximity = "false"
+                superRec2?.proximity = "false"
             }
-            communications?.pulseUDP2(superRec2)
+            communications?.pulseUDP2(superRec2!)
             
            }
        }
