@@ -140,7 +140,7 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
     }
     
     @objc func showPress(sender: Any) {
-      print("SP")
+
       let tag = sender as? customLongPress
       let label = tag!.label as? UILabel
       let textFeed = tag!.sender as? String
@@ -196,9 +196,9 @@ class azimuthVC: UIViewController, CLLocationManagerDelegate, lostLink {
     }
     
   @objc func pulseChanged(sender:Notification) {
-    print("sender ",sender.userInfo)
+
     if let state = sender.userInfo?["pulseBool"] as? Bool {
-      print("state ",state)
+
       azimuthBPass.isHidden = state
       bPassLabel.isHidden = state
       bPassText.isHidden = state

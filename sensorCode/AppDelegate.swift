@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationDidEnterBackground(_ application: UIApplication) {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    print("applicationDidEnterBackground")
+//    print("applicationDidEnterBackground")
     
     communications?.disconnectUDP()
   }
@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     raw = UserDefaults.standard.bool(forKey: ap.raw.rawValue)
     
     let (localEnd,remoteEnd) = (communications?.returnEndPoints())!
-    print("mode ",localEnd)
+//    print("mode ",localEnd)
     mode = settings(on: localEnd, rw: raw?.description, pe: pulse?.description, ve: variable?.description, re: refreshRate?.description, pn: precision?.description, ao: autoClose?.description, ft: fastStart?.description)
     communications?.sendUDP(mode!)
   }

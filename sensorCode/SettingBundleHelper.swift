@@ -73,7 +73,7 @@ class SettingsBundleHelper {
     }
     
     let (localEnd,remoteEnd) = communications?.returnEndPoints() ?? (nil,nil)
-    print(localEnd)
+    
     mode = settings(on: localEnd, rw: raw?.description, pe: pulse?.description, ve: variable?.description, re: refreshRate?.description, pn: precision?.description, ao: autoClose?.description, ft: fastStart?.description)
     
     let ps = Double(precision!.doubleValue)

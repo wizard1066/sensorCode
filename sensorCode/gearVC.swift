@@ -582,7 +582,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
 //           connectLabel.isEnabled = false
            return
          } else {
-            print("max ",Int32.max )
+//            print("max ",Int32.max )
            if (Int(textField.text!)! < 1025) || (Int(textField.text!)! > Int32.max - 1) {
              redo("Port numbers MUST be greater than 1024 and less than 32766")
 //             connectLabel.isEnabled = false
@@ -592,7 +592,7 @@ class gearVC: UIViewController, UITextFieldDelegate, UIImagePickerControllerDele
          }
        }
        if textField == ipAddress {
-        print("textField")
+//        print("textField")
          if textField.text!.isEmpty {
            redo("You MUST enter an IP address")
 //           connectLabel.isEnabled = false

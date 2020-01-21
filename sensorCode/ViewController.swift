@@ -734,7 +734,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
   
   func definePulse() {
     let epoch = String(NSDate().timeIntervalSince1970)
-    print("epoch ",epoch)
+    
     if variable! {
       let superGPS = gps(latitude: nil, longitude: nil, altitude: nil)
       let superMOV = fly(roll: nil, pitch: nil, yaw: nil)
@@ -1342,7 +1342,7 @@ func secondJump() {
     }
     
     @objc func showPress(sender: Any) {
-      print("SP")
+      
       let tag = sender as? customLongPress
       let label = tag!.label as? UILabel
       let textFeed = tag!.sender as? String

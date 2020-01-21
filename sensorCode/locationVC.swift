@@ -119,7 +119,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
     locationManager!.startUpdatingLocation()
     showText(label: mainText, text: "Hang on, will take a few seconds to find you")
     DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: {
-    print("debug ",self.currentLocation.coordinate)
+    
     if self.currentLocation != nil {
     
       self.latitudeOutput.text = "\(self.currentLocation.coordinate.longitude.description)"
@@ -231,9 +231,9 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
   }
   
   @objc func pulseChanged(sender:Notification) {
-    print("sender ",sender.userInfo)
+    
     if let state = sender.userInfo?["pulseBool"] as? Bool {
-      print("state ",state)
+      
       locationBPass.isHidden = state
       locationBPass.isEnabled = !state
       mainLabel.isHidden = state
@@ -331,7 +331,7 @@ class locationVC: UIViewController, CLLocationManagerDelegate, lostLink {
     }
     
     @objc func showPress(sender: Any) {
-      print("SP")
+      
       let tag = sender as? customLongPress
       let label = tag!.label as? UILabel
       let textFeed = tag!.sender as? String
