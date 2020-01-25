@@ -20,11 +20,11 @@ enum IAPProduct: String {
 }
 
 enum IAPStatus: String {
-  case deferred = "Deferred"
-  case failed = "Failed"
-  case purchased = "Purchased"
-  case purchasing = "Purchasing"
-  case restored = "Restored"
+  case deferred = "deferred"
+  case failed = "failed"
+  case purchased = "purchased"
+  case purchasing = "purchasing"
+  case restored = "restored"
   case unknown = "unknown"
 }
 

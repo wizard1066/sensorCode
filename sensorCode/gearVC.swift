@@ -658,6 +658,7 @@ extension UIButton {
       } else {
         self.setTitleColor(colorRightNow, for: .normal)
         self.isHidden = false
+        self.alpha = 1
         timer.invalidate()
       }
     }

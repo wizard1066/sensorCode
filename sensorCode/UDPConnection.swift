@@ -311,8 +311,12 @@ class connect: NSObject {
   var word: String?
   
   func pulseUDP2(_ content: pulser2) {
-
-    let epoch = String(Int(NSDate().timeIntervalSince1970), radix: 16 , uppercase: false)
+    var epoch:String?
+    if !raw! {
+      epoch = String(Int(NSDate().timeIntervalSince1970), radix: 16 , uppercase: false)
+    } else {
+      epoch = String(Int(NSDate().timeIntervalSince1970))
+    }
 
     // put this in cause speaking will send multiple copies of the same word
     do {

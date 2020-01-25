@@ -143,7 +143,27 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     spokenText.text = word2D
   }
   
-
+  
+  @IBAction func restoreAction(_ sender: UIButton) {
+    DispatchQueue.main.async { [unowned self] in
+      let connected = NetStatus.shared.isConnected
+      if !connected {
+        self.alertNoNetwork()
+      } else {
+        IAPService.shared.getProducts()
+        IAPService.shared.ordered = self
+        IAPService.shared.restorePurchases()
+        UIView.animate(withDuration: 8, animations: {
+          self.restoreButton.alpha = 0
+        }) { (success) in
+          self.restoreButton.isHidden = true
+        }
+      }
+    }
+  }
+  
+  @IBOutlet weak var restoreButton: UIButton!
+  
   @IBOutlet weak var inapp: UILabel!
   @IBOutlet weak var moreText: UILabel!
   @IBOutlet weak var controls: UIStackView!
@@ -196,16 +216,20 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     if service == IAPProduct.light.rawValue && message == IAPStatus.restored.rawValue {
       lightBOutlet.setBackgroundImage(nil, for: .normal)
+
     }
     
     if service == IAPProduct.motion.rawValue && message == IAPStatus.restored.rawValue {
       motionBOutlet.setBackgroundImage(nil, for: .normal)
+      
     }
     if service == IAPProduct.azimuth.rawValue && message == IAPStatus.restored.rawValue {
       azimuthBOutlet.setBackgroundImage(nil, for: .normal)
+      
     }
     if service == IAPProduct.voice.rawValue && message == IAPStatus.restored.rawValue {
       voiceBOutlet.setBackgroundImage(nil, for: .normal)
+      
     }
     if message == IAPStatus.restored.rawValue {
       purchases[service] = true
@@ -534,6 +558,7 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     cwindow.setContentOffset(CGPoint(x: 0, y: 160), animated: true)
     self.view.addSubview(cwindow)
     
+    self.restoreButton.blinkText()
  
     
 //    for family in UIFont.familyNames {
@@ -559,9 +584,9 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
         if !connected {
           self.alertNoNetwork()
         } else {
-            IAPService.shared.getProducts()
-            IAPService.shared.ordered = self
-            IAPService.shared.restorePurchases()
+//            IAPService.shared.getProducts()
+//            IAPService.shared.ordered = self
+//            IAPService.shared.restorePurchases()
         }
       }
     }
@@ -728,6 +753,15 @@ class ViewController: UIViewController, speaker, transaction, spoken, setty, run
     
     definePulse()
     
+    if fastStart! {
+      self.stackviewDots.isHidden = true
+      self.motionBOutlet.isEnabled = true
+      self.azimuthBOutlet.isEnabled = true
+      self.locationBOutlet.isEnabled = true
+      self.proximityBOutlet.isEnabled = true
+      self.lightBOutlet.isEnabled = true
+      self.voiceBOutlet.isEnabled = true
+    }
 
 //    let hover = UIHoverGestureRecognizer(target: self, action: hover)
   }
@@ -1153,7 +1187,7 @@ func secondJump() {
     }
     
     if fastStart! {
-      stackviewDots.isHidden = true
+      self.stackviewDots.isHidden = true
       self.motionBOutlet.isEnabled = true
       self.azimuthBOutlet.isEnabled = true
       self.locationBOutlet.isEnabled = true
@@ -1179,6 +1213,8 @@ func secondJump() {
       self.proximityBOutlet.isEnabled = true
       self.lightBOutlet.isEnabled = true
       self.voiceBOutlet.isEnabled = true
+      
+      
       
       infoText!.center = CGPoint(x:self.view.bounds.midX,y:self.view.bounds.maxY - 80)
       infoText!.font = UIFont(name: "Futura-CondensedMedium", size: 17)
